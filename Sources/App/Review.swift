@@ -18,25 +18,25 @@ final class Review: Model, Preparation, NodeInitializable, NodeRepresentable, En
     let rating: String
     let date: String
     
-    var boxId: Node?
-    var userId: Node?
+    var box_id: Node?
+    var user_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         description = try node.extract("name")
         rating = try node.extract("rating")
         date = try node.extract("date")
-        boxId = try node.extract("bodId")
-        userId = try node.extract("userId")
+        box_id = try node.extract("bodId")
+        user_id = try node.extract("user_id")
     }
     
-    init(id: String? = nil, description: String, rating: String, date: String, boxId: String, userId: String) {
+    init(id: String? = nil, description: String, rating: String, date: String, box_id: String, user_id: String) {
         self.id = id.flatMap { .string($0) }
         self.description = description
         self.rating = rating
         self.date = date
-        self.boxId = .string(boxId)
-        self.userId = .string(userId)
+        self.box_id = .string(box_id)
+        self.user_id = .string(user_id)
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -45,8 +45,8 @@ final class Review: Model, Preparation, NodeInitializable, NodeRepresentable, En
             "description" : .string(description),
             "rating" : .string(rating),
             "date" : .string(date),
-            "boxId" : boxId!,
-            "userId" : userId!
+            "box_id" : box_id!,
+            "user_id" : user_id!
         ])
     }
     
@@ -69,10 +69,10 @@ final class Review: Model, Preparation, NodeInitializable, NodeRepresentable, En
 extension Review {
     
     func box() throws -> Parent<Box> {
-        return try parent(boxId)
+        return try parent(box_id)
     }
     
     func user() throws -> Parent<User> {
-        return try parent(userId)
+        return try parent(user_id)
     }
 }

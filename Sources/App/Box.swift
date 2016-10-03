@@ -25,7 +25,7 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
     let freq: String
     let price: Double
     
-    var vendorId: Node?
+    var vendor_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
@@ -36,10 +36,10 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
         bullets = try node.extract("bullets") { ($0 as String).components(separatedBy: "\n") }
         freq = try node.extract("freq")
         price = try node.extract("price")
-        vendorId = try node.extract("vendorId")
+        vendor_id = try node.extract("vendor_id")
     }
     
-    init(id: String? = nil, name: String, breif: String, long_desc: String, short_desc: String, bullets: [String], freq: String, price: Double, vendorId: String) {
+    init(id: String? = nil, name: String, breif: String, long_desc: String, short_desc: String, bullets: [String], freq: String, price: Double, vendor_id: String) {
         self.id = id.flatMap { .string($0) }
         self.name = name
         self.breif = breif
@@ -47,7 +47,7 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
         self.short_desc = short_desc
         self.bullets = bullets
         self.freq = freq
-        self.vendorId = .string(vendorId)
+        self.vendor_id = .string(vendor_id)
         self.price = price
     }
     
@@ -61,7 +61,7 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
             "bullets" : .string(bullets.joined(separator: "\n")),
             "freq" : .string(freq),
             "price" : .number(.double(price)),
-            "vendorId" : vendorId!
+            "vendor_id" : vendor_id!
         ])
     }
     
@@ -87,7 +87,7 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
 extension Box {
     
     func vendor() throws -> Parent<Vendor> {
-        return try parent(vendorId)
+        return try parent(vendor_id)
     }
     
     func pictures() -> Children<Picture> {

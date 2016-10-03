@@ -16,25 +16,25 @@ final class Picture: Model, Preparation, NodeInitializable, NodeRepresentable, E
     
     let url: String
     
-    var boxId: Node?
+    var box_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         url = try node.extract("url")
-        boxId = try node.extract("boxId")
+        box_id = try node.extract("box_id")
     }
     
-    init(id: String? = nil, url: String, boxId: String) {
+    init(id: String? = nil, url: String, box_id: String) {
         self.id = id.flatMap { .string($0) }
         self.url = url
-        self.boxId = .string(boxId)
+        self.box_id = .string(box_id)
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id" : id!,
             "url" : .string(url),
-            "boxId" : boxId!
+            "box_id" : box_id!
         ])
     }
     
@@ -54,6 +54,6 @@ final class Picture: Model, Preparation, NodeInitializable, NodeRepresentable, E
 extension Picture {
     
     func box() throws -> Parent<Box> {
-        return try parent(boxId)
+        return try parent(box_id)
     }
 }

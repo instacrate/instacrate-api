@@ -9,32 +9,32 @@
 import Vapor
 import Fluent
 
-final class UserSession: Model, Preparation, NodeInitializable, NodeRepresentable, Entity {
+final class Session: Model, Preparation, NodeInitializable, NodeRepresentable, Entity {
     
     var id: Node?
     var exists = false
     
     let accessToken: String
     
-    var userId: Node?
+    var user_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         accessToken = try node.extract("accessToken")
-        userId = try node.extract("userId")
+        user_id = try node.extract("user_id")
     }
     
-    init(id: String? = nil, accessToken: String, userId: String) {
+    init(id: String? = nil, accessToken: String, user_id: String) {
         self.id = id.flatMap { .string($0) }
         self.accessToken = accessToken
-        self.userId = .string(userId)
+        self.user_id = .string(user_id)
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id" : id!,
             "accessToken" : .string(accessToken),
-            "userId" : userId!
+            "user_id" : user_id!
             ])
     }
     
@@ -51,9 +51,9 @@ final class UserSession: Model, Preparation, NodeInitializable, NodeRepresentabl
     }
 }
 
-extension UserSession {
+extension Session {
     
     func user() throws -> Parent<User> {
-        return try parent(userId)
+        return try parent(user_id)
     }
 }

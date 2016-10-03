@@ -28,7 +28,7 @@ public final class DatabaseSessionManager: SessionManager {
     public func createSession(account: Account) -> String {
         let token = CryptoRandom.bytes(16).base64String
         
-        var userSession = UserSession(accessToken: token, userId: account.uniqueID)
+        var userSession = Session(accessToken: token, user_id: account.uniqueID)
         try? userSession.save()
         
         assert(userSession.id != nil, "Expected user session to have an id after saving")
@@ -40,6 +40,6 @@ public final class DatabaseSessionManager: SessionManager {
      Destroys the session for a session identifier.
      */
     public func destroySession(identifier: String) {
-        try? UserSession.query().filter("access_token", identifier).first()?.delete()
+        try? Session.query().filter("access_token", identifier).first()?.delete()
     }
 }

@@ -47,11 +47,6 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 
                 return try Box.query().filter("id", .in, ids).all().makeJSON()
             }
-
-            
         }
-        
     }
-    
-    
 }

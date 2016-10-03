@@ -16,25 +16,25 @@ final class Shipping: Model, Preparation, NodeInitializable, NodeRepresentable, 
     
     let address: String
     
-    var userId: Node?
+    var user_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         address = try node.extract("address")
-        userId = try node.extract("userId")
+        user_id = try node.extract("user_id")
     }
     
-    init(id: String? = nil, address: String, userId: String) {
+    init(id: String? = nil, address: String, user_id: String) {
         self.id = id.flatMap { .string($0) }
         self.address = address
-        self.userId = .string(userId)
+        self.user_id = .string(user_id)
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id" : id!,
             "address" : .string(address),
-            "userId" : userId!
+            "user_id" : user_id!
         ])
     }
     
@@ -58,6 +58,6 @@ extension Shipping {
     }
     
     func user() throws -> Parent<User> {
-        return try parent(userId)
+        return try parent(user_id)
     }
 }

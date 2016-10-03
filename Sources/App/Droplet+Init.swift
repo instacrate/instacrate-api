@@ -42,7 +42,7 @@ extension Droplet {
                                              "auth" : authenticationMiddleware,
                                              "protect" : ProtectMiddleware.createProtectionMiddleware()],
                        preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
-                                      Pivot<Box, Category>.self, User.self, UserSession.self, Pivot<User, UserSession>.self],
+                                      Pivot<Box, Category>.self, User.self, Session.self],
                        providers: [VaporMySQL.Provider.self])
     }
     

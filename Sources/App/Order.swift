@@ -17,23 +17,23 @@ final class Order: Model, Preparation, NodeInitializable, NodeRepresentable, Ent
     let date: String
     let fulfilled: Bool
     
-    var subscriptionId: Node?
-    var shippingId: Node?
+    var subscription_id: Node?
+    var shipping_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         date = try node.extract("url")
         fulfilled = try node.extract("fulfilled")
-        subscriptionId = try node.extract("subscriptionId")
-        shippingId = try node.extract("shippingId")
+        subscription_id = try node.extract("subscription_id")
+        shipping_id = try node.extract("shipping_id")
     }
     
-    init(id: String? = nil, date: String, fulfilled: Bool, subscriptionId: Node, shippingId: Node) {
+    init(id: String? = nil, date: String, fulfilled: Bool, subscription_id: Node, shipping_id: Node) {
         self.id = id.flatMap { .string($0) }
         self.date = date
         self.fulfilled = fulfilled
-        self.subscriptionId = subscriptionId
-        self.shippingId = shippingId
+        self.subscription_id = subscription_id
+        self.shipping_id = shipping_id
     }
     
     convenience init(subscription: Subscription, shipping: Shipping) {
@@ -41,7 +41,7 @@ final class Order: Model, Preparation, NodeInitializable, NodeRepresentable, Ent
         precondition(subscription.id != nil, "Subscription model does not have an id, save to database first?")
         
         // TODO : Dates
-        self.init(date: "", fulfilled: false, subscriptionId: subscription.id!, shippingId: shipping.id!)
+        self.init(date: "", fulfilled: false, subscription_id: subscription.id!, shipping_id: shipping.id!)
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -49,8 +49,8 @@ final class Order: Model, Preparation, NodeInitializable, NodeRepresentable, Ent
             "id" : id!,
             "date" : .string(date),
             "fulfilled" : .bool(fulfilled),
-            "subscriptionId" : subscriptionId!,
-            "shippingId" : shippingId!
+            "subscription_id" : subscription_id!,
+            "shipping_id" : shipping_id!
         ])
     }
     
@@ -72,10 +72,10 @@ final class Order: Model, Preparation, NodeInitializable, NodeRepresentable, Ent
 extension Order {
     
     func subscription() throws -> Parent<Subscription> {
-        return try parent(subscriptionId)
+        return try parent(subscription_id)
     }
     
     func shippingAddress() throws -> Parent<Shipping> {
-        return try parent(shippingId)
+        return try parent(shipping_id)
     }
 }

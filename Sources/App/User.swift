@@ -77,6 +77,10 @@ extension User {
     func shippingAddresses() -> Children<Shipping> {
         return children()
     }
+    
+    func sessions() -> Children<Session> {
+        return children()
+    }
 }
 
 extension User: Auth.User {
@@ -88,7 +92,7 @@ extension User: Auth.User {
         switch credentials {
             
         case let token as AccessToken:
-            let query = try UserSession.query().filter("token", token.string)
+            let query = try Session.query().filter("token", token.string)
             
             guard let _user = try query.first()?.user().first() else {
                 throw AuthError.invalidCredentials
