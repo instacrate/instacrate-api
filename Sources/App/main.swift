@@ -64,7 +64,7 @@ drop.grouped(drop.protect()).group("order") { order in
             throw Abort.custom(status: .internalServerError, message: "Error saving new order to database")
         }
         
-        return order.makeJSON()
+        return try! order.makeJSON()
     }    
 }
 

@@ -22,7 +22,7 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         builder.group("box") { box in
             
             box.get(Box.self) { request, box in
-                return box.makeJSON()
+                return try! box.makeJSON()
             }
             
             box.get("category", Category.self) { request, category in
