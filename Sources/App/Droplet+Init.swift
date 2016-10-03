@@ -11,6 +11,8 @@ import Vapor
 import Sessions
 import VaporMySQL
 import Fluent
+import Auth
+import Turnstile
 
 extension SessionsMiddleware {
     
@@ -20,12 +22,31 @@ extension SessionsMiddleware {
     }
 }
 
+extension ProtectMiddleware {
+    
+    class func createProtectionMiddleware() -> ProtectMiddleware {
+        let error = Abort.custom(status: .forbidden, message: "Authentication required")
+        return ProtectMiddleware(error: error)
+    }
+}
+
 extension Droplet {
     
     internal static func create() -> Droplet {
-        return Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware()],
+        let realm = AuthenticatorRealm(User.self)
+        let sessionManager = DatabaseSessionManager(realm: realm)
+    
+        let authenticationMiddleware = AuthMiddleware<User>(turnstile: Turnstile(sessionManager: sessionManager, realm: realm), makeCookie: nil)
+        
+        return Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
+                                             "auth" : authenticationMiddleware,
+                                             "protect" : ProtectMiddleware.createProtectionMiddleware()],
                        preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
                                       Pivot<Box, Category>.self, User.self, UserSession.self, Pivot<User, UserSession>.self],
                        providers: [VaporMySQL.Provider.self])
+    }
+    
+    internal func protect() -> ProtectMiddleware {
+        return availableMiddleware["protect"] as! ProtectMiddleware
     }
 }

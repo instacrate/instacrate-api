@@ -15,7 +15,6 @@ final class Order: Model, Preparation, NodeInitializable, NodeRepresentable, Ent
     var exists = false
     
     let date: String
-    let amount: Double
     let fulfilled: Bool
     
     var subscriptionId: Node?
@@ -24,26 +23,31 @@ final class Order: Model, Preparation, NodeInitializable, NodeRepresentable, Ent
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         date = try node.extract("url")
-        amount = try node.extract("amount")
         fulfilled = try node.extract("fulfilled")
         subscriptionId = try node.extract("subscriptionId")
         shippingId = try node.extract("shippingId")
     }
     
-    init(id: String? = nil, date: String, amount: Double, fulfilled: Bool, subscriptionId: String, shippingId: String) {
+    init(id: String? = nil, date: String, fulfilled: Bool, subscriptionId: Node, shippingId: Node) {
         self.id = id.flatMap { .string($0) }
         self.date = date
-        self.amount = amount
         self.fulfilled = fulfilled
-        self.subscriptionId = .string(subscriptionId)
-        self.shippingId = .string(shippingId)
+        self.subscriptionId = subscriptionId
+        self.shippingId = shippingId
+    }
+    
+    convenience init(subscription: Subscription, shipping: Shipping) {
+        precondition(shipping.id != nil, "Shipping model does not have an id, save to database first?")
+        precondition(subscription.id != nil, "Subscription model does not have an id, save to database first?")
+        
+        // TODO : Dates
+        self.init(date: "", fulfilled: false, subscriptionId: subscription.id!, shippingId: shipping.id!)
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id" : id!,
             "date" : .string(date),
-            "amount" : .number(.double(amount)),
             "fulfilled" : .bool(fulfilled),
             "subscriptionId" : subscriptionId!,
             "shippingId" : shippingId!
@@ -54,7 +58,6 @@ final class Order: Model, Preparation, NodeInitializable, NodeRepresentable, Ent
         try database.create(self.entity, closure: { order in
             order.id()
             order.string("date")
-            order.double("amount")
             order.bool("fulfilled")
             order.parent(Subscription.self, optional: false)
             order.parent(Shipping.self, optional: false)

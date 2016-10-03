@@ -11,11 +11,10 @@ import Random
 import Cache
 
 public final class DatabaseSessionManager: SessionManager {
-    private let cache: CacheProtocol
+
     private let realm: Realm
     
-    public init(cache: CacheProtocol, realm: Realm) {
-        self.cache = cache
+    public init(realm: Realm) {
         self.realm = realm
     }
     
@@ -30,11 +29,9 @@ public final class DatabaseSessionManager: SessionManager {
         let token = CryptoRandom.bytes(16).base64String
         
         var userSession = UserSession(accessToken: token, userId: account.uniqueID)
-        try userSession.save()
+        try? userSession.save()
         
-        guard let id = try userSession.save().id else {
-            return InvalidSessionError
-        }
+        assert(userSession.id != nil, "Expected user session to have an id after saving")
         
         return token
     }
@@ -43,6 +40,6 @@ public final class DatabaseSessionManager: SessionManager {
      Destroys the session for a session identifier.
      */
     public func destroySession(identifier: String) {
-        try? cache.delete(identifier)
+        try? UserSession.query().filter("access_token", identifier).first()?.delete()
     }
 }

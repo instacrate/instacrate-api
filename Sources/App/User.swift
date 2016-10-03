@@ -10,6 +10,7 @@ import Vapor
 import Fluent
 import Auth
 import Turnstile
+import BCrypt
 
 final class User: Model, Preparation, NodeInitializable, NodeRepresentable, Entity {
     
@@ -82,28 +83,37 @@ extension User: Auth.User {
     
     static func authenticate(credentials: Credentials) throws -> Auth.User {
         
-        let user: User?
+        let user: User
         
         switch credentials {
             
         case let token as AccessToken:
-            user = try UserSession.query().filter("token", token.string).first()?.user().first()
+            let query = try UserSession.query().filter("token", token.string)
             
-        case let credentials as UsernamePassword:
+            guard let _user = try query.first()?.user().first() else {
+                throw AuthError.invalidCredentials
+            }
             
+            user = _user
             
-        }
-        
-    
-        
-        guard let user = try UserSession.query().filter("token", token.string).first()?.user().first() else {
-            throw Abort.custom(status: .notFound, message: "Could not find authentication token.")
+        case let usernamePassword as UsernamePassword:
+            let hashedPassword = BCrypt.hash(password: usernamePassword.password)
+            let query = try User.query().filter("usrname", usernamePassword.username).filter("password", hashedPassword)
+            
+            guard let _user = try query.first() else {
+                throw AuthError.invalidCredentials
+            }
+            
+            user = _user
+            
+        default:
+            throw AuthError.noAuthorizationHeader
         }
         
         return user
     }
     
     static func register(credentials: Credentials) throws -> Auth.User {
-        
+        throw AuthError.notAuthenticated
     }
 }

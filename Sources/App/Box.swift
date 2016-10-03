@@ -23,6 +23,7 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
     let short_desc: String
     let bullets: [String]
     let freq: String
+    let price: Double
     
     var vendorId: Node?
     
@@ -34,10 +35,11 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
         short_desc = try node.extract("short_desc")
         bullets = try node.extract("bullets") { ($0 as String).components(separatedBy: "\n") }
         freq = try node.extract("freq")
+        price = try node.extract("price")
         vendorId = try node.extract("vendorId")
     }
     
-    init(id: String? = nil, name: String, breif: String, long_desc: String, short_desc: String, bullets: [String], freq: String, vendorId: String) {
+    init(id: String? = nil, name: String, breif: String, long_desc: String, short_desc: String, bullets: [String], freq: String, price: Double, vendorId: String) {
         self.id = id.flatMap { .string($0) }
         self.name = name
         self.breif = breif
@@ -46,6 +48,7 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
         self.bullets = bullets
         self.freq = freq
         self.vendorId = .string(vendorId)
+        self.price = price
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -57,8 +60,9 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
             "short_desc" : .string(short_desc),
             "bullets" : .string(bullets.joined(separator: "\n")),
             "freq" : .string(freq),
+            "price" : .number(.double(price)),
             "vendorId" : vendorId!
-            ])
+        ])
     }
     
     static func prepare(_ database: Database) throws {
@@ -70,6 +74,7 @@ final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entit
             box.string("bullets")
             box.string("breif")
             box.string("freq")
+            box.double("price")
             box.parent(Vendor.self, optional: false)
         })
     }
