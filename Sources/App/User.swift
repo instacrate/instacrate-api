@@ -12,7 +12,7 @@ import Auth
 import Turnstile
 import BCrypt
 
-final class User: Model, Preparation, NodeInitializable, NodeRepresentable, Entity {
+final class User: Model, Preparation, JSONConvertible {
     
     var id: Node?
     var exists = false

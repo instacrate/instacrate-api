@@ -10,6 +10,7 @@ import Foundation
 import Vapor
 import HTTP
 import Routing
+import JSON
 
 final class BoxCollection : RouteCollection, EmptyInitializable {
     
@@ -46,6 +47,21 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 }
                 
                 return try Box.query().filter("id", .in, ids).all().makeJSON()
+            }
+            
+            box.post("create") { request in
+                
+                guard let json = request.json else {
+                    throw Abort.badRequest
+                }
+                
+                guard var box = try? Box(json: json) else {
+                    throw Abort.badRequest
+                }
+                
+                try box.save()
+                
+                return try box.makeJSON()
             }
         }
     }

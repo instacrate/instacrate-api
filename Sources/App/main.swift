@@ -65,7 +65,7 @@ drop.grouped(drop.protect()).group("order") { order in
         }
         
         return try! order.makeJSON()
-    }    
+    }
 }
 
 

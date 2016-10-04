@@ -10,7 +10,7 @@ import Vapor
 import Fluent
 import Foundation
 
-final class Box: Model, Preparation, NodeInitializable, NodeRepresentable, Entity {
+final class Box: Model, Preparation, JSONConvertible {
     
     var id: Node?
     var exists = false

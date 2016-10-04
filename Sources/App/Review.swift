@@ -9,7 +9,7 @@
 import Vapor
 import Fluent
 
-final class Review: Model, Preparation, NodeInitializable, NodeRepresentable, Entity {
+final class Review: Model, Preparation, JSONConvertible {
     
     var id: Node?
     var exists = false
