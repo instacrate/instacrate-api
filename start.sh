@@ -6,4 +6,4 @@ if ! mkdir /tmp/subber_api.lock; then
 fi
 trap 'rm -rf /tmp/subber_api.lock' EXIT
 
-sudo /home/hakon/Subber/.build/debug/App
+sudo /home/hakon/Subber/.build/debug/App > /home/hakon/Subber/subber.log
