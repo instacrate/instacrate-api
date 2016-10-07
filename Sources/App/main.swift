@@ -35,7 +35,7 @@ extension Polymorphic {
 
 drop.get { request in
     drop.log.debug(request.description)
-    return try! Box.find(1)!.makeJSON()
+    return try! Box.find(1)!.makeJSON().string!
 }
 
 // Add the box endpoint
