@@ -33,6 +33,10 @@ extension Polymorphic {
     }
 }
 
+drop.get { request in
+    return try! Box.find(1)!.makeJSON()
+}
+
 // Add the box endpoint
 drop.collection(BoxCollection.self)
 
