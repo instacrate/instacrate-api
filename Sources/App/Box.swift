@@ -58,7 +58,7 @@ final class Box: Model, Preparation, JSONConvertible {
             "breif" : .string(breif),
             "long_desc" : .string(long_desc),
             "short_desc" : .string(short_desc),
-            "bullets" : .string(bullets.joined(separator: "\n")),
+            "bullets" : .array(bullets.map { .string($0) }),
             "freq" : .string(freq),
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!
