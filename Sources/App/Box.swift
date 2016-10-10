@@ -24,6 +24,7 @@ final class Box: Model, Preparation, JSONConvertible {
     let bullets: [String]
     let freq: String
     let price: Double
+    let publish_date: Date
     
     var vendor_id: Node?
     
@@ -37,9 +38,10 @@ final class Box: Model, Preparation, JSONConvertible {
         freq = try node.extract("freq")
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
+        publish_date = try Date(timeIntervalSince1970: TimeInterval(node.extract("publish_date") as Int))
     }
     
-    init(id: String? = nil, name: String, breif: String, long_desc: String, short_desc: String, bullets: [String], freq: String, price: Double, vendor_id: String) {
+    init(id: String? = nil, name: String, breif: String, long_desc: String, short_desc: String, bullets: [String], freq: String, price: Double, vendor_id: String, publish_date: Date) {
         self.id = id.flatMap { .string($0) }
         self.name = name
         self.breif = breif
@@ -49,6 +51,7 @@ final class Box: Model, Preparation, JSONConvertible {
         self.freq = freq
         self.vendor_id = .string(vendor_id)
         self.price = price
+        self.publish_date = publish_date
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -61,7 +64,8 @@ final class Box: Model, Preparation, JSONConvertible {
             "bullets" : .array(bullets.map { .string($0) }),
             "freq" : .string(freq),
             "price" : .number(.double(price)),
-            "vendor_id" : vendor_id!
+            "vendor_id" : vendor_id!,
+            "publish_date" : .number(.double(publish_date.timeIntervalSince1970))
         ])
     }
     
@@ -75,6 +79,7 @@ final class Box: Model, Preparation, JSONConvertible {
             box.string("breif")
             box.string("freq")
             box.double("price")
+            box.double("publish_date")
             box.parent(Vendor.self, optional: false)
         })
     }
@@ -104,5 +109,50 @@ extension Box {
     
     func subscriptions() -> Children<Subscription> {
         return children()
+    }
+}
+
+final class FeaturedBox: Model, Preparation, JSONConvertible {
+    
+    var id: Node?
+    var exists = false
+    
+    public static var entity = "featured_boxes"
+    
+    var box_id: Node?
+    
+    init(node: Node, in context: Context) throws {
+        id = try node.extract("id")
+        box_id = try node.extract("box_id")
+    }
+    
+    init(id: String? = nil, boxId: String) {
+        self.id = id.flatMap { .string($0) }
+        self.box_id = .string(boxId)
+    }
+    
+    func makeNode(context: Context) throws -> Node {
+        return try Node(node: [
+            "id" : id!,
+            "box_id" : box_id!
+        ])
+    }
+    
+    static func prepare(_ database: Database) throws {
+        try database.create(self.entity, closure: { box in
+            box.id()
+            box.parent(Box.self, optional: false)
+        })
+    }
+    
+    static func revert(_ database: Database) throws {
+        try database.delete(self.entity)
+    }
+}
+
+extension FeaturedBox {
+    
+    func box() throws -> Parent<Box> {
+        return try parent(box_id)
     }
 }

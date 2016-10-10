@@ -30,14 +30,16 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 return try category.boxes().all().makeJSON()
             }
             
-            // TODO
             box.get("featured") { request in
-                return try JSON(node: .array([]))
+                return try FeaturedBox.all().makeJSON()
             }
             
-            // TODO
             box.get("new") { request in
-                return try JSON(node: .array([]))
+                let calendar = Calendar.current
+                let oneWeekAgo = calendar.date(byAdding: .day, value: -2 * 7, to: Date())!
+                let query = try Box.query().filter("publish_date", .greaterThan, oneWeekAgo.timeIntervalSince1970)
+                
+                return try query.all().makeJSON()
             }
             
             box.get() { request in
