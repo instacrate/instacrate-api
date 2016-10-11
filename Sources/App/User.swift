@@ -71,15 +71,15 @@ final class User: Model, Preparation, JSONConvertible {
 extension User {
     
     func reviews() -> Children<Review> {
-        return children()
+        return children("id", Review.self)
     }
     
     func shippingAddresses() -> Children<Shipping> {
-        return children()
+        return children("id", Shipping.self)
     }
     
     func sessions() -> Children<Session> {
-        return children()
+        return children("id", Session.self)
     }
 }
 

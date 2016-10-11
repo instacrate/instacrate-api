@@ -25,28 +25,33 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         builder.group("box") { box in
             
             box.get("short", Box.self) { request, box in
-                guard let vendor = try? box.vendor().get()! else { throw Abort.custom(status: .internalServerError, message: "Error getting vendor.") }
-                guard let pictures = try? box.pictures().makeQuery().all() else { throw Abort.custom(status: .internalServerError, message: "Error getting picture.") }
-                guard let picture = pictures.first else { throw Abort.custom(status: .internalServerError, message: "Error getting one picture.") }
                 
-                guard let ratings = try? box.reviews().all() else { throw Abort.custom(status: .internalServerError, message: "Error fetching ratings.") }
-                
-                let averageRating = { () -> Double in
-                    if ratings.count == 0 {
-                        return 0.0
-                    } else {
-                        return Double(ratings.map { $0.rating }.reduce(0, +)) / Double(ratings.count)
-                    }
-                }()
-                
-                return try JSON(Node(node : [
-                    "name" : .string(box.name),
-                    "short_desc" : .string(box.short_desc),
-                    "vendor_name" : .string(vendor.name),
-                    "price" : .number(.double(box.price)),
-                    "picture" : .string(picture.url),
-                    "averageRating" : .number(.double(averageRating))
-                ]))
+                do {
+                    let vendor = try box.vendor().get()!
+                    let pictures = try box.pictures().makeQuery().all()
+                    let reviews = try box.reviews().all()
+                    
+                    let picture = pictures.first!
+                    
+                    let averageRating = { () -> Double in
+                        if reviews.count == 0 {
+                            return 0.0
+                        } else {
+                            return Double(reviews.map { $0.rating }.reduce(0, +)) / Double(reviews.count)
+                        }
+                    }()
+                    
+                    return try JSON(Node(node : [
+                        "name" : .string(box.name),
+                        "short_desc" : .string(box.short_desc),
+                        "vendor_name" : .string(vendor.name),
+                        "price" : .number(.double(box.price)),
+                        "picture" : .string(picture.url),
+                        "averageRating" : .number(.double(averageRating))
+                    ]))
+                } catch {
+                    throw Abort.custom(status: .internalServerError, message: "\(error)")
+                }
             }
             
             box.get(Box.self) { request, box in

@@ -96,11 +96,11 @@ extension Box {
     }
     
     func pictures() -> Children<Picture> {
-        return children()
+        return children("id", Picture.self)
     }
     
     func reviews() -> Children<Review> {
-        return children()
+        return children("id", Review.self)
     }
     
     func categories() throws -> Siblings<Category> {
@@ -108,7 +108,7 @@ extension Box {
     }
     
     func subscriptions() -> Children<Subscription> {
-        return children()
+        return children("id", Subscription.self)
     }
 }
 

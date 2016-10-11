@@ -59,11 +59,11 @@ final class Subscription: Model, Preparation, JSONConvertible {
 extension Subscription {
     
     func orders() -> Children<Order> {
-        return children()
+        return children("id", Order.self)
     }
     
     func defaultShippingAddress() -> Children<Shipping> {
-        return children()
+        return children("id", Shipping.self)
     }
     
     func box() throws -> Parent<Box> {

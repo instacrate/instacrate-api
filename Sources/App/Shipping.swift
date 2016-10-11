@@ -54,7 +54,7 @@ final class Shipping: Model, Preparation, JSONConvertible {
 extension Shipping {
     
     func orders() -> Children<Order> {
-        return children()
+        return children("id", Order.self)
     }
     
     func user() throws -> Parent<User> {
