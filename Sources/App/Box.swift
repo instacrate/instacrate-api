@@ -73,7 +73,7 @@ final class Box: Model, Preparation, JSONConvertible {
         try database.create(self.entity, closure: { box in
             box.id()
             box.string("name")
-            box.string("long_desc")
+            box.string("long_desc", length: 1000)
             box.string("short_desc")
             box.string("bullets")
             box.string("breif")

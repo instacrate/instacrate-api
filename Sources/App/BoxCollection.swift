@@ -46,7 +46,7 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     "price" : .number(.double(box.price)),
                     "picture" : .string(picture.url),
                     "averageRating" : .number(.double(averageRating))
-                ] as [String : Node]))
+                ]))
             }
             
             box.get(Box.self) { request, box in
