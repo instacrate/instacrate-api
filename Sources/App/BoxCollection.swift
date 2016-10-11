@@ -76,6 +76,7 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 let boxes = try category.boxes().all()
                 
                 // TODO : Make concurrent
+                // TODO : Optimize queries based on information needed
                 
                 return try JSON(node: .array(boxes.map { box in
                     let (vendor, reviews, pictures) = try box.gatherRelations()
@@ -93,10 +94,11 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             }
             
             box.get("new") { request in
-                let calendar = Calendar.current
-                let oneWeekAgo = calendar.date(byAdding: .day, value: -2 * 7, to: Date())!
-                let query = try Box.query().filter("publish_date", .greaterThan, oneWeekAgo.timeIntervalSince1970)
+                guard let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -2 * 7, to: Date()) else {
+                    throw Abort.custom(status: .internalServerError, message: "Error calculating date")
+                }
                 
+                let query = try Box.query().filter("publish_date", .greaterThan, oneWeekAgo.timeIntervalSince1970)
                 let boxes = try query.all()
                 
                 return try JSON(node: .array(boxes.map { box in
