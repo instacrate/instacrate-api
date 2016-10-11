@@ -14,20 +14,14 @@ import JSON
 import Node
 import Fluent
 
-extension Array where Element: Integer {
-    
-    
-}
-
-extension Collection where Iterator.Element == Int, Index == Int {
+extension Collection where Iterator.Element == Int, IndexDistance == Int {
     
     var total: Iterator.Element {
         return reduce(0, +)
     }
     
     var average: Double {
-        // TODO : Better way to instead of force cast?
-        return isEmpty ? 0 : Double(total) / Double(count as! Int)
+        return isEmpty ? 0 : Double(total) / Double(count)
     }
 }
 
