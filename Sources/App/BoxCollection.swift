@@ -14,6 +14,23 @@ import JSON
 import Node
 import Fluent
 
+extension Array where Element: Integer {
+    
+    
+}
+
+extension Collection where Iterator.Element == Int, Index == Int {
+    
+    var total: Iterator.Element {
+        return reduce(0, +)
+    }
+    
+    var average: Double {
+        // TODO : Better way to instead of force cast?
+        return isEmpty ? 0 : Double(total) / Double(count as! Int)
+    }
+}
+
 final class BoxCollection : RouteCollection, EmptyInitializable {
     
     init () {}
@@ -26,36 +43,32 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             
             box.get("short", Box.self) { request, box in
                 
-                do {
-                    let vendor = try box.vendor().get()!
-                    let pictures = try box.pictures().makeQuery().all()
-                    let reviews = try box.reviews().all()
-                    
-                    let picture = pictures.first!
-                    
-                    let averageRating = { () -> Double in
-                        if reviews.count == 0 {
-                            return 0.0
-                        } else {
-                            return Double(reviews.map { $0.rating }.reduce(0, +)) / Double(reviews.count)
-                        }
-                    }()
-                    
-                    return try JSON(Node(node : [
-                        "name" : .string(box.name),
-                        "short_desc" : .string(box.short_desc),
-                        "vendor_name" : .string(vendor.name),
-                        "price" : .number(.double(box.price)),
-                        "picture" : .string(picture.url),
-                        "averageRating" : .number(.double(averageRating))
-                    ]))
-                } catch {
-                    throw Abort.custom(status: .internalServerError, message: "\(error)")
+                let (vendor, reviews, pictures) = try box.gatherRelations()
+                let ratings = reviews.map { $0.rating }
+                
+                guard let picture = pictures.first else {
+                    throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
                 }
+                
+                return try JSON(Node(node : [
+                    "name" : .string(box.name),
+                    "short_desc" : .string(box.short_desc),
+                    "vendor_name" : .string(vendor.name),
+                    "price" : .number(.double(box.price)),
+                    "picture" : .string(picture.url),
+                    "averageRating" : .number(.double(ratings.average))
+                ]))
             }
             
             box.get(Box.self) { request, box in
-                return try! box.makeJSON()
+                let (vendor, reviews, pictures) = try box.gatherRelations()
+                
+                return try JSON(Node(node : [
+                    "box" : box.makeNode(),
+                    "vendor" : vendor.makeNode(),
+                    "reviews" : .array(reviews.map { try $0.makeNode() }),
+                    "pictures" : .array(pictures.map { try $0.makeNode() })
+                ] as [String : Node]))
             }
             
             box.get("category", Category.self) { request, category in
