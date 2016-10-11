@@ -24,6 +24,8 @@ extension Request {
     }
 }
 
+
+
 extension Polymorphic {
     
     func array<T>() -> [T]? {
@@ -33,11 +35,17 @@ extension Polymorphic {
 
 let drop = Droplet.create()
 
-drop.console.print(drop.workDir, newLine: true)
-
 // Add the box endpoint
 drop.collection(BoxCollection.self)
 drop.collection(AuthCollection.self)
 drop.collection(OrderCollection.self)
 
+public extension Droplet {
+    
+    public static func console() -> Log {
+        return drop.log
+    }
+}
+
 drop.run()
+
