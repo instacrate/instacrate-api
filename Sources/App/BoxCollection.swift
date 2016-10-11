@@ -25,11 +25,11 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         builder.group("box") { box in
             
             box.get("short", Box.self) { request, box in
-                guard let vendor = try? box.vendor().get()! else { throw Abort.badRequest }
-                guard let pictures = try? box.pictures().makeQuery().all() else { throw Abort.badRequest }
-                guard let picture = pictures.first else { throw Abort.badRequest }
+                guard let vendor = try? box.vendor().get()! else { throw Abort.custom(status: .internalServerError, message: "Error getting vendor.") }
+                guard let pictures = try? box.pictures().makeQuery().all() else { throw Abort.custom(status: .internalServerError, message: "Error getting picture.") }
+                guard let picture = pictures.first else { throw Abort.custom(status: .internalServerError, message: "Error getting one picture.") }
                 
-                guard let ratings = try? box.reviews().all() else { throw Abort.badRequest }
+                guard let ratings = try? box.reviews().all() else { throw Abort.custom(status: .internalServerError, message: "Error fetching ratings.") }
                 
                 let averageRating = { () -> Double in
                     if ratings.count == 0 {
