@@ -11,6 +11,8 @@ import Vapor
 import HTTP
 import Routing
 import JSON
+import Node
+import Fluent
 
 final class BoxCollection : RouteCollection, EmptyInitializable {
     
@@ -21,6 +23,31 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
         builder.group("box") { box in
+            
+            box.get("short", Box.self) { request, box in
+                guard let vendor = try? box.vendor().get()! else { throw Abort.badRequest }
+                guard let pictures = try? box.pictures().makeQuery().all() else { throw Abort.badRequest }
+                guard let picture = pictures.first else { throw Abort.badRequest }
+                
+                guard let ratings = try? box.reviews().all() else { throw Abort.badRequest }
+                
+                let averageRating = { () -> Double in
+                    if ratings.count == 0 {
+                        return 0.0
+                    } else {
+                        return Double(ratings.map { $0.rating }.reduce(0, +)) / Double(ratings.count)
+                    }
+                }()
+                
+                return try JSON(Node(node : [
+                    "name" : .string(box.name),
+                    "short_desc" : .string(box.short_desc),
+                    "vendor_name" : .string(vendor.name),
+                    "price" : .number(.double(box.price)),
+                    "picture" : .string(picture.url),
+                    "averageRating" : .number(.double(averageRating))
+                ] as [String : Node]))
+            }
             
             box.get(Box.self) { request, box in
                 return try! box.makeJSON()

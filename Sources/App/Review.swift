@@ -15,7 +15,7 @@ final class Review: Model, Preparation, JSONConvertible {
     var exists = false
     
     let description: String
-    let rating: String
+    let rating: Int
     let date: String
     
     var box_id: Node?
@@ -30,7 +30,7 @@ final class Review: Model, Preparation, JSONConvertible {
         user_id = try node.extract("user_id")
     }
     
-    init(id: String? = nil, description: String, rating: String, date: String, box_id: String, user_id: String) {
+    init(id: String? = nil, description: String, rating: Int, date: String, box_id: String, user_id: String) {
         self.id = id.flatMap { .string($0) }
         self.description = description
         self.rating = rating
@@ -43,7 +43,7 @@ final class Review: Model, Preparation, JSONConvertible {
         return try Node(node: [
             "id" : id!,
             "description" : .string(description),
-            "rating" : .string(rating),
+            "rating" : .number(.int(rating)),
             "date" : .string(date),
             "box_id" : box_id!,
             "user_id" : user_id!
