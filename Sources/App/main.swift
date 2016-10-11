@@ -14,8 +14,6 @@ import Turnstile
 import Foundation
 import Auth
 
-
-
 extension Request {
     func subject() throws -> Subject {
         guard let subject = storage["subject"] as? Subject else {
@@ -34,6 +32,8 @@ extension Polymorphic {
 }
 
 let drop = Droplet.create()
+
+drop.console.print(drop.workDir, newLine: true)
 
 // Add the box endpoint
 drop.collection(BoxCollection.self)
