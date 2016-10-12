@@ -95,9 +95,9 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             
             box.get("new") { request in
                 
-                Droplet.console().custom(request.description, label: "Request")
-                Droplet.console().custom(Calendar.current.description, label: "Calendar")
-                Droplet.console().custom(Date().description, label: "Date")
+                Droplet.instance?.console.info(request.description)
+                Droplet.instance?.console.info(Calendar.current.description)
+                Droplet.instance?.console.info(Date().description)
                 
                 guard let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -2 * 7, to: Date()) else {
                     throw Abort.custom(status: .internalServerError, message: "Error calculating date")

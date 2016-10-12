@@ -32,18 +32,23 @@ extension ProtectMiddleware {
 
 extension Droplet {
     
+    static var instance: Droplet?
+    
     internal static func create() -> Droplet {
         let realm = AuthenticatorRealm(User.self)
         let sessionManager = DatabaseSessionManager(realm: realm)
     
         let authenticationMiddleware = AuthMiddleware<User>(turnstile: Turnstile(sessionManager: sessionManager, realm: realm), makeCookie: nil)
         
-        return Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
-                                             "auth" : authenticationMiddleware,
-                                             "protect" : ProtectMiddleware.createProtectionMiddleware()],
-                       preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
+        let drop = Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
+                                                 "auth" : authenticationMiddleware,
+                                                 "protect" : ProtectMiddleware.createProtectionMiddleware()],
+                           preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
                                       Pivot<Box, Category>.self, User.self, Session.self],
-                       providers: [VaporMySQL.Provider.self])
+                           providers: [VaporMySQL.Provider.self])
+        
+        Droplet.instance = drop
+        return drop
     }
     
     internal func protect() -> ProtectMiddleware {

@@ -24,8 +24,6 @@ extension Request {
     }
 }
 
-
-
 extension Polymorphic {
     
     func array<T>() -> [T]? {
@@ -39,13 +37,6 @@ let drop = Droplet.create()
 drop.collection(BoxCollection.self)
 drop.collection(AuthCollection.self)
 drop.collection(OrderCollection.self)
-
-public extension Droplet {
-    
-    public static func console() -> Log {
-        return drop.log
-    }
-}
 
 drop.run()
 
