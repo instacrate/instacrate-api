@@ -95,21 +95,9 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             
             box.get("new") { request in
                 
-                Droplet.instance?.console.info(request.description)
-                Droplet.instance?.console.info(Calendar.current.description)
-                Droplet.instance?.console.info(Date().description)
+                let query = try Box.query().sort("publish_date", .descending)
+                query.limit = Limit(count: 10)
                 
-                let dateComponents = DateComponents(day: -14)
-                
-                if let s = Calendar.current.date(byAdding: dateComponents, to: Date()) {
-                    Droplet.instance?.console.info(s.description)
-                }
-                
-                guard let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -2 * 7, to: Date()) else {
-                    throw Abort.custom(status: .internalServerError, message: "Error calculating date")
-                }
-                
-                let query = try Box.query().filter("publish_date", .greaterThan, oneWeekAgo.timeIntervalSince1970)
                 let boxes = try query.all()
                 
                 return try JSON(node: .array(boxes.map { box in
