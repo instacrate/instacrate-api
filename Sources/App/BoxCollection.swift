@@ -139,6 +139,21 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                         return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
                     }))
                 }
+                
+                shortBox.get("all") { request in
+                    
+                    let boxes = try Box.query().all()
+                    
+                    return try JSON(node: .array(boxes.map { box in
+                        let (vendor, reviews, pictures) = try box.gatherRelations()
+                        
+                        guard let picture = pictures.first else {
+                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
+                        }
+                        
+                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                    }))
+                }
 
                 shortBox.get() { request in
                     
@@ -159,19 +174,6 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     }))
                 }
             }
-            
-            
-            
-           
-            
-            
-            
-            
-            
-            
-            
-            
-            
         }
     }
 }
