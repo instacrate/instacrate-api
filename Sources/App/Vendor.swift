@@ -88,6 +88,6 @@ final class Vendor: Model, Preparation, JSONConvertible {
 extension Vendor {
     
     func boxes() -> Children<Box> {
-        return children("id", Box.self)
+        return children("vendor_id", Box.self)
     }
 }

@@ -96,11 +96,11 @@ extension Box {
     }
     
     func pictures() -> Children<Picture> {
-        return children("id", Picture.self)
+        return children("box_id", Picture.self)
     }
     
     func reviews() -> Children<Review> {
-        return children("id", Review.self)
+        return children("box_id", Review.self)
     }
     
     func categories() throws -> Siblings<Category> {
@@ -108,7 +108,7 @@ extension Box {
     }
     
     func subscriptions() -> Children<Subscription> {
-        return children("id", Subscription.self)
+        return children("box_id", Subscription.self)
     }
 }
 
@@ -120,7 +120,9 @@ extension Box {
             throw Abort.custom(status: .internalServerError, message: "Box is missing vendor")
         }
         
-        let pictures = try self.pictures().makeQuery().all()
+        let query = try self.pictures().makeQuery()
+        let pictures = try query.all()
+    
         let reviews = try self.reviews().all()
         
         return (vendor, reviews, pictures)
