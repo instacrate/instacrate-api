@@ -99,8 +99,10 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 Droplet.instance?.console.info(Calendar.current.description)
                 Droplet.instance?.console.info(Date().description)
                 
-                if let s = Calendar.current.date(byAdding: .day, value: 1, to: Date())?.description {
-                    Droplet.instance?.console.info(s)
+                let dateComponents = DateComponents(day: -14)
+                
+                if let s = Calendar.current.date(byAdding: dateComponents, to: Date()) {
+                    Droplet.instance?.console.info(s.description)
                 }
                 
                 guard let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -2 * 7, to: Date()) else {
