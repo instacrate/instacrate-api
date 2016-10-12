@@ -42,7 +42,7 @@ fileprivate func createExtensiveNode(box: Box, vendor: Vendor, reviews: [Review]
         "vendor" : vendor.makeNode(),
         "reviews" : .array(reviews.map { try $0.makeNode() }),
         "pictures" : .array(pictures.map { try $0.makeNode() })
-        ])
+    ])
 }
 
 final class BoxCollection : RouteCollection, EmptyInitializable {
@@ -77,6 +77,7 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 
                 // TODO : Make concurrent
                 // TODO : Optimize queries based on information needed
+                // TODO : Deduplicate code
                 
                 return try JSON(node: .array(boxes.map { box in
                     let (vendor, reviews, pictures) = try box.gatherRelations()
@@ -90,7 +91,18 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             }
             
             box.get("featured") { request in
-                return try FeaturedBox.all().makeJSON()
+                let featuredBoxes = try FeaturedBox.all()
+                let boxes = try featuredBoxes.flatMap { try $0.box().get() }
+                
+                return try JSON(node: .array(boxes.map { box in
+                    let (vendor, reviews, pictures) = try box.gatherRelations()
+                    
+                    guard let picture = pictures.first else {
+                        throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
+                    }
+                    
+                    return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                }))
             }
             
             box.get("new") { request in
