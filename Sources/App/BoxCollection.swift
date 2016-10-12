@@ -55,91 +55,10 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         
         builder.group("box") { box in
             
-            box.get("short", Box.self) { request, box in
-                
-                let (vendor, reviews, pictures) = try box.gatherRelations()
-                
-                guard let picture = pictures.first else {
-                    throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                }
-                
-                return try JSON(node: createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture))
-            }
-            
             box.get(Box.self) { request, box in
                 let (vendor, reviews, pictures) = try box.gatherRelations()
                 
                 return try JSON(createExtensiveNode(box: box, vendor: vendor, reviews: reviews, pictures: pictures))
-            }
-            
-            box.get("category", Category.self) { request, category in
-                let boxes = try category.boxes().all()
-                
-                // TODO : Make concurrent
-                // TODO : Optimize queries based on information needed
-                // TODO : Deduplicate code
-                
-                return try JSON(node: .array(boxes.map { box in
-                    let (vendor, reviews, pictures) = try box.gatherRelations()
-                    
-                    guard let picture = pictures.first else {
-                        throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                    }
-                    
-                    return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
-                }))
-            }
-            
-            box.get("featured") { request in
-                let featuredBoxes = try FeaturedBox.all()
-                let boxes = try featuredBoxes.flatMap { try $0.box().get() }
-                
-                return try JSON(node: .array(boxes.map { box in
-                    let (vendor, reviews, pictures) = try box.gatherRelations()
-                    
-                    guard let picture = pictures.first else {
-                        throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                    }
-                    
-                    return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
-                }))
-            }
-            
-            box.get("new") { request in
-                
-                let query = try Box.query().sort("publish_date", .descending)
-                query.limit = Limit(count: 10)
-                
-                let boxes = try query.all()
-                
-                return try JSON(node: .array(boxes.map { box in
-                    let (vendor, reviews, pictures) = try box.gatherRelations()
-                    
-                    guard let picture = pictures.first else {
-                        throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                    }
-                    
-                    return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
-                }))
-            }
-            
-            box.get() { request in
-                
-                guard let ids = request.query?["id"]?.array?.flatMap({ $0.string }) else {
-                    throw Abort.custom(status: .badRequest, message: "Expected query parameter with name id.")
-                }
-                
-                let boxes = try Box.query().filter("id", .in, ids).all()
-                
-                return try JSON(node: .array(boxes.map { box in
-                    let (vendor, reviews, pictures) = try box.gatherRelations()
-                    
-                    guard let picture = pictures.first else {
-                        throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                    }
-                    
-                    return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
-                }))
             }
             
             box.post("create") { request in
@@ -156,6 +75,103 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 
                 return try box.makeJSON()
             }
+            
+            box.group("short") { shortBox in
+                
+                shortBox.get(Box.self) { request, box in
+                    
+                    let (vendor, reviews, pictures) = try box.gatherRelations()
+                    
+                    guard let picture = pictures.first else {
+                        throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
+                    }
+                    
+                    return try JSON(node: createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture))
+                }
+                
+                shortBox.get("category", Category.self) { request, category in
+                    let boxes = try category.boxes().all()
+                    
+                    // TODO : Make concurrent
+                    // TODO : Optimize queries based on information needed
+                    // TODO : Deduplicate code
+                    
+                    return try JSON(node: .array(boxes.map { box in
+                        let (vendor, reviews, pictures) = try box.gatherRelations()
+                        
+                        guard let picture = pictures.first else {
+                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
+                        }
+                        
+                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                    }))
+                }
+                
+                shortBox.get("featured") { request in
+                    let featuredBoxes = try FeaturedBox.all()
+                    let boxes = try featuredBoxes.flatMap { try $0.box().get() }
+                    
+                    return try JSON(node: .array(boxes.map { box in
+                        let (vendor, reviews, pictures) = try box.gatherRelations()
+                        
+                        guard let picture = pictures.first else {
+                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
+                        }
+                        
+                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                    }))
+                }
+                
+                shortBox.get("new") { request in
+                    
+                    let query = try Box.query().sort("publish_date", .descending)
+                    query.limit = Limit(count: 10)
+                    
+                    let boxes = try query.all()
+                    
+                    return try JSON(node: .array(boxes.map { box in
+                        let (vendor, reviews, pictures) = try box.gatherRelations()
+                        
+                        guard let picture = pictures.first else {
+                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
+                        }
+                        
+                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                    }))
+                }
+
+                shortBox.get() { request in
+                    
+                    guard let ids = request.query?["id"]?.array?.flatMap({ $0.string }) else {
+                        throw Abort.custom(status: .badRequest, message: "Expected query parameter with name id.")
+                    }
+                    
+                    let boxes = try Box.query().filter("id", .in, ids).all()
+                    
+                    return try JSON(node: .array(boxes.map { box in
+                        let (vendor, reviews, pictures) = try box.gatherRelations()
+                        
+                        guard let picture = pictures.first else {
+                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
+                        }
+                        
+                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                    }))
+                }
+            }
+            
+            
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
         }
     }
 }
