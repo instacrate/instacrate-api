@@ -23,10 +23,10 @@ final class Review: Model, Preparation, JSONConvertible {
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
-        description = try node.extract("name")
+        description = try node.extract("description")
         rating = try node.extract("rating")
         date = try node.extract("date")
-        box_id = try node.extract("bodId")
+        box_id = try node.extract("box_id")
         user_id = try node.extract("user_id")
     }
     

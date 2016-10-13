@@ -56,9 +56,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         builder.group("box") { box in
             
             box.get(Box.self) { request, box in
-                let (vendor, reviews, pictures) = try box.gatherRelations()
-                
-                return try JSON(createExtensiveNode(box: box, vendor: vendor, reviews: reviews, pictures: pictures))
+                let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
+                return try JSON(node: box.response(forFormat: .long, vendor, reviews, pictures))
             }
             
             box.post("create") { request in
@@ -80,13 +79,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 
                 shortBox.get(Box.self) { request, box in
                     
-                    let (vendor, reviews, pictures) = try box.gatherRelations()
-                    
-                    guard let picture = pictures.first else {
-                        throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                    }
-                    
-                    return try JSON(node: createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture))
+                    let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
+                    return try JSON(node: try box.response(forFormat: .short, vendor, reviews, pictures))
                 }
                 
                 shortBox.get("category", Category.self) { request, category in
@@ -97,28 +91,17 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     // TODO : Deduplicate code
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.gatherRelations()
-                        
-                        guard let picture = pictures.first else {
-                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                        }
-                        
-                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
+                        return try box.response(forFormat: .short, vendor, reviews, pictures)
                     }))
                 }
                 
                 shortBox.get("featured") { request in
-                    let featuredBoxes = try FeaturedBox.all()
-                    let boxes = try featuredBoxes.flatMap { try $0.box().get() }
+                    let boxes = try FeaturedBox.all().flatMap { try $0.box().get() }
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.gatherRelations()
-                        
-                        guard let picture = pictures.first else {
-                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                        }
-                        
-                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
+                        return try box.response(forFormat: .short, vendor, reviews, pictures)
                     }))
                 }
                 
@@ -130,13 +113,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try query.all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.gatherRelations()
-                        
-                        guard let picture = pictures.first else {
-                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                        }
-                        
-                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
+                        return try box.response(forFormat: .short, vendor, reviews, pictures)
                     }))
                 }
                 
@@ -145,13 +123,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try Box.query().all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.gatherRelations()
-                        
-                        guard let picture = pictures.first else {
-                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                        }
-                        
-                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
+                        return try box.response(forFormat: .short, vendor, reviews, pictures)
                     }))
                 }
 
@@ -164,13 +137,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try Box.query().filter("id", .in, ids).all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.gatherRelations()
-                        
-                        guard let picture = pictures.first else {
-                            throw Abort.custom(status: .internalServerError, message: "Box has no pictures.")
-                        }
-                        
-                        return try createShortNode(box: box, vendor: vendor, reviews: reviews, picture: picture)
+                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
+                        return try box.response(forFormat: .short, vendor, reviews, pictures)
                     }))
                 }
             }

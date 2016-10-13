@@ -112,19 +112,3 @@ extension Box {
     }
 }
 
-extension Box {
-    
-    func gatherRelations() throws -> (Vendor, [Review], [Picture]) {
-        
-        guard let vendor = try self.vendor().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Box is missing vendor")
-        }
-        
-        let query = try self.pictures().makeQuery()
-        let pictures = try query.all()
-    
-        let reviews = try self.reviews().all()
-        
-        return (vendor, reviews, pictures)
-    }
-}
