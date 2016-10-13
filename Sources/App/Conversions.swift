@@ -60,12 +60,14 @@ extension Box {
             
             return try Node(node : [
                 "name" : .string(name),
-                "short_desc" : .string(short_desc),
+                "brief" : .string(brief),
                 "vendor_name" : .string(vendor.name),
                 "price" : .number(.double(price)),
                 "picture" : .string(picture.url),
                 "averageRating" : .number(.double(averageRating)),
-                "id" : id!
+                "id" : id!,
+                "freq" : .string(freq),
+                "numberOfRatings" : .number(.int(reviews.count))
             ])
         case .long:
             return try Node(node : [
