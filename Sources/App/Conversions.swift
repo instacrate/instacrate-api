@@ -64,7 +64,8 @@ extension Box {
                 "vendor_name" : .string(vendor.name),
                 "price" : .number(.double(price)),
                 "picture" : .string(picture.url),
-                "averageRating" : .number(.double(averageRating))
+                "averageRating" : .number(.double(averageRating)),
+                "id" : id!
             ])
         case .long:
             return try Node(node : [
