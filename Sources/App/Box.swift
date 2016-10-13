@@ -18,7 +18,7 @@ final class Box: Model, Preparation, JSONConvertible {
     public static var entity = "boxes"
     
     let name: String
-    let breif: String
+    let brief: String
     let long_desc: String
     let short_desc: String
     let bullets: [String]
@@ -31,7 +31,7 @@ final class Box: Model, Preparation, JSONConvertible {
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         name = try node.extract("name")
-        breif = try node.extract("breif")
+        brief = try node.extract("brief")
         long_desc = try node.extract("long_desc")
         short_desc = try node.extract("short_desc")
         bullets = try node.extract("bullets") { ($0 as String).components(separatedBy: "\n") }
@@ -41,10 +41,10 @@ final class Box: Model, Preparation, JSONConvertible {
         publish_date = try Date(timeIntervalSince1970: TimeInterval(node.extract("publish_date") as Int))
     }
     
-    init(id: String? = nil, name: String, breif: String, long_desc: String, short_desc: String, bullets: [String], freq: String, price: Double, vendor_id: String, publish_date: Date) {
+    init(id: String? = nil, name: String, brief: String, long_desc: String, short_desc: String, bullets: [String], freq: String, price: Double, vendor_id: String, publish_date: Date) {
         self.id = id.flatMap { .string($0) }
         self.name = name
-        self.breif = breif
+        self.brief = brief
         self.long_desc = long_desc
         self.short_desc = short_desc
         self.bullets = bullets
@@ -58,7 +58,7 @@ final class Box: Model, Preparation, JSONConvertible {
         return try Node(node: [
             "id" : id!,
             "name" : .string(name),
-            "breif" : .string(breif),
+            "brief" : .string(brief),
             "long_desc" : .string(long_desc),
             "short_desc" : .string(short_desc),
             "bullets" : .array(bullets.map { .string($0) }),
@@ -76,7 +76,7 @@ final class Box: Model, Preparation, JSONConvertible {
             box.string("long_desc", length: 1000)
             box.string("short_desc")
             box.string("bullets")
-            box.string("breif")
+            box.string("brief")
             box.string("freq")
             box.double("price")
             box.double("publish_date")
@@ -126,50 +126,5 @@ extension Box {
         let reviews = try self.reviews().all()
         
         return (vendor, reviews, pictures)
-    }
-}
-
-final class FeaturedBox: Model, Preparation, JSONConvertible {
-    
-    var id: Node?
-    var exists = false
-    
-    public static var entity = "featured_boxes"
-    
-    var box_id: Node?
-    
-    init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
-        box_id = try node.extract("box_id")
-    }
-    
-    init(id: String? = nil, boxId: String) {
-        self.id = id.flatMap { .string($0) }
-        self.box_id = .string(boxId)
-    }
-    
-    func makeNode(context: Context) throws -> Node {
-        return try Node(node: [
-            "id" : id!,
-            "box_id" : box_id!
-        ])
-    }
-    
-    static func prepare(_ database: Database) throws {
-        try database.create(self.entity, closure: { box in
-            box.id()
-            box.parent(Box.self, optional: false)
-        })
-    }
-    
-    static func revert(_ database: Database) throws {
-        try database.delete(self.entity)
-    }
-}
-
-extension FeaturedBox {
-    
-    func box() throws -> Parent<Box> {
-        return try parent(box_id)
     }
 }
