@@ -11,6 +11,17 @@ import Vapor
 
 extension Box {
     
+    func queryForRelation<T: Model>() throws -> Query<T> {
+        switch T.self {
+        case is Review.Type, is Picture.Type:
+            return try children().makeQuery()
+        case is Vendor.Type:
+            return try parent(vendor_id).makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
+        }
+    }
+    
     enum Format {
         case short
         case long
@@ -35,7 +46,7 @@ extension Box {
     }
     
     fileprivate func runRelationQuery<T : Model>(relation: T.Type, withFormat format: Format) throws -> [T] {
-        let query = try T.query()
+        let query: Query<T> = try queryForRelation()
         format.optimize(query: query)
         return try query.run()
     }
@@ -77,13 +88,6 @@ extension Box {
                 "pictures" : .array(pictures.map { try $0.makeNode() })
             ])
         }
-    }
-}
-
-extension Entity {
-    
-    public func children<T : Entity>() -> Children<T> {
-        return children(T.name, T.self)
     }
 }
 
