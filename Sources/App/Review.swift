@@ -66,13 +66,26 @@ final class Review: Model, Preparation, JSONConvertible {
     }
 }
 
-extension Review {
+extension Review: Relationable {
     
-    func box() throws -> Parent<Box> {
-        return try parent(box_id)
+    typealias userNode = AnyRelationNode<Review, SingularRelation<User>>
+    typealias boxNode = AnyRelationNode<Review, SingularRelation<Box>>
+    
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Input> {
+        switch R.self {
+        case is userNode.Next.Type:
+            return try parent(user_id).makeQuery()
+        case is boxNode.Next.Type:
+            return try parent(box_id).makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
+        }
     }
-    
-    func user() throws -> Parent<User> {
-        return try parent(user_id)
+
+    func relations(forFormat format: Format) throws -> (User, Box) {
+        let user = try userNode.run(withFormat: format, model: self)
+        let box = try boxNode.run(withFormat: format, model: self)
+        
+        return (user, box)
     }
 }

@@ -9,62 +9,88 @@
 import Fluent
 import Vapor
 
-extension Box {
+extension Node {
     
-    func queryForRelation<T: Model>() throws -> Query<T> {
-        switch T.self {
-        case is Review.Type, is Picture.Type:
+    func add(name: String, node: Node?) throws -> Node {
+        if let node = node {
+            return try add(name: name, node: node)
+        }
+        
+        return self
+    }
+    
+    func add(name: String, node: Node) throws -> Node {
+        guard var object = self.nodeObject else { throw NodeError.unableToConvert(node: self, expected: "[String: Node].self") }
+        object[name] = node
+        return try Node(node: object)
+    }
+    
+    func add(objects: [String : Node]) throws -> Node {
+        guard var nodeObject = self.nodeObject else { throw NodeError.unableToConvert(node: self, expected: "[String: Node].self") }
+
+        for (name, object) in objects {
+            nodeObject[name] = object
+        }
+        
+        return try Node(node: nodeObject)
+    }
+}
+
+enum Format {
+    case short
+    case long
+    
+    func optimize<T : Model>(query: Query<T>) {
+        switch self {
+            
+        case .short:
+            
+            switch T.self {
+                
+            case is Picture.Type:
+                query.limit = Limit(count: 1)
+                
+            default: break
+                
+            }
+            
+        default: break
+        }
+    }
+}
+
+extension Box: Relationable {
+    
+    typealias vendorNode = AnyRelationNode<Box, SingularRelation<Vendor>>
+    typealias pictureNode = AnyRelationNode<Box, ManyRelation<Picture>>
+    typealias reviewNode = AnyRelationNode<Box, ManyRelation<Review>>
+
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Input> {
+        switch R.self {
+        case is pictureNode.Next.Type, is reviewNode.Next.Type:
             return try children().makeQuery()
-        case is Vendor.Type:
+        case is vendorNode.Next.Type:
             return try parent(vendor_id).makeQuery()
         default:
             throw Abort.custom(status: .internalServerError, message: "No such relation for box")
         }
     }
     
-    enum Format {
-        case short
-        case long
-        
-        func optimize<T : Model>(query: Query<T>) {
-            switch self {
-                
-            case .short:
-                
-                switch T.self {
-                    
-                case is Picture.Type:
-                    query.limit = Limit(count: 1)
-                
-                default: break
-                    
-                }
-                
-            default: break
-            }
-        }
-    }
-    
-    fileprivate func runRelationQuery<T : Model>(relation: T.Type, withFormat format: Format) throws -> [T] {
-        let query: Query<T> = try queryForRelation()
-        format.optimize(query: query)
-        return try query.run()
-    }
-    
     public func relations(forFormat format: Format) throws -> (Vendor, [Review], [Picture]) {
-        
-        let vendor = try self.runRelationQuery(relation: Vendor.self, withFormat: format).first!
-        let pictures = try self.runRelationQuery(relation: Picture.self, withFormat: format)
-        let reviews = try self.runRelationQuery(relation: Review.self, withFormat: format)
+    
+        let vendor = try vendorNode.run(withFormat: format, model: self)
+        let pictures = try pictureNode.run(withFormat: format, model: self)
+        let reviews = try reviewNode.run(withFormat: format, model: self)
         
         return (vendor, reviews, pictures)
     }
     
     public func response(forFormat format: Format, _ vendor: Vendor, _ reviews: [Review], _ pictures: [Picture]) throws -> Node {
         
+        let averageRating = reviews.map { $0.rating }.average
+        
         switch format {
         case .short:
-            let averageRating = reviews.map { $0.rating }.average
             guard let picture = pictures.first else {
                 throw Abort.custom(status: .internalServerError, message: "Missing picture for box")
             }
@@ -81,8 +107,10 @@ extension Box {
                 "numberOfRatings" : .number(.int(reviews.count))
             ])
         case .long:
+            
             return try Node(node : [
-                "box" : self.makeNode(),
+                "box" : self.makeNode().add(objects: ["averageRating" : .number(.double(averageRating)),
+                                                      "numberOfRatings" : .number(.int(reviews.count))]),
                 "vendor" : vendor.makeNode(),
                 "reviews" : .array(reviews.map { try $0.makeNode() }),
                 "pictures" : .array(pictures.map { try $0.makeNode() })

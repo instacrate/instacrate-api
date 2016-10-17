@@ -29,12 +29,12 @@ final class Box: Model, Preparation, JSONConvertible {
     var vendor_id: Node?
     
     init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
+        id = try? node.extract("id")
         name = try node.extract("name")
         brief = try node.extract("brief")
         long_desc = try node.extract("long_desc")
         short_desc = try node.extract("short_desc")
-        bullets = try node.extract("bullets") { ($0 as String).components(separatedBy: "\n") }
+        bullets = (try node.extract("bullets") as String).replacingOccurrences(of: "\\n", with: "\n").components(separatedBy: "\n")
         freq = try node.extract("freq")
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
@@ -56,7 +56,6 @@ final class Box: Model, Preparation, JSONConvertible {
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "id" : id!,
             "name" : .string(name),
             "brief" : .string(brief),
             "long_desc" : .string(long_desc),
@@ -66,7 +65,7 @@ final class Box: Model, Preparation, JSONConvertible {
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!,
             "publish_date" : .number(.double(publish_date.timeIntervalSince1970))
-        ])
+        ]).add(name: "id", node: id)
     }
     
     static func prepare(_ database: Database) throws {

@@ -56,6 +56,9 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         builder.group("box") { box in
             
             box.get(Box.self) { request, box in
+                let review_user = Box.reviewNode.self => Review.userNode.self
+
+                
                 let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
                 return try JSON(node: box.response(forFormat: .long, vendor, reviews, pictures))
             }
