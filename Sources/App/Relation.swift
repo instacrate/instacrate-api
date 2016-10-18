@@ -10,87 +10,124 @@ import Foundation
 import Vapor
 import Fluent
 
-protocol Relation {
-    
-    associatedtype Input: Model
-    associatedtype QueryOutput: Model
-    associatedtype Output
-    
-    static func execute(query: Query<Input>) throws -> Output
-}
-
-struct AnyRelation<_Input: Model, _QueryOutput: Model, _Output>: Relation {
-
-    typealias Input = _Input
-    typealias QueryOutput = _QueryOutput
-    typealias Output = _Output
-    
-    static func execute(query: Query<_Input>) throws -> _Output {
-        return try self.execute(query: query)
-    }
-}
-
-struct SingularRelation<Type: Model>: Relation {
-    
-    typealias Output = Type
-    typealias QueryOutput = Type
-    typealias Input = Type
-
-    static func execute(query: Query<Type>) throws -> Type {
-        guard let result = try query.first() else {
-            throw Abort.notFound
-        }
-        
-        return result
-    }
-}
-
-struct ManyRelation<Type: Model>: Relation {
-    
-    typealias Input = Type
-    typealias QueryOutput = Type
-    typealias Output = [Type]
-    
-    static func execute(query: Query<Input>) throws -> Output {
-        return try query.run()
-    }
-}
-
 protocol Relationable: Model {
-        
+    
     associatedtype Relations
     func relations(forFormat format: Format) throws -> Relations
     
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Input>
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target>
+}
+
+protocol Arity {
     
-//    func evaluate
+}
+
+struct One: Arity {
+
+}
+
+struct Many: Arity {
+    
+}
+
+protocol Relation {
+    
+    associatedtype Target: Relationable
+    associatedtype Size: Arity
+}
+
+struct AnyRelation<_Input: Relationable, _Size: Arity>: Relation {
+
+    typealias Target = _Input
+    typealias Size = _Size
 }
 
 protocol RelationNode {
     
-    associatedtype Base : Model
-    associatedtype Next : Relation
+    associatedtype Base : Relationable
+    associatedtype Rel : Relation
 }
 
-struct AnyRelationNode<L : Relationable, R : Relation>: RelationNode {
+extension RelationNode where Rel.Size == Many {
     
-    typealias Base = L
-    typealias Next = R
-    
-    static func run(withFormat format: Format, model: Base) throws -> Next.Output {
-        let query: Query<R.Input> = try model.queryForRelation(relation: R.self)
+    static func run<M : Relationable>(onModel model: M, forFormat format: Format) throws -> [Rel.Target] {
+        let query = try model.queryForRelation(relation: Rel.self)
         format.optimize(query: query)
-        return try R.execute(query: query)
+        return try query.run()
     }
 }
 
-struct RelationChain<L : RelationNode, R : RelationNode> where L.Next.QueryOutput == R.Base { }
-
-infix operator =>: AdditionPrecedence
-
-extension RelationNode {
+extension RelationNode where Rel.Size == One {
     
-    static func =><R: RelationNode>(lhs: Self.Type, rhs: R.Type) -> RelationChain<Self, R>.Type where Self.Next.QueryOutput == R.Base {
-        return RelationChain<Self, R>.self
+    static func run<M : Relationable>(onModel model: M, forFormat format: Format) throws -> Rel.Target {
+        let query = try model.queryForRelation(relation: Rel.self)
+        format.optimize(query: query)
+        
+        guard let first = try query.first() else {
+            throw Abort.notFound
+        }
+        
+        return first
+    }
+}
+
+struct AnyRelationNode<Start : Relationable, Result: Relationable, Size: Arity>: RelationNode {
+    
+    typealias Base = Start
+    typealias Rel = AnyRelation<Result, Size>
+}
+
+extension RelationNode where Rel.Size == Many {
+    
+    static func chain<R: RelationNode>(relation: R.Type, results: [Rel.Target], forFormat format: Format) throws -> [R.Rel.Target] where R.Rel.Size == One {
+        var targetModels: [R.Rel.Target] = []
+        
+        for base in results {
+            try targetModels.append(R.run(onModel: base, forFormat: format))
+        }
+        
+        return targetModels
+    }
+    
+    static func chain<R: RelationNode>(relation: R.Type, results: [Rel.Target], forFormat format: Format) throws -> [[R.Rel.Target]] where R.Rel.Size == Many {
+        var targetModels: [[R.Rel.Target]] = []
+        
+        for base in results {
+            let a = try R.run(onModel: base, forFormat: format)
+            targetModels.append(a)
+        }
+        
+        return targetModels
+    }
+}
+
+extension Relationable {
+    
+    func evaluate<A: RelationNode, B: RelationNode>(forFormat format: Format, first: A.Type, second: B.Type) throws -> (A.Rel.Target, B.Rel.Target) where A.Rel.Target == B.Base, A.Rel.Size == One, B.Rel.Size == One {
+        let result = try A.run(onModel: self, forFormat: format)
+        let b_result = try B.run(onModel: result, forFormat: format)
+        
+        return (result, b_result)
+    }
+    
+    func evaluate<A: RelationNode, B: RelationNode>(forFormat format: Format, first: A.Type, second: B.Type) throws -> (A.Rel.Target, [B.Rel.Target]) where A.Rel.Target == B.Base, A.Rel.Size == One, B.Rel.Size == Many {
+        let result = try A.run(onModel: self, forFormat: format)
+        let b_result = try B.run(onModel: result, forFormat: format)
+        
+        return (result, b_result)
+    }
+    
+    func evaluate<A: RelationNode, B: RelationNode>(forFormat format: Format, first: A.Type, second: B.Type) throws -> ([A.Rel.Target], [B.Rel.Target]) where A.Rel.Target == B.Base, A.Rel.Size == Many, B.Rel.Size == One {
+        let result = try A.run(onModel: self, forFormat: format)
+        let b_result = try A.chain(relation: B.self, results: result, forFormat: format)
+        
+        return (result, b_result)
+    }
+
+    func evaluate<A: RelationNode, B: RelationNode>(forFormat format: Format, first: A.Type, second: B.Type) throws -> ([A.Rel.Target], [[B.Rel.Target]]) where A.Rel.Target == B.Base, A.Rel.Size == Many, B.Rel.Size == Many {
+        let result = try A.run(onModel: self, forFormat: format)
+        let b_result = try A.chain(relation: B.self, results: result, forFormat: format)
+        
+        return (result, b_result)
     }
 }

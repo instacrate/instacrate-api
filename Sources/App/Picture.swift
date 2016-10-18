@@ -57,3 +57,21 @@ extension Picture {
         return try parent(box_id)
     }
 }
+
+extension Picture: Relationable {
+    
+    typealias boxNode = AnyRelationNode<Picture, Box, One>
+    
+    func relations(forFormat format: Format) throws -> Box {
+        return try boxNode.run(onModel: self, forFormat: format)
+    }
+    
+    func queryForRelation<R : Relation>(relation: R.Type) throws -> Query<R.Target> {
+        switch R.self {
+        case is boxNode.Rel.Type:
+            return try parent(box_id).makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
+        }
+    }
+}

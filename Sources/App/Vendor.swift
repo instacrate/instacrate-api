@@ -91,3 +91,22 @@ extension Vendor {
         return children("vendor_id", Box.self)
     }
 }
+
+extension Vendor: Relationable {
+    
+    typealias boxNode = AnyRelationNode<Vendor, Box, Many>
+    
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
+        switch R.self {
+        case is boxNode.Rel.Target.Type:
+            return try children().makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
+        }
+    }
+    
+    func relations(forFormat format: Format) throws -> [Box] {
+        return try boxNode.run(onModel: self, forFormat: format)
+    }
+
+}

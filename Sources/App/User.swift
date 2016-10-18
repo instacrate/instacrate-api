@@ -121,3 +121,27 @@ extension User: Auth.User {
         throw AuthError.notAuthenticated
     }
 }
+
+extension User: Relationable {
+    
+    typealias reviewNode = AnyRelationNode<User, Review, Many>
+    typealias shippingNode = AnyRelationNode<User, Shipping, Many>
+    typealias sessionNode = AnyRelationNode<User, Session, Many>
+    
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
+        switch R.self {
+        case is reviewNode.Rel.Target.Type, is shippingNode.Rel.Target.Type, is sessionNode.Rel.Target.Type:
+            return try children().makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
+        }
+    }
+    
+    func relations(forFormat format: Format) throws -> ([Review], [Shipping], [Session]) {
+        let reviews = try reviewNode.run(onModel: self, forFormat: format)
+        let shipping = try shippingNode.run(onModel: self, forFormat: format)
+        let sessions = try sessionNode.run(onModel: self, forFormat: format)
+        
+        return (reviews, shipping, sessions)
+    }
+}

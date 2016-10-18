@@ -61,3 +61,28 @@ extension Shipping {
         return try parent(user_id)
     }
 }
+
+extension Shipping: Relationable {
+    
+    typealias orderNode = AnyRelationNode<Shipping, Order, Many>
+    typealias userNode = AnyRelationNode<Shipping, User, One>
+    
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
+        switch R.self {
+        case is orderNode.Rel.Target.Type:
+            return try children().makeQuery()
+        case is userNode.Rel.Target.Type:
+            return try parent(user_id).makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
+        }
+    }
+    
+    func relations(forFormat format: Format) throws -> ([Order], User) {
+        let orders = try orderNode.run(onModel: self, forFormat: format)
+        let user = try userNode.run(onModel: self, forFormat: format)
+        
+        return (orders, user)
+    }
+
+}

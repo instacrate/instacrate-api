@@ -61,31 +61,31 @@ enum Format {
 
 extension Box: Relationable {
     
-    typealias vendorNode = AnyRelationNode<Box, SingularRelation<Vendor>>
-    typealias pictureNode = AnyRelationNode<Box, ManyRelation<Picture>>
-    typealias reviewNode = AnyRelationNode<Box, ManyRelation<Review>>
+    typealias vendorNode = AnyRelationNode<Box, Vendor, One>
+    typealias pictureNode = AnyRelationNode<Box, Picture, Many>
+    typealias reviewNode = AnyRelationNode<Box, Review, Many>
 
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Input> {
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
         switch R.self {
-        case is pictureNode.Next.Type, is reviewNode.Next.Type:
+        case is pictureNode.Rel.Type, is reviewNode.Rel.Type:
             return try children().makeQuery()
-        case is vendorNode.Next.Type:
+        case is vendorNode.Rel.Type:
             return try parent(vendor_id).makeQuery()
         default:
             throw Abort.custom(status: .internalServerError, message: "No such relation for box")
         }
     }
     
-    public func relations(forFormat format: Format) throws -> (Vendor, [Review], [Picture]) {
+    public func relations(forFormat format: Format) throws -> (Vendor, [Picture], [Review], [User]) {
     
-        let vendor = try vendorNode.run(withFormat: format, model: self)
-        let pictures = try pictureNode.run(withFormat: format, model: self)
-        let reviews = try reviewNode.run(withFormat: format, model: self)
+        let (reviews, users) = try evaluate(forFormat: format, first: reviewNode.self, second: Review.userNode.self)
+        let vendor = try vendorNode.run(onModel: self, forFormat: format)
+        let pictures = try pictureNode.run(onModel: self, forFormat: format)
         
-        return (vendor, reviews, pictures)
+        return (vendor, pictures, reviews, users)
     }
     
-    public func response(forFormat format: Format, _ vendor: Vendor, _ reviews: [Review], _ pictures: [Picture]) throws -> Node {
+    public func response(forFormat format: Format, _ vendor: Vendor, _ pictures: [Picture], _ reviews: [Review], _ users: [User]) throws -> Node {
         
         let averageRating = reviews.map { $0.rating }.average
         
@@ -108,11 +108,15 @@ extension Box: Relationable {
             ])
         case .long:
             
+            let review_node = try zip(reviews, users).map { user, review in
+                return try review.makeNode().add(name: "user", node: user.makeNode())
+            }
+            
             return try Node(node : [
                 "box" : self.makeNode().add(objects: ["averageRating" : .number(.double(averageRating)),
                                                       "numberOfRatings" : .number(.int(reviews.count))]),
                 "vendor" : vendor.makeNode(),
-                "reviews" : .array(reviews.map { try $0.makeNode() }),
+                "reviews" : .array(review_node),
                 "pictures" : .array(pictures.map { try $0.makeNode() })
             ])
         }

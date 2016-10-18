@@ -57,3 +57,21 @@ extension Session {
         return try parent(user_id)
     }
 }
+
+extension Session: Relationable {
+    
+    typealias userNode = AnyRelationNode<Session, User, One>
+    
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
+        switch R.self {
+        case is userNode.Rel.Target.Type:
+            return try parent(user_id).makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
+        }
+    }
+    
+    func relations(forFormat format: Format) throws -> User {
+        return try userNode.run(onModel: self, forFormat: format)
+    }
+}

@@ -56,11 +56,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         builder.group("box") { box in
             
             box.get(Box.self) { request, box in
-                let review_user = Box.reviewNode.self => Review.userNode.self
-
-                
-                let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
-                return try JSON(node: box.response(forFormat: .long, vendor, reviews, pictures))
+                let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
+                return try JSON(node: box.response(forFormat: .long, vendor, pictures, reviews, users))
             }
             
             box.post("create") { request in
@@ -79,8 +76,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 
                 shortBox.get(Box.self) { request, box in
                     
-                    let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
-                    return try JSON(node: try box.response(forFormat: .short, vendor, reviews, pictures))
+                    let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
+                    return try JSON(node: try box.response(forFormat: .short, vendor, pictures, reviews, users))
                 }
                 
                 shortBox.get("category", Category.self) { request, category in
@@ -91,8 +88,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     // TODO : Deduplicate code
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
-                        return try box.response(forFormat: .short, vendor, reviews, pictures)
+                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
+                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
                     }))
                 }
                 
@@ -100,8 +97,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try FeaturedBox.all().flatMap { try $0.box().get() }
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
-                        return try box.response(forFormat: .short, vendor, reviews, pictures)
+                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
+                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
                     }))
                 }
                 
@@ -113,8 +110,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try query.all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
-                        return try box.response(forFormat: .short, vendor, reviews, pictures)
+                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
+                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
                     }))
                 }
                 
@@ -123,8 +120,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try Box.query().all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
-                        return try box.response(forFormat: .short, vendor, reviews, pictures)
+                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
+                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
                     }))
                 }
 
@@ -137,8 +134,8 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try Box.query().filter("id", .in, ids).all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, reviews, pictures) = try box.relations(forFormat: .short)
-                        return try box.response(forFormat: .short, vendor, reviews, pictures)
+                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
+                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
                     }))
                 }
             }

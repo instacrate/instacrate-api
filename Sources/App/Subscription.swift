@@ -70,3 +70,30 @@ extension Subscription {
         return try parent(box_id)
     }
 }
+
+extension Subscription: Relationable {
+    
+    typealias orderNode = AnyRelationNode<Subscription, Order, Many>
+//    typealias shippingNode = AnyRelationNode<Subscription, Shipping, One>
+    typealias boxNode = AnyRelationNode<Subscription, Box, One>
+    
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
+        switch R.self {
+        case is orderNode.Rel.Target.Type:
+            return try children().makeQuery()
+        case is boxNode.Rel.Target.Type:
+            return try parent(box_id).makeQuery()
+//        case is shippingNode.Rel.Target.Type:
+//            return try parent(shipping_id).makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
+        }
+    }
+    
+    func relations(forFormat format: Format) throws -> ([Order], Box) {
+        let orders = try orderNode.run(onModel: self, forFormat: format)
+        let box = try boxNode.run(onModel: self, forFormat: format)
+        
+        return (orders, box)
+    }
+}
