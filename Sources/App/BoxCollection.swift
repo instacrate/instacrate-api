@@ -66,7 +66,7 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             box.post("create") { request in
                 
                 guard let json = request.json else {
-                    throw Abort.custom(status: .badRequest, message: "Invalid json : \(request.data)")
+                    throw Abort.custom(status: .badRequest, message: "Invalid json : \(request)")
                 }
                 
                 var box = try Box(json: json)
