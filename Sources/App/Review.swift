@@ -73,9 +73,9 @@ extension Review: Relationable {
     
     func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
         switch R.self {
-        case is userNode.Rel.Target.Type:
+        case is userNode.Rel.Type:
             return try parent(user_id).makeQuery()
-        case is boxNode.Rel.Target.Type:
+        case is boxNode.Rel.Type:
             return try parent(box_id).makeQuery()
         default:
             throw Abort.custom(status: .internalServerError, message: "No such relation for box")

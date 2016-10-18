@@ -87,9 +87,9 @@ extension Order: Relationable {
     
     func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
         switch R.self {
-        case is subscriptionNode.Rel.Target.Type:
+        case is subscriptionNode.Rel.Type:
             return try parent(subscription_id).makeQuery()
-        case is shippingNode.Rel.Target.Type:
+        case is shippingNode.Rel.Type:
             return try parent(shipping_id).makeQuery()
         default:
             throw Abort.custom(status: .internalServerError, message: "No such relation for box")

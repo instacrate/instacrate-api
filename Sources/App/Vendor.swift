@@ -98,7 +98,7 @@ extension Vendor: Relationable {
     
     func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
         switch R.self {
-        case is boxNode.Rel.Target.Type:
+        case is boxNode.Rel.Type:
             return try children().makeQuery()
         default:
             throw Abort.custom(status: .internalServerError, message: "No such relation for box")

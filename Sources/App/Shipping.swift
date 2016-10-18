@@ -69,9 +69,9 @@ extension Shipping: Relationable {
     
     func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
         switch R.self {
-        case is orderNode.Rel.Target.Type:
+        case is orderNode.Rel.Type:
             return try children().makeQuery()
-        case is userNode.Rel.Target.Type:
+        case is userNode.Rel.Type:
             return try parent(user_id).makeQuery()
         default:
             throw Abort.custom(status: .internalServerError, message: "No such relation for box")

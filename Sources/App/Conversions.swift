@@ -108,7 +108,7 @@ extension Box: Relationable {
             ])
         case .long:
             
-            let review_node = try zip(reviews, users).map { user, review in
+            let review_node = try zip(reviews, users).map { review, user in
                 return try review.makeNode().add(name: "user", node: user.makeNode())
             }
             

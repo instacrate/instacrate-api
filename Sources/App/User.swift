@@ -130,7 +130,7 @@ extension User: Relationable {
     
     func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
         switch R.self {
-        case is reviewNode.Rel.Target.Type, is shippingNode.Rel.Target.Type, is sessionNode.Rel.Target.Type:
+        case is reviewNode.Rel.Type, is shippingNode.Rel.Type, is sessionNode.Rel.Type:
             return try children().makeQuery()
         default:
             throw Abort.custom(status: .internalServerError, message: "No such relation for box")
