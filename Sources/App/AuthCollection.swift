@@ -12,6 +12,27 @@ import HTTP
 import Routing
 import JSON
 import Auth
+import Turnstile
+
+extension Authorization {
+    public var usernamePassword: UsernamePassword? {
+        guard let range = header.range(of: "Basic ") else {
+            return nil
+        }
+        
+        let authString = header.substring(from: range.upperBound)
+        
+        let decodedAuthString = authString.base64DecodedString
+        guard let separatorRange = decodedAuthString.range(of: ":") else {
+            return nil
+        }
+        
+        let username = decodedAuthString.substring(to: separatorRange.lowerBound)
+        let password = decodedAuthString.substring(from: separatorRange.upperBound)
+        
+        return UsernamePassword(username: username, password: password)
+    }
+}
 
 final class AuthCollection : RouteCollection, EmptyInitializable {
     
@@ -24,21 +45,28 @@ final class AuthCollection : RouteCollection, EmptyInitializable {
         builder.group("auth") { auth in
             
             auth.post("login") { request in
-                guard let credentials = request.auth.header?.basic else {
+                guard let credentials = request.auth.header?.usernamePassword else {
                     throw Abort.badRequest
                 }
                 
                 try request.auth.login(credentials)
                 
                 if let _ = try? request.subject() {
-                    return "OK"
+                    return Response(status: .ok)
                 } else {
                     throw AuthError.invalidBasicAuthorization
                 }
             }
             
             auth.post("signup") { request in
-                return ""
+                guard let json = request.json else {
+                    throw Abort.custom(status: .badRequest, message: "Missing or malformed JSON in HTTP Body. \(request)")
+                }
+                
+                var user = try User(json: json)
+                try user.save()
+                
+                return Response(status: .created)
             }
         }
     }

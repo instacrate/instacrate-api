@@ -87,38 +87,47 @@ extension User: Auth.User {
     
     static func authenticate(credentials: Credentials) throws -> Auth.User {
         
-        let user: User
-        
         switch credentials {
             
         case let token as AccessToken:
             let query = try Session.query().filter("token", token.string)
             
-            guard let _user = try query.first()?.user().first() else {
+            guard let user = try query.first()?.user().first() else {
                 throw AuthError.invalidCredentials
             }
             
-            user = _user
+            return user
             
         case let usernamePassword as UsernamePassword:
             let hashedPassword = BCrypt.hash(password: usernamePassword.password)
             let query = try User.query().filter("usrname", usernamePassword.username).filter("password", hashedPassword)
             
-            guard let _user = try query.first() else {
+            guard let user = try query.first() else {
                 throw AuthError.invalidCredentials
             }
             
-            user = _user
+            return user
             
         default:
-            throw AuthError.noAuthorizationHeader
+            throw AuthError.unsupportedCredentials
         }
-        
-        return user
     }
     
     static func register(credentials: Credentials) throws -> Auth.User {
-        throw AuthError.notAuthenticated
+        throw Abort.custom(status: .badRequest, message: "Register not supported.")
+    }
+}
+
+import HTTP
+
+extension Request {
+    
+    func user() throws -> User {
+        guard let user = try auth.user() as? User else {
+            throw Abort.custom(status: .badRequest, message: "Invalid user type.")
+        }
+        
+        return user
     }
 }
 

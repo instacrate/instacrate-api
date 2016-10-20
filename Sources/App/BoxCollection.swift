@@ -63,13 +63,13 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             box.post("create") { request in
                 
                 guard let json = request.json else {
-                    throw Abort.custom(status: .badRequest, message: "Invalid json : \(request)")
+                    throw Abort.custom(status: .badRequest, message: "Missing or invalid JSON in HTTP body : \(request)")
                 }
                 
                 var box = try Box(json: json)
                 try box.save()
                 
-                return try box.makeJSON()
+                return Response(status: .created)
             }
             
             box.group("short") { shortBox in
