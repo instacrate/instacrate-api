@@ -32,10 +32,9 @@ final class Picture: Model, Preparation, JSONConvertible {
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "id" : id!,
             "url" : .string(url),
             "box_id" : box_id!
-        ])
+        ]).add(name: "id", node: id)
     }
     
     static func prepare(_ database: Database) throws {

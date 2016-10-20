@@ -60,18 +60,6 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 return try JSON(node: box.response(forFormat: .long, vendor, pictures, reviews, users))
             }
             
-            box.post("create") { request in
-                
-                guard let json = request.json else {
-                    throw Abort.custom(status: .badRequest, message: "Missing or invalid JSON in HTTP body : \(request)")
-                }
-                
-                var box = try Box(json: json)
-                try box.save()
-                
-                return Response(status: .created)
-            }
-            
             box.group("short") { shortBox in
                 
                 shortBox.get(Box.self) { request, box in

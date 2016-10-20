@@ -57,17 +57,6 @@ final class AuthCollection : RouteCollection, EmptyInitializable {
                     throw AuthError.invalidBasicAuthorization
                 }
             }
-            
-            auth.post("signup") { request in
-                guard let json = request.json else {
-                    throw Abort.custom(status: .badRequest, message: "Missing or malformed JSON in HTTP Body. \(request)")
-                }
-                
-                var user = try User(json: json)
-                try user.save()
-                
-                return Response(status: .created)
-            }
         }
     }
 }
