@@ -52,3 +52,21 @@ extension Category {
         return try siblings()
     }
 }
+
+extension Category: Relationable {
+    
+    typealias boxNode = AnyRelationNode<Vendor, Box, Many>
+    
+    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
+        switch R.self {
+        case is boxNode.Rel.Type:
+            return try siblings().makeQuery()
+        default:
+            throw Abort.custom(status: .internalServerError, message: "No such relation for category")
+        }
+    }
+    
+    func relations(forFormat format: Format) throws -> [Box] {
+        return try boxNode.run(onModel: self, forFormat: format)
+    }
+}

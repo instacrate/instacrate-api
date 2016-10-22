@@ -29,7 +29,7 @@ fileprivate func createShortNode(box: Box, vendor: Vendor, reviews: [Review], pi
     return try Node(node : [
         "name" : .string(box.name),
         "short_desc" : .string(box.short_desc),
-        "vendor_name" : .string(vendor.name),
+        "vendor_name" : .string(vendor.businessName),
         "price" : .number(.double(box.price)),
         "picture" : .string(picture.url),
         "averageRating" : .number(.double(reviews.map { $0.rating }.average))

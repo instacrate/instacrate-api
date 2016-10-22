@@ -150,7 +150,7 @@ extension Box: Relationable {
             return try Node(node : [
                 "name" : .string(name),
                 "brief" : .string(brief),
-                "vendor_name" : .string(vendor.name),
+                "vendor_name" : .string(vendor.businessName),
                 "price" : .number(.double(price)),
                 "picture" : .string(picture.url),
                 "averageRating" : .number(.double(averageRating)),
