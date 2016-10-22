@@ -46,12 +46,11 @@ final class Order: Model, Preparation, JSONConvertible {
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "id" : id!,
             "date" : .string(date),
             "fulfilled" : .bool(fulfilled),
             "subscription_id" : subscription_id!,
             "shipping_id" : shipping_id!
-        ])
+        ]).add(name: "id", node: id)
     }
     
     static func prepare(_ database: Database) throws {

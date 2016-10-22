@@ -18,53 +18,58 @@ final class User: Model, Preparation, JSONConvertible {
     var exists = false
     
     let name: String
-    let phone: String
-    let stripe_id: String
     let email: String
     let password: String
+    let salt: BCryptSalt
+    
+    let stripe_id: String?
     
     init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
-        name = try node.extract("name")
-        phone = try node.extract("phone")
-        stripe_id = try node.extract("stripe_id")
+        id = try? node.extract("id")
+        
+        // Name and email are always mandatory
         email = try node.extract("email")
-        password = try node.extract("password")
-    }
-    
-    init(id: String? = nil, name: String, phone: String, stripe_id: String, email: String, password: String) {
-        self.id = id.flatMap { .string($0) }
-        self.name = name
-        self.phone = phone
-        self.stripe_id = stripe_id
-        self.email = email
-        self.password = password
+        name = try node.extract("name")
+        stripe_id = try? node.extract("stripe_id")
+        
+        let password = try node.extract("password") as String
+         
+        if let salt = try? node.extract("salt") as String {
+            self.salt = try BCryptSalt(string: salt)
+            self.password = password
+        } else {
+            self.salt = BCryptSalt()
+            self.password = User.hashed(password: password, salt: salt)
+        }
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "id" : id!,
             "name" : .string(name),
-            "phone" : .string(phone),
-            "stripe_id" : .string(stripe_id),
             "email" : .string(email),
-            "password" : .string(password)
-        ])
+            "password" : .string(password),
+            "salt" : .string(salt.string)
+            ]).add(objects: ["stripe_id" : self.stripe_id,
+                             "id" : self.id])
     }
     
     static func prepare(_ database: Database) throws {
         try database.create(self.entity, closure: { box in
             box.id()
             box.string("name")
-            box.string("phone")
             box.string("stripe_id")
             box.string("email")
             box.string("password")
+            box.string("salt")
         })
     }
     
     static func revert(_ database: Database) throws {
         try database.delete(self.entity)
+    }
+    
+    static func hashed(password: String, salt: BCryptSalt) -> String {
+        return BCrypt.hash(password: password, salt: salt)
     }
 }
 
@@ -100,7 +105,7 @@ extension User: Auth.User {
             
         case let usernamePassword as UsernamePassword:
             let hashedPassword = BCrypt.hash(password: usernamePassword.password)
-            let query = try User.query().filter("usrname", usernamePassword.username).filter("password", hashedPassword)
+            let query = try User.query().filter("username", usernamePassword.username).filter("password", hashedPassword)
             
             guard let user = try query.first() else {
                 throw AuthError.invalidCredentials

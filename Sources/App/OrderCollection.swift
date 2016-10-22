@@ -22,7 +22,7 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
     
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
-        builder.grouped(drop.protect()).group("order") { order in
+        builder.grouped(drop.protect()).grouped(drop.protect()).group("order") { order in
             
             order.post(Subscription.self, Shipping.self) { request, subscription, shipping in
                 

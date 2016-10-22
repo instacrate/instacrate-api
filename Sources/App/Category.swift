@@ -30,9 +30,8 @@ final class Category: Model, Preparation, JSONConvertible {
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "id" : id!,
             "name" : .string(name)
-        ])
+        ]).add(name: "id", node: id)
     }
     
     static func prepare(_ database: Database) throws {

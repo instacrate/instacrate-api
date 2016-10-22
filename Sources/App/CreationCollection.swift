@@ -15,6 +15,22 @@ import Routing
 import JSON
 import Auth
 
+extension Message {
+    
+    public func json() throws -> JSON {
+        if let existing = storage["json"] as? JSON {
+            return existing
+        } else if let type = headers["Content-Type"], type.contains("application/json") {
+            guard case let .data(body) = body else { throw Abort.custom(status: .badRequest, message: "Unable to decode body.") }
+            let json = try JSON(bytes: body)
+            storage["json"] = json
+            return json
+        } else {
+            throw Abort.custom(status: .badRequest, message: "Missing application/json Content-Type.")
+        }
+    }
+}
+
 final class CreationCollection : RouteCollection, EmptyInitializable {
     
     init () {}
@@ -32,19 +48,19 @@ final class CreationCollection : RouteCollection, EmptyInitializable {
         
         create.post(String.self) { request, table in
             guard let type = self.allowedModels[table] else {
-                throw Abort.custom(status: .badRequest, message: "Table \(table) is not allowed for creation API. Acceptable values are \(self.allowedModels.keys)")
+                throw Abort.custom(status: .badRequest, message: "Table \(table) is not allowed for creation API. Acceptable values are \(self.allowedModels.keys.values)")
             }
             
-            guard let json = request.json else {
-                throw Abort.custom(status: .badRequest, message: "Missing or malformed request JSON body.")
-            }
+            print(request.headers)
             
+            let json = try request.json()
             var instance = try type.init(json: json)
             try instance.save()
+            
             return Response(status: .created)
         }
         
-        let upload = builder.grouped("image")
+        let upload = builder.grouped("image").grouped(drop.protect())
         
         upload.post("upload", Box.self) { request, box in
             guard let fileData = request.multipart?["image"]?.file?.data else {

@@ -35,7 +35,7 @@ final class ValidationCollection : RouteCollection, EmptyInitializable {
     
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
-        let available = builder.grouped("validation").grouped("available")
+        let available = builder.grouped("validation").grouped("available").grouped(drop.protect())
         
         available.get(String.self, String.self, String.self) { request, _table, field, value in
             // TODO : Test if value is vunerable to sql injection

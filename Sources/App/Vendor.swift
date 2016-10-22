@@ -52,7 +52,6 @@ final class Vendor: Model, Preparation, JSONConvertible {
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "id" : id!,
             "name" : .string(name),
             "description" : .string(description),
             "website" : .string(website),
@@ -62,7 +61,7 @@ final class Vendor: Model, Preparation, JSONConvertible {
             "contactEmail" : .string(contactEmail),
             "contactName" : .string(contactName),
             "password" : .string(password)
-        ])
+        ]).add(name: "id", node: id)
     }
     
     static func prepare(_ database: Database) throws {

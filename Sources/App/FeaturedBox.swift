@@ -31,9 +31,8 @@ final class FeaturedBox: Model, Preparation, JSONConvertible {
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "id" : id!,
             "box_id" : box_id!
-        ])
+        ]).add(name: "id", node: id)
     }
     
     static func prepare(_ database: Database) throws {

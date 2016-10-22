@@ -35,7 +35,6 @@ final class Subscription: Model, Preparation, JSONConvertible {
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "id" : id!,
             "date" : .string(date),
             "active" : .bool(active),
             "box_id" : box_id!

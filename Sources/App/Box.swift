@@ -157,7 +157,7 @@ extension Box: Relationable {
                 "id" : id!,
                 "freq" : .string(freq),
                 "numberOfRatings" : .number(.int(reviews.count))
-                ])
+            ])
         case .long:
             
             let review_node = try zip(reviews, users).map { review, user in
@@ -165,12 +165,12 @@ extension Box: Relationable {
             }
             
             return try Node(node : [
-                "box" : self.makeNode().add(objects: ["averageRating" : .number(.double(averageRating)),
-                                                      "numberOfRatings" : .number(.int(reviews.count))]),
+                "box" : self.makeNode().add(objects: ["averageRating" : averageRating,
+                                                      "numberOfRatings" : reviews.count]),
                 "vendor" : vendor.makeNode(),
                 "reviews" : .array(review_node),
                 "pictures" : .array(pictures.map { try $0.makeNode() })
-                ])
+            ])
         }
     }
 }
