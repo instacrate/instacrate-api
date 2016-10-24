@@ -10,6 +10,40 @@ import Vapor
 import Fluent
 import Foundation
 
+extension Node {
+
+    func autoextract<T: Model>(type: T.Type, key: String) throws -> Node? {
+
+        if var object = try? self.extract(key) as T {
+            try object.save()
+            return object.id
+        } else if let object_id = try? self.extract("\(key)_id") as String {
+            return .string(object_id)
+        }
+        
+        return nil
+    }
+}
+
+protocol Updator: RawRepresentable {
+    
+}
+
+protocol Updateable: Model {
+    
+    associatedtype UpdateType
+    
+    func update(toState state: UpdateType, withJSON json: JSON) throws
+}
+
+enum ApplicationState: Int, Updator {
+    
+    case none = 0
+    case recieved
+    case rejected
+    case accepted
+}
+
 final class Vendor: Model, Preparation, JSONConvertible {
     
     var id: Node?
@@ -18,6 +52,7 @@ final class Vendor: Model, Preparation, JSONConvertible {
     let contactName: String
     let contactPhone: String
     let contactEmail: String
+    var applicationState: ApplicationState = .none
     
     let publicWebsite: String
     let supportEmail: String
@@ -31,56 +66,62 @@ final class Vendor: Model, Preparation, JSONConvertible {
     
     let dateCreated: Date
 
-    let username: String
-    let password: String
+    var username: String?
+    var password: String?
     
-    let cut: Double
+    let cut: Double?
     
     init(node: Node, in context: Context) throws {
         
         id = try? node.extract("id")
         
-        contactName = try node.extract("contactName")
-        businessName = try node.extract("business")
-        parentCompanyName = try node.extract("parentCompanyName")
+        applicationState = try node.extract("applicationState") { (value: Int) in
+            return ApplicationState(rawValue: value)
+        } ?? .none
         
-        contactPhone = try node.extract("phone")
-        contactEmail = try node.extract("contactEmail")
-        supportEmail = try node.extract("publicEmail")
-        publicWebsite = try node.extract("website")
-        
-        cut = try node.extract("cut")
-        estimatedTotalSubscribers = try node.extract("estimatedTotalSubscribers")
-        
-        established = try node.extract("established") { Date(timeIntervalSince1970: $0) }
-        dateCreated = try node.extract("dateCreated") { Date(timeIntervalSince1970: $0) }
-        
-        username = try node.extract("username")
-        password = try node.extract("password")
+        if [.none, .recieved, .rejected].contains(applicationState) {
+            
+            contactName = try node.extract("contactName")
+            businessName = try node.extract("businessName")
+            parentCompanyName = try node.extract("parentCompanyName")
+            
+            contactPhone = try node.extract("contactPhone")
+            contactEmail = try node.extract("contactEmail")
+            supportEmail = try node.extract("supportEmail")
+            publicWebsite = try node.extract("publicWebsite")
+            
+            established = try node.extract("established") { Date(timeIntervalSince1970: $0) }
+            dateCreated = try node.extract("dateCreated") { Date(timeIntervalSince1970: $0) }
+            
+            estimatedTotalSubscribers = try node.extract("estimatedTotalSubscribers")
+            
+            category_id = try node.autoextract(type: Category.self, key: "category")
+            
+            cut = try? node.extract("cut")
+            
+        }
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            
             "contactName" : .string(contactName),
             "businessName" : .string(businessName),
             "parentCompanyName" : .string(parentCompanyName),
+            "applicationState" : .number(.int(applicationState.rawValue)),
             
             "contactPhone" : .string(contactPhone),
             "contactEmail" : .string(contactEmail),
             "supportEmail" : .string(supportEmail),
             "publicWebsite" : .string(publicWebsite),
-            
-            "cut" : .number(.double(cut)),
             "estimatedTotalSubscribers" : .number(.int(estimatedTotalSubscribers)),
             
             "established" : .number(.double(established.timeIntervalSince1970)),
             "dateCreated" : .number(.double(dateCreated.timeIntervalSince1970)),
-            
-            "username" : .string(username),
-            "password" : .string(password),
         ]).add(objects: ["id" : id,
-                         "category" : category_id])
+                         "category" : category_id,
+                         "cut" : cut,
+                         "username" : username,
+                         "password": password])
     }
     
     static func prepare(_ database: Database) throws {
@@ -98,12 +139,27 @@ final class Vendor: Model, Preparation, JSONConvertible {
             vendor.double("established")
             vendor.double("dateCreated")
             vendor.string("username")
+            vendor.double("applicationState")
             vendor.string("password")
         })
     }
     
     static func revert(_ database: Database) throws {
         try database.delete(self.entity)
+    }
+}
+
+extension Vendor: Updateable {
+    
+    func update(toState state: ApplicationState, withJSON json: JSON) throws {
+        let node = json.makeNode()
+        
+        self.applicationState = state
+        
+        if state == .accepted {
+            username = try node.extract("username")
+            password = try node.extract("password")
+        }
     }
 }
 

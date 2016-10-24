@@ -7,8 +7,6 @@
 //
 
 import Foundation
-
-import Foundation
 import Vapor
 import HTTP
 import Routing
@@ -47,11 +45,10 @@ final class CreationCollection : RouteCollection, EmptyInitializable {
         let create = builder.grouped("create")
         
         create.post(String.self) { request, table in
+
             guard let type = self.allowedModels[table] else {
                 throw Abort.custom(status: .badRequest, message: "Table \(table) is not allowed for creation API. Acceptable values are \(self.allowedModels.keys.values)")
             }
-            
-            print(request.headers)
             
             let json = try request.json()
             var instance = try type.init(json: json)

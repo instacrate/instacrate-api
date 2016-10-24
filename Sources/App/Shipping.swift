@@ -15,32 +15,43 @@ final class Shipping: Model, Preparation, JSONConvertible {
     var exists = false
     
     let address: String
+    let appartment: String
+    
+    let city: String
+    let state: String
+    let zip: String
     
     var user_id: Node?
     
     init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
+        id = try? node.extract("id")
+        user_id = try? node.extract("user_id")
+        
         address = try node.extract("address")
-        user_id = try node.extract("user_id")
-    }
-    
-    init(id: String? = nil, address: String, user_id: String) {
-        self.id = id.flatMap { .string($0) }
-        self.address = address
-        self.user_id = .string(user_id)
+        appartment = try node.extract("appartment")
+        
+        city = try node.extract("city")
+        state = try node.extract("state")
+        zip = try node.extract("zip")
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "address" : .string(address),
             "user_id" : user_id!
-        ]).add(name: "id", node: id)
+        ]).add(objects: ["id" : id,
+                         "user_id" : user_id])
     }
     
     static func prepare(_ database: Database) throws {
         try database.create(self.entity, closure: { shipping in
             shipping.id()
+            shipping.id("user_id")
             shipping.string("address")
+            shipping.string("appartment")
+            shipping.string("city")
+            shipping.string("state")
+            shipping.string("zip")
             shipping.parent(User.self, optional: false)
         })
     }
