@@ -79,7 +79,7 @@ final class CreationCollection : RouteCollection, EmptyInitializable {
         let upload = builder.grouped("upload")
         
         upload.post("image", Box.self) { request, box in
-            print(request)
+            Droplet.instance?.console.info(request.description, newLine: true)
 
             guard let fileData = request.multipart?["image"]?.file?.data else {
                 throw Abort.custom(status: .badRequest, message: "No file in request")
