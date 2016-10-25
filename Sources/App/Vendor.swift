@@ -53,7 +53,7 @@ final class Vendor: Model, Preparation, JSONConvertible {
     let businessName: String
     
     let parentCompanyName: String
-    let established: Date
+    let established: String
     
     var category_id: Node?
     let estimatedTotalSubscribers: Int
@@ -82,7 +82,7 @@ final class Vendor: Model, Preparation, JSONConvertible {
         supportEmail = try node.extract("supportEmail")
         publicWebsite = try node.extract("publicWebsite")
         
-        established = try node.extract("established") { Date(timeIntervalSince1970: $0) }
+        established = try node.extract("established")
         dateCreated = try node.extract("dateCreated") { Date(timeIntervalSince1970: $0) }
         
         estimatedTotalSubscribers = try node.extract("estimatedTotalSubscribers")
@@ -105,7 +105,7 @@ final class Vendor: Model, Preparation, JSONConvertible {
             "publicWebsite" : .string(publicWebsite),
             "estimatedTotalSubscribers" : .number(.int(estimatedTotalSubscribers)),
             
-            "established" : .number(.double(established.timeIntervalSince1970)),
+            "established" : .string(established),
             "dateCreated" : .number(.double(dateCreated.timeIntervalSince1970)),
         ]).add(objects: ["id" : id,
                          "category_id" : category_id,
@@ -126,7 +126,7 @@ final class Vendor: Model, Preparation, JSONConvertible {
             vendor.string("publicWebsite")
             vendor.double("cut")
             vendor.string("estimatedTotalSubscribers")
-            vendor.double("established")
+            vendor.string("established")
             vendor.double("dateCreated")
             vendor.string("username")
             vendor.double("applicationState")
