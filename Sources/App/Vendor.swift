@@ -131,6 +131,7 @@ final class Vendor: Model, Preparation, JSONConvertible {
             vendor.string("username")
             vendor.double("applicationState")
             vendor.string("password")
+            vendor.id("category_id")
         })
     }
     
