@@ -39,6 +39,7 @@ drop.collection(AuthCollection.self)
 drop.collection(OrderCollection.self)
 drop.collection(ValidationCollection.self)
 drop.collection(CreationCollection.self)
+drop.collection(ModificaionCollection.self)
 
 drop.run()
 
