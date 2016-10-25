@@ -108,7 +108,7 @@ final class Vendor: Model, Preparation, JSONConvertible {
             "established" : .number(.double(established.timeIntervalSince1970)),
             "dateCreated" : .number(.double(dateCreated.timeIntervalSince1970)),
         ]).add(objects: ["id" : id,
-                         "category" : category_id,
+                         "category_id" : category_id,
                          "cut" : cut,
                          "username" : username,
                          "password": password])
