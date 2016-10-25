@@ -26,7 +26,7 @@ final class ModificaionCollection : RouteCollection, EmptyInitializable {
         
         builder.grouped(drop.protect()).group("modify") { modify in
             
-            modify.get(String.self, Int.self, Int.self) { request, table, id, state in
+            modify.get(String.self, Int.self) { request, table, id in
                 guard let json = try? request.json() else {
                     throw Abort.custom(status: .badRequest, message: "Missing or malformed json in request body.")
                 }
@@ -35,22 +35,11 @@ final class ModificaionCollection : RouteCollection, EmptyInitializable {
                     throw Abort.custom(status: .badRequest, message: "Table \(table) is not allowed, allowed values are \(self.tables.keys.values)")
                 }
                 
-                switch type {
-                case let type as Vendor.Type:
-                    guard let vendor = try type.init(from: "\(id)") else {
-                        throw Abort.custom(status: .badRequest, message: "Unable to find vendor for id \(id)")
-                    }
-                    
-                    guard let state = ApplicationState(rawValue: id) else {
-                        throw Abort.custom(status: .badRequest, message: "Bad state value passed in.")
-                    }
-                    
-                    try vendor.update(toState: state, withJSON: json)
-
-                default:
+                guard let modifyable = try type.init(from: "\(id)") as? Updateable else {
                     throw Abort.custom(status: .badRequest, message: "Table \(table) is not allowed, allowed values are \(self.tables.keys.values)")
                 }
                 
+                try modifyable.update(withJSON: json)
                 return Response(status: .ok)
             }
         }

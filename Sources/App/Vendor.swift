@@ -25,18 +25,12 @@ extension Node {
     }
 }
 
-protocol Updator: RawRepresentable {
-    
-}
-
 protocol Updateable: Model {
     
-    associatedtype UpdateType
-    
-    func update(toState state: UpdateType, withJSON json: JSON) throws
+    func update(withJSON json: JSON) throws
 }
 
-enum ApplicationState: Int, Updator {
+enum ApplicationState: Int {
     
     case none = 0
     case recieved
@@ -79,27 +73,23 @@ final class Vendor: Model, Preparation, JSONConvertible {
             return ApplicationState(rawValue: value)
         } ?? .none
         
-        if [.none, .recieved, .rejected].contains(applicationState) {
-            
-            contactName = try node.extract("contactName")
-            businessName = try node.extract("businessName")
-            parentCompanyName = try node.extract("parentCompanyName")
-            
-            contactPhone = try node.extract("contactPhone")
-            contactEmail = try node.extract("contactEmail")
-            supportEmail = try node.extract("supportEmail")
-            publicWebsite = try node.extract("publicWebsite")
-            
-            established = try node.extract("established") { Date(timeIntervalSince1970: $0) }
-            dateCreated = try node.extract("dateCreated") { Date(timeIntervalSince1970: $0) }
-            
-            estimatedTotalSubscribers = try node.extract("estimatedTotalSubscribers")
-            
-            category_id = try node.autoextract(type: Category.self, key: "category")
-            
-            cut = try? node.extract("cut")
-            
-        }
+        contactName = try node.extract("contactName")
+        businessName = try node.extract("businessName")
+        parentCompanyName = try node.extract("parentCompanyName")
+        
+        contactPhone = try node.extract("contactPhone")
+        contactEmail = try node.extract("contactEmail")
+        supportEmail = try node.extract("supportEmail")
+        publicWebsite = try node.extract("publicWebsite")
+        
+        established = try node.extract("established") { Date(timeIntervalSince1970: $0) }
+        dateCreated = try node.extract("dateCreated") { Date(timeIntervalSince1970: $0) }
+        
+        estimatedTotalSubscribers = try node.extract("estimatedTotalSubscribers")
+        
+        category_id = try node.autoextract(type: Category.self, key: "category")
+        
+        cut = try? node.extract("cut")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -151,12 +141,16 @@ final class Vendor: Model, Preparation, JSONConvertible {
 
 extension Vendor: Updateable {
     
-    func update(toState state: ApplicationState, withJSON json: JSON) throws {
+    func update(withJSON json: JSON) throws {
         let node = json.makeNode()
         
-        self.applicationState = state
+        guard let state = try? node.extract("applicationState") as Int else {
+            throw Abort.custom(status: .badRequest, message: "Missing application state in json body.")
+        }
         
-        if state == .accepted {
+        self.applicationState = ApplicationState(rawValue: state) ?? .none
+        
+        if self.applicationState == .accepted {
             username = try node.extract("username")
             password = try node.extract("password")
         }
