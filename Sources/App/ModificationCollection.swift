@@ -24,7 +24,7 @@ final class ModificaionCollection : RouteCollection, EmptyInitializable {
     
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
-        builder.grouped(drop.protect()).group("modify") { modify in
+        builder.group("modify") { modify in
             
             modify.post(String.self, Int.self) { request, table, id in
                 guard let json = try? request.json() else {
