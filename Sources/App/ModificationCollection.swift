@@ -26,7 +26,7 @@ final class ModificaionCollection : RouteCollection, EmptyInitializable {
         
         builder.grouped(drop.protect()).group("modify") { modify in
             
-            modify.get(String.self, Int.self) { request, table, id in
+            modify.post(String.self, Int.self) { request, table, id in
                 guard let json = try? request.json() else {
                     throw Abort.custom(status: .badRequest, message: "Missing or malformed json in request body.")
                 }
