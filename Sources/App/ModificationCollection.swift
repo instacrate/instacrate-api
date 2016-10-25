@@ -35,11 +35,12 @@ final class ModificaionCollection : RouteCollection, EmptyInitializable {
                     throw Abort.custom(status: .badRequest, message: "Table \(table) is not allowed, allowed values are \(self.tables.keys.values)")
                 }
                 
-                guard let modifyable = try type.init(from: "\(id)") as? Updateable else {
+                guard var modifyable = try type.init(from: "\(id)") as? (Updateable & Model) else {
                     throw Abort.custom(status: .badRequest, message: "Table \(table) is not allowed, allowed values are \(self.tables.keys.values)")
                 }
                 
                 try modifyable.update(withJSON: json)
+                try modifyable.save()
                 return Response(status: .ok)
             }
         }
