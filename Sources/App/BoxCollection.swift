@@ -25,26 +25,6 @@ extension Collection where Iterator.Element == Int, IndexDistance == Int {
     }
 }
 
-fileprivate func createShortNode(box: Box, vendor: Vendor, reviews: [Review], picture: Picture) throws -> Node {
-    return try Node(node : [
-        "name" : .string(box.name),
-        "short_desc" : .string(box.short_desc),
-        "vendor_name" : .string(vendor.businessName),
-        "price" : .number(.double(box.price)),
-        "picture" : .string(picture.url),
-        "averageRating" : .number(.double(reviews.map { $0.rating }.average))
-    ])
-}
-
-fileprivate func createExtensiveNode(box: Box, vendor: Vendor, reviews: [Review], pictures: [Picture]) throws -> Node {
-    return try Node(node : [
-        "box" : box.makeNode(),
-        "vendor" : vendor.makeNode(),
-        "reviews" : .array(reviews.map { try $0.makeNode() }),
-        "pictures" : .array(pictures.map { try $0.makeNode() })
-    ])
-}
-
 final class BoxCollection : RouteCollection, EmptyInitializable {
     
     init () {}
@@ -56,16 +36,17 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         builder.group("box") { box in
             
             box.get(Box.self) { request, box in
-                let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
-                return try JSON(node: box.response(forFormat: .long, vendor, pictures, reviews, users))
+                var relations = try construct(Box.vendor, Box.pictures, Box.reviews, forBase: box, format: Format.long)
+                box.postProcess(result: &relations.0, relations: (relations.1, relations.2.array, relations.3.array))
+                return try JSON(node: relations.0)
             }
             
             box.group("short") { shortBox in
                 
                 shortBox.get(Box.self) { request, box in
-                    
-                    let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
-                    return try JSON(node: try box.response(forFormat: .short, vendor, pictures, reviews, users))
+                    var relations = try construct(Box.vendor, Box.pictures, Box.reviews, forBase: box, format: Format.short)
+                    box.postProcess(result: &relations.0, relations: (relations.1, relations.2.array, relations.3.array))
+                    return try JSON(node: relations.0)
                 }
                 
                 shortBox.get("category", Category.self) { request, category in
@@ -76,8 +57,9 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     // TODO : Deduplicate code
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
-                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
+                        var relations = try construct(Box.vendor, Box.pictures, Box.reviews, forBase: box, format: Format.short)
+                        box.postProcess(result: &relations.0, relations: (relations.1, relations.2.array, relations.3.array))
+                        return relations.0
                     }))
                 }
                 
@@ -85,8 +67,9 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try FeaturedBox.all().flatMap { try $0.box().get() }
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
-                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
+                        var relations = try construct(Box.vendor, Box.pictures, Box.reviews, forBase: box, format: Format.short)
+                        box.postProcess(result: &relations.0, relations: (relations.1, relations.2.array, relations.3.array))
+                        return relations.0
                     }))
                 }
                 
@@ -98,8 +81,9 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try query.all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
-                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
+                        var relations = try construct(Box.vendor, Box.pictures, Box.reviews, forBase: box, format: Format.short)
+                        box.postProcess(result: &relations.0, relations: (relations.1, relations.2.array, relations.3.array))
+                        return relations.0
                     }))
                 }
                 
@@ -108,8 +92,9 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try Box.query().all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
-                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
+                        var relations = try construct(Box.vendor, Box.pictures, Box.reviews, forBase: box, format: Format.short)
+                        box.postProcess(result: &relations.0, relations: (relations.1, relations.2.array, relations.3.array))
+                        return relations.0
                     }))
                 }
 
@@ -122,8 +107,9 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                     let boxes = try Box.query().filter("id", .in, ids).all()
                     
                     return try JSON(node: .array(boxes.map { box in
-                        let (vendor, pictures, reviews, users) = try box.relations(forFormat: Format.short)
-                        return try box.response(forFormat: Format.short, vendor, pictures, reviews, users)
+                        var relations = try construct(Box.vendor, Box.pictures, Box.reviews, forBase: box, format: Format.short)
+                        box.postProcess(result: &relations.0, relations: (relations.1, relations.2.array, relations.3.array))
+                        return relations.0
                     }))
                 }
             }

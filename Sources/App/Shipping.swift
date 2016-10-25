@@ -61,38 +61,18 @@ final class Shipping: Model, Preparation, JSONConvertible {
     }
 }
 
-extension Shipping {
-    
-    func orders() -> Children<Order> {
-        return children("shipping_id", Order.self)
-    }
-    
-    func user() throws -> Parent<User> {
-        return try parent(user_id)
-    }
-}
-
 extension Shipping: Relationable {
     
-    typealias orderNode = AnyRelationNode<Shipping, Order, Many>
-    typealias userNode = AnyRelationNode<Shipping, User, One>
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
-        switch R.self {
-        case is orderNode.Rel.Type:
-            return try children().makeQuery()
-        case is userNode.Rel.Type:
-            return try parent(user_id).makeQuery()
-        default:
-            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
-        }
-    }
-    
-    func relations(forFormat format: Format) throws -> ([Order], User) {
-        let orders = try orderNode.run(onModel: self, forFormat: format)
-        let user = try userNode.run(onModel: self, forFormat: format)
-        
-        return (orders, user)
+    static let order = AnyRelation<Shipping, Order, Many<Order>>(name: "order", relationship: .child)
+    static let user = AnyRelation<Shipping, User, One<User>>(name: "user", relationship: .parent)
+
+    typealias Relations = (user: User, box: Box)
+
+    func process(forFormat format: Format) throws -> Node {
+        return try self.makeNode()
     }
 
+    func postProcess(result: inout Node, relations: Relations) {
+        
+    }
 }

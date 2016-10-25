@@ -11,123 +11,175 @@ import Vapor
 import Fluent
 
 protocol Relationable: Model {
-    
+
     associatedtype Relations
-    func relations(forFormat format: Format) throws -> Relations
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target>
+
+    func process(forFormat format: Format) throws -> Node
+    func postProcess(result: inout Node, relations: Relations)
 }
 
 protocol Arity {
-    
+
+    associatedtype In: Relationable
+    associatedtype Out: NodeConvertible
+
+    static func run(query: Query<In>) throws -> Out
+
+    static func format(results result: Out, withFormat format: Format) throws -> Node
 }
 
-struct One: Arity {
+struct One<_In: Relationable>: Arity {
 
+    typealias In = _In
+    typealias Out = _In
+
+    static func run(query: Query<In>) throws -> Out {
+        guard let result = try query.first() else {
+            throw Abort.notFound
+        }
+
+        return result
+    }
+
+    static func format(results result: Out, withFormat format: Format) throws -> Node {
+        return try result.process(forFormat: format)
+    }
 }
 
-struct Many: Arity {
-    
+// Workaround for the missing conditional conformance supposedly coming later in swift
+
+struct _Container<R: NodeConvertible>: NodeConvertible {
+
+    let array: [R]
+
+    init(node: Node, in context: Context) throws {
+        fatalError()
+    }
+
+    init(array: [R]) {
+        self.array = array
+    }
+
+    public func makeNode(context: Context) throws -> Node {
+        return try Node( array.map { try $0.makeNode() } )
+    }
+}
+
+struct Many<_In: Relationable>: Arity {
+
+    typealias In = _In
+    typealias Out = _Container<_In>
+
+    static func run(query: Query<In>) throws -> Out {
+        return try _Container(array: query.run())
+    }
+
+    static func format(results result: Out, withFormat format: Format) throws -> Node {
+        return try Node( result.array.map { try $0.process(forFormat: format) } )
+    }
 }
 
 protocol Relation {
     
+    associatedtype Base: Relationable
     associatedtype Target: Relationable
     associatedtype Size: Arity
+    
+    var name: String { get }
+
+    func evaluate(forEntity entity: Entity, withFormat format: Format) throws -> (Size.Out, Node)
+    
+    func deriveResult(entity: Entity) throws -> Size.Out
+    func process(results: Size.Out, forFormat format: Format) throws -> Node
 }
 
-struct AnyRelation<_Input: Relationable, _Size: Arity>: Relation {
+extension Relation {
 
-    typealias Target = _Input
+    func query() throws -> Query<Target> {
+        guard let db = Target.database else {
+            throw EntityError.noDatabase
+        }
+
+        return Query(db)
+    }
+}
+
+enum Relationship {
+
+    case parent
+    case child
+    case sibling
+
+    func query<T: Relation>(forRelation relation: T, relationshipKey key: Node?, node: Entity) throws -> Query<T.Target> {
+
+        switch self {
+        case .parent:
+            return try node.parent(key).makeQuery()
+
+        case .child:
+            return try node.children().makeQuery()
+
+        case .sibling:
+            return try node.siblings().makeQuery()
+        }
+
+    }
+}
+
+struct AnyRelation<_In : Relationable, _Out: Relationable, _Size: Arity>: Relation where _Out == _Size.In {
+
+    typealias Base = _In
+    typealias Target = _Out
     typealias Size = _Size
-}
 
-protocol RelationNode {
+    public private(set) var name: String
+    private var relationship: Relationship
     
-    associatedtype Base : Relationable
-    associatedtype Rel : Relation
-}
-
-extension RelationNode where Rel.Size == Many {
-    
-    static func run<M : Relationable>(onModel model: M, forFormat format: Format) throws -> [Rel.Target] {
-        let query = try model.queryForRelation(relation: Rel.self)
-        format.optimize(query: query)
-        return try query.run()
+    init(name: String, relationship: Relationship) {
+        self.name = name
+        self.relationship = relationship
     }
-}
 
-extension RelationNode where Rel.Size == One {
+    func evaluate(forEntity entity: Entity, withFormat format: Format) throws -> (Size.Out, Node) {
+        let results = try deriveResult(entity: entity)
+        let node = try process(results: results, forFormat: format)
+
+        return (results, node)
+    }
     
-    static func run<M : Relationable>(onModel model: M, forFormat format: Format) throws -> Rel.Target {
-        let query = try model.queryForRelation(relation: Rel.self)
-        format.optimize(query: query)
-        
-        guard let first = try query.first() else {
-            throw Abort.notFound
-        }
-        
-        return first
+    func deriveResult(entity: Entity) throws -> Size.Out {
+        let relationshipKey = Mirror(reflecting: entity).descendant("\(name)_id") as? Node
+        let query = try relationship.query(forRelation: self, relationshipKey: relationshipKey, node: entity)
+        return try Size.run(query: query)
+    }
+
+    func process(results: Size.Out, forFormat format: Format) throws -> Node {
+        return try Size.format(results: results, withFormat: format)
     }
 }
 
-struct AnyRelationNode<Start : Relationable, Result: Relationable, Size: Arity>: RelationNode {
-    
-    typealias Base = Start
-    typealias Rel = AnyRelation<Result, Size>
+func construct<A: Relation, B: Relation>(_ a: A, _ b: B, forBase base: A.Base, format: Format) throws -> (Node, A.Size.Out, B.Size.Out) where A.Base == B.Base {
+    let (a_result, a_node) = try a.evaluate(forEntity: base, withFormat: format)
+    let (b_result, b_node) = try b.evaluate(forEntity: base, withFormat: format)
+
+    let node = try Node(node: [
+        a.name : a_node,
+        b.name : b_node
+    ])
+
+    return (node, a_result, b_result)
 }
 
-extension RelationNode where Rel.Size == Many {
-    
-    static func chain<R: RelationNode>(relation: R.Type, results: [Rel.Target], forFormat format: Format) throws -> [R.Rel.Target] where R.Rel.Size == One {
-        var targetModels: [R.Rel.Target] = []
-        
-        for base in results {
-            try targetModels.append(R.run(onModel: base, forFormat: format))
-        }
-        
-        return targetModels
-    }
-    
-    static func chain<R: RelationNode>(relation: R.Type, results: [Rel.Target], forFormat format: Format) throws -> [[R.Rel.Target]] where R.Rel.Size == Many {
-        var targetModels: [[R.Rel.Target]] = []
-        
-        for base in results {
-            let a = try R.run(onModel: base, forFormat: format)
-            targetModels.append(a)
-        }
-        
-        return targetModels
-    }
-}
+func construct<A: Relation, B: Relation, C: Relation>(_ a: A, _ b: B, _ c: C, forBase base: A.Base, format: Format) throws -> (Node, A.Size.Out, B.Size.Out, C.Size.Out) where A.Base == B.Base, B.Base == C.Base {
+    let (a_result, a_node) = try a.evaluate(forEntity: base, withFormat: format)
+    let (b_result, b_node) = try b.evaluate(forEntity: base, withFormat: format)
+    let (c_result, c_node) = try c.evaluate(forEntity: base, withFormat: format)
 
-extension Relationable {
-    
-    func evaluate<A: RelationNode, B: RelationNode>(forFormat format: Format, first: A.Type, second: B.Type) throws -> (A.Rel.Target, B.Rel.Target) where A.Rel.Target == B.Base, A.Rel.Size == One, B.Rel.Size == One {
-        let result = try A.run(onModel: self, forFormat: format)
-        let b_result = try B.run(onModel: result, forFormat: format)
-        
-        return (result, b_result)
-    }
-    
-    func evaluate<A: RelationNode, B: RelationNode>(forFormat format: Format, first: A.Type, second: B.Type) throws -> (A.Rel.Target, [B.Rel.Target]) where A.Rel.Target == B.Base, A.Rel.Size == One, B.Rel.Size == Many {
-        let result = try A.run(onModel: self, forFormat: format)
-        let b_result = try B.run(onModel: result, forFormat: format)
-        
-        return (result, b_result)
-    }
-    
-    func evaluate<A: RelationNode, B: RelationNode>(forFormat format: Format, first: A.Type, second: B.Type) throws -> ([A.Rel.Target], [B.Rel.Target]) where A.Rel.Target == B.Base, A.Rel.Size == Many, B.Rel.Size == One {
-        let result = try A.run(onModel: self, forFormat: format)
-        let b_result = try A.chain(relation: B.self, results: result, forFormat: format)
-        
-        return (result, b_result)
-    }
+    let node = try Node(node: [
+        a.name : a_node,
+        b.name : b_node,
+        c.name : c_node
+    ])
 
-    func evaluate<A: RelationNode, B: RelationNode>(forFormat format: Format, first: A.Type, second: B.Type) throws -> ([A.Rel.Target], [[B.Rel.Target]]) where A.Rel.Target == B.Base, A.Rel.Size == Many, B.Rel.Size == Many {
-        let result = try A.run(onModel: self, forFormat: format)
-        let b_result = try A.chain(relation: B.self, results: result, forFormat: format)
-        
-        return (result, b_result)
-    }
+    return (node, a_result, b_result, c_result)
 }

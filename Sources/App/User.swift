@@ -97,7 +97,7 @@ extension User: Auth.User {
         case let token as AccessToken:
             let query = try Session.query().filter("token", token.string)
             
-            guard let user = try query.first()?.user().first() else {
+            guard let user = try query.first()?.user_relation().first() else {
                 throw AuthError.invalidCredentials
             }
             
@@ -138,24 +138,17 @@ extension Request {
 
 extension User: Relationable {
     
-    typealias reviewNode = AnyRelationNode<User, Review, Many>
-    typealias shippingNode = AnyRelationNode<User, Shipping, Many>
-    typealias sessionNode = AnyRelationNode<User, Session, Many>
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
-        switch R.self {
-        case is reviewNode.Rel.Type, is shippingNode.Rel.Type, is sessionNode.Rel.Type:
-            return try children().makeQuery()
-        default:
-            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
-        }
+    static let review = AnyRelation<User, Review, Many<Review>>(name: "review", relationship: .child)
+    static let shipping = AnyRelation<User, Shipping, Many<Shipping>>(name: "shipping", relationship: .child)
+    static let session = AnyRelation<User, Session, Many<Session>>(name: "session", relationship: .child)
+
+    typealias Relations = (reviews: [Review], shippings: [Shipping], sessions: [Session])
+
+    func process(forFormat format: Format) throws -> Node {
+        return try self.makeNode()
     }
-    
-    func relations(forFormat format: Format) throws -> ([Review], [Shipping], [Session]) {
-        let reviews = try reviewNode.run(onModel: self, forFormat: format)
-        let shipping = try shippingNode.run(onModel: self, forFormat: format)
-        let sessions = try sessionNode.run(onModel: self, forFormat: format)
+
+    func postProcess(result: inout Node, relations: Relations) {
         
-        return (reviews, shipping, sessions)
     }
 }

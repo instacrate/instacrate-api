@@ -10,6 +10,8 @@ import Vapor
 import Fluent
 import Foundation
 
+import HTTP
+
 final class Box: Model, Preparation, JSONConvertible {
     
     var id: Node?
@@ -88,90 +90,30 @@ final class Box: Model, Preparation, JSONConvertible {
     }
 }
 
-extension Box {
-    
-    func vendor() throws -> Parent<Vendor> {
-        return try parent(vendor_id)
-    }
-    
-    func pictures() -> Children<Picture> {
-        return children("box_id", Picture.self)
-    }
-    
-    func reviews() -> Children<Review> {
-        return children("box_id", Review.self)
-    }
-    
-    func categories() throws -> Siblings<Category> {
-        return try siblings()
-    }
-    
-    func subscriptions() -> Children<Subscription> {
-        return children("box_id", Subscription.self)
-    }
-}
-
 extension Box: Relationable {
-    
-    typealias vendorNode = AnyRelationNode<Box, Vendor, One>
-    typealias pictureNode = AnyRelationNode<Box, Picture, Many>
-    typealias reviewNode = AnyRelationNode<Box, Review, Many>
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
-        switch R.self {
-        case is pictureNode.Rel.Type, is reviewNode.Rel.Type:
-            return try children().makeQuery()
-        case is vendorNode.Rel.Type:
-            return try parent(vendor_id).makeQuery()
-        default:
-            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
-        }
-    }
-    
-    public func relations(forFormat format: Format) throws -> (Vendor, [Picture], [Review], [User]) {
-        
-        let (reviews, users) = try evaluate(forFormat: format, first: reviewNode.self, second: Review.userNode.self)
-        let vendor = try vendorNode.run(onModel: self, forFormat: format)
-        let pictures = try pictureNode.run(onModel: self, forFormat: format)
-        
-        return (vendor, pictures, reviews, users)
-    }
-    
-    public func response(forFormat format: Format, _ vendor: Vendor, _ pictures: [Picture], _ reviews: [Review], _ users: [User]) throws -> Node {
-        
-        let averageRating = reviews.map { $0.rating }.average
-        
+
+    static let vendor = AnyRelation<Box, Vendor, One<Vendor>>(name: "vendor", relationship: .parent)
+    static let pictures = AnyRelation<Box, Picture, Many<Picture>>(name: "picture", relationship: .child)
+    static let reviews = AnyRelation<Box, Review, Many<Review>>(name: "review", relationship: .child)
+
+    typealias Relations = (vendor: Vendor, pictures: [Picture], reviews: [Review])
+
+    func process(forFormat format: Format) throws -> Node {
+        //"averageRating" : .number(.double(averageRating)),
+        //"numberOfRatings" : .number(.int(reviews.count))
+
         switch format {
         case .short:
-            guard let picture = pictures.first else {
-                throw Abort.custom(status: .internalServerError, message: "Missing picture for box \(self)")
-            }
-            
-            return try Node(node : [
-                "name" : .string(name),
-                "brief" : .string(brief),
-                "vendor_name" : .string(vendor.businessName),
-                "price" : .number(.double(price)),
-                "picture" : .string(picture.url),
-                "averageRating" : .number(.double(averageRating)),
-                "id" : id!,
-                "freq" : .string(freq),
-                "numberOfRatings" : .number(.int(reviews.count))
-            ])
+            return try self.makeNode() & ["name", "breif", "price", "id", "freq"]
+
         case .long:
-            
-            let review_node = try zip(reviews, users).map { review, user in
-                return try review.makeNode().add(name: "user", node: user.makeNode())
-            }
-            
-            return try Node(node : [
-                "box" : self.makeNode().add(objects: ["averageRating" : averageRating,
-                                                      "numberOfRatings" : reviews.count]),
-                "vendor" : vendor.makeNode(),
-                "reviews" : .array(review_node),
-                "pictures" : .array(pictures.map { try $0.makeNode() })
-            ])
+            return try self.makeNode()
         }
+    }
+
+    func postProcess(result: inout Node, relations: (vendor: Vendor, pictures: [Picture], reviews: [Review])) {
+        let key = "\(Box.reviews.name).averageRating"
+        result[key] = .number(.double(relations.reviews.map { $0.rating }.average))
     }
 }
 

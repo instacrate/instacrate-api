@@ -55,18 +55,15 @@ extension Category {
 
 extension Category: Relationable {
     
-    typealias boxNode = AnyRelationNode<Vendor, Box, Many>
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
-        switch R.self {
-        case is boxNode.Rel.Type:
-            return try siblings().makeQuery()
-        default:
-            throw Abort.custom(status: .internalServerError, message: "No such relation for category")
-        }
+    static let box = AnyRelation<Vendor, Box, Many<Box>>(name: "box", relationship: .sibling)
+
+    typealias Relations = Box
+
+    func process(forFormat format: Format) throws -> Node {
+        return try self.makeNode()
     }
-    
-    func relations(forFormat format: Format) throws -> [Box] {
-        return try boxNode.run(onModel: self, forFormat: format)
+
+    func postProcess(result: inout Node, relations: Box) {
+
     }
 }

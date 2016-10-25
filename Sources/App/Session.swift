@@ -52,25 +52,22 @@ final class Session: Model, Preparation, JSONConvertible {
 
 extension Session {
     
-    func user() throws -> Parent<User> {
+    func user_relation() throws -> Parent<User> {
         return try parent(user_id)
     }
 }
 
 extension Session: Relationable {
     
-    typealias userNode = AnyRelationNode<Session, User, One>
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
-        switch R.self {
-        case is userNode.Rel.Type:
-            return try parent(user_id).makeQuery()
-        default:
-            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
-        }
+    static let user = AnyRelation<Session, User, One<User>>(name: "user", relationship: .parent)
+
+    typealias Relations = (user: User, box: Box)
+
+    func process(forFormat format: Format) throws -> Node {
+        return try self.makeNode()
     }
-    
-    func relations(forFormat format: Format) throws -> User {
-        return try userNode.run(onModel: self, forFormat: format)
+
+    func postProcess(result: inout Node, relations: Relations) {
+
     }
 }

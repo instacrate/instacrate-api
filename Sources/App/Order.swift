@@ -68,37 +68,18 @@ final class Order: Model, Preparation, JSONConvertible {
     }
 }
 
-extension Order {
-    
-    func subscription() throws -> Parent<Subscription> {
-        return try parent(subscription_id)
-    }
-    
-    func shippingAddress() throws -> Parent<Shipping> {
-        return try parent(shipping_id)
-    }
-}
-
 extension Order: Relationable {
     
-    typealias subscriptionNode = AnyRelationNode<Order, Subscription, One>
-    typealias shippingNode = AnyRelationNode<Order, Shipping, One>
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
-        switch R.self {
-        case is subscriptionNode.Rel.Type:
-            return try parent(subscription_id).makeQuery()
-        case is shippingNode.Rel.Type:
-            return try parent(shipping_id).makeQuery()
-        default:
-            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
-        }
+    static let subscription = AnyRelation<Order, Subscription, One<Subscription>>(name: "subscription", relationship: .parent)
+    static let shipping = AnyRelation<Order, Shipping, One<Shipping>>(name: "shipping", relationship: .parent)
+
+    typealias Relations = (subscription: Subscription, shipping: Shipping)
+
+    func process(forFormat format: Format) throws -> Node {
+        return try self.makeNode()
     }
-    
-    func relations(forFormat format: Format) throws -> (Subscription, Shipping) {
-        let sub = try subscriptionNode.run(onModel: self, forFormat: format)
-        let shipping = try shippingNode.run(onModel: self, forFormat: format)
-        
-        return (sub, shipping)
+
+    func postProcess(result: inout Node, relations: Relations) {
+
     }
 }

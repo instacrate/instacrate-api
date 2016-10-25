@@ -72,27 +72,17 @@ extension Subscription {
 
 extension Subscription: Relationable {
     
-    typealias orderNode = AnyRelationNode<Subscription, Order, Many>
-//    typealias shippingNode = AnyRelationNode<Subscription, Shipping, One>
-    typealias boxNode = AnyRelationNode<Subscription, Box, One>
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
-        switch R.self {
-        case is orderNode.Rel.Type:
-            return try children().makeQuery()
-        case is boxNode.Rel.Type:
-            return try parent(box_id).makeQuery()
-//        case is shippingNode.Rel.Type:
-//            return try parent(shipping_id).makeQuery()
-        default:
-            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
-        }
+    static let orderNode = AnyRelation<Subscription, Order, Many<Order>>(name: "order", relationship: .child)
+//    typealias shippingNode = AnyRelation<Subscription, Shipping, One>
+    static let boxNode = AnyRelation<Subscription, Box, One<Box>>(name: "box", relationship: .parent)
+
+    typealias Relations = (order: Order, box: Box)
+
+    func process(forFormat format: Format) throws -> Node {
+        return try self.makeNode()
     }
-    
-    func relations(forFormat format: Format) throws -> ([Order], Box) {
-        let orders = try orderNode.run(onModel: self, forFormat: format)
-        let box = try boxNode.run(onModel: self, forFormat: format)
+
+    func postProcess(result: inout Node, relations: Relations) {
         
-        return (orders, box)
     }
 }

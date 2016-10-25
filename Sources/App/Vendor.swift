@@ -158,33 +158,45 @@ extension Vendor: Updateable {
     }
 }
 
-extension Vendor {
+extension Vendor: Relationable {
     
-    func boxes() -> Children<Box> {
-        return children("vendor_id", Box.self)
+    static let box = AnyRelation<Vendor, Box, Many<Box>>(name: "box", relationship: .child)
+    static let category = AnyRelation<Vendor, Category, One<Category>>(name: "category", relationship: .parent)
+
+    typealias Relations = (boxes: [Box], categories: [Category])
+
+    func process(forFormat format: Format) throws -> Node {
+        switch format {
+        case .short:
+            return try self.makeNode() & ["businessName"]
+
+        case .long:
+            return try self.makeNode()
+        }
     }
-    
-    func category() throws -> Parent<Category> {
-        return try parent(category_id)
+
+    func postProcess(result: inout Node, relations: (boxes: [Box], categories: [Category])) {
+        
     }
 }
 
-extension Vendor: Relationable {
-    
-    typealias boxNode = AnyRelationNode<Vendor, Box, Many>
-    typealias categoryNode = AnyRelationNode<Vendor, Category, One>
-    
-    func queryForRelation<R: Relation>(relation: R.Type) throws -> Query<R.Target> {
-        switch R.self {
-        case is boxNode.Rel.Type:
-            return try children().makeQuery()
-        default:
-            throw Abort.custom(status: .internalServerError, message: "No such relation for box")
-        }
-    }
-    
-    func relations(forFormat format: Format) throws -> [Box] {
-        return try boxNode.run(onModel: self, forFormat: format)
-    }
+extension Array where Element: Hashable {
 
+    func dictionary<V>(withValueMapping valueMap: (Element) throws -> V) rethrows -> [Element : V] {
+        var result: [Element : V] = [:]
+        try forEach { result[$0] = try valueMap($0) }
+        return result
+    }
+}
+
+func & (lhs: Node, rhs: [String]) throws -> Node {
+    return try Node(node :
+        try rhs.dictionary(withValueMapping: { key in
+            guard let value = lhs[key] else {
+                throw NodeError.unableToConvert(node: lhs, expected: "Value for \(key)")
+            }
+
+            return value
+        })
+    )
 }
