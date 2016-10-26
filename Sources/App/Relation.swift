@@ -176,6 +176,7 @@ func construct<A: Relation, B: Relation, C: Relation>(_ a: A, _ b: B, _ c: C, fo
     let (c_result, c_node) = try c.evaluate(forEntity: base, withFormat: format)
 
     let node = try Node(node: [
+        A.Base.name : base,
         a.name : a_node,
         b.name : b_node,
         c.name : c_node

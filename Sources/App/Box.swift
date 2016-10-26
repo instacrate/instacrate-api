@@ -112,8 +112,7 @@ extension Box: Relationable {
     }
 
     func postProcess(result: inout Node, relations: (vendor: Vendor, pictures: [Picture], reviews: [Review])) {
-        let key = "\(Box.reviews.name).averageRating"
-        result[key] = .number(.double(relations.reviews.map { $0.rating }.average))
+        result[Box.name]?["averageRating"] = .number(.double(relations.reviews.map { $0.rating }.average))
     }
 }
 
