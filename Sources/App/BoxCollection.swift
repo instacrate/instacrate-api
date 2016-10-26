@@ -51,11 +51,7 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 
                 shortBox.get("category", Category.self) { request, category in
                     let boxes = try category.boxes().all()
-                    
-                    // TODO : Make concurrent
-                    // TODO : Optimize queries based on information needed
-                    // TODO : Deduplicate code
-                    
+
                     return try JSON(node: .array(boxes.map { box in
                         var relations = try construct(Box.vendor, Box.pictures, Box.reviews, forBase: box, format: Format.short)
                         box.postProcess(result: &relations.0, relations: (relations.1, relations.2.array, relations.3.array))
