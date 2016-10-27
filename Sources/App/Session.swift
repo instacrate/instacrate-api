@@ -52,22 +52,20 @@ final class Session: Model, Preparation, JSONConvertible {
 
 extension Session {
     
-    func user_relation() throws -> Parent<User> {
+    func user() throws -> Parent<User> {
         return try parent(user_id)
     }
 }
 
 extension Session: Relationable {
     
-    static let user = AnyRelation<Session, User, One<User>>(name: "user", relationship: .parent)
+    typealias Relations = User
 
-    typealias Relations = (user: User, box: Box)
-
-    func process(forFormat format: Format) throws -> Node {
-        return try self.makeNode()
-    }
-
-    func postProcess(result: inout Node, relations: Relations) {
-
+    func relations() throws -> User {
+        guard let user = try user().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing user relation for session with id \(id)")
+        }
+        
+        return user
     }
 }

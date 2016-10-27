@@ -58,11 +58,11 @@ final class Subscription: Model, Preparation, JSONConvertible {
 extension Subscription {
     
     func orders() -> Children<Order> {
-        return children("subscription_id", Order.self)
+        return children()
     }
     
     func defaultShippingAddress() -> Children<Shipping> {
-        return children("subscription_id", Shipping.self)
+        return children()
     }
     
     func box() throws -> Parent<Box> {
@@ -71,18 +71,17 @@ extension Subscription {
 }
 
 extension Subscription: Relationable {
+
+    typealias Relations = (orders: [Order], adresses: [Shipping], box: Box)
     
-    static let orderNode = AnyRelation<Subscription, Order, Many<Order>>(name: "order", relationship: .child)
-//    typealias shippingNode = AnyRelation<Subscription, Shipping, One>
-    static let boxNode = AnyRelation<Subscription, Box, One<Box>>(name: "box", relationship: .parent)
-
-    typealias Relations = (order: Order, box: Box)
-
-    func process(forFormat format: Format) throws -> Node {
-        return try self.makeNode()
-    }
-
-    func postProcess(result: inout Node, relations: Relations) {
+    func relations() throws -> (orders: [Order], adresses: [Shipping], box: Box) {
+        let orders = try self.orders().all()
+        let shipping = try self.defaultShippingAddress().all()
         
+        guard let box = try self.box().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for subscription with id \(id)")
+        }
+        
+        return (orders, shipping, box)
     }
 }

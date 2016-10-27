@@ -90,29 +90,42 @@ final class Box: Model, Preparation, JSONConvertible {
     }
 }
 
+extension Box {
+    
+    func vendor() throws -> Parent<Vendor> {
+        return try parent(vendor_id)
+    }
+    
+    func pictures() -> Children<Picture> {
+        return children("box_id", Picture.self)
+    }
+    
+    func reviews() -> Children<Review> {
+        return children("box_id", Review.self)
+    }
+    
+    func categories() throws -> Siblings<Category> {
+        return try siblings()
+    }
+    
+    func subscriptions() -> Children<Subscription> {
+        return children("box_id", Subscription.self)
+    }
+}
+
 extension Box: Relationable {
 
-    static let vendor = AnyRelation<Box, Vendor, One<Vendor>>(name: "vendor", relationship: .parent)
-    static let pictures = AnyRelation<Box, Picture, Many<Picture>>(name: "picture", relationship: .child)
-    static let reviews = AnyRelation<Box, Review, Many<Review>>(name: "review", relationship: .child)
-
     typealias Relations = (vendor: Vendor, pictures: [Picture], reviews: [Review])
-
-    func process(forFormat format: Format) throws -> Node {
-        //"averageRating" : .number(.double(averageRating)),
-        //"numberOfRatings" : .number(.int(reviews.count))
-
-        switch format {
-        case .short:
-            return try self.makeNode() & ["name", "breif", "price", "id", "freq"]
-
-        case .long:
-            return try self.makeNode()
+    
+    func relations() throws -> (vendor: Vendor, pictures: [Picture], reviews: [Review]) {
+        guard let vendor = try self.vendor().get() else {
+            throw Abort.notFound
         }
-    }
-
-    func postProcess(result: inout Node, relations: (vendor: Vendor, pictures: [Picture], reviews: [Review])) {
-        result[Box.name]?["averageRating"] = .number(.double(relations.reviews.map { $0.rating }.average))
+        
+        let pictures = try self.pictures().all()
+        let reviews = try self.reviews().all()
+        
+        return (vendor, pictures, reviews)
     }
 }
 

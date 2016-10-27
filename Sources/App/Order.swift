@@ -68,18 +68,30 @@ final class Order: Model, Preparation, JSONConvertible {
     }
 }
 
-extension Order: Relationable {
+extension Order {
     
-    static let subscription = AnyRelation<Order, Subscription, One<Subscription>>(name: "subscription", relationship: .parent)
-    static let shipping = AnyRelation<Order, Shipping, One<Shipping>>(name: "shipping", relationship: .parent)
+    func subscription() throws -> Parent<Subscription> {
+        return try parent(subscription_id)
+    }
+    
+    func shippingAddress() throws -> Parent<Shipping> {
+        return try parent(shipping_id)
+    }
+}
+
+extension Order: Relationable {
 
     typealias Relations = (subscription: Subscription, shipping: Shipping)
 
-    func process(forFormat format: Format) throws -> Node {
-        return try self.makeNode()
-    }
-
-    func postProcess(result: inout Node, relations: Relations) {
-
+    func relations() throws -> (subscription: Subscription, shipping: Shipping) {
+        guard let sub = try subscription().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing subscription for order with id \(id) on date \(date)")
+        }
+        
+        guard let ship = try shippingAddress().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing shipping id for order with id \(id) on date \(date)")
+        }
+        
+        return (sub, ship)
     }
 }

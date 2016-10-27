@@ -65,18 +65,30 @@ final class Review: Model, Preparation, JSONConvertible {
     }
 }
 
+extension Review {
+    
+    func box() throws -> Parent<Box> {
+        return try parent(box_id)
+    }
+    
+    func user() throws -> Parent<User> {
+        return try parent(user_id)
+    }
+}
+
 extension Review: Relationable {
     
-    static let user = AnyRelation<Review, User, One<User>>(name: "user", relationship: .parent)
-    static let box = AnyRelation<Review, Box, One<Box>>(name: "box", relationship: .parent)
-
     typealias Relations = (user: User, box: Box)
 
-    func process(forFormat format: Format) throws -> Node {
-        return try self.makeNode()
-    }
-
-    func postProcess(result: inout Node, relations: Relations) {
+    func relations() throws -> (user: User, box: Box) {
+        guard let user = try self.user().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing user relation for review with description \(description)")
+        }
         
+        guard let box = try self.box().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for review with description \(description)")
+        }
+        
+        return (user, box)
     }
 }

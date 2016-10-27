@@ -54,16 +54,10 @@ extension Category {
 }
 
 extension Category: Relationable {
-    
-    static let box = AnyRelation<Vendor, Box, Many<Box>>(name: "box", relationship: .sibling)
 
-    typealias Relations = Box
+    typealias Relations = [Box]
 
-    func process(forFormat format: Format) throws -> Node {
-        return try self.makeNode()
-    }
-
-    func postProcess(result: inout Node, relations: Box) {
-
+    func relations() throws -> [Box] {
+        return try boxes().all()
     }
 }

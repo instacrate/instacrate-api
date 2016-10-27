@@ -61,18 +61,28 @@ final class Shipping: Model, Preparation, JSONConvertible {
     }
 }
 
+extension Shipping {
+    
+    func orders() -> Children<Order> {
+        return children("shipping_id", Order.self)
+    }
+    
+    func user() throws -> Parent<User> {
+        return try parent(user_id)
+    }
+}
+
 extension Shipping: Relationable {
     
-    static let order = AnyRelation<Shipping, Order, Many<Order>>(name: "order", relationship: .child)
-    static let user = AnyRelation<Shipping, User, One<User>>(name: "user", relationship: .parent)
-
-    typealias Relations = (user: User, box: Box)
-
-    func process(forFormat format: Format) throws -> Node {
-        return try self.makeNode()
-    }
-
-    func postProcess(result: inout Node, relations: Relations) {
+    typealias Relations = (orders: [Order], user: User)
+    
+    func relations() throws -> (orders: [Order], user: User) {
+        let orders = try self.orders().all()
         
+        guard let user = try self.user().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing user relation for shipping address")
+        }
+        
+        return (orders, user)
     }
 }

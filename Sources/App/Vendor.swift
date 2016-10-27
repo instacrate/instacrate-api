@@ -140,6 +140,17 @@ final class Vendor: Model, Preparation, JSONConvertible {
     }
 }
 
+extension Vendor {
+    
+    func boxes() -> Children<Box> {
+        return children()
+    }
+    
+    func category() throws -> Parent<Category> {
+        return try parent(category_id)
+    }
+}
+
 extension Vendor: Updateable {
     
     func update(withJSON json: JSON) throws {
@@ -159,44 +170,16 @@ extension Vendor: Updateable {
 }
 
 extension Vendor: Relationable {
+
+    typealias Relations = (boxes: [Box], category: Category)
     
-    static let box = AnyRelation<Vendor, Box, Many<Box>>(name: "box", relationship: .child)
-    static let category = AnyRelation<Vendor, Category, One<Category>>(name: "category", relationship: .parent)
-
-    typealias Relations = (boxes: [Box], categories: [Category])
-
-    func process(forFormat format: Format) throws -> Node {
-        switch format {
-        case .short:
-            return try self.makeNode() & ["businessName"]
-
-        case .long:
-            return try self.makeNode()
-        }
-    }
-
-    func postProcess(result: inout Node, relations: (boxes: [Box], categories: [Category])) {
+    func relations() throws -> (boxes: [Box], category: Category) {
+        let boxes = try self.boxes().all()
         
+        guard let category = try self.category().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing category relation for vendor with name \(username)")
+        }
+        
+        return (boxes, category)
     }
-}
-
-extension Array where Element: Hashable {
-
-    func dictionary<V>(withValueMapping valueMap: (Element) throws -> V) rethrows -> [Element : V] {
-        var result: [Element : V] = [:]
-        try forEach { result[$0] = try valueMap($0) }
-        return result
-    }
-}
-
-func & (lhs: Node, rhs: [String]) throws -> Node {
-    return try Node(node :
-        try rhs.dictionary(withValueMapping: { key in
-            guard let value = lhs[key] else {
-                throw NodeError.unableToConvert(node: lhs, expected: "Value for \(key)")
-            }
-
-            return value
-        })
-    )
 }

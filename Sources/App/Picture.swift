@@ -50,18 +50,23 @@ final class Picture: Model, Preparation, JSONConvertible {
     }
 }
 
+extension Picture {
+    
+    func box() throws -> Parent<Box> {
+        return try parent(box_id)
+    }
+}
+
 extension Picture: Relationable {
     
-    static let box = AnyRelation<Picture, Box, One<Box>>(name: "box", relationship: .parent)
-
     typealias Relations = Box
 
-    func process(forFormat format: Format) throws -> Node {
-        return try self.makeNode()
-    }
-
-    func postProcess(result: inout Node, relations: Relations) {
-
+    func relations() throws -> Box {
+        guard let box = try box().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for picture with id \(id) and url \(url).")
+        }
+        
+        return box
     }
 }
 
