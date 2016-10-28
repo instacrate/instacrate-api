@@ -95,7 +95,7 @@ extension User: Auth.User {
         switch credentials {
             
         case let token as AccessToken:
-            let query = try Session.query().filter("token", token.string)
+            let query = try Session.query().filter("accessToken", token.string)
             
             guard let user = try query.first()?.user().first() else {
                 throw AuthError.invalidCredentials
@@ -104,14 +104,19 @@ extension User: Auth.User {
             return user
             
         case let usernamePassword as UsernamePassword:
-            let hashedPassword = BCrypt.hash(password: usernamePassword.password)
-            let query = try User.query().filter("username", usernamePassword.username).filter("password", hashedPassword)
+            let query = try User.query().filter("email", usernamePassword.username)
             
             guard let user = try query.first() else {
                 throw AuthError.invalidCredentials
             }
             
-            return user
+            let hashedPassword = BCrypt.hash(password: usernamePassword.password, salt: user.salt)
+            
+            if user.password == hashedPassword {
+                return user
+            } else {
+                throw AuthError.invalidBasicAuthorization
+            }
             
         default:
             throw AuthError.unsupportedCredentials

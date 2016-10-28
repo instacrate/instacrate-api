@@ -38,8 +38,9 @@ fileprivate func createShortNode(forBox box: Box) throws -> Node {
         "vendor_name" : .string(relations.vendor.businessName),
         "price" : .number(.double(box.price)),
         "picture" : .string(picture.url),
-        "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average))
-    ])
+        "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average)),
+        "frequency" : .string(box.freq)
+    ]).add(name: "id", node: box.id)
 }
 
 fileprivate func createExtensiveNode(forBox box: Box) throws -> Node {
