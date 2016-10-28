@@ -39,7 +39,8 @@ fileprivate func createShortNode(forBox box: Box) throws -> Node {
         "price" : .number(.double(box.price)),
         "picture" : .string(picture.url),
         "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average)),
-        "frequency" : .string(box.freq)
+        "frequency" : .string(box.freq),
+        "numberOfReviews" : .number(.int(relations.reviews.count))
     ]).add(name: "id", node: box.id)
 }
 
