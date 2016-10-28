@@ -34,7 +34,7 @@ fileprivate func createShortNode(forBox box: Box) throws -> Node {
     
     return try Node(node : [
         "name" : .string(box.name),
-        "short_desc" : .string(box.short_desc),
+        "brief" : .string(box.brief),
         "vendor_name" : .string(relations.vendor.businessName),
         "price" : .number(.double(box.price)),
         "picture" : .string(picture.url),

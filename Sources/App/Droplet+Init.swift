@@ -30,18 +30,23 @@ extension ProtectMiddleware {
     }
 }
 
+extension AuthMiddleware {
+    
+    class func createAuthMiddleware() -> AuthMiddleware<User> {
+        let realm = AuthenticatorRealm<User>()
+        let sessionManager = DatabaseSessionManager(realm: realm)
+        return AuthMiddleware<User>(turnstile: Turnstile(sessionManager: sessionManager, realm: realm), makeCookie: nil)
+    }
+}
+
 extension Droplet {
     
     static var instance: Droplet?
     
     internal static func create() -> Droplet {
-        let realm = AuthenticatorRealm(User.self)
-        let sessionManager = DatabaseSessionManager(realm: realm)
-    
-        let authenticationMiddleware = AuthMiddleware<User>(turnstile: Turnstile(sessionManager: sessionManager, realm: realm), makeCookie: nil)
-        
+
         let drop = Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
-                                                 "auth" : authenticationMiddleware,
+                                                 "auth" : AuthMiddleware<User>.createAuthMiddleware(),
                                                  "protect" : ProtectMiddleware.createProtectionMiddleware()],
                            preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
                                       Pivot<Box, Category>.self, User.self, Session.self],
