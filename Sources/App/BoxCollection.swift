@@ -46,13 +46,26 @@ fileprivate func createShortNode(forBox box: Box) throws -> Node {
 
 fileprivate func createExtensiveNode(forBox box: Box) throws -> Node {
     let relations = try box.relations()
+        
+    let reviewNodes = try relations.reviews.map { review -> Node in
+        guard let user = try review.user().get() else {
+            throw Abort.custom(status: .notFound, message: "User relation missing for review with description \(review.description)")
+        }
+        
+        var node = try review.makeNode()
+        
+        node["user_id"] = nil
+        node["user"] = try user.makeNode()
+        
+        return node
+    }
     
     return try Node(node : [
         "box" : box.makeNode().add(objects: ["numberOfRating" : relations.reviews.count,
                                              "averageRating" : relations.reviews.map { $0.rating }.average]),
         
         "vendor" : relations.vendor.makeNode(),
-        "reviews" : .array(relations.reviews.map { try $0.makeNode() }),
+        "reviews" : .array(reviewNodes),
         "pictures" : .array(relations.pictures.map { try $0.makeNode() })
     ])
 }
