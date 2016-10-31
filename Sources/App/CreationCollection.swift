@@ -56,7 +56,8 @@ final class CreationCollection : RouteCollection, EmptyInitializable {
     private let allowedModels: [String : (JSONInitializable & Model).Type] = ["\(User.self)" : User.self,
                                                                               "\(Vendor.self)" : Vendor.self,
                                                                               "\(Review.self)" : Review.self,
-                                                                              "\(Category.self)" : Category.self]
+                                                                              "\(Category.self)" : Category.self,
+                                                                              "\(Box.self)" : Box.self]
     
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
