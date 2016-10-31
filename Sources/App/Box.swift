@@ -36,7 +36,7 @@ final class Box: Model, Preparation, JSONConvertible {
         brief = try node.extract("brief")
         long_desc = try node.extract("long_desc")
         short_desc = try node.extract("short_desc")
-        bullets = (try node.extract("bullets") as String).replacingOccurrences(of: "\\n", with: "\n").components(separatedBy: "\n")
+        bullets = try node.extract("bullets")
         freq = try node.extract("freq")
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
