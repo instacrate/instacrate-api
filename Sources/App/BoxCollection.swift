@@ -49,7 +49,7 @@ fileprivate func createExtensiveNode(forBox box: Box) throws -> Node {
         
     let reviewNodes = try relations.reviews.map { review -> Node in
         guard let user = try review.user().get() else {
-            throw Abort.custom(status: .notFound, message: "User relation missing for review with description \(review.description)")
+            throw Abort.custom(status: .notFound, message: "User relation missing for review with text \(review.text)")
         }
         
         var node = try review.makeNode()

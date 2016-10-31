@@ -14,7 +14,7 @@ final class Review: Model, Preparation, JSONConvertible {
     var id: Node?
     var exists = false
     
-    let description: String
+    let text: String
     let rating: Int
     let date: String
     
@@ -23,16 +23,16 @@ final class Review: Model, Preparation, JSONConvertible {
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
-        description = try node.extract("description")
+        text = try node.extract("text")
         rating = try node.extract("rating")
         date = try node.extract("date")
         box_id = try node.extract("box_id")
         user_id = try node.extract("user_id")
     }
     
-    init(id: String? = nil, description: String, rating: Int, date: String, box_id: String, user_id: String) {
+    init(id: String? = nil, text: String, rating: Int, date: String, box_id: String, user_id: String) {
         self.id = id.flatMap { .string($0) }
-        self.description = description
+        self.text = text
         self.rating = rating
         self.date = date
         self.box_id = .string(box_id)
@@ -41,7 +41,7 @@ final class Review: Model, Preparation, JSONConvertible {
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "description" : .string(description),
+            "text" : .string(text),
             "rating" : .number(.int(rating)),
             "date" : .string(date),
             "box_id" : box_id!,
@@ -52,7 +52,7 @@ final class Review: Model, Preparation, JSONConvertible {
     static func prepare(_ database: Database) throws {
         try database.create(self.entity, closure: { box in
             box.id()
-            box.string("description")
+            box.string("text")
             box.string("rating")
             box.string("date")
             box.parent(Box.self, optional: false)
@@ -82,11 +82,11 @@ extension Review: Relationable {
 
     func relations() throws -> (user: User, box: Box) {
         guard let user = try self.user().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing user relation for review with description \(description)")
+            throw Abort.custom(status: .internalServerError, message: "Missing user relation for review with text \(text)")
         }
         
         guard let box = try self.box().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing box relation for review with description \(description)")
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for review with text \(text)")
         }
         
         return (user, box)
