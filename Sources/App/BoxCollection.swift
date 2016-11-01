@@ -27,7 +27,7 @@ extension Collection where Iterator.Element == Int, IndexDistance == Int {
 
 fileprivate func createShortNode(forBox box: Box) throws -> Node {
     let relations = try box.relations()
-
+    
     guard let picture = relations.pictures.first else {
         throw Abort.custom(status: .internalServerError, message: "Missing picture for box with id \(box.id) and name \(box.name).")
     }
@@ -41,7 +41,8 @@ fileprivate func createShortNode(forBox box: Box) throws -> Node {
         "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average)),
         "frequency" : .string(box.freq),
         "numberOfRating" : .number(.int(relations.reviews.count))
-    ]).add(name: "id", node: box.id)
+        ]).add(objects: ["id" : box.id,
+                         "picture" : relations.pictures.first])
 }
 
 fileprivate func createExtensiveNode(forBox box: Box) throws -> Node {

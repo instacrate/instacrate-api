@@ -119,7 +119,7 @@ extension Box: Relationable {
     
     func relations() throws -> (vendor: Vendor, pictures: [Picture], reviews: [Review]) {
         guard let vendor = try self.vendor().get() else {
-            throw Abort.notFound
+            throw Abort.custom(status: .internalServerError, message: "Missing vendor for box with id \(id!)")
         }
         
         let pictures = try self.pictures().all()
