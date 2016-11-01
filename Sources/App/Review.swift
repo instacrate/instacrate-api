@@ -22,7 +22,7 @@ final class Review: Model, Preparation, JSONConvertible {
     var user_id: Node?
     
     init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
+        id = try? node.extract("id")
         text = try node.extract("text")
         rating = try node.extract("rating")
         date = try node.extract("date")
