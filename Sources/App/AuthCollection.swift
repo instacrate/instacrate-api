@@ -52,7 +52,7 @@ final class AuthCollection : RouteCollection, EmptyInitializable {
                 try request.auth.login(credentials)
                 
                 if let _ = try? request.auth.user() {
-                    return Response(status: .ok)
+                    return try Response(status: .ok, json: request.user().makeJSON())
                 } else {
                     throw AuthError.invalidBasicAuthorization
                 }
