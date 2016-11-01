@@ -18,12 +18,14 @@ final class Subscription: Model, Preparation, JSONConvertible {
     let active: Bool
     
     var box_id: Node?
+    var shipping_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         date = try node.extract("date")
         active = try node.extract("active")
         box_id = try node.extract("box_id")
+        shipping_id = try node.extract("shipping_id")
     }
     
     init(id: String? = nil, date: String, active: Bool, box_id: String) {
@@ -47,6 +49,7 @@ final class Subscription: Model, Preparation, JSONConvertible {
             subscription.string("date")
             subscription.bool("active")
             subscription.parent(Box.self, optional: false)
+            subscription.parent(Shipping.self, optional: false)
         })
     }
     
@@ -61,8 +64,8 @@ extension Subscription {
         return children()
     }
     
-    func defaultShippingAddress() -> Children<Shipping> {
-        return children()
+    func address() throws -> Parent<Shipping> {
+        return try parent(shipping_id)
     }
     
     func box() throws -> Parent<Box> {
@@ -72,11 +75,14 @@ extension Subscription {
 
 extension Subscription: Relationable {
 
-    typealias Relations = (orders: [Order], adresses: [Shipping], box: Box)
+    typealias Relations = (orders: [Order], address: Shipping, box: Box)
     
-    func relations() throws -> (orders: [Order], adresses: [Shipping], box: Box) {
+    func relations() throws -> (orders: [Order], address: Shipping, box: Box) {
         let orders = try self.orders().all()
-        let shipping = try self.defaultShippingAddress().all()
+        
+        guard let shipping = try self.address().get() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for subscription with id \(id)")
+        }
         
         guard let box = try self.box().get() else {
             throw Abort.custom(status: .internalServerError, message: "Missing box relation for subscription with id \(id)")

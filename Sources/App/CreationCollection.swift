@@ -74,7 +74,7 @@ final class CreationCollection : RouteCollection, EmptyInitializable {
             
             try perform("error saving to database") { try instance.save() }
             
-            return Response(status: .created)
+            return try Response(status: .created, json: instance.makeJSON())
         }
         
         let upload = builder.grouped("upload")
