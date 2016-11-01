@@ -28,10 +28,6 @@ extension Collection where Iterator.Element == Int, IndexDistance == Int {
 fileprivate func createShortNode(forBox box: Box) throws -> Node {
     let relations = try box.relations()
     
-    guard let picture = relations.pictures.first else {
-        throw Abort.custom(status: .internalServerError, message: "Missing picture for box with id \(box.id) and name \(box.name).")
-    }
-    
     return try Node(node : [
         "name" : .string(box.name),
         "brief" : .string(box.brief),
