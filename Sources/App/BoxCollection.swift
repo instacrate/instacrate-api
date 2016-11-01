@@ -33,12 +33,11 @@ fileprivate func createShortNode(forBox box: Box) throws -> Node {
         "brief" : .string(box.brief),
         "vendor_name" : .string(relations.vendor.businessName),
         "price" : .number(.double(box.price)),
-        "picture" : .string(picture.url),
         "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average)),
         "frequency" : .string(box.freq),
         "numberOfRating" : .number(.int(relations.reviews.count))
         ]).add(objects: ["id" : box.id,
-                         "picture" : relations.pictures.first])
+                         "picture" : relations.pictures.first?.url])
 }
 
 fileprivate func createExtensiveNode(forBox box: Box) throws -> Node {
