@@ -67,6 +67,59 @@ extension Node: ResponseRepresentable {
     }
 }
 
+enum BoxSorting {
+    
+    case alphabetical
+    case price
+    case new
+    
+    private static let all: [BoxSorting] = [.alphabetical, .price, .new]
+    
+    static func sortingType(forString string: String) throws -> BoxSorting {
+        let names = all.map { ($0, $0.name) }
+        let matching = names.filter { $0.1 == string }
+        
+        guard let type = matching.first?.0 else {
+            throw Abort.custom(status: .badRequest, message: "Sorting type \(string) is not allowed. Allowed values are \(all.map { $0.name }.array)")
+        }
+        
+        return type
+    }
+    
+    var name: String {
+        switch self {
+        case .alphabetical:
+            return "alphabetical"
+        case .price:
+            return "price"
+        case .new:
+            return "new"
+        }
+    }
+    
+    var field: String {
+        switch self {
+        case .alphabetical:
+            return "name"
+        case .price:
+            return "price"
+        case .new:
+            return "publish_date"
+        }
+    }
+    
+    var direction: Sort.Direction {
+        return .ascending
+    }
+}
+
+extension QueryRepresentable {
+    
+    func sort(_ boxSort: BoxSorting) throws -> Query<T> {
+        return try self.sort(boxSort.field, boxSort.direction)
+    }
+}
+
 final class BoxCollection : RouteCollection, EmptyInitializable {
     
     init () {}
