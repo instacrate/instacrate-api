@@ -47,7 +47,8 @@ fileprivate func createNode(forBox box: Box) throws -> Node {
         
         "vendor" : relations.vendor.makeNode(),
         "reviews" : .array(reviewNodes),
-        "pictures" : .array(relations.pictures.map { try $0.makeNode() })
+        "pictures" : .array(relations.pictures.map { try $0.makeNode() }),
+        "box" : box.makeNode()
     ])
 }
 
