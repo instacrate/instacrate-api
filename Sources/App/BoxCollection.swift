@@ -25,24 +25,9 @@ extension Collection where Iterator.Element == Int, IndexDistance == Int {
     }
 }
 
-fileprivate func createShortNode(forBox box: Box) throws -> Node {
+fileprivate func createNode(forBox box: Box) throws -> Node {
     let relations = try box.relations()
     
-    return try Node(node : [
-        "name" : .string(box.name),
-        "brief" : .string(box.brief),
-        "vendor_name" : .string(relations.vendor.businessName),
-        "price" : .number(.double(box.price)),
-        "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average)),
-        "frequency" : .string(box.freq),
-        "numberOfRating" : .number(.int(relations.reviews.count))
-        ]).add(objects: ["id" : box.id,
-                         "picture" : relations.pictures.first?.url])
-}
-
-fileprivate func createExtensiveNode(forBox box: Box) throws -> Node {
-    let relations = try box.relations()
-        
     let reviewNodes = try relations.reviews.map { review -> Node in
         guard let user = try review.user().get() else {
             throw Abort.custom(status: .notFound, message: "User relation missing for review with text \(review.text)")
@@ -56,9 +41,9 @@ fileprivate func createExtensiveNode(forBox box: Box) throws -> Node {
         return node
     }
     
-    return try Node(node : [
-        "box" : box.makeNode().add(objects: ["numberOfRating" : relations.reviews.count,
-                                             "averageRating" : relations.reviews.map { $0.rating }.average]),
+    return try Node(node: [
+        "numberOfRatings" : .number(.int(relations.reviews.count)),
+        "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average)),
         
         "vendor" : relations.vendor.makeNode(),
         "reviews" : .array(reviewNodes),
@@ -92,50 +77,44 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
         builder.group("box") { box in
             
             box.get(Box.self) { request, box in
-                return try createExtensiveNode(forBox: box)
+                return try createNode(forBox: box)
             }
             
-            let short = box.grouped("short")
-            
-            short.get(Box.self) { request, box in
-                return try createShortNode(forBox: box)
-            }
-            
-            short.get("category", Category.self) { request, category in
+            box.get("category", Category.self) { request, category in
                 let boxes = try category.boxes().all()
 
                 return try JSON(node: .array(boxes.map { box in
-                    return try createShortNode(forBox: box)
+                    return try createNode(forBox: box)
                 }))
             }
             
-            short.get("featured") { request in
+            box.get("featured") { request in
                 let boxes = try FeaturedBox.all().flatMap { try $0.box().get() }
-                return try Node.array(boxes.map(createShortNode(forBox:)))
+                return try Node.array(boxes.map(createNode(forBox:)))
             }
             
-            short.get("new") { request in
+            box.get("new") { request in
                 let query = try Box.query().sort("publish_date", .descending)
                 query.limit = Limit(count: 10)
                 
                 let boxes = try query.all()
                 
-                return try Node.array(boxes.map(createShortNode(forBox:)))
+                return try Node.array(boxes.map(createNode(forBox:)))
             }
             
-            short.get("all") { request in
+            box.get("all") { request in
                 let boxes = try Box.query().all()
-                return try Node.array(boxes.map(createShortNode(forBox:)))
+                return try Node.array(boxes.map(createNode(forBox:)))
             }
 
-            short.get() { request in
+            box.get() { request in
                 
                 guard let ids = request.query?["id"]?.array?.flatMap({ $0.string }) else {
                     throw Abort.custom(status: .badRequest, message: "Expected query parameter with name id.")
                 }
                 
                 let boxes = try Box.query().filter("id", .in, ids).all()
-                return try Node.array(boxes.map(createShortNode(forBox:)))
+                return try Node.array(boxes.map(createNode(forBox:)))
             }
         }
     }
