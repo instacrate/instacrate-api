@@ -103,9 +103,18 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
                 return try Node.array(boxes.map(createNode(forBox:)))
             }
             
-            box.get("all") { request in
-                let boxes = try Box.query().all()
-                return try Node.array(boxes.map(createNode(forBox:)))
+            box.group("all") { all in
+                
+                all.get() { request in
+                    let boxes = try Box.query().all()
+                    return try Node.array(boxes.map(createNode(forBox:)))
+                }
+                
+                all.get("names") { request in
+                    let boxes = try Box.query().all()
+                    let names: [Node] = boxes.map { .string($0.name) }
+                    return JSON(.array(names))
+                }
             }
 
             box.get() { request in
