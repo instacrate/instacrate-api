@@ -41,15 +41,15 @@ fileprivate func createNode(forBox box: Box) throws -> Node {
         return node
     }
     
-    return try Node(node: [
-        "numberOfRatings" : .number(.int(relations.reviews.count)),
-        "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average)),
-        
+    let nodes = try [
         "vendor" : relations.vendor.makeNode(),
         "reviews" : .array(reviewNodes),
         "pictures" : .array(relations.pictures.map { try $0.makeNode() }),
-        "box" : box.makeNode()
-    ])
+        "numberOfRatings" : .number(.int(relations.reviews.count)),
+        "averageRating" : .number(.double(relations.reviews.map { $0.rating }.average))
+    ]
+    
+    return try box.makeNode().add(objects: nodes)
 }
 
 extension Node: JSONRepresentable {
