@@ -89,7 +89,7 @@ enum BoxSorting {
     var name: String {
         switch self {
         case .alphabetical:
-            return "alphabetical"
+            return "alpha"
         case .price:
             return "price"
         case .new:
@@ -115,8 +115,23 @@ enum BoxSorting {
 
 extension QueryRepresentable {
     
-    func sort(_ boxSort: BoxSorting) throws -> Query<T> {
-        return try self.sort(boxSort.field, boxSort.direction)
+    func sort(_ boxSort: BoxSorting?) throws -> Query<T> {
+        if let sort = boxSort {
+            return try self.sort(sort.field, sort.direction)
+        }
+        
+        return try self.makeQuery()
+    }
+}
+
+fileprivate extension Request {
+    
+    func sort() throws -> BoxSorting? {
+        guard let sortParameter = self.headers["sort"]?.string else {
+            return nil
+        }
+    
+        return try BoxSorting.sortingType(forString: sortParameter)
     }
 }
 
@@ -159,7 +174,7 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             box.group("all") { all in
                 
                 all.get() { request in
-                    let boxes = try Box.query().all()
+                    let boxes = try Box.query().sort(request.sort()).all()
                     return try Node.array(boxes.map(createNode(forBox:)))
                 }
                 
