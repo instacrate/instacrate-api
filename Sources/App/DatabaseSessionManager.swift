@@ -29,9 +29,13 @@ public final class DatabaseSessionManager: SessionManager {
         let token = CryptoRandom.bytes(16).base64String
         
         var userSession = Session(accessToken: token, user_id: account.uniqueID)
-        try? userSession.save()
         
-        assert(userSession.id != nil, "Expected user session to have an id after saving")
+        do {
+            try userSession.save()
+            assert(userSession.id != nil, "Expected user session to have an id after saving")
+        } catch {
+            print("Error saving user session : \(error)")
+        }
         
         return token
     }

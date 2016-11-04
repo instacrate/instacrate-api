@@ -40,7 +40,7 @@ final class Session: Model, Preparation, JSONConvertible {
     static func prepare(_ database: Database) throws {
         try database.create(self.entity, closure: { vendor in
             vendor.id()
-            vendor.string("url")
+            vendor.string("accessToken")
             vendor.parent(User.self, optional: false)
         })
     }
