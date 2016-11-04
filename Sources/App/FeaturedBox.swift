@@ -12,26 +12,29 @@ import Foundation
 
 final class FeaturedBox: Model, Preparation, JSONConvertible {
     
-    var id: Node?
+    public static var entity = "featured_boxes"
     var exists = false
     
-    public static var entity = "featured_boxes"
-    
+    var id: Node?
+    var type: String
     var box_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
+        type = try node.extract("type")
         box_id = try node.extract("box_id")
     }
     
-    init(id: String? = nil, boxId: String) {
+    init(id: String? = nil, type: String, boxId: String) {
         self.id = id.flatMap { .string($0) }
+        self.type = type
         self.box_id = .string(boxId)
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "box_id" : box_id!
+            "box_id" : box_id!,
+            "type" : type
         ]).add(name: "id", node: id)
     }
     
@@ -39,6 +42,7 @@ final class FeaturedBox: Model, Preparation, JSONConvertible {
         try database.create(self.entity, closure: { box in
             box.id()
             box.parent(Box.self, optional: false)
+            box.string("type")
         })
     }
     

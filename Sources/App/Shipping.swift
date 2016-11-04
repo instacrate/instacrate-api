@@ -46,7 +46,6 @@ final class Shipping: Model, Preparation, JSONConvertible {
     static func prepare(_ database: Database) throws {
         try database.create(self.entity, closure: { shipping in
             shipping.id()
-            shipping.id("user_id")
             shipping.string("address")
             shipping.string("appartment")
             shipping.string("city")

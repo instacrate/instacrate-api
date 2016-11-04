@@ -158,13 +158,18 @@ final class BoxCollection : RouteCollection, EmptyInitializable {
             }
             
             box.get("featured") { request in
-                let boxes = try FeaturedBox.all().flatMap { try $0.box().get() }
+                let boxes = try FeaturedBox.query().filter("type", "featured").all().flatMap { try $0.box().get() }
+                return try Node.array(boxes.map(createNode(forBox:)))
+            }
+            
+            box.get("staffpicks") { request in
+                let boxes = try FeaturedBox.query().filter("type", "staffpicks").all().flatMap { try $0.box().get() }
                 return try Node.array(boxes.map(createNode(forBox:)))
             }
             
             box.get("new") { request in
                 let query = try Box.query().sort("publish_date", .descending)
-                query.limit = Limit(count: 10)
+                query.limit = Limit(count: 4)
                 
                 let boxes = try query.all()
                 

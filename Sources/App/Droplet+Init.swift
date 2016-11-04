@@ -49,7 +49,7 @@ extension Droplet {
                                                  "auth" : AuthMiddleware<User>.createAuthMiddleware(),
                                                  "protect" : ProtectMiddleware.createProtectionMiddleware()],
                            preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
-                                      Pivot<Box, Category>.self, User.self, Session.self],
+                                      Pivot<Box, Category>.self, User.self, Session.self, FeaturedBox.self],
                            providers: [VaporMySQL.Provider.self])
         
         Droplet.instance = drop
