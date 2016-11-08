@@ -53,11 +53,11 @@ final class CreationCollection : RouteCollection, EmptyInitializable {
     
     typealias Wrapped = HTTP.Responder
     
-    private let allowedModels: [String : (JSONInitializable & Model).Type] = ["\(User.self)" : User.self,
-                                                                              "\(Vendor.self)" : Vendor.self,
-                                                                              "\(Review.self)" : Review.self,
-                                                                              "\(Category.self)" : Category.self,
-                                                                              "\(Box.self)" : Box.self]
+    private let allowedModels: [String : (JSONInitializable & Model & FastInitializable).Type] = ["\(User.self)" : User.self,
+                                                                                                  "\(Vendor.self)" : Vendor.self,
+                                                                                                  "\(Review.self)" : Review.self,
+                                                                                                  "\(Category.self)" : Category.self,
+                                                                                                  "\(Box.self)" : Box.self]
     
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
@@ -69,7 +69,7 @@ final class CreationCollection : RouteCollection, EmptyInitializable {
                 throw Abort.custom(status: .badRequest, message: "Table \(table) is not allowed for creation API. Acceptable values are \(self.allowedModels.keys.values)")
             }
             
-            let json: JSON = try perform("malformed or missing json body") { try request.json() }
+            let json: JSON = try perform("Malformed or missing json body. Required values are \(type.requiredJSONFields)") { try request.json() }
             var instance: (JSONInitializable & Model) = try perform("missing json entries or wrong type in json") { try type.init(json: json) }
             
             try perform("error saving to database") { try instance.save() }

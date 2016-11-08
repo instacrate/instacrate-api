@@ -38,7 +38,9 @@ enum ApplicationState: Int {
     case accepted
 }
 
-final class Vendor: Model, Preparation, JSONConvertible {
+final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
+    
+    static var requiredJSONFields = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id or category", "estimatedTotalSubscribers"]
     
     var id: Node?
     var exists = false

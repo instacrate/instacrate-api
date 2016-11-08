@@ -9,13 +9,20 @@
 import Vapor
 import Fluent
 
-final class Shipping: Model, Preparation, JSONConvertible {
+protocol FastInitializable {
+    
+    static var requiredJSONFields: [String] { get }
+}
+
+final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
+    
+    static var requiredJSONFields = ["user_id", "address", "apartment", "city", "state", "zip"]
     
     var id: Node?
     var exists = false
     
     let address: String
-    let appartment: String
+    let apartment: String
     
     let city: String
     let state: String
@@ -25,10 +32,10 @@ final class Shipping: Model, Preparation, JSONConvertible {
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
-        user_id = try? node.extract("user_id")
+        user_id = try node.extract("user_id")
         
         address = try node.extract("address")
-        appartment = try node.extract("appartment")
+        apartment = (try? node.extract("apartment")) ?? ""
         
         city = try node.extract("city")
         state = try node.extract("state")
@@ -47,7 +54,7 @@ final class Shipping: Model, Preparation, JSONConvertible {
         try database.create(self.entity, closure: { shipping in
             shipping.id()
             shipping.string("address")
-            shipping.string("appartment")
+            shipping.string("apartment")
             shipping.string("city")
             shipping.string("state")
             shipping.string("zip")

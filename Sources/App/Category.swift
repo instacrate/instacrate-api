@@ -9,7 +9,9 @@
 import Vapor
 import Fluent
 
-final class Category: Model, Preparation, JSONConvertible {
+final class Category: Model, Preparation, JSONConvertible, FastInitializable {
+    
+    static var requiredJSONFields = ["name"]
     
     var id: Node?
     var exists = false

@@ -12,7 +12,9 @@ import Foundation
 
 import HTTP
 
-final class Box: Model, Preparation, JSONConvertible {
+final class Box: Model, Preparation, JSONConvertible, FastInitializable {
+    
+    static var requiredJSONFields = ["name", "brief", "long_desc", "short_desc", "bullets", "freq", "price", "vendor_id"]
     
     var id: Node?
     var exists = false
@@ -40,20 +42,7 @@ final class Box: Model, Preparation, JSONConvertible {
         freq = try node.extract("freq")
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
-        publish_date = try Date(timeIntervalSince1970: TimeInterval(node.extract("publish_date") as Int))
-    }
-    
-    init(id: String? = nil, name: String, brief: String, long_desc: String, short_desc: String, bullets: [String], freq: String, price: Double, vendor_id: String, publish_date: Date) {
-        self.id = id.flatMap { .string($0) }
-        self.name = name
-        self.brief = brief
-        self.long_desc = long_desc
-        self.short_desc = short_desc
-        self.bullets = bullets
-        self.freq = freq
-        self.vendor_id = .string(vendor_id)
-        self.price = price
-        self.publish_date = publish_date
+        publish_date = (try? node.extract("publish_date")) ?? Date()
     }
     
     func makeNode(context: Context) throws -> Node {

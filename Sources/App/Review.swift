@@ -8,15 +8,18 @@
 
 import Vapor
 import Fluent
+import Foundation
 
-final class Review: Model, Preparation, JSONConvertible {
+final class Review: Model, Preparation, JSONConvertible, FastInitializable {
+    
+    static var requiredJSONFields = ["text", "rating", "date", "box_id", "user_id"]
     
     var id: Node?
     var exists = false
     
     let text: String
     let rating: Int
-    let date: String
+    let date: Date
     
     var box_id: Node?
     var user_id: Node?
@@ -25,25 +28,16 @@ final class Review: Model, Preparation, JSONConvertible {
         id = try? node.extract("id")
         text = try node.extract("text")
         rating = try node.extract("rating")
-        date = try node.extract("date")
+        date = (try? node.extract("date")) ?? Date()
         box_id = try node.extract("box_id")
         user_id = try node.extract("user_id")
-    }
-    
-    init(id: String? = nil, text: String, rating: Int, date: String, box_id: String, user_id: String) {
-        self.id = id.flatMap { .string($0) }
-        self.text = text
-        self.rating = rating
-        self.date = date
-        self.box_id = .string(box_id)
-        self.user_id = .string(user_id)
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "text" : .string(text),
             "rating" : .number(.int(rating)),
-            "date" : .string(date),
+            "date" : .string(date.ISO8601String),
             "box_id" : box_id!,
             "user_id" : user_id!
         ]).add(name: "id", node: id)
