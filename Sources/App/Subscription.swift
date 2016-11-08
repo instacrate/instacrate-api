@@ -79,10 +79,11 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
         sub_id = try? node.extract("sub_id")
     }
     
-    init(withStripeSubscriptionId id: String, forBox box: Box, forUser user: User) {
+    init(withId id: String, box: Box, user: User, shipping: Shipping) {
         sub_id = id
         box_id = box.id
         user_id = user.id
+        shipping_id = shipping.id
         date = Date()
         active = true
     }

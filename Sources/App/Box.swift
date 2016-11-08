@@ -45,6 +45,7 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
         publish_date = (try? node.extract("publish_date")) ?? Date()
+        plan_id = try? node.extract("plan_id")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -57,8 +58,9 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
             "freq" : .string(freq),
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!,
-            "publish_date" : .number(.double(publish_date.timeIntervalSince1970))
-        ]).add(name: "id", node: id)
+            "publish_date" : .string(publish_date.ISO8601String),
+        ]).add(objects: ["id" : id,
+                         "plan_id" : plan_id])
     }
     
     static func prepare(_ database: Database) throws {
@@ -72,6 +74,7 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
             box.string("freq")
             box.double("price")
             box.double("publish_date")
+            box.string("plan_id")
             box.parent(Vendor.self, optional: false)
         })
     }

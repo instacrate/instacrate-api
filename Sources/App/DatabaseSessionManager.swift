@@ -44,6 +44,6 @@ public final class DatabaseSessionManager: SessionManager {
      Destroys the session for a session identifier.
      */
     public func destroySession(identifier: String) {
-        try? Session.query().filter("access_token", identifier).first()?.delete()
+        try? Session.query().filter("accessToken", identifier).first()?.delete()
     }
 }

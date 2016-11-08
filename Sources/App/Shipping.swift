@@ -35,7 +35,7 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
         user_id = try node.extract("user_id")
         
         address = try node.extract("address")
-        apartment = (try? node.extract("apartment")) ?? ""
+        apartment = try node.extract("apartment")
         
         city = try node.extract("city")
         state = try node.extract("state")
@@ -45,9 +45,12 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "address" : .string(address),
+            "apartment" : .string(apartment),
+            "city" : .string(city),
+            "state" : .string(state),
+            "zip" : .string(zip),
             "user_id" : user_id!
-        ]).add(objects: ["id" : id,
-                         "user_id" : user_id])
+        ]).add(objects: ["id" : id])
     }
     
     static func prepare(_ database: Database) throws {
