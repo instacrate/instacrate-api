@@ -8,13 +8,16 @@
 
 import Vapor
 import Fluent
+import Foundation
 
-final class Order: Model, Preparation, JSONConvertible {
+final class Order: Model, Preparation, JSONConvertible, FastInitializable {
+    
+    static var requiredJSONFields = ["fulfulled", "subscription_id", "shipping_id"]
     
     var id: Node?
     var exists = false
     
-    let date: String
+    let date: Date
     let fulfilled: Bool
     
     var subscription_id: Node?
@@ -22,31 +25,15 @@ final class Order: Model, Preparation, JSONConvertible {
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
-        date = try node.extract("url")
+        date = (try? node.extract("date")) ?? Date()
         fulfilled = try node.extract("fulfilled")
         subscription_id = try node.extract("subscription_id")
         shipping_id = try node.extract("shipping_id")
     }
-    
-    init(id: String? = nil, date: String, fulfilled: Bool, subscription_id: Node, shipping_id: Node) {
-        self.id = id.flatMap { .string($0) }
-        self.date = date
-        self.fulfilled = fulfilled
-        self.subscription_id = subscription_id
-        self.shipping_id = shipping_id
-    }
-    
-    convenience init(subscription: Subscription, shipping: Shipping) {
-        precondition(shipping.id != nil, "Shipping model does not have an id, save to database first?")
-        precondition(subscription.id != nil, "Subscription model does not have an id, save to database first?")
-        
-        // TODO : Dates
-        self.init(date: "", fulfilled: false, subscription_id: subscription.id!, shipping_id: shipping.id!)
-    }
-    
+
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
-            "date" : .string(date),
+            "date" : .string(date.ISO8601String),
             "fulfilled" : .bool(fulfilled),
             "subscription_id" : subscription_id!,
             "shipping_id" : shipping_id!

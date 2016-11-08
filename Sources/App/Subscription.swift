@@ -50,7 +50,9 @@ extension Date: NodeConvertible {
     }
 }
 
-final class Subscription: Model, Preparation, JSONConvertible {
+final class Subscription: Model, Preparation, JSONConvertible, FastInitializable {
+    
+    static var requiredJSONFields = ["box_id", "shipping_id"]
     
     var id: Node?
     var exists = false
