@@ -30,6 +30,8 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
     let price: Double
     let publish_date: Date
     
+    var plan_id: String?
+    
     var vendor_id: Node?
     
     init(node: Node, in context: Context) throws {

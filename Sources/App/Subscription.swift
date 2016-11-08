@@ -52,7 +52,7 @@ extension Date: NodeConvertible {
 
 final class Subscription: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["box_id", "shipping_id"]
+    static var requiredJSONFields = ["box_id", "shipping_id", "user_id"]
     
     var id: Node?
     var exists = false
@@ -62,6 +62,9 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
     
     var box_id: Node?
     var shipping_id: Node?
+    var user_id: Node?
+    
+    var sub_id: String?
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
@@ -71,6 +74,17 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
         
         box_id = try node.extract("box_id")
         shipping_id = try node.extract("shipping_id")
+        user_id = try node.extract("user_id")
+        
+        sub_id = try? node.extract("sub_id")
+    }
+    
+    init(withStripeSubscriptionId id: String, forBox box: Box, forUser user: User) {
+        sub_id = id
+        box_id = box.id
+        user_id = user.id
+        date = Date()
+        active = true
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -78,8 +92,10 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
             "date" : .string(date.ISO8601String),
             "active" : .bool(active),
             "box_id" : box_id!,
-            "shipping_id" : shipping_id!
-        ]).add(name: "id", node: id)
+            "shipping_id" : shipping_id!,
+            "user_id" : user_id!
+        ]).add(objects: ["id" : id,
+                         "sub_id" : sub_id])
     }
     
     static func prepare(_ database: Database) throws {
@@ -87,8 +103,10 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
             subscription.id()
             subscription.string("date")
             subscription.bool("active")
+            subscription.string("sub_id")
             subscription.parent(Box.self, optional: false)
             subscription.parent(Shipping.self, optional: false)
+            subscription.parent(User.self, optional: false)
         })
     }
     
@@ -109,6 +127,10 @@ extension Subscription {
     
     func box() throws -> Parent<Box> {
         return try parent(box_id)
+    }
+    
+    func user() throws -> Parent<User> {
+        return try parent(user_id)
     }
 }
 

@@ -24,7 +24,7 @@ final class User: Model, Preparation, JSONConvertible, FastInitializable {
     let password: String
     let salt: BCryptSalt
     
-    let stripe_id: String?
+    var stripe_id: String?
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
@@ -72,14 +72,6 @@ final class User: Model, Preparation, JSONConvertible, FastInitializable {
     
     static func hashed(password: String, salt: BCryptSalt) -> String {
         return BCrypt.hash(password: password, salt: salt)
-    }
-    
-    func createStripeID() throws -> String {
-        guard let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)?.base64EncodedString() else {
-            throw Abort.custom(status: .internalServerError, message: "Failed to encode secret key.")
-        }
-        return ""
-//        drop.client.post("https://api.stripe.com/v1/customers", headers: ["Authentication" : "Basic \(authString)"], query: ["source" : "tok_19DMWqDIUJ4Quxdky9tpcvyS"], body: <#T##BodyRepresentable#>)
     }
 }
 
