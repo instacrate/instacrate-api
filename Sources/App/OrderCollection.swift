@@ -24,10 +24,6 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
         
         builder.group("order") { order in
             
-            order.post() { request in
-                
-            }
-            
             order.post(Subscription.self, Shipping.self) { request, subscription, shipping in
                 
                 let user = try request.user()

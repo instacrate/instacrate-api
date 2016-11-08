@@ -78,8 +78,8 @@ final class User: Model, Preparation, JSONConvertible, FastInitializable {
         guard let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)?.base64EncodedString() else {
             throw Abort.custom(status: .internalServerError, message: "Failed to encode secret key.")
         }
-        
-        drop.client.post("https://api.stripe.com/v1/customers", headers: ["Authentication" : "Basic \(authString)"], query: ["source" : "tok_19DMWqDIUJ4Quxdky9tpcvyS"], body: <#T##BodyRepresentable#>)
+        return ""
+//        drop.client.post("https://api.stripe.com/v1/customers", headers: ["Authentication" : "Basic \(authString)"], query: ["source" : "tok_19DMWqDIUJ4Quxdky9tpcvyS"], body: <#T##BodyRepresentable#>)
     }
 }
 
