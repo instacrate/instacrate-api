@@ -23,29 +23,11 @@ extension SessionsMiddleware {
     }
 }
 
-class AppProtect: Middleware {
+extension ProtectMiddleware {
     
-    public let error: Error
-    public init(error: Error) {
-        self.error = error
-    }
-    
-    public func respond(to request: Request, chainingTo next: Responder) throws -> Response {
-        Droplet.instance?.console.info("cookies \(request.cookies)", newLine: true)
-        
-        guard let subject = request.storage["subject"] as? Subject else {
-            throw error
-        }
-        
-        return try next.respond(to: request)
-    }
-}
-
-extension AppProtect {
-    
-    class func createProtectionMiddleware() -> AppProtect {
+    class func createProtectionMiddleware() -> ProtectMiddleware {
         let error = Abort.custom(status: .forbidden, message: "Authentication required")
-        return AppProtect(error: error)
+        return ProtectMiddleware(error: error)
     }
 }
 
@@ -58,6 +40,14 @@ extension AuthMiddleware {
     }
 }
 
+class CookieLogger: Middleware {
+    
+    func respond(to request: Request, chainingTo next: Responder) throws -> Response {
+        drop.console.info("cookies \(request.cookies)", newLine: true)
+        return try next.respond(to: request)
+    }
+}
+
 extension Droplet {
     
     static var instance: Droplet?
@@ -66,7 +56,8 @@ extension Droplet {
 
         let drop = Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
                                                  "auth" : AuthMiddleware<User>.createAuthMiddleware(),
-                                                 "protect" : AppProtect.createProtectionMiddleware()],
+                                                 "protect" : ProtectMiddleware.createProtectionMiddleware(),
+                                                 "logger" : CookieLogger()],
                            preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
                                       Pivot<Box, Category>.self, User.self, Session.self, FeaturedBox.self],
                            providers: [VaporMySQL.Provider.self])
