@@ -31,7 +31,7 @@ class AppProtect: Middleware {
     }
     
     public func respond(to request: Request, chainingTo next: Responder) throws -> Response {
-        drop.console.info("cookies \(request.cookies)", newLine: true)
+        Droplet.instance?.console.info("cookies \(request.cookies)", newLine: true)
         
         guard let subject = request.storage["subject"] as? Subject else {
             throw error
