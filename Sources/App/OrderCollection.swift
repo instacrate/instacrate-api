@@ -21,7 +21,11 @@ final class Stripe {
     static func createStripeCustomer(forUser user: inout User, withPaymentSource source: Token) throws -> Token {
         
         let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)!.base64EncodedString()
-        let json = try drop.client.post("https://api.stripe.com/v1/customers", headers: ["Authorization" : "Basic \(authString)"], query: ["source" : source]).json()
+        let response = try drop.client.post("https://api.stripe.com/v1/customers", headers: ["Authorization" : "Basic \(authString)"], query: ["source" : source])
+        
+        guard let json = try? response.json() else {
+            throw Abort.custom(status: .internalServerError, message: response.description)
+        }
         
         guard let customer_id = json["id"]?.string else {
             throw Abort.custom(status: .internalServerError, message: response.description)
