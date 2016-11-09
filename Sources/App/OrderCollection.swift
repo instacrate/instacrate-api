@@ -45,7 +45,7 @@ final class Stripe {
         }
         
         guard let card_id = json["id"]?.string else {
-            throw Abort.custom(status: .internalServerError, message: json.object?.description ?? "Unknown error.")
+            throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
         return card_id
