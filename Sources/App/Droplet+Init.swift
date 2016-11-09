@@ -13,12 +13,31 @@ import VaporMySQL
 import Fluent
 import Auth
 import Turnstile
+import HTTP
 
 extension SessionsMiddleware {
     
     class func createSessionsMiddleware() -> SessionsMiddleware {
         let memory = MemorySessions()
         return SessionsMiddleware(sessions: memory)
+    }
+}
+
+class AppProtect: Middleware {
+    
+    public let error: Error
+    public init(error: Error) {
+        self.error = error
+    }
+    
+    public func respond(to request: Request, chainingTo next: Responder) throws -> Response {
+        drop.console.info("cookies \(request.cookies)", newLine: true)
+        
+        guard let subject = request.storage["subject"] as? Subject else {
+            throw error
+        }
+        
+        return try next.respond(to: request)
     }
 }
 
