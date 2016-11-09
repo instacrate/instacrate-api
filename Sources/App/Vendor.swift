@@ -85,7 +85,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
         publicWebsite = try node.extract("publicWebsite")
         
         established = try node.extract("established")
-        dateCreated = try node.extract("dateCreated") { Date(timeIntervalSince1970: $0) }
+        dateCreated = (try? node.extract("dateCreated")) ?? Date()
         
         estimatedTotalSubscribers = try node.extract("estimatedTotalSubscribers")
         
@@ -108,7 +108,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             "estimatedTotalSubscribers" : .number(.int(estimatedTotalSubscribers)),
             
             "established" : .string(established),
-            "dateCreated" : .number(.double(dateCreated.timeIntervalSince1970)),
+            "dateCreated" : .string(dateCreated.ISO8601String),
         ]).add(objects: ["id" : id,
                          "category_id" : category_id,
                          "cut" : cut,
@@ -129,7 +129,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             vendor.double("cut")
             vendor.string("estimatedTotalSubscribers")
             vendor.string("established")
-            vendor.double("dateCreated")
+            vendor.string("dateCreated")
             vendor.string("username")
             vendor.double("applicationState")
             vendor.string("password")
