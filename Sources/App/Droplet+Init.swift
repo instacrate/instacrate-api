@@ -41,11 +41,11 @@ class AppProtect: Middleware {
     }
 }
 
-extension ProtectMiddleware {
+extension AppProtect {
     
-    class func createProtectionMiddleware() -> ProtectMiddleware {
+    class func createProtectionMiddleware() -> AppProtect {
         let error = Abort.custom(status: .forbidden, message: "Authentication required")
-        return ProtectMiddleware(error: error)
+        return AppProtect(error: error)
     }
 }
 
@@ -66,7 +66,7 @@ extension Droplet {
 
         let drop = Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
                                                  "auth" : AuthMiddleware<User>.createAuthMiddleware(),
-                                                 "protect" : ProtectMiddleware.createProtectionMiddleware()],
+                                                 "protect" : AppProtect.createProtectionMiddleware()],
                            preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
                                       Pivot<Box, Category>.self, User.self, Session.self, FeaturedBox.self],
                            providers: [VaporMySQL.Provider.self])
