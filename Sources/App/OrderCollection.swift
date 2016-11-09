@@ -109,9 +109,11 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
                     var user = try request.user()
                     
                     if user.stripe_id != nil {
+                        drop.console.info("here")
                         _ = try Stripe.associate(paymentSource: token, withUser: user)
                         return try Response(status: .created, json: JSON(node: []))
                     } else {
+                        drop.console.info("here1")
                         let id = try Stripe.createStripeCustomer(forUser: &user, withPaymentSource: token)
                         return try Response(status: .created, json: JSON(node: ["id" : id]))
                     }
