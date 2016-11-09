@@ -69,7 +69,7 @@ final class Stripe {
         }
         
         guard json["id"]?.string != nil else {
-            throw Abort.custom(status: .internalServerError, message: json.object?.description ?? "Unkown error.")
+            throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
         box.plan_id = planId
@@ -85,7 +85,7 @@ final class Stripe {
         }
         
         guard let subscription_id = json["id"]?.string else {
-            throw Abort.custom(status: .internalServerError, message: json.object?.description ?? "Unkown error.")
+            throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
         return subscription_id
