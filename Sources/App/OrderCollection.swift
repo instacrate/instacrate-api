@@ -24,7 +24,7 @@ final class Stripe {
         let json = try drop.client.post("https://api.stripe.com/v1/customers", headers: ["Authorization" : "Basic \(authString)"], query: ["source" : source]).json()
         
         guard let customer_id = json["id"]?.string else {
-            throw Abort.custom(status: .internalServerError, message: json.string ?? "Unkown error.")
+            throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
         user.stripe_id = customer_id
