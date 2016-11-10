@@ -81,6 +81,10 @@ final class Stripe {
     }
     
     static func createSubscription(forUser user: User, forBox box: Box) throws -> String {
+        
+        precondition(user.stripe_id != nil, "User must have a stripe id.")
+        precondition(box.plan_id != nil, "Box must have a plan id.")
+        
         let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)!.base64EncodedString()
         let response = try drop.client.post("https://api.stripe.com/v1/subscriptions", headers: ["Authorization" : "Basic \(authString)"], query: ["customer" : user.stripe_id!, "plan" : box.plan_id!])
         
@@ -93,6 +97,22 @@ final class Stripe {
         }
         
         return subscription_id
+    }
+    
+    static func paymentMethods(forUser user: User) throws -> JSON {
+        
+        let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)!.base64EncodedString()
+        let response = try drop.client.get("https://api.stripe.com/v1/customers/\(user.stripe_id!)/sources?object=card", headers: ["Authorization" : "Basic \(authString)"])
+        
+        guard let json = try? response.json() else {
+            throw Abort.custom(status: .internalServerError, message: response.description)
+        }
+        
+        guard let cards = try json["data"]?.makeJSON() else {
+            throw Abort.custom(status: .internalServerError, message: response.description)
+        }
+        
+        return cards
     }
 }
 
@@ -142,6 +162,26 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
                     return Response(status: .created)
                 }
             }
+        }
+        
+        builder.grouped(drop.protect()).group("user") { user in
+            
+            user.get("shipping") { request in
+                guard let user = try? request.user() else {
+                    throw Abort.custom(status: .internalServerError, message: "No user.")
+                }
+                
+                return try Node.array(user.shippingAddresses().all().map { try $0.makeNode() })
+            }
+            
+            user.get("payment") { request in
+                guard let user = try? request.user() else {
+                    throw Abort.custom(status: .internalServerError, message: "No user.")
+                }
+                
+                return try Stripe.paymentMethods(forUser: user)
+            }
+            
         }
     }
 }

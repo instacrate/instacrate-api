@@ -49,7 +49,7 @@ class CookieLogger: Middleware {
 
         let response = try next.respond(to: request)
         
-        if request.cookies.array.count > 0 {
+        if response.status.statusCode > 299 || response.status.statusCode < 200 {
             drop.console.info(response.description, newLine: true)
         }
         
