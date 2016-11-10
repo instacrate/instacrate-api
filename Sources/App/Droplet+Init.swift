@@ -43,9 +43,8 @@ extension AuthMiddleware {
 class CookieLogger: Middleware {
     
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
-        if request.cookies.array.count > 0 {
-            drop.console.info("cookies \(request.cookies)", newLine: true)
-        }
+        
+        drop.console.info("cookies \(request.cookies)", newLine: true)
 
         let response = try next.respond(to: request)
         
