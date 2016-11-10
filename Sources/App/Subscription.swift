@@ -55,7 +55,11 @@ enum Frequency: String, StringInitializable {
     case monthly = "monthly"
     
     init?(from string: String) throws {
-        return Frequency.init(rawValue: string)
+        guard let frequency = Frequency.init(rawValue: string) else {
+            return nil
+        }
+        
+        self = frequency
     }
 }
 
