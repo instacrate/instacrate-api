@@ -50,6 +50,15 @@ extension Date: NodeConvertible {
     }
 }
 
+enum Frequency: String, StringInitializable {
+    case once = "once"
+    case monthly = "monthly"
+    
+    init?(from string: String) throws {
+        return Frequency.init(rawValue: string)
+    }
+}
+
 final class Subscription: Model, Preparation, JSONConvertible, FastInitializable {
     
     static var requiredJSONFields = ["box_id", "shipping_id", "user_id"]
@@ -59,6 +68,7 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
     
     let date: Date
     let active: Bool
+    let frequency: Frequency
     
     var box_id: Node?
     var shipping_id: Node?
@@ -72,6 +82,10 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
         date = (try? node.extract("date")) ?? Date()
         active = (try? node.extract("active")) ?? true
         
+        frequency = try node.extract("frequency") { (freq: String) in
+            return Frequency.init(rawValue: freq)
+        } ?? .monthly
+        
         box_id = try node.extract("box_id")
         shipping_id = try node.extract("shipping_id")
         user_id = try node.extract("user_id")
@@ -79,13 +93,14 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
         sub_id = try? node.extract("sub_id")
     }
     
-    init(withId id: String, box: Box, user: User, shipping: Shipping) {
+    init(withId id: String, box: Box, user: User, shipping: Shipping, freq: Frequency = .monthly) {
         sub_id = id
         box_id = box.id
         user_id = user.id
         shipping_id = shipping.id
         date = Date()
         active = true
+        frequency = freq
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -94,7 +109,8 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
             "active" : .bool(active),
             "box_id" : box_id!,
             "shipping_id" : shipping_id!,
-            "user_id" : user_id!
+            "user_id" : user_id!,
+            "frequency" : .string(frequency.rawValue)
         ]).add(objects: ["id" : id,
                          "sub_id" : sub_id])
     }
@@ -105,6 +121,7 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
             subscription.string("date")
             subscription.bool("active")
             subscription.string("sub_id")
+            subscription.string("frequency")
             subscription.parent(Box.self, optional: false)
             subscription.parent(Shipping.self, optional: false)
             subscription.parent(User.self, optional: false)

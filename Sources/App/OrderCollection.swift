@@ -80,7 +80,7 @@ final class Stripe {
         try box.save()
     }
     
-    static func createSubscription(forUser user: User, forBox box: Box) throws -> String {
+    static func createSubscription(forUser user: User, forBox box: Box, withFrequency frequency: Frequency = .monthly) throws -> String {
         
         precondition(user.stripe_id != nil, "User must have a stripe id.")
         precondition(box.plan_id != nil, "Box must have a plan id.")
@@ -143,7 +143,7 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
                     }
                 }
                 
-                customer.post("subscribe", Box.self, Shipping.self) { request, _box, shipping in
+                customer.grouped("subscribe").post(Box.self, Shipping.self, String.self) { request, _box, shipping, frequency in
                     
                     var box = _box
                     
@@ -166,18 +166,18 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
         
         builder.grouped(drop.protect()).group("user") { user in
             
-            user.get("shipping") { request in
-                guard let user = try? request.user() else {
-                    throw Abort.custom(status: .internalServerError, message: "No user.")
-                }
+            user.get("shipping", User.self) { request, user in
+//                guard let user = try? request.user() else {
+//                    throw Abort.custom(status: .internalServerError, message: "No user.")
+//                }
                 
                 return try Node.array(user.shippingAddresses().all().map { try $0.makeNode() })
             }
             
-            user.get("payment") { request in
-                guard let user = try? request.user() else {
-                    throw Abort.custom(status: .internalServerError, message: "No user.")
-                }
+            user.get("payment", User.self) { request, user in
+//                guard let user = try? request.user() else {
+//                    throw Abort.custom(status: .internalServerError, message: "No user.")
+//                }
                 
                 return try Stripe.paymentMethods(forUser: user)
             }
