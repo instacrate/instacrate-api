@@ -23,28 +23,12 @@ extension SessionsMiddleware {
     }
 }
 
-extension ProtectMiddleware {
-    
-    class func createProtectionMiddleware() -> ProtectMiddleware {
-        let error = Abort.custom(status: .forbidden, message: "Authentication required")
-        return ProtectMiddleware(error: error)
-    }
-}
-
-extension AuthMiddleware {
-    
-    class func createAuthMiddleware() -> AuthMiddleware<User> {
-        let realm = AuthenticatorRealm<User>()
-        let sessionManager = DatabaseSessionManager(realm: realm)
-        return AuthMiddleware<User>(turnstile: Turnstile(sessionManager: sessionManager, realm: realm), makeCookie: nil)
-    }
-}
-
-class CookieLogger: Middleware {
+class Logger: Middleware {
     
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
         
-        drop.console.info("request \(request.description)", newLine: true)
+        drop.console.info("", newLine: true)
+        drop.console.info("\(request.description)", newLine: true)
         
         if request.cookies.array.count > 0 {
             drop.console.info("cookies \(request.cookies)", newLine: true)
@@ -52,9 +36,8 @@ class CookieLogger: Middleware {
 
         let response = try next.respond(to: request)
         
-        if response.status.statusCode > 299 || response.status.statusCode < 200 {
-            drop.console.info(response.description, newLine: true)
-        }
+        drop.console.info("", newLine: true)
+        drop.console.info(response.description, newLine: true)
         
         return response
     }
@@ -67,18 +50,24 @@ extension Droplet {
     internal static func create() -> Droplet {
 
         let drop = Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
-                                                 "auth" : AuthMiddleware<User>.createAuthMiddleware(),
-                                                 "protect" : ProtectMiddleware.createProtectionMiddleware(),
-                                                 "logger" : CookieLogger()],
+                                                 "vendorAuth" : UserAuthMiddleware(),
+                                                 "userAuth" : VendorAuthMiddleware(),
+                                                 "logger" : Logger()],
                            preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
-                                      Pivot<Box, Category>.self, User.self, Session.self, FeaturedBox.self],
+                                      Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self],
                            providers: [VaporMySQL.Provider.self])
         
         Droplet.instance = drop
         return drop
     }
     
-    internal func protect() -> ProtectMiddleware {
-        return availableMiddleware["protect"] as! ProtectMiddleware
+    static let userProtect = UserProtectMiddleware()
+    static let vendorProtect = VendorProtectMiddleware()
+    
+    static func protect(_ type: SessionType) -> Middleware {
+        switch type {
+        case .user: return userProtect
+        case .vendor: return vendorProtect
+        }
     }
 }

@@ -8,6 +8,9 @@
 
 import Vapor
 import Fluent
+import Auth
+import Turnstile
+import BCrypt
 import Foundation
 
 extension Node {
@@ -30,12 +33,36 @@ protocol Updateable: Model {
     func update(withJSON json: JSON) throws
 }
 
-enum ApplicationState: Int {
+enum ApplicationState: String, NodeConvertible {
     
-    case none = 0
-    case recieved
-    case rejected
-    case accepted
+    case none = "none"
+    case recieved = "recieved"
+    case rejected = "rejected"
+    case accepted = "accepted"
+    
+    init(node: Node, in context: Context) throws {
+        
+        guard let state = node.string.flatMap ({ ApplicationState(rawValue: $0) }) else {
+            throw Abort.custom(status: .badRequest, message: "Invalid value for application state.")
+        }
+        
+        self = state
+    }
+    
+    func makeNode(context: Context = EmptyNode) throws -> Node {
+        return .string(rawValue)
+    }
+}
+
+extension BCryptSalt: NodeInitializable {
+    
+    public init(node: Node, in context: Context) throws {
+        guard let salt = try node.string.flatMap ({ try BCryptSalt(string: $0) }) else {
+            throw Abort.custom(status: .badRequest, message: "Invalid salt.")
+        }
+        
+        self = salt
+    }
 }
 
 final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
@@ -64,6 +91,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
 
     var username: String?
     var password: String?
+    var salt: BCryptSalt?
     
     let cut: Double?
     
@@ -71,9 +99,13 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
         
         id = try? node.extract("id")
         
-        applicationState = try node.extract("applicationState") { (value: Int) in
-            return ApplicationState(rawValue: value)
-        } ?? .none
+        applicationState = try node.extract("applicationState")
+        
+        if applicationState == .accepted {
+            username = try node.extract("username")
+            password = try node.extract("password")
+            salt = try node.extract("salt")
+        }
         
         contactName = try node.extract("contactName")
         businessName = try node.extract("businessName")
@@ -99,7 +131,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             "contactName" : .string(contactName),
             "businessName" : .string(businessName),
             "parentCompanyName" : .string(parentCompanyName),
-            "applicationState" : .number(.int(applicationState.rawValue)),
+            "applicationState" : applicationState.makeNode(),
             
             "contactPhone" : .string(contactPhone),
             "contactEmail" : .string(contactEmail),
@@ -113,7 +145,8 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
                          "category_id" : category_id,
                          "cut" : cut,
                          "username" : username,
-                         "password": password])
+                         "password": password,
+                         "salt" : salt?.string])
     }
     
     static func prepare(_ database: Database) throws {
@@ -131,8 +164,9 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             vendor.string("established")
             vendor.string("dateCreated")
             vendor.string("username")
-            vendor.double("applicationState")
             vendor.string("password")
+            vendor.string("salt")
+            vendor.double("applicationState")
             vendor.parent(Category.self, optional: false)
         })
     }
@@ -157,16 +191,19 @@ extension Vendor: Updateable {
     
     func update(withJSON json: JSON) throws {
         let node = json.makeNode()
-        
-        guard let state = try? node.extract("applicationState") as Int else {
+    
+        guard let state: ApplicationState = try node.extract("applicationState") else {
             throw Abort.custom(status: .badRequest, message: "Missing application state in json body.")
         }
         
-        self.applicationState = ApplicationState(rawValue: state) ?? .none
+        self.applicationState = state
         
         if self.applicationState == .accepted {
             username = try node.extract("username")
-            password = try node.extract("password")
+            salt = BCryptSalt()
+            
+            let plainTextPassword = try node.extract("password") as String
+            password = BCrypt.hash(password: plainTextPassword, salt: salt!)
         }
     }
 }
@@ -183,5 +220,47 @@ extension Vendor: Relationable {
         }
         
         return (boxes, category)
+    }
+}
+
+extension Vendor: User {
+    
+    static func authenticate(credentials: Credentials) throws -> Auth.User {
+        
+        switch credentials {
+            
+        case let token as AccessToken:
+            let session = try Session.session(forToken: token, type: .vendor)
+            
+            guard let vendor = try session.vendor().first() else {
+                throw AuthError.invalidCredentials
+            }
+            
+            return vendor
+            
+        case let usernamePassword as UsernamePassword:
+            let query = try Vendor.query().filter("username", usernamePassword.username).filter("applicationState", ApplicationState.accepted)
+            
+            guard let vendor = try query.first() else {
+                throw AuthError.invalidCredentials
+            }
+            
+            guard let salt = vendor.salt else {
+                throw Abort.custom(status: .internalServerError, message: "Missing salt for vendor with id \(vendor.id!)")
+            }
+            
+            if BCrypt.hash(password: usernamePassword.password, salt: salt) == vendor.password {
+                return vendor
+            } else {
+                throw AuthError.invalidBasicAuthorization
+            }
+            
+        default:
+            throw AuthError.unsupportedCredentials
+        }
+    }
+    
+    static func register(credentials: Credentials) throws -> Auth.User {
+        throw Abort.custom(status: .badRequest, message: "Register not supported.")
     }
 }

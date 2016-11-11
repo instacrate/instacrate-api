@@ -12,7 +12,7 @@ import Foundation
 
 final class Review: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["text", "rating", "date", "box_id", "user_id"]
+    static var requiredJSONFields = ["text", "rating", "date", "box_id", "customer_id"]
     
     var id: Node?
     var exists = false
@@ -22,7 +22,7 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
     let date: Date
     
     var box_id: Node?
-    var user_id: Node?
+    var customer_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
@@ -30,7 +30,7 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
         rating = try node.extract("rating")
         date = (try? node.extract("date")) ?? Date()
         box_id = try node.extract("box_id")
-        user_id = try node.extract("user_id")
+        customer_id = try node.extract("customer_id")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -39,7 +39,7 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
             "rating" : .number(.int(rating)),
             "date" : .string(date.ISO8601String),
             "box_id" : box_id!,
-            "user_id" : user_id!
+            "customer_id" : customer_id!
         ]).add(name: "id", node: id)
     }
     
@@ -50,7 +50,7 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
             box.string("rating")
             box.string("date")
             box.parent(Box.self, optional: false)
-            box.parent(User.self, optional: false)
+            box.parent(Customer.self, optional: false)
         })
     }
     
@@ -65,16 +65,16 @@ extension Review {
         return try parent(box_id)
     }
     
-    func user() throws -> Parent<User> {
-        return try parent(user_id)
+    func user() throws -> Parent<Customer> {
+        return try parent(customer_id)
     }
 }
 
 extension Review: Relationable {
     
-    typealias Relations = (user: User, box: Box)
+    typealias Relations = (user: Customer, box: Box)
 
-    func relations() throws -> (user: User, box: Box) {
+    func relations() throws -> (user: Customer, box: Box) {
         guard let user = try self.user().get() else {
             throw Abort.custom(status: .internalServerError, message: "Missing user relation for review with text \(text)")
         }

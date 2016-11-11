@@ -65,7 +65,7 @@ enum Frequency: String, StringInitializable {
 
 final class Subscription: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["box_id", "shipping_id", "user_id"]
+    static var requiredJSONFields = ["box_id", "shipping_id", "customer_id"]
     
     var id: Node?
     var exists = false
@@ -76,7 +76,7 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
     
     var box_id: Node?
     var shipping_id: Node?
-    var user_id: Node?
+    var customer_id: Node?
     
     var sub_id: String?
     
@@ -92,15 +92,15 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
         
         box_id = try node.extract("box_id")
         shipping_id = try node.extract("shipping_id")
-        user_id = try node.extract("user_id")
+        customer_id = try node.extract("customer_id")
         
         sub_id = try? node.extract("sub_id")
     }
     
-    init(withId id: String, box: Box, user: User, shipping: Shipping, freq: Frequency = .monthly) {
+    init(withId id: String, box: Box, user: Customer, shipping: Shipping, freq: Frequency = .monthly) {
         sub_id = id
         box_id = box.id
-        user_id = user.id
+        customer_id = user.id
         shipping_id = shipping.id
         date = Date()
         active = true
@@ -113,7 +113,7 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
             "active" : .bool(active),
             "box_id" : box_id!,
             "shipping_id" : shipping_id!,
-            "user_id" : user_id!,
+            "customer_id" : customer_id!,
             "frequency" : .string(frequency.rawValue)
         ]).add(objects: ["id" : id,
                          "sub_id" : sub_id])
@@ -128,7 +128,7 @@ final class Subscription: Model, Preparation, JSONConvertible, FastInitializable
             subscription.string("frequency")
             subscription.parent(Box.self, optional: false)
             subscription.parent(Shipping.self, optional: false)
-            subscription.parent(User.self, optional: false)
+            subscription.parent(Customer.self, optional: false)
         })
     }
     
@@ -151,8 +151,8 @@ extension Subscription {
         return try parent(box_id)
     }
     
-    func user() throws -> Parent<User> {
-        return try parent(user_id)
+    func user() throws -> Parent<Customer> {
+        return try parent(customer_id)
     }
 }
 

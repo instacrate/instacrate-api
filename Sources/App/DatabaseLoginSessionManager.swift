@@ -9,8 +9,9 @@
 import Turnstile
 import Random
 import Cache
+import Foundation
 
-public final class DatabaseSessionManager: SessionManager {
+public final class DatabaseLoginSessionManager: SessionManager {
 
     private let realm: Realm
     
@@ -26,16 +27,13 @@ public final class DatabaseSessionManager: SessionManager {
      Creates a session for a given Subject object and returns the identifier.
      */
     public func createSession(account: Account) -> String {
-        let token = CryptoRandom.bytes(16).base64String
+        let token = UUID().uuidString
+        let type: SessionType = account is Vendor ? .vendor : .user
         
-        var userSession = Session(accessToken: token, user_id: account.uniqueID)
+        var session = Session(token: token, subject_id: account.uniqueID, type: type)
         
-        do {
-            try userSession.save()
-            assert(userSession.id != nil, "Expected user session to have an id after saving")
-        } catch {
-            print("Error saving user session : \(error)")
-        }
+        // TODO: Error handling
+        try? session.save()
         
         return token
     }

@@ -8,6 +8,23 @@
 
 import Vapor
 import Fluent
+import Auth
+
+enum SessionType: String, NodeRepresentable {
+    case user = "user"
+    case vendor = "vendor"
+    
+    func makeNode(context: Context = EmptyNode) throws -> Node {
+        return .string(self.rawValue)
+    }
+}
+
+extension AccessToken: NodeRepresentable {
+    
+    public func makeNode(context: Context = EmptyNode) throws -> Node {
+        return .string(self.string)
+    }
+}
 
 final class Session: Model, Preparation, JSONConvertible {
     
@@ -15,33 +32,40 @@ final class Session: Model, Preparation, JSONConvertible {
     var exists = false
     
     let accessToken: String
+    let type: SessionType
     
-    var user_id: Node?
+    var subject_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         accessToken = try node.extract("accessToken")
-        user_id = try node.extract("user_id")
+        subject_id = try node.extract("customer_id")
+        
+        type = try node.extract("type") { (_type: String) in
+            return SessionType(rawValue: _type)
+        }!
     }
     
-    init(id: String? = nil, accessToken: String, user_id: String) {
+    init(id: String? = nil, token: String, subject_id: String, type: SessionType) {
         self.id = id.flatMap { .string($0) }
-        self.accessToken = accessToken
-        self.user_id = .string(user_id)
+        self.accessToken = token
+        self.subject_id = .string(subject_id)
+        self.type = type
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "accessToken" : .string(accessToken),
-            "user_id" : user_id!
-            ]).add(name: "id", node: id)
+            "subject_id" : subject_id!,
+            "type" : .string(type.rawValue)
+        ]).add(name: "id", node: id)
     }
     
     static func prepare(_ database: Database) throws {
         try database.create(self.entity, closure: { vendor in
             vendor.id()
             vendor.string("accessToken")
-            vendor.parent(User.self, optional: false)
+            vendor.parent(Customer.self, optional: false)
         })
     }
     
@@ -52,8 +76,24 @@ final class Session: Model, Preparation, JSONConvertible {
 
 extension Session {
     
-    func user() throws -> Parent<User> {
-        return try parent(user_id)
+    func user() throws -> Parent<Customer> {
+        precondition(self.type == .user)
+        return try parent(subject_id)
+    }
+    
+    func vendor() throws -> Parent<Vendor> {
+        precondition(self.type == .vendor)
+        return try parent(subject_id)
+    }
+    
+    static func session(forToken token: AccessToken, type: SessionType) throws -> Session {
+        let query = try Session.query().filter("accessToken", token).filter("type", type)
+        
+        guard let session = try query.first() else {
+            throw AuthError.invalidCredentials
+        }
+        
+        return session
     }
 }
 

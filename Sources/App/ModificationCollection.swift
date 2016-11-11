@@ -41,7 +41,7 @@ final class ModificaionCollection : RouteCollection, EmptyInitializable {
                 
                 try modifyable.update(withJSON: json)
                 try modifyable.save()
-                return Response(status: .ok)
+                return try Response(status: .ok, json: modifyable.makeJSON())
             }
         }
     }

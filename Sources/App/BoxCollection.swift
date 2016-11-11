@@ -35,7 +35,7 @@ fileprivate func createNode(forBox box: Box) throws -> Node {
         
         var node = try review.makeNode()
         
-        node["user_id"] = nil
+        node["customer_id"] = nil
         node["user"] = try user.makeNode()
         
         return node

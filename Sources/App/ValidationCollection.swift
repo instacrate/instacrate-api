@@ -24,12 +24,12 @@ final class ValidationCollection : RouteCollection, EmptyInitializable {
     
     typealias Wrapped = HTTP.Responder
     
-    let allowedTables = ["user" : User.self] as [String: Model.Type]
+    let allowedTables = ["customer" : Customer.self] as [String: Model.Type]
     
-    let allowedFields = [String(describing: User.self) : ["email"]] as [String: [String]]
+    let allowedFields = [String(describing: Customer.self) : ["email"]] as [String: [String]]
     
     let vendorType = Vendor.self
-    let userType = Query<User>.self
+    let userType = Query<Customer>.self
     
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
@@ -58,7 +58,7 @@ final class ValidationCollection : RouteCollection, EmptyInitializable {
         switch type {
         case let table as Vendor.Type:
             return try table.query().filter(field, value).first()
-        case let table as User.Type:
+        case let table as Customer.Type:
             return try table.query().filter(field, value).first()
         default:
             throw Abort.custom(status: .internalServerError, message: "Unkown type in runQuery function : \(type).")

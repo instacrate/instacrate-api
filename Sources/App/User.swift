@@ -12,7 +12,7 @@ import Auth
 import Turnstile
 import BCrypt
 
-final class User: Model, Preparation, JSONConvertible, FastInitializable {
+final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
     
     static var requiredJSONFields = ["id", "email", "name", "password"]
     
@@ -41,7 +41,7 @@ final class User: Model, Preparation, JSONConvertible, FastInitializable {
             self.password = password
         } else {
             self.salt = BCryptSalt()
-            self.password = User.hashed(password: password, salt: salt)
+            self.password = BCrypt.hash(password: password, salt: salt)
         }
     }
     
@@ -69,28 +69,24 @@ final class User: Model, Preparation, JSONConvertible, FastInitializable {
     static func revert(_ database: Database) throws {
         try database.delete(self.entity)
     }
-    
-    static func hashed(password: String, salt: BCryptSalt) -> String {
-        return BCrypt.hash(password: password, salt: salt)
-    }
 }
 
-extension User {
+extension Customer {
     
     func reviews() -> Children<Review> {
-        return children("user_id", Review.self)
+        return children("customer_id", Review.self)
     }
     
     func shippingAddresses() -> Children<Shipping> {
-        return children("user_id", Shipping.self)
+        return children("customer_id", Shipping.self)
     }
     
     func sessions() -> Children<Session> {
-        return children("user_id", Session.self)
+        return children("customer_id", Session.self)
     }
 }
 
-extension User: Auth.User {
+extension Customer: User {
     
     static func authenticate(credentials: Credentials) throws -> Auth.User {
         
@@ -106,7 +102,7 @@ extension User: Auth.User {
             return user
             
         case let usernamePassword as UsernamePassword:
-            let query = try User.query().filter("email", usernamePassword.username)
+            let query = try Customer.query().filter("email", usernamePassword.username)
             
             guard let user = try query.first() else {
                 throw AuthError.invalidCredentials
@@ -130,20 +126,7 @@ extension User: Auth.User {
     }
 }
 
-import HTTP
-
-extension Request {
-    
-    func user() throws -> User {
-        guard let user = try auth.user() as? User else {
-            throw Abort.custom(status: .badRequest, message: "Invalid user type.")
-        }
-        
-        return user
-    }
-}
-
-extension User: Relationable {
+extension Customer: Relationable {
     
     typealias Relations = (reviews: [Review], shippings: [Shipping], sessions: [Session])
 

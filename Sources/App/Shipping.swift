@@ -16,7 +16,7 @@ protocol FastInitializable {
 
 final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["user_id", "address", "apartment", "city", "state", "zip"]
+    static var requiredJSONFields = ["customer_id", "address", "apartment", "city", "state", "zip"]
     
     var id: Node?
     var exists = false
@@ -28,11 +28,11 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     let state: String
     let zip: String
     
-    var user_id: Node?
+    var customer_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
-        user_id = try node.extract("user_id")
+        customer_id = try node.extract("customer_id")
         
         address = try node.extract("address")
         apartment = try node.extract("apartment")
@@ -49,7 +49,7 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
             "city" : .string(city),
             "state" : .string(state),
             "zip" : .string(zip),
-            "user_id" : user_id!
+            "customer_id" : customer_id!
         ]).add(objects: ["id" : id])
     }
     
@@ -61,7 +61,7 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
             shipping.string("city")
             shipping.string("state")
             shipping.string("zip")
-            shipping.parent(User.self, optional: false)
+            shipping.parent(Customer.self, optional: false)
         })
     }
     
@@ -76,16 +76,16 @@ extension Shipping {
         return children("shipping_id", Order.self)
     }
     
-    func user() throws -> Parent<User> {
-        return try parent(user_id)
+    func user() throws -> Parent<Customer> {
+        return try parent(customer_id)
     }
 }
 
 extension Shipping: Relationable {
     
-    typealias Relations = (orders: [Order], user: User)
+    typealias Relations = (orders: [Order], user: Customer)
     
-    func relations() throws -> (orders: [Order], user: User) {
+    func relations() throws -> (orders: [Order], user: Customer) {
         let orders = try self.orders().all()
         
         guard let user = try self.user().get() else {

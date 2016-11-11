@@ -6,8 +6,9 @@
         "type-safe",
         "date",
         "sessions",
-        "auth",
-        "logger"
+        "logger",
+        "vendorAuth",
+        "userAuth"
     ],
     "client": [
         

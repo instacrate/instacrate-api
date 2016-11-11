@@ -29,7 +29,7 @@ final class GetCollection : RouteCollection, EmptyInitializable {
             return try vendor.makeJSON()
         }
         
-        builder.get("user", User.self) { request, user in
+        builder.get("user", Customer.self) { request, user in
             return try user.makeJSON()
         }
         

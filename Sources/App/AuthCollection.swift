@@ -34,6 +34,37 @@ extension Authorization {
     }
 }
 
+extension Request {
+    
+    func customer() throws -> Customer {
+        let subject = try userSubject()
+        
+        guard let details = subject.authDetails else {
+            throw AuthError.notAuthenticated
+        }
+    
+        guard let customer = details.account as? Customer else {
+            throw AuthError.invalidAccountType
+        }
+            
+        return customer
+    }
+    
+    func vendor() throws -> Vendor {
+        let subject = try vendorSubject()
+        
+        guard let details = subject.authDetails else {
+            throw AuthError.notAuthenticated
+        }
+        
+        guard let vendor = details.account as? Vendor else {
+            throw AuthError.invalidAccountType
+        }
+        
+        return vendor
+    }
+}
+
 final class AuthCollection : RouteCollection, EmptyInitializable {
     
     init () {}
@@ -44,18 +75,26 @@ final class AuthCollection : RouteCollection, EmptyInitializable {
         
         builder.group("auth") { auth in
             
-            auth.post("login") { request in
+            auth.post("user", "login") { request in
                 guard let credentials = request.auth.header?.usernamePassword else {
                     throw Abort.badRequest
                 }
                 
-                try request.auth.login(credentials)
+                try request.userSubject().login(credentials: credentials, persist: true)
                 
-                if let _ = try? request.auth.user() {
-                    return try Response(status: .ok, json: request.user().makeJSON())
-                } else {
-                    throw AuthError.invalidBasicAuthorization
+                let customer = try request.customer()                
+                return try Response(status: .ok, json: customer.makeJSON())
+            }
+            
+            auth.post("vendor", "login") { request in
+                guard let credentials = request.auth.header?.usernamePassword else {
+                    throw Abort.badRequest
                 }
+                
+                try request.vendorSubject().login(credentials: credentials, persist: true)
+                
+                let vendor = try request.vendor()
+                return try Response(status: .ok, json: vendor.makeJSON())
             }
         }
     }
