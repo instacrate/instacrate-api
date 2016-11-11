@@ -56,7 +56,7 @@ enum Frequency: String, StringInitializable {
     
     init?(from string: String) throws {
         guard let frequency = Frequency.init(rawValue: string) else {
-            return nil
+            throw Abort.custom(status: .badRequest, message: "Invalid value for frequency. Can be once or monthly.")
         }
         
         self = frequency

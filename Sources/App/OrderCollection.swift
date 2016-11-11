@@ -96,6 +96,18 @@ final class Stripe {
             throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
+        if frequency == .once {
+            let response = try drop.client.delete("https://api.stripe.com/v1/subscriptions/\(subscription_id)", headers: ["Authorization" : "Basic \(authString)"], query: ["at_period_end" : true])
+            
+            guard let json = try? response.json() else {
+                throw Abort.custom(status: .internalServerError, message: response.description)
+            }
+            
+            guard let test = json["cancel_at_period_end"]?.bool, test else {
+                throw Abort.custom(status: .internalServerError, message: response.description)
+            }
+        }
+        
         return subscription_id
     }
     
@@ -133,17 +145,15 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
                     var user = try request.user()
                     
                     if user.stripe_id != nil {
-                        drop.console.info("here")
                         _ = try Stripe.associate(paymentSource: token, withUser: user)
                         return try Response(status: .created, json: JSON(node: []))
                     } else {
-                        drop.console.info("here1")
                         let id = try Stripe.createStripeCustomer(forUser: &user, withPaymentSource: token)
                         return try Response(status: .created, json: JSON(node: ["id" : id]))
                     }
                 }
                 
-                customer.grouped("subscribe").post(Box.self, Shipping.self, String.self) { request, _box, shipping, frequency in
+                customer.grouped("subscribe").post(Box.self, Shipping.self, Frequency.self) { request, _box, shipping, frequency in
                     
                     var box = _box
                     
@@ -154,9 +164,9 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
                     precondition(box.plan_id != nil, "Box must have plan id")
                     
                     let user = try request.user()
-                    let subscriptionId = try Stripe.createSubscription(forUser: user, forBox: box)
+                    let subscriptionId = try Stripe.createSubscription(forUser: user, forBox: box, withFrequency: frequency)
                     
-                    var subscription = Subscription(withId: subscriptionId, box: box, user: user, shipping: shipping)
+                    var subscription = Subscription(withId: subscriptionId, box: box, user: user, shipping: shipping, freq: frequency)
                     try subscription.save()
                     
                     return Response(status: .created)
@@ -166,18 +176,18 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
         
         builder.grouped(drop.protect()).group("user") { user in
             
-            user.get("shipping", User.self) { request, user in
-//                guard let user = try? request.user() else {
-//                    throw Abort.custom(status: .internalServerError, message: "No user.")
-//                }
+            user.get("shipping") { request in
+                guard let user = try? request.user() else {
+                    throw Abort.custom(status: .internalServerError, message: "No user.")
+                }
                 
                 return try Node.array(user.shippingAddresses().all().map { try $0.makeNode() })
             }
             
-            user.get("payment", User.self) { request, user in
-//                guard let user = try? request.user() else {
-//                    throw Abort.custom(status: .internalServerError, message: "No user.")
-//                }
+            user.get("payment") { request in
+                guard let user = try? request.user() else {
+                    throw Abort.custom(status: .internalServerError, message: "No user.")
+                }
                 
                 return try Stripe.paymentMethods(forUser: user)
             }
