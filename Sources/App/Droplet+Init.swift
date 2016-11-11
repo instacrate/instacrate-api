@@ -27,8 +27,11 @@ class Logger: Middleware {
     
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
         
-        drop.console.info("", newLine: true)
-        drop.console.info("\(request.description)", newLine: true)
+        // Do not print multipart form data resopnses as they are quite verbose
+        if let contentType = request.contentType, !contentType.contains("multipart/form-data") {
+            drop.console.info("", newLine: true)
+            drop.console.info("\(request.description)", newLine: true)
+        }
         
         if request.cookies.array.count > 0 {
             drop.console.info("cookies \(request.cookies)", newLine: true)
@@ -36,8 +39,8 @@ class Logger: Middleware {
 
         let response = try next.respond(to: request)
         
-        // Do not print multipart form data resopnses as they are quite verbose
-        if let contentType = request.contentType, !contentType.contains("multipart/form-data") {
+        // Do not log file requests as they are also quite verbose
+        if !request.uri.path.contains("png") {
             drop.console.info("", newLine: true)
             drop.console.info(response.description, newLine: true)
         }
