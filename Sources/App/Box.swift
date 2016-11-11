@@ -26,7 +26,6 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
     let long_desc: String
     let short_desc: String
     let bullets: [String]
-    let frequency: String
     let price: Double
     let publish_date: Date
     
@@ -41,7 +40,6 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
         long_desc = try node.extract("long_desc")
         short_desc = try node.extract("short_desc")
         bullets = try node.extract("bullets")
-        frequency = try node.extract("frequency")
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
         publish_date = (try? node.extract("publish_date")) ?? Date()
@@ -55,7 +53,6 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
             "long_desc" : .string(long_desc),
             "short_desc" : .string(short_desc),
             "bullets" : .array(bullets.map { .string($0) }),
-            "frequency" : .string(frequency),
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!,
             "publish_date" : .string(publish_date.ISO8601String),
@@ -71,7 +68,6 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
             box.string("short_desc")
             box.string("bullets")
             box.string("brief")
-            box.string("frequency")
             box.double("price")
             box.double("publish_date")
             box.string("plan_id")
