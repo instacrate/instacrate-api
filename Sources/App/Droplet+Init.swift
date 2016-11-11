@@ -36,8 +36,11 @@ class Logger: Middleware {
 
         let response = try next.respond(to: request)
         
-        drop.console.info("", newLine: true)
-        drop.console.info(response.description, newLine: true)
+        // Do not print multipart form data resopnses as they are quite verbose
+        if let contentType = request.contentType, !contentType.contains("multipart/form-data") {
+            drop.console.info("", newLine: true)
+            drop.console.info(response.description, newLine: true)
+        }
         
         return response
     }

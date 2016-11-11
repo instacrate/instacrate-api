@@ -21,7 +21,13 @@ final class VendorDashboardCollection : RouteCollection, EmptyInitializable {
     
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
-        let vendor = builder.grouped("vendor")
+        let vendor = builder.grouped("vendor").grouped(Droplet.protect(.vendor))
+        
+        vendor.get("orders") { request in
+            let vendor = try request.vendor()
+            
+            return ""
+        }
         
     }
 }
