@@ -24,18 +24,16 @@ final class ValidationCollection : RouteCollection, EmptyInitializable {
     
     typealias Wrapped = HTTP.Responder
     
-    let allowedTables = ["vendor" : Vendor.self,
-                         "user" : User.self] as [String: Model.Type]
+    let allowedTables = ["user" : User.self] as [String: Model.Type]
     
-    let allowedFields = [String(describing: Vendor.self) : ["email"],
-                         String(describing: User.self) : ["email"]] as [String: [String]]
+    let allowedFields = [String(describing: User.self) : ["email"]] as [String: [String]]
     
     let vendorType = Vendor.self
     let userType = Query<User>.self
     
     func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
         
-        let available = builder.grouped("validation").grouped("available").grouped(drop.protect())
+        let available = builder.grouped("validation").grouped("available")
         
         available.get(String.self, String.self, String.self) { request, _table, field, value in
             // TODO : Test if value is vunerable to sql injection
