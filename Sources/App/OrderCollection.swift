@@ -189,7 +189,12 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
         builder.grouped(Droplet.protect(.user)).group("user") { user in
 
             user.get("info") { request in
-                return try Stripe.information(forUser: request.customer())
+                let stripe_info = try Stripe.information(forUser: request.customer()).makeNode()
+                var user = try request.customer().makeNode()
+
+                user["stripe"] = stripe_info
+
+                return user
             }
             
             user.get("shipping") { request in

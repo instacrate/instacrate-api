@@ -41,6 +41,12 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
         state = try node.extract("state")
         zip = try node.extract("zip")
     }
+
+    func didCreate() {
+        if let user = try? user().get(), user?.default_shipping_id == nil {
+            user?.default_shipping_id = id
+        }
+    }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [

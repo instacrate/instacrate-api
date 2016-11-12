@@ -25,9 +25,11 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
     let salt: BCryptSalt
     
     var stripe_id: String?
+    var default_shipping_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
+        default_shipping_id = try? node.extract("default_shipping_id")
         
         // Name and email are always mandatory
         email = try node.extract("email")
@@ -51,8 +53,9 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
             "email" : .string(email),
             "password" : .string(password),
             "salt" : .string(salt.string)
-            ]).add(objects: ["stripe_id" : self.stripe_id,
-                             "id" : self.id])
+        ]).add(objects: ["stripe_id" : stripe_id,
+                         "id" : id,
+                         "default_shipping_id" : default_shipping_id])
     }
     
     static func prepare(_ database: Database) throws {
@@ -63,6 +66,7 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
             box.string("email")
             box.string("password")
             box.string("salt")
+            box.int("default_shipping_id", optional: true)
         })
     }
     
