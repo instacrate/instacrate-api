@@ -126,6 +126,18 @@ final class Stripe {
         
         return cards
     }
+
+    static func information(forUser user: Customer) throws -> JSON {
+
+        let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)!.base64EncodedString()
+        let response = try drop.client.get("https://api.stripe.com/v1/customers/\(user.stripe_id!)", headers: ["Authorization" : "Basic \(authString)"])
+
+        guard let json = try? response.json() else {
+            throw Abort.custom(status: .internalServerError, message: response.description)
+        }
+
+        return json
+    }
 }
 
 final class OrderCollection : RouteCollection, EmptyInitializable {
@@ -175,15 +187,14 @@ final class OrderCollection : RouteCollection, EmptyInitializable {
         }
         
         builder.grouped(Droplet.protect(.user)).group("user") { user in
+
+            user.get("info") { request in
+                return try Stripe.information(forUser: request.customer())
+            }
             
             user.get("shipping") { request in
                 return try Node.array(request.customer().shippingAddresses().all().map { try $0.makeNode() })
             }
-            
-            user.get("payment") { request in
-                return try Stripe.paymentMethods(forUser: request.customer())
-            }
-            
         }
     }
 }
