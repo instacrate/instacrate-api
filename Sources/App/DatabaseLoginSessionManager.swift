@@ -33,7 +33,7 @@ public final class DatabaseLoginSessionManager: SessionManager {
         var session = Session(token: token, subject_id: account.uniqueID, type: type)
         
         // TODO: Error handling
-        // https://github.com/instacrate/Subber-api/issues/40
+        // https://github.com/stormpath/Turnstile/issues/18
         do {
             try session.save()
         } catch {

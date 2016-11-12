@@ -23,11 +23,21 @@ final class VendorDashboardCollection : RouteCollection, EmptyInitializable {
         
         let vendor = builder.grouped("vendor").grouped(Droplet.protect(.vendor))
         
-        vendor.get("orders") { request in
-            let vendor = try request.vendor()
-//            vendor.
-            return ""
+        vendor.group("orders") { order in
+            
+            order.get() { request in
+                let vendor = try request.vendor()
+                
+                let orderQuery = try Order.query().filter("vendor_id", vendor.id!)
+                return try Node.array(orderQuery.all().map { try $0.makeNode() })
+            }
+            
+            order.get("outstanding") { request in
+                let vendor = try request.vendor()
+                
+                let orderQuery = try Order.query().filter("vendor_id", vendor.id!).filter("fulfilled", false)
+                return try Node.array(orderQuery.all().map { try $0.makeNode() })
+            }
         }
-        
     }
 }

@@ -21,6 +21,7 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
     let fulfilled: Bool
     
     var subscription_id: Node?
+    var vendor_id: Node?
     var shipping_id: Node?
     
     init(node: Node, in context: Context) throws {
@@ -29,6 +30,7 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
         fulfilled = try node.extract("fulfilled")
         subscription_id = try node.extract("subscription_id")
         shipping_id = try node.extract("shipping_id")
+        vendor_id = try node.extract("vendor_id")
     }
 
     func makeNode(context: Context) throws -> Node {
@@ -36,7 +38,8 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
             "date" : .string(date.ISO8601String),
             "fulfilled" : .bool(fulfilled),
             "subscription_id" : subscription_id!,
-            "shipping_id" : shipping_id!
+            "shipping_id" : shipping_id!,
+            "vendor_id" : vendor_id!
         ]).add(name: "id", node: id)
     }
     
@@ -47,6 +50,7 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
             order.bool("fulfilled")
             order.parent(Subscription.self, optional: false)
             order.parent(Shipping.self, optional: false)
+            order.parent(Vendor.self, optional: false)
         })
     }
     
@@ -63,6 +67,10 @@ extension Order {
     
     func shippingAddress() throws -> Parent<Shipping> {
         return try parent(shipping_id)
+    }
+    
+    func vendor() throws -> Parent<Vendor> {
+        return try parent(vendor_id)
     }
 }
 

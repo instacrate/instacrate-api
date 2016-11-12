@@ -28,7 +28,7 @@ class Logger: Middleware {
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
         
         // Do not print multipart form data resopnses as they are quite verbose
-        if let contentType = request.contentType, !contentType.contains("multipart/form-data") {
+        if !(request.contentType?.contains("multipart/form-data") ?? false) {
             drop.console.info("", newLine: true)
             drop.console.info("\(request.description)", newLine: true)
         }
