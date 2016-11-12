@@ -25,7 +25,7 @@ final class VendorDashboardCollection : RouteCollection, EmptyInitializable {
         
         vendor.get("orders") { request in
             let vendor = try request.vendor()
-            
+//            vendor.
             return ""
         }
         

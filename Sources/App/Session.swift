@@ -34,12 +34,12 @@ final class Session: Model, Preparation, JSONConvertible {
     let accessToken: String
     let type: SessionType
     
-    var subject_id: Node?
+    var customer_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
         accessToken = try node.extract("accessToken")
-        subject_id = try node.extract("customer_id")
+        customer_id = try node.extract("customer_id")
         
         type = try node.extract("type") { (_type: String) in
             return SessionType(rawValue: _type)
@@ -49,14 +49,14 @@ final class Session: Model, Preparation, JSONConvertible {
     init(id: String? = nil, token: String, subject_id: String, type: SessionType) {
         self.id = id.flatMap { .string($0) }
         self.accessToken = token
-        self.subject_id = .string(subject_id)
+        self.customer_id = .string(subject_id)
         self.type = type
     }
     
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "accessToken" : .string(accessToken),
-            "subject_id" : subject_id!,
+            "customer_id" : customer_id!,
             "type" : .string(type.rawValue)
         ]).add(name: "id", node: id)
     }
@@ -65,6 +65,7 @@ final class Session: Model, Preparation, JSONConvertible {
         try database.create(self.entity, closure: { vendor in
             vendor.id()
             vendor.string("accessToken")
+            vendor.string("type")
             vendor.parent(Customer.self, optional: false)
         })
     }
@@ -78,12 +79,12 @@ extension Session {
     
     func user() throws -> Parent<Customer> {
         precondition(self.type == .user)
-        return try parent(subject_id)
+        return try parent(customer_id)
     }
     
     func vendor() throws -> Parent<Vendor> {
         precondition(self.type == .vendor)
-        return try parent(subject_id)
+        return try parent(customer_id)
     }
     
     static func session(forToken token: AccessToken, type: SessionType) throws -> Session {

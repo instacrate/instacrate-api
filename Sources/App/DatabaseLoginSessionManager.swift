@@ -33,7 +33,12 @@ public final class DatabaseLoginSessionManager: SessionManager {
         var session = Session(token: token, subject_id: account.uniqueID, type: type)
         
         // TODO: Error handling
-        try? session.save()
+        // https://github.com/instacrate/Subber-api/issues/40
+        do {
+            try session.save()
+        } catch {
+            fatalError("Error saving session \(error)")
+        }
         
         return token
     }
