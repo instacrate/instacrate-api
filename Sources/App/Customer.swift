@@ -23,13 +23,13 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
     let email: String
     let password: String
     let salt: BCryptSalt
-    
+
+    var defaultShipping: Node?
     var stripe_id: String?
-    var default_shipping_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
-        default_shipping_id = try? node.extract("default_shipping_id")
+        defaultShipping = try? node.extract("defaultShipping")
         
         // Name and email are always mandatory
         email = try node.extract("email")
@@ -55,7 +55,7 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
             "salt" : .string(salt.string)
         ]).add(objects: ["stripe_id" : stripe_id,
                          "id" : id,
-                         "default_shipping_id" : default_shipping_id])
+                         "defaultShipping" : defaultShipping])
     }
     
     static func prepare(_ database: Database) throws {
@@ -66,7 +66,7 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
             box.string("email")
             box.string("password")
             box.string("salt")
-            box.int("default_shipping_id", optional: true)
+            box.int("defaultShipping", optional: true)
         })
     }
     
@@ -79,6 +79,10 @@ extension Customer {
     
     func reviews() -> Children<Review> {
         return children("customer_id", Review.self)
+    }
+
+    func defaultShippingAddress() throws -> Parent<Shipping> {
+        return try parent(defaultShipping)
     }
     
     func shippingAddresses() -> Children<Shipping> {

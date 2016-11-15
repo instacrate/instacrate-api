@@ -27,12 +27,14 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     let city: String
     let state: String
     let zip: String
+    var isDefault: Bool
     
     var customer_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
         customer_id = try node.extract("customer_id")
+        isDefault = (try? node.extract("isDefault")) ?? false
         
         address = try node.extract("address")
         apartment = try node.extract("apartment")
@@ -40,12 +42,6 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
         city = try node.extract("city")
         state = try node.extract("state")
         zip = try node.extract("zip")
-    }
-
-    func didCreate() {
-        if let user = try? user().get(), user?.default_shipping_id == nil {
-            user?.default_shipping_id = id
-        }
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -55,7 +51,8 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
             "city" : .string(city),
             "state" : .string(state),
             "zip" : .string(zip),
-            "customer_id" : customer_id!
+            "customer_id" : customer_id!,
+            "isDefault" : .bool(isDefault)
         ]).add(objects: ["id" : id])
     }
     

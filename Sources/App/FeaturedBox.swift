@@ -16,7 +16,7 @@ final class FeaturedBox: Model, Preparation, JSONConvertible {
     var exists = false
     
     var id: Node?
-    var type: String
+    var type: Curated
     var box_id: Node?
     
     init(node: Node, in context: Context) throws {
@@ -25,16 +25,10 @@ final class FeaturedBox: Model, Preparation, JSONConvertible {
         box_id = try node.extract("box_id")
     }
     
-    init(id: String? = nil, type: String, boxId: String) {
-        self.id = id.flatMap { .string($0) }
-        self.type = type
-        self.box_id = .string(boxId)
-    }
-    
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "box_id" : box_id!,
-            "type" : type
+            "type" : .string(type.rawValue)
         ]).add(name: "id", node: id)
     }
     
