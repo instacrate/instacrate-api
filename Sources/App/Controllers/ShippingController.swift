@@ -26,6 +26,7 @@ final class ShippingController {
 
             shipping.isDefault = true
             try shipping.save()
+            
             customer.defaultShipping = shipping.id
             try customer.save()
 

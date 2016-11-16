@@ -10,9 +10,21 @@ import Vapor
 import Fluent
 import Auth
 
-enum SessionType: String, NodeRepresentable {
+enum SessionType: String, NodeConvertible {
     case user = "user"
     case vendor = "vendor"
+    
+    init(node: Node, in context: Context = EmptyNode) throws {
+        guard let string = node.string else {
+            throw NodeError.unableToConvert(node: node, expected: "\(String.self)")
+        }
+        
+        guard let type = SessionType(rawValue: string) else {
+            throw Abort.custom(status: .badRequest, message: "Invalid value for SessionType in request.")
+        }
+        
+        self = type
+    }
     
     func makeNode(context: Context = EmptyNode) throws -> Node {
         return .string(self.rawValue)
