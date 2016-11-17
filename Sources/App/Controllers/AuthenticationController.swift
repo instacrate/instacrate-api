@@ -9,8 +9,11 @@
 import Foundation
 import Vapor
 import HTTP
+import Turnstile
+import Auth
+import Fluent
 
-final class AuthenticationController {
+final class AuthenticationController: ResourceRepresentable {
     
     func login(_ request: Request) throws -> ResponseRepresentable {
         
@@ -27,7 +30,64 @@ final class AuthenticationController {
             try request.vendorSubject().login(credentials: credentials, persist: true)
         }
         
-        let modelSubject: Model = type == .user ? try request.customer() : try request.vendor()
+        let modelSubject: JSONConvertible = type == .user ? try request.customer() : try request.vendor()
         return try Response(status: .ok, json: modelSubject.makeJSON())
+    }
+    
+    func makeResource() -> Resource<String> {
+        return Resource(
+            store: login
+        )
+    }
+}
+
+extension Authorization {
+    public var usernamePassword: UsernamePassword? {
+        guard let range = header.range(of: "Basic ") else {
+            return nil
+        }
+        
+        let authString = header.substring(from: range.upperBound)
+        
+        let decodedAuthString = authString.base64DecodedString
+        guard let separatorRange = decodedAuthString.range(of: ":") else {
+            return nil
+        }
+        
+        let username = decodedAuthString.substring(to: separatorRange.lowerBound)
+        let password = decodedAuthString.substring(from: separatorRange.upperBound)
+        
+        return UsernamePassword(username: username, password: password)
+    }
+}
+
+extension Request {
+    
+    func customer() throws -> Customer {
+        let subject = try userSubject()
+        
+        guard let details = subject.authDetails else {
+            throw AuthError.notAuthenticated
+        }
+        
+        guard let customer = details.account as? Customer else {
+            throw AuthError.invalidAccountType
+        }
+        
+        return customer
+    }
+    
+    func vendor() throws -> Vendor {
+        let subject = try vendorSubject()
+        
+        guard let details = subject.authDetails else {
+            throw AuthError.notAuthenticated
+        }
+        
+        guard let vendor = details.account as? Vendor else {
+            throw AuthError.invalidAccountType
+        }
+        
+        return vendor
     }
 }

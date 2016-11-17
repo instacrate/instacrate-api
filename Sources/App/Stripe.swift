@@ -1,18 +1,13 @@
 //
-//  OrderCollection.swift
+//  Stripe.swift
 //  subber-api
 //
-//  Created by Hakon Hanesand on 10/10/16.
+//  Created by Hakon Hanesand on 11/16/16.
 //
 //
-
 
 import Foundation
 import Vapor
-import HTTP
-import Routing
-import JSON
-import Auth
 
 final class Stripe {
     
@@ -60,10 +55,10 @@ final class Stripe {
         let planId = UUID().uuidString
         
         let parameters = ["id" : "\(planId)",
-                          "amount" : "\(Int(box.price * 100))",
-                          "currency" : "usd",
-                          "interval" : "month",
-                          "name" : box.name]
+            "amount" : "\(Int(box.price * 100))",
+            "currency" : "usd",
+            "interval" : "month",
+            "name" : box.name]
         
         let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)!.base64EncodedString()
         let response = try drop.client.post("https://api.stripe.com/v1/plans", headers: ["Authorization" : "Basic \(authString)"], query: parameters)
@@ -126,80 +121,17 @@ final class Stripe {
         
         return cards
     }
-
+    
     static func information(forUser user: Customer) throws -> JSON {
-
+        
         let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)!.base64EncodedString()
         let response = try drop.client.get("https://api.stripe.com/v1/customers/\(user.stripe_id!)", headers: ["Authorization" : "Basic \(authString)"])
-
+        
         guard let json = try? response.json() else {
             throw Abort.custom(status: .internalServerError, message: response.description)
         }
-
+        
         return json
     }
 }
 
-final class OrderCollection : RouteCollection, EmptyInitializable {
-    
-    init () {}
-    
-    typealias Wrapped = HTTP.Responder
-    
-    func build<Builder : RouteBuilder>(_ builder: Builder) where Builder.Value == Responder {
-        
-        builder.grouped(Droplet.protect(.user)).group("order") { order in
-            
-            order.group("customer") { customer in
-                
-                customer.post("add", String.self) { request, token in
-                    
-                    var user = try request.customer()
-                    
-                    if user.stripe_id != nil {
-                        _ = try Stripe.associate(paymentSource: token, withUser: user)
-                        return try Response(status: .created, json: JSON(node: []))
-                    } else {
-                        let id = try Stripe.createStripeCustomer(forUser: &user, withPaymentSource: token)
-                        return try Response(status: .created, json: JSON(node: ["id" : id]))
-                    }
-                }
-                
-                customer.grouped("subscribe").post(Box.self, Shipping.self, Frequency.self) { request, _box, shipping, frequency in
-                    
-                    var box = _box
-                    
-                    if box.plan_id == nil {
-                        try Stripe.createPlan(forBox: &box)
-                    }
-                    
-                    precondition(box.plan_id != nil, "Box must have plan id")
-                    
-                    let user = try request.customer()
-                    let subscriptionId = try Stripe.createSubscription(forUser: user, forBox: box, withFrequency: frequency)
-                    
-                    var subscription = Subscription(withId: subscriptionId, box: box, user: user, shipping: shipping, freq: frequency)
-                    try subscription.save()
-                    
-                    return Response(status: .created)
-                }
-            }
-        }
-        
-        builder.grouped(Droplet.protect(.user)).group("user") { user in
-
-            user.get("info") { request in
-                let stripe_info = try Stripe.information(forUser: request.customer()).makeNode()
-                var user = try request.customer().makeNode()
-
-                user["stripe"] = stripe_info
-
-                return user
-            }
-            
-            user.get("shipping") { request in
-                return try Node.array(request.customer().shippingAddresses().all().map { try $0.makeNode() })
-            }
-        }
-    }
-}

@@ -11,14 +11,18 @@ import Vapor
 import HTTP
 import Fluent
 
-extension Entity {
-
-    public static func query(forIds ids: [Node]) throws -> Query<Self> {
-        guard let idKey = database?.driver.idKey else {
-            throw EntityError.noDatabase
+extension RawRepresentable where RawValue == String {
+    
+    public init?(from string: String) throws {
+        self.init(rawValue: string)
+    }
+    
+    public init?(from _string: String?) throws {
+        guard let string = _string else {
+            return nil
         }
-
-        return try Self.query().filter(idKey, .`in`, ids)
+        
+        self.init(rawValue: string)
     }
 }
 
@@ -32,29 +36,12 @@ enum Curated: String, StringInitializable, NodeInitializable {
             throw NodeError.unableToConvert(node: node, expected: "\(String.self)")
         }
 
-        guard let curated = try Curated(from: string) else {
-            throw Abort.custom(status: .badRequest, message: "")
+        guard let curated = Curated(rawValue: string) else {
+            throw Abort.custom(status: .badRequest, message: "Invalid value for curated in request query string.")
         }
 
         self = curated
     }
-
-    init?(from string: String?) throws {
-        guard let _string = string else {
-            return nil
-        }
-
-        try self.init(from: _string)
-    }
-
-    init?(from string: String) throws {
-        guard let instance = Curated.init(rawValue: string) else {
-            return nil
-        }
-
-        self = instance
-    }
-
 
     func query() throws -> Query<Box> {
         switch self {
@@ -70,6 +57,54 @@ enum Curated: String, StringInitializable, NodeInitializable {
     }
 }
 
+enum BoxSorting: String, NodeConvertible {
+    
+    case alphabetical = "alphabetical"
+    case price = "price"
+    case new = "new"
+    
+    private static let all: [BoxSorting] = [.alphabetical, .price, .new]
+    
+    init(node: Node, in context: Context = EmptyNode) throws {
+        guard let string = node.string else {
+            throw NodeError.unableToConvert(node: node, expected: "\(String.self)")
+        }
+        
+        guard let sorting = BoxSorting(rawValue: string) else {
+            throw Abort.custom(status: .badRequest, message: "Invalid value for box sorting. Valid values are \(BoxSorting.all.map { $0.rawValue })")
+        }
+        
+        self = sorting
+    }
+    
+    func makeNode(context: Context = EmptyNode) -> Node {
+        return .string(rawValue)
+    }
+    
+    var field: String {
+        switch self {
+        case .alphabetical:
+            return "name"
+        case .price:
+            return "price"
+        case .new:
+            return "publish_date"
+        }
+    }
+    
+    var direction: Sort.Direction {
+        return .ascending
+    }
+}
+
+extension QueryRepresentable {
+    
+    @discardableResult
+    func sort(_ sorting: BoxSorting) throws -> Query<T> {
+        return try self.sort(sorting.field, sorting.direction)
+    }
+}
+
 final class BoxController: ResourceRepresentable {
 
     func index(_ request: Request) throws -> ResponseRepresentable {
@@ -79,8 +114,11 @@ final class BoxController: ResourceRepresentable {
         if let curated = try Curated(from: request.query?["curated"]?.string) {
             query = try curated.query()
         }
+        
+        if let sorting = try BoxSorting(from: request.query?["sort"]?.string) {
+            try query.sort(sorting)
+        }
 
-        print(query.sql)
         return try query.all().makeJSON()
     }
 

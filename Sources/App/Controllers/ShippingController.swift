@@ -11,7 +11,7 @@ import Foundation
 import Vapor
 import HTTP
 
-final class ShippingController {
+final class ShippingController: ResourceRepresentable {
 
     func index(_ request: Request) throws -> ResponseRepresentable {
         let customer = try request.customer()
@@ -47,5 +47,13 @@ final class ShippingController {
 
         try shipping.delete()
         return Response(status: .noContent)
+    }
+    
+    func makeResource() -> Resource<Shipping> {
+        return Resource(
+            index: index,
+            store: create,
+            destroy: delete
+        )
     }
 }
