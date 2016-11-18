@@ -25,5 +25,6 @@ drop.resource("order", OrderController())
 drop.resource("vendor", VendorController())
 drop.resource("review", ReviewController())
 drop.resource("subscription", SubscriptionController())
+drop.resource("search", SearchController())
 
 drop.run()
