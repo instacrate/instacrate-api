@@ -16,7 +16,7 @@ final class CustomerController {
         let customer = try request.customer()
         var customerNode = try customer.makeNode()
 
-        if let shouldIncludeStripeData = request.query?["stripe"]?.bool, shouldIncludeStripeData {
+        if request.query?["stripe"]?.bool ?? false && customer.stripe_id != nil {
             let stripeData = try Stripe.information(forUser: customer)
             customerNode["stripe"] = stripeData.makeNode()
         }

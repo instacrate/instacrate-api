@@ -12,6 +12,8 @@ import Foundation
 
 import HTTP
 
+
+
 final class Box: Model, Preparation, JSONConvertible, FastInitializable {
     
     static var requiredJSONFields = ["name", "brief", "long_desc", "short_desc", "bullets", "freq", "price", "vendor_id"]
@@ -25,7 +27,7 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
     let brief: String
     let long_desc: String
     let short_desc: String
-    let bullets: [String]
+    var bullets: [String]
     let price: Double
     let publish_date: Date
     
@@ -39,7 +41,11 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
         brief = try node.extract("brief")
         long_desc = try node.extract("long_desc")
         short_desc = try node.extract("short_desc")
-        bullets = try node.extract("bullets")
+        
+        let string = try (node.extract("bullets") as String).trim(characters: ["\\", "\"", "[", "]"])
+        let a = string.components(separatedBy: "\",\"")
+        bullets = a
+        
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
         publish_date = (try? node.extract("publish_date")) ?? Date()
@@ -52,11 +58,11 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
             "brief" : .string(brief),
             "long_desc" : .string(long_desc),
             "short_desc" : .string(short_desc),
-            "bullets" : .array(bullets.map { .string($0) }),
+            "bullets" : .array(bullets.map( { .string($0) })),
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!,
             "publish_date" : .string(publish_date.ISO8601String),
-        ]).add(objects: ["id" : id,
+            ]).add(objects: ["id" : id,
                          "plan_id" : plan_id])
     }
     
@@ -118,5 +124,4 @@ extension Box: Relationable {
         return (vendor, pictures, reviews)
     }
 }
-
 

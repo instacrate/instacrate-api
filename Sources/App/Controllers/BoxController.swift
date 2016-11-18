@@ -47,7 +47,7 @@ enum Curated: String, StringInitializable, NodeInitializable {
         switch self {
         case .staffpicks: fallthrough
         case .featured:
-            return try Box.query().union(FeaturedBox.self, localKey: "id", foreignKey: "box_id").filter("type", self.rawValue)
+            return try Box.query().union(FeaturedBox.self, localKey: "id", foreignKey: "box_id").filter(FeaturedBox.self, "type", self.rawValue)
 
         case .new:
             let query = try Box.query().sort("publish_date", .descending)
@@ -108,7 +108,7 @@ extension QueryRepresentable {
 final class BoxController: ResourceRepresentable {
 
     func index(_ request: Request) throws -> ResponseRepresentable {
-
+        
         var query = try Box.query()
 
         if let curated = try Curated(from: request.query?["curated"]?.string) {

@@ -11,7 +11,7 @@ import Fluent
 import Auth
 
 enum SessionType: String, NodeConvertible {
-    case user = "user"
+    case user = "customer"
     case vendor = "vendor"
     
     init(node: Node, in context: Context = EmptyNode) throws {
