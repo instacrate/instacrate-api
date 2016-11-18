@@ -39,7 +39,10 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
         brief = try node.extract("brief")
         long_desc = try node.extract("long_desc")
         short_desc = try node.extract("short_desc")
-        bullets = try node.extract("bullets")
+       
+        let string = try (node.extract("bullets") as String).trim(characters: ["\\", "\"", "[", "]"])
+        bullets = string.components(separatedBy: "\",\"")
+        
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
         publish_date = (try? node.extract("publish_date")) ?? Date()
