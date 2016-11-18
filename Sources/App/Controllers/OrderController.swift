@@ -9,6 +9,7 @@
 import Foundation
 import HTTP
 import Vapor
+import Fluent
 
 extension Model {
     
@@ -25,8 +26,18 @@ final class OrderController: ResourceRepresentable {
     
     func index(_ request: Request) throws -> ResponseRepresentable {
         
-        let vendor = try request.vendor()
-        let query = try Order.query().filter("vendor_id", vendor.id!).union(Vendor.self, localKey: "vendor_id", foreignKey: "id")
+        var query: Query<Order>
+        
+        if let vendor = try? request.vendor() {
+            
+            query = try Order.query().filter("vendor_id", vendor.id!).union(Vendor.self, localKey: "vendor_id", foreignKey: "id")
+        } else if let customer = try? request.customer() {
+            
+            query = try Order.query().union(Subscription.self).filter(Subscription.self, "customer_id", customer.id!)
+        } else {
+            throw Abort.custom(status: .forbidden, message: "Must log in.")
+        }
+        
         
         if request.query?["outstanding"]?.bool ?? false {
             try query.filter("fulfilled", true)
