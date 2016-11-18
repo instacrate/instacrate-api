@@ -16,11 +16,6 @@ import Auth
 
 let drop = Droplet.create()
 
-// Add the box endpoint
-// drop.collection(BoxCollection.self)
-
-drop.collection(CreationCollection.self)
-
 drop.resource("boxes", BoxController())
 drop.resource("customers", CustomerController())
 drop.resource("shipping", ShippingController())
@@ -30,6 +25,5 @@ drop.resource("order", OrderController())
 drop.resource("vendor", VendorController())
 drop.resource("review", ReviewController())
 drop.resource("subscription", SubscriptionController())
-
 
 drop.run()
