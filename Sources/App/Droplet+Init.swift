@@ -42,7 +42,12 @@ class Logger: Middleware {
         // Do not log file requests as they are also quite verbose
         if !request.uri.path.contains("png") {
             drop.console.info("", newLine: true)
-            drop.console.info(response.description, newLine: true)
+            
+            if response.status != .notFound {
+                drop.console.info(response.description, newLine: true)
+            } else {
+                drop.console.info("404 not found", newLine: true)
+            }
         }
         
         return response
