@@ -32,6 +32,7 @@ final class VendorController: ResourceRepresentable {
     
     func makeResource() -> Resource<Vendor> {
         return Resource(
+            index: index,
             store: create,
             modify: modify
         )
