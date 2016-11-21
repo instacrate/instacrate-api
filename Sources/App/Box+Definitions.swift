@@ -126,7 +126,7 @@ fileprivate func createTerseView(forBox box: Box) throws -> Node {
     
     let vendor = try box.vendor().first()
     
-    return try box.makeNode().add(objects: ["numberOfReviews" : numberOfReviews, "averateRating" : averageReviewScore, "vendorName" : vendor.contactName])
+    return try box.makeNode().add(objects: ["numberOfReviews" : numberOfReviews, "averageRating" : averageReviewScore, "vendorName" : vendor.contactName])
 }
 
 fileprivate func createLongView(forBox box: Box) throws -> Node {
