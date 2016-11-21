@@ -32,12 +32,17 @@ extension Box {
         case featured
         case staffpicks
         case new
+        case all
         
         static let key = "curated"
-        static let values = [Curated.featured.rawValue, Curated.staffpicks.rawValue, Curated.new.rawValue]
+        static let values = [Curated.featured.rawValue, Curated.staffpicks.rawValue, Curated.new.rawValue, Curated.all.rawValue]
+        static let defaultValue = Curated.all
         
         func makeQuery() throws -> Query<Box> {
             switch self {
+            case .all:
+                return try Box.query()
+                
             case .staffpicks: fallthrough
             case .featured:
                 return try Box.query().union(FeaturedBox.self, localKey: "id", foreignKey: "box_id").filter(FeaturedBox.self, "type", self.rawValue)
@@ -55,9 +60,11 @@ extension Box {
         case alphabetical
         case price
         case new
+        case none
         
         static let key = "sort"
         static let values = [Sort.alphabetical.rawValue, Sort.price.rawValue, Sort.new.rawValue]
+        static let defaultValue = Sort.none
         
         var field: String {
             switch self {
@@ -67,7 +74,17 @@ extension Box {
                 return "price"
             case .new:
                 return "publish_date"
+            case .none:
+                return ""
             }
+        }
+        
+        func modify<T : Entity>(_ query: Query<T>) throws -> Query<T> {
+            if self == .none {
+                return query
+            }
+            
+            return try query.sort(field, .ascending)
         }
     }
     
@@ -80,6 +97,7 @@ extension Box {
         
         static let key = "format"
         static let values = ["long", "short"]
+        static let defaultValue = Format.short
         
         func apply(on model: Box) throws -> Node {
             switch self {
@@ -129,4 +147,3 @@ fileprivate func createLongView(forBox box: Box) throws -> Node {
     
     return try box.makeNode().add(objects: nodes)
 }
-
