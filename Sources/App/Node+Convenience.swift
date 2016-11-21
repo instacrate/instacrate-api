@@ -9,5 +9,16 @@
 import Foundation
 import Node
 import JSON
+import Fluent
 
-extension Node: JSONConvertible { }
+extension Node: JSONConvertible {
+
+    mutating func substitute(key: String, model: Model) throws -> Node {
+        precondition(!key.hasSuffix("_id"))
+        
+        self["\(key)_id"] = nil
+        self[key] = try model.makeNode()
+        
+        return self
+    }
+}
