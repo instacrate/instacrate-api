@@ -45,6 +45,8 @@ final class ImageController: ResourceRepresentable {
     }
     
     func makeResource() -> Resource<String> {
-        return Resource()
+        return Resource(
+            store: create
+        )
     }
 }
