@@ -21,3 +21,15 @@ extension Parent {
         return result
     }
 }
+
+extension Children {
+    
+    func first() throws -> T {
+        
+        guard let result: T = try first() else {
+            throw Abort.custom(status: .internalServerError, message: "Relation not found for child \(parent) with parent id \(foreignKey)")
+        }
+        
+        return result
+    }
+}
