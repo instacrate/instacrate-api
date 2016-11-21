@@ -18,7 +18,11 @@ final class BoxController: ResourceRepresentable {
         let curated = try request.extract() as Box.Curated
         let sorted = try request.extract() as Box.Sort
         
-        return try curated.makeQuery().apply(sorted).all().makeJSON()
+        let query = try curated.makeQuery().apply(sorted)
+        
+        let format = try request.extract() as Box.Format
+
+        return try format.apply(on: query.all()).makeJSON()
     }
 
     func create(_ request: Request) throws -> ResponseRepresentable {

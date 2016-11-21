@@ -41,7 +41,8 @@ final class OrderController: ResourceRepresentable {
         
         switch request.sessionType {
         case .vendor:
-            query = try Order.query()
+            let vendor = try request.vendor()
+            query = try Order.query().filter("vendor_id", vendor.id!)
         case .customer:
             query = try Order.query()
         case .none:

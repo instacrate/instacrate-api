@@ -13,6 +13,19 @@ import Fluent
 import Vapor
 import HTTP
 
+extension Array where Element: ResponseRepresentable {
+    
+    
+}
+
+protocol Formatter: TypesafeOptionsParameter {
+    
+    associatedtype Base
+    
+    func apply(on model: Base) throws -> Node
+    func apply(on models: [Base]) throws -> Node
+}
+
 extension Box {
     
     enum Curated: String, TypesafeOptionsParameter, QueryRepresentable {
@@ -57,4 +70,63 @@ extension Box {
             }
         }
     }
+    
+    enum Format: String, Formatter {
+
+        typealias Base = Box
+        
+        case long
+        case short
+        
+        static let key = "format"
+        static let values = ["long", "short"]
+        
+        func apply(on model: Box) throws -> Node {
+            switch self {
+            case .long:
+                return try createLongView(forBox: model)
+                
+            case .short:
+                return try createTerseView(forBox: model)
+            }
+        }
+        
+        func apply(on models: [Box]) throws -> Node {
+
+            return try Node.array(models.map { (box: Box) -> Node in
+                return try self.apply(on: box)
+            })
+        }
+    }
 }
+
+fileprivate func createTerseView(forBox box: Box) throws -> Node {
+    let boxReviews = try box.reviews().all()
+    
+    let numberOfReviews = boxReviews.count
+    let averageReviewScore = boxReviews.map { $0.rating }.average
+    
+    let vendor = try box.vendor().first()
+    
+    return try box.makeNode().add(objects: ["numberOfReviews" : numberOfReviews, "averateRating" : averageReviewScore, "vendorName" : vendor.contactName])
+}
+
+fileprivate func createLongView(forBox box: Box) throws -> Node {
+    let relations = try box.relations()
+    
+    let reviewNodes = try Node(node: relations.reviews.map { review -> Node in
+        var node = try review.makeNode()
+        return try node.substitute(key: "customer", model: review.user())
+    })
+    
+    let nodes = try [
+        "vendor" : relations.vendor,
+        "reviews" : reviewNodes,
+        "pictures" : Node(node: relations.pictures),
+        "numberOfRatings" : relations.reviews.count,
+        "averageRating" : relations.reviews.map { $0.rating }.average
+    ] as [String : NodeConvertible?]
+    
+    return try box.makeNode().add(objects: nodes)
+}
+
