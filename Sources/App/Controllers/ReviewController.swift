@@ -18,10 +18,6 @@ final class ReviewController: ResourceRepresentable {
         return try Response(status: .created, json: review.makeJSON())
     }
     
-    func index(_ request: Request, category: Category) -> ResponseRepresentable {
-        return ""
-    }
-    
     func makeResource() -> Resource<Review> {
         return Resource(
             store: create

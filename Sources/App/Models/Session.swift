@@ -11,8 +11,9 @@ import Fluent
 import Auth
 
 enum SessionType: String, NodeConvertible {
-    case user = "customer"
-    case vendor = "vendor"
+    case customer
+    case vendor
+    case none
     
     init(node: Node, in context: Context = EmptyNode) throws {
         guard let string = node.string else {
@@ -90,7 +91,7 @@ final class Session: Model, Preparation, JSONConvertible {
 extension Session {
     
     func user() throws -> Parent<Customer> {
-        precondition(self.type == .user)
+        precondition(self.type == .customer)
         return try parent(customer_id)
     }
     

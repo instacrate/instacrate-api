@@ -232,7 +232,7 @@ extension Vendor: User {
         case let token as AccessToken:
             let session = try Session.session(forToken: token, type: .vendor)
             
-            guard let vendor = try session.vendor().first() else {
+            guard let vendor = try session.vendor().get() else {
                 throw AuthError.invalidCredentials
             }
             

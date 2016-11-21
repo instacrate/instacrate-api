@@ -12,8 +12,8 @@ import HTTP
 
 final class VendorController: ResourceRepresentable {
     
-    func index(_ request: Request) throws -> ResponseRepresentable {
-        return try request.vendor()
+    func show(_ request: Request, vendor: Vendor) throws -> ResponseRepresentable {
+        return try vendor.makeJSON()
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
@@ -32,8 +32,8 @@ final class VendorController: ResourceRepresentable {
     
     func makeResource() -> Resource<Vendor> {
         return Resource(
-            index: index,
             store: create,
+            show: show,
             modify: modify
         )
     }

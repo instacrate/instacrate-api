@@ -22,22 +22,31 @@ extension Model {
     }
 }
 
+extension Query {
+    
+    func orderQuery(for customer: Customer) throws -> Query<Order> {
+        return try Order.query().union(Subscription.self).filter(Subscription.self, "customer_id", customer.id!)
+    }
+    
+    func orderQuery(for vendor: Vendor) throws -> Query<Order> {
+        return try Order.query().filter("vendor_id", vendor.id!).union(Vendor.self, localKey: "vendor_id", foreignKey: "id")
+    }
+}
+
 final class OrderController: ResourceRepresentable {
     
     func index(_ request: Request) throws -> ResponseRepresentable {
         
         var query: Query<Order>
         
-        if let vendor = try? request.vendor() {
-            
-            query = try Order.query().filter("vendor_id", vendor.id!).union(Vendor.self, localKey: "vendor_id", foreignKey: "id")
-        } else if let customer = try? request.customer() {
-            
-            query = try Order.query().union(Subscription.self).filter(Subscription.self, "customer_id", customer.id!)
-        } else {
-            throw Abort.custom(status: .forbidden, message: "Must log in.")
+        switch request.sessionType {
+        case .vendor:
+            query = try Order.query()
+        case .customer:
+            query = try Order.query()
+        case .none:
+            throw Abort.custom(status: .forbidden, message: "Must be logged in to see orders.");
         }
-        
         
         if request.query?["outstanding"]?.bool ?? false {
             try query.filter("fulfilled", true)

@@ -65,8 +65,14 @@ extension Review {
         return try parent(box_id)
     }
     
-    func user() throws -> Parent<Customer> {
-        return try parent(customer_id)
+    func user() throws -> Customer {
+        let relation = try parent(customer_id) as Parent<Customer>
+        
+        guard let result = try relation.get() else {
+            throw Abort.custom(status: .internalServerError, message: "Review with id \(id!) has no owning user.")
+        }
+        
+        return result
     }
 }
 
@@ -75,9 +81,7 @@ extension Review: Relationable {
     typealias Relations = (user: Customer, box: Box)
 
     func relations() throws -> (user: Customer, box: Box) {
-        guard let user = try self.user().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing user relation for review with text \(text)")
-        }
+        let user = try self.user()
         
         guard let box = try self.box().get() else {
             throw Abort.custom(status: .internalServerError, message: "Missing box relation for review with text \(text)")

@@ -26,7 +26,7 @@ final class CustomerController {
             customerNode["shipping"] = try shipping.makeNode()
         }
 
-        return customerNode
+        return try customerNode.makeJSON()
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {

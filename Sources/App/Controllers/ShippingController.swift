@@ -15,7 +15,7 @@ final class ShippingController: ResourceRepresentable {
 
     func index(_ request: Request) throws -> ResponseRepresentable {
         let customer = try request.customer()
-        return try customer.shippingAddresses().all().makeNode()
+        return try customer.shippingAddresses().all().makeJSON()
     }
 
     func create(_ request: Request) throws -> ResponseRepresentable {

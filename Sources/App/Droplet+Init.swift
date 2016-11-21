@@ -36,8 +36,15 @@ class Logger: Middleware {
         if request.cookies.array.count > 0 {
             drop.console.info("cookies \(request.cookies)", newLine: true)
         }
-
-        let response = try next.respond(to: request)
+        
+        
+        let response: Response!
+        
+        do {
+            response = try next.respond(to: request)
+        } catch {
+            throw Abort.custom(status: .internalServerError, message: "Internal server error... Underlying error \(error)")
+        }
         
         // Do not log file requests as they are also quite verbose
         if !request.uri.path.contains("png") {
@@ -77,8 +84,9 @@ extension Droplet {
     
     static func protect(_ type: SessionType) -> Middleware {
         switch type {
-        case .user: return userProtect
+        case .customer: return userProtect
         case .vendor: return vendorProtect
+        case .none: return userProtect
         }
     }
 }
