@@ -24,6 +24,11 @@ final class BoxController: ResourceRepresentable {
 
         return try format.apply(on: query.all()).makeJSON()
     }
+    
+    func show(_ request: Request, box: Box) throws -> ResponseRepresentable {
+        let format = try request.extract() as Box.Format
+        return try format.apply(on: box).makeJSON()
+    }
 
     func create(_ request: Request) throws -> ResponseRepresentable {
         var box = try Box(json: request.json())
@@ -40,6 +45,7 @@ final class BoxController: ResourceRepresentable {
         return Resource(
             index: index,
             store: create,
+            show: show,
             destroy: delete
         )
     }

@@ -123,7 +123,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
         
         category_id = try node.autoextract(type: Category.self, key: "category")
         
-        cut = try? node.extract("cut")
+        cut = (try? node.extract("cut")) ?? 0.08
     }
     
     func makeNode(context: Context) throws -> Node {
