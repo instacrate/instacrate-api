@@ -46,10 +46,9 @@ class Logger: Middleware {
         
         if let response = response {
             
+            drop.console.info("")
             drop.console.info("URL : \(request.uri)")
             drop.console.info("Headers : \(request.headers.description)")
-            
-            drop.console.info("")
             
             if response.status.statusCode >= 200 || response.status.statusCode < 300 {
                 drop.console.info("Success - \(response.status.statusCode) \(response.status.reasonPhrase)")
