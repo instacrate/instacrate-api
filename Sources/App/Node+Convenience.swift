@@ -10,6 +10,7 @@ import Foundation
 import Node
 import JSON
 import Fluent
+import Vapor
 
 extension Node: JSONConvertible {
 

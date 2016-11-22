@@ -22,22 +22,22 @@ final class Stripe {
     
     typealias Token = String
     
-    static func post(_ resource: String, query: [String : String]) throws -> JSON {
-        let response = try drop.client.post(resource, headers: Stripe.authorizationHeader, query: query)
-        
-        guard let json = try? response.json() else {
-            throw Abort.custom(status: .internalServerError, message: response.description)
-        }
-        
-        
-    }
-    
+//    static func post(_ resource: String, query: [String : String]) throws -> JSON {
+//        let response = try drop.client.post(resource, headers: Stripe.authorizationHeader, query: query)
+//        
+//        guard let json = try? response.json() else {
+//            throw Abort.custom(status: .internalServerError, message: response.description)
+//        }
+//        
+//        
+//    }
+//
     static func createStripeCustomer(forUser user: inout Customer, withPaymentSource source: Token) throws -> Token {
-        
+            let response = try drop.client.get("")
         
         
         guard let json = try? response.json() else {
-            
+            throw Abort.badRequest
         }
         
         guard let customer_id = json["id"]?.string else {
