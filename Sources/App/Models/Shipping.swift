@@ -21,6 +21,9 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     var id: Node?
     var exists = false
     
+    let firstName: String
+    let lastName: String
+    
     let address: String
     let apartment: String
     
@@ -39,6 +42,9 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
         address = try node.extract("address")
         apartment = try node.extract("apartment")
         
+        firstName = try node.extract("firstName")
+        lastName = try node.extract("lastName")
+        
         city = try node.extract("city")
         state = try node.extract("state")
         zip = try node.extract("zip")
@@ -52,7 +58,9 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
             "state" : .string(state),
             "zip" : .string(zip),
             "customer_id" : customer_id!,
-            "isDefault" : .bool(isDefault)
+            "isDefault" : .bool(isDefault),
+            "firstName" : .string(firstName),
+            "lastName" : .string(lastName)
         ]).add(objects: ["id" : id])
     }
     
@@ -64,6 +72,8 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
             shipping.string("city")
             shipping.string("state")
             shipping.string("zip")
+            shipping.string("firstName")
+            shipping.string("lastName")
             shipping.parent(Customer.self, optional: false)
         })
     }

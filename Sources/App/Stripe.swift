@@ -12,15 +12,32 @@ import HTTP
 
 final class Stripe {
     
+    static let secretKey = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn"
+    static var encodedSecretKey: String {
+        return secretKey.data(using: .utf8)!.base64EncodedString()
+    }
+    
+    static let authorizationHeader: [HeaderKey : String] = ["Authorization" : "Basic \(Stripe.encodedSecretKey)"]
+    static let baseURLString = "https://api.stripe.com/v1/"
+    
     typealias Token = String
     
-    static func createStripeCustomer(forUser user: inout Customer, withPaymentSource source: Token) throws -> Token {
-        
-        let authString = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn:".data(using: .utf8)!.base64EncodedString()
-        let response = try drop.client.post("https://api.stripe.com/v1/customers", headers: ["Authorization" : "Basic \(authString)"], query: ["source" : source])
+    static func post(_ resource: String, query: [String : String]) throws -> JSON {
+        let response = try drop.client.post(resource, headers: Stripe.authorizationHeader, query: query)
         
         guard let json = try? response.json() else {
             throw Abort.custom(status: .internalServerError, message: response.description)
+        }
+        
+        
+    }
+    
+    static func createStripeCustomer(forUser user: inout Customer, withPaymentSource source: Token) throws -> Token {
+        
+        
+        
+        guard let json = try? response.json() else {
+            
         }
         
         guard let customer_id = json["id"]?.string else {
