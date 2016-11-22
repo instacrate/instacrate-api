@@ -20,8 +20,11 @@ class LoggingMiddleware: Middleware {
             response = try next.respond(to: request)
         } catch {
             log(request, withResponse: nil)
+            drop.console.info("test")
             return try Response(status: .internalServerError, json: Node(node: ["error" : "true", "message" : "Internal server error... Underlying error \(error)"]).makeJSON())
         }
+        
+        drop.console.info("neat")
         
         log(request, withResponse: response)
         
@@ -50,7 +53,7 @@ class LoggingMiddleware: Middleware {
                 return
             }
             
-            if response.status == .notFound {
+            if response.status == .notFound || response.status.statusCode == 404 {
                 drop.console.error()
                 drop.console.error("Page not found : \(request.uri.path)")
                 drop.console.error()
