@@ -74,6 +74,7 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
             shipping.string("zip")
             shipping.string("firstName")
             shipping.string("lastName")
+            shipping.bool("isDefault")
             shipping.parent(Customer.self, optional: false)
         })
     }
