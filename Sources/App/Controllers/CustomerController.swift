@@ -55,7 +55,8 @@ extension CustomerController: ResourceRepresentable {
 
     func makeResource() -> Resource<Customer> {
         return Resource(
-            index: detail
+            index: detail,
+            store: create
         )
     }
 }

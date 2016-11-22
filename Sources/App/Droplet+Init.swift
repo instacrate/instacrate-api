@@ -14,6 +14,7 @@ import Fluent
 import Auth
 import Turnstile
 import HTTP
+import Console
 
 extension SessionsMiddleware {
     
@@ -27,39 +28,51 @@ class Logger: Middleware {
     
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
         
-        // Do not print multipart form data resopnses as they are quite verbose
-        if !(request.contentType?.contains("multipart/form-data") ?? false) {
-            drop.console.info("", newLine: true)
-            drop.console.info("\(request.description)", newLine: true)
-        }
-        
-        if request.cookies.array.count > 0 {
-            drop.console.info("cookies \(request.cookies)", newLine: true)
-        }
-        
-        
         let response: Response!
         
         do {
             response = try next.respond(to: request)
         } catch {
+            log(request, withResponse: nil)
             throw Abort.custom(status: .internalServerError, message: "Internal server error... Underlying error \(error)")
         }
         
-        // Do not log file requests as they are also quite verbose
-        if !request.uri.path.contains("png") {
-             drop.console.info("", newLine: true)
-            
-            if response.status == .notFound {
-                drop.console.info("not found", newLine: true)
-            } else {
-                drop.console.info(response.description, newLine: true)
-            }
-        }
+        log(request, withResponse: response)
         
         return response
     }
+    
+    func log(_ request: Request, withResponse response: Response?) {
+        
+        if let response = response {
+            
+            drop.console.info("URL : \(request.uri)")
+            drop.console.info("Headers : \(request.headers.description)")
+            
+            drop.console.info("")
+            
+            if response.status.statusCode >= 200 || response.status.statusCode < 300 {
+                drop.console.info("Success - \(response.status.statusCode) \(response.status.reasonPhrase)")
+                return
+            }
+            
+            if request.uri.path.contains("png") {
+                drop.console.error("")
+                drop.console.error("File not found : \(request.uri.path)")
+                drop.console.error("")
+                return
+            }
+            
+            drop.console.error(request.description)
+            drop.console.error()
+            drop.console.error(response.description)
+        } else {
+            drop.console.error(request.description)
+        }
+    }
 }
+
+
 
 extension Droplet {
     
