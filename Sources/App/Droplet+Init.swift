@@ -24,61 +24,6 @@ extension SessionsMiddleware {
     }
 }
 
-class Logger: Middleware {
-    
-    func respond(to request: Request, chainingTo next: Responder) throws -> Response {
-        
-        let response: Response!
-        
-        do {
-            response = try next.respond(to: request)
-        } catch {
-            log(request, withResponse: nil)
-            throw Abort.custom(status: .internalServerError, message: "Internal server error... Underlying error \(error)")
-        }
-        
-        log(request, withResponse: response)
-        
-        return response
-    }
-    
-    func log(_ request: Request, withResponse response: Response?) {
-        
-        if let response = response {
-            
-            drop.console.info()
-            drop.console.info("URL : \(request.uri)")
-            drop.console.info("Headers : \(request.headers.description)")
-            
-            if response.status.statusCode >= 200 && response.status.statusCode < 300 {
-                drop.console.info("Success - \(response.status.statusCode) \(response.status.reasonPhrase)")
-                return
-            }
-                
-            drop.console.info()
-            
-            if request.uri.path.contains("png") {
-                drop.console.error()
-                drop.console.error("File not found : \(request.uri.path)")
-                drop.console.error()
-                return
-            }
-            
-            drop.console.error()
-            drop.console.error(request.description)
-            drop.console.error()
-            drop.console.error(response.description)
-            drop.console.error()
-        } else {
-            drop.console.error()
-            drop.console.error(request.description)
-            drop.console.error()
-        }
-    }
-}
-
-
-
 extension Droplet {
     
     static var instance: Droplet?
@@ -88,7 +33,7 @@ extension Droplet {
         let drop = Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
                                                  "vendorAuth" : UserAuthMiddleware(),
                                                  "userAuth" : VendorAuthMiddleware(),
-                                                 "logger" : Logger()],
+                                                 "logger" : LoggingMiddleware()],
                            preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
                                       Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self],
                            providers: [VaporMySQL.Provider.self])
