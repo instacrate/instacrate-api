@@ -33,7 +33,7 @@ protocol TypesafeOptionsParameter: StringInitializable, NodeConvertible, QueryMo
     static var key: String { get }
     static var values: [String] { get }
     
-    static var defaultValue: Self { get }
+    static var defaultValue: Self? { get }
 }
 
 extension TypesafeOptionsParameter {
@@ -63,7 +63,12 @@ extension RawRepresentable where Self: TypesafeOptionsParameter, RawValue == Str
     
     init(node: Node, in context: Context = EmptyNode) throws {
         if node.isNull {
-            self = Self.defaultValue
+            
+            guard let defaultValue = Self.defaultValue else {
+                throw Abort.custom(status: .badRequest, message: "Missing query parameter value \(Self.key). Acceptable values are : [\(Self.values.description)]")
+            }
+            
+            self = defaultValue
             return
         }
         

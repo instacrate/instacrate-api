@@ -36,7 +36,7 @@ extension Box {
         
         static let key = "curated"
         static let values = [Curated.featured.rawValue, Curated.staffpicks.rawValue, Curated.new.rawValue, Curated.all.rawValue]
-        static let defaultValue = Curated.all
+        static let defaultValue: Curated? = Curated.all
         
         func makeQuery() throws -> Query<Box> {
             switch self {
@@ -64,7 +64,7 @@ extension Box {
         
         static let key = "sort"
         static let values = [Sort.alphabetical.rawValue, Sort.price.rawValue, Sort.new.rawValue]
-        static let defaultValue = Sort.none
+        static let defaultValue: Sort? = Sort.none
         
         var field: String {
             switch self {
@@ -97,7 +97,7 @@ extension Box {
         
         static let key = "format"
         static let values = ["long", "short"]
-        static let defaultValue = Format.short
+        static let defaultValue: Format? = Format.short
         
         func apply(on model: Box) throws -> Node {
             switch self {

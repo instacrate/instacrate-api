@@ -46,7 +46,7 @@ class Logger: Middleware {
         
         if let response = response {
             
-            drop.console.info("")
+            drop.console.info()
             drop.console.info("URL : \(request.uri)")
             drop.console.info("Headers : \(request.headers.description)")
             
@@ -54,19 +54,25 @@ class Logger: Middleware {
                 drop.console.info("Success - \(response.status.statusCode) \(response.status.reasonPhrase)")
                 return
             }
+                
+            drop.console.info()
             
             if request.uri.path.contains("png") {
-                drop.console.error("")
+                drop.console.error()
                 drop.console.error("File not found : \(request.uri.path)")
-                drop.console.error("")
+                drop.console.error()
                 return
             }
             
+            drop.console.error()
             drop.console.error(request.description)
             drop.console.error()
             drop.console.error(response.description)
+            drop.console.error()
         } else {
+            drop.console.error()
             drop.console.error(request.description)
+            drop.console.error()
         }
     }
 }
