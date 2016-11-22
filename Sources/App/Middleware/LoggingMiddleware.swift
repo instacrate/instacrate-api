@@ -50,6 +50,13 @@ class LoggingMiddleware: Middleware {
                 return
             }
             
+            if response.status == .notFound {
+                drop.console.error()
+                drop.console.error("Page not found : \(request.uri.path)")
+                drop.console.error()
+                return
+            }
+            
             drop.console.error()
             drop.console.error(request.description)
             drop.console.error()
