@@ -12,7 +12,28 @@ import Foundation
 
 import HTTP
 
+extension Array where Element: CustomStringConvertible {
 
+    public func joined(separator: CustomStringConvertible = ", ") -> String {
+        return map { String(describing: $0) }.reduce("") { $0 + ($0.characters.count > 0 ? ", " : "") + $1 }
+    }
+}
+
+extension Node {
+
+    public func extract_<T : NodeInitializable>(_ path: PathIndex...) throws -> T {
+        return try extract_(path)
+    }
+
+    public func extract_<T : NodeInitializable>(_ path: [PathIndex]) throws -> T {
+        guard let value = node[path] else {
+            let pathDescription = path.map { String(describing: $0) }.joined(separator: ", ")
+            throw try NodeError.unableToConvert(node: nil, expected: "Expected value of type \(T.self) at \(pathDescription) on \(node.makeJSON().object).")
+        }
+
+        return try T(node: value)
+    }
+}
 
 final class Box: Model, Preparation, JSONConvertible, FastInitializable {
     
@@ -36,20 +57,23 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
     var vendor_id: Node?
     
     init(node: Node, in context: Context) throws {
-        id = try? node.extract("id")
-        name = try node.extract("name")
-        brief = try node.extract("brief")
-        long_desc = try node.extract("long_desc")
-        short_desc = try node.extract("short_desc")
+        id = try? node.extract_("id")
+        name = try node.extract_("name")
+        brief = try node.extract_("brief")
+        long_desc = try node.extract_("long_desc")
+        short_desc = try node.extract_("short_desc")
+
+        if let array = try? node.extract("bullets") as [Node] {
+            bullets = array.flatMap { $0.string }
+        } else {
+            let string = try node.extract("bullets") as String
+            bullets = string.trim(characters: ["\\", "\"", "[", "]"]).components(separatedBy: "\",\"")
+        }
         
-        let string = try (node.extract("bullets") as String).trim(characters: ["\\", "\"", "[", "]"])
-        let a = string.components(separatedBy: "\",\"")
-        bullets = a
-        
-        price = try node.extract("price")
+        price = try node.extract_("price")
         vendor_id = try node.extract("vendor_id")
-        publish_date = (try? node.extract("publish_date")) ?? Date()
-        plan_id = try? node.extract("plan_id")
+        publish_date = (try? node.extract_("publish_date")) ?? Date()
+        plan_id = try? node.extract_("plan_id")
     }
     
     func makeNode(context: Context) throws -> Node {

@@ -25,9 +25,9 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
     var shipping_id: Node?
     
     init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
+        id = try? node.extract("id")
         date = (try? node.extract("date")) ?? Date()
-        fulfilled = try node.extract("fulfilled")
+        fulfilled = (try? node.extract("fulfilled")) ?? false
         subscription_id = try node.extract("subscription_id")
         shipping_id = try node.extract("shipping_id")
         vendor_id = try node.extract("vendor_id")

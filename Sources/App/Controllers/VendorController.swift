@@ -11,6 +11,10 @@ import Vapor
 import HTTP
 
 final class VendorController: ResourceRepresentable {
+
+    func index(_ request: Request) throws -> ResponseRepresentable {
+        return try request.vendor().makeJSON()
+    }
     
     func show(_ request: Request, vendor: Vendor) throws -> ResponseRepresentable {
         return try vendor.makeJSON()

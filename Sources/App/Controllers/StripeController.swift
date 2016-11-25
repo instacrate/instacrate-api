@@ -46,6 +46,8 @@ final class StripeController: ResourceRepresentable {
     func modify(_ request: Request, customer: Customer) throws -> ResponseRepresentable {
         if let token = request.sourceToken {
             let customer = try request.customer()
+
+            guard customer.stripe_id != nil else { throw Abort.custom(status: .badRequest, message: "Must create stripe user before associating.") }
         
             try Stripe.associate(paymentSource: token, withCustomer: customer)
             return Response(status: .noContent)

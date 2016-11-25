@@ -23,7 +23,7 @@ final class Stripe {
     typealias Token = String
     
     static func get(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
-        let response = try drop.client.get(resource, headers: Stripe.authorizationHeader, query: query)
+        let response = try drop.client.get(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
         
         guard let json = try? response.json() else {
             throw Abort.custom(status: .internalServerError, message: response.description)
@@ -33,7 +33,7 @@ final class Stripe {
     }
     
     static func post(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
-        let response = try drop.client.post(resource, headers: Stripe.authorizationHeader, query: query)
+        let response = try drop.client.post(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
         
         guard let json = try? response.json() else {
             throw Abort.custom(status: .internalServerError, message: response.description)
@@ -43,7 +43,7 @@ final class Stripe {
     }
     
     static func delete(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
-        let response = try drop.client.delete(resource, headers: Stripe.authorizationHeader, query: query)
+        let response = try drop.client.delete(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
         
         guard let json = try? response.json() else {
             throw Abort.custom(status: .internalServerError, message: response.description)

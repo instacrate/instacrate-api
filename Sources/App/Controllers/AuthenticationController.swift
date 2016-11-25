@@ -16,11 +16,11 @@ import Fluent
 final class AuthenticationController: ResourceRepresentable {
     
     func login(_ request: Request) throws -> ResponseRepresentable {
-        
-        let type = try SessionType(node: request.query?["type"])
+
+        let type = try request.extract() as SessionType
         
         guard let credentials = request.auth.header?.usernamePassword else {
-            throw Abort.badRequest
+            throw AuthError.noAuthorizationHeader
         }
         
         switch type {

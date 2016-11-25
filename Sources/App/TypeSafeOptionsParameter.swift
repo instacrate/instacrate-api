@@ -65,7 +65,7 @@ extension RawRepresentable where Self: TypesafeOptionsParameter, RawValue == Str
         if node.isNull {
             
             guard let defaultValue = Self.defaultValue else {
-                throw Abort.custom(status: .badRequest, message: "Missing query parameter value \(Self.key). Acceptable values are : [\(Self.values.description)]")
+                throw Abort.custom(status: .badRequest, message: "Missing query parameter value \(Self.key). Acceptable values are : [\(Self.values.joined(separator: ", "))]")
             }
             
             self = defaultValue

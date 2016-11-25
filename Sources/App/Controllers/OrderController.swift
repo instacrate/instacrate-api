@@ -18,7 +18,7 @@ extension Model {
             return nil
         }
 
-        return try find(id: id)
+        return try find(id as NodeRepresentable)
     }
 }
 
@@ -57,7 +57,7 @@ final class OrderController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var box = try Box(json: request.json())
+        var box = try Order(json: request.json())
         try box.save()
         return try Response(status: .created, json: box.makeJSON())
     }

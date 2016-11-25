@@ -29,7 +29,7 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
-        defaultShipping = try? node.extract("defaultShipping")
+        defaultShipping = try? node.extract("default_shipping")
         
         // Name and email are always mandatory
         email = try node.extract("email")
@@ -55,19 +55,19 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
             "salt" : .string(salt.string)
         ]).add(objects: ["stripe_id" : stripe_id,
                          "id" : id,
-                         "defaultShipping" : defaultShipping])
+                         "default_shipping" : defaultShipping])
     }
     
     static func prepare(_ database: Database) throws {
-        try database.create(self.entity, closure: { box in
+        try database.create(self.entity) { box in
             box.id()
             box.string("name")
             box.string("stripe_id")
             box.string("email")
             box.string("password")
             box.string("salt")
-            box.int("defaultShipping", optional: true)
-        })
+            box.int("default_shipping", optional: false)
+        }
     }
     
     static func revert(_ database: Database) throws {

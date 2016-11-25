@@ -29,6 +29,14 @@ final class SubscriptionController: ResourceRepresentable {
     
     func create(_ request: Request) throws -> ResponseRepresentable {
         var sub = try Subscription(json: request.json())
+
+        guard try sub.customer_id == request.customer().id else {
+            throw Abort.custom(status: .forbidden, message: "Can not create subscription for another user.")
+        }
+
+        guard let address = try sub.address().get(), try address.customer_id == request.customer().id else {
+            throw Abort.custom(status: .forbidden, message: "Logged in user does not own shipping address.")
+        }
         
         guard var box = try sub.box().get() else {
             throw Abort.custom(status: .badRequest, message: "Invalid box id on subscription json")
@@ -47,6 +55,9 @@ final class SubscriptionController: ResourceRepresentable {
     }
     
     func makeResource() -> Resource<Subscription> {
-        return Resource()
+        return Resource(
+            index: index,
+            store: create
+        )
     }
 }

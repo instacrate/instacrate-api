@@ -20,11 +20,13 @@ extension Node {
         if var object = try? self.extract(key) as T {
             try object.save()
             return object.id
-        } else if let object_id = try? self.extract("\(key)_id") as String {
-            return .string(object_id)
+        }
+
+        guard let object_id: String = try self.extract("\(key)_id") else {
+            throw Abort.custom(status: .badRequest, message: "Missing value for \(key) or \(key)_id")
         }
         
-        return nil
+        return .string(object_id)
     }
 }
 

@@ -10,6 +10,7 @@ import Foundation
 
 import Vapor
 import HTTP
+import FluentMySQL
 
 final class ShippingController: ResourceRepresentable {
 
@@ -26,7 +27,7 @@ final class ShippingController: ResourceRepresentable {
 
             shipping.isDefault = true
             try shipping.save()
-            
+
             customer.defaultShipping = shipping.id
             try customer.save()
 
@@ -40,9 +41,18 @@ final class ShippingController: ResourceRepresentable {
     func delete(_ request: Request, shipping: Shipping) throws -> ResponseRepresentable {
         var customer = try request.customer()
 
-        if let def = try customer.defaultShippingAddress().get(), def.id == shipping.id {
-            customer.defaultShipping = nil
-            try customer.save()
+        if shipping.customer_id != customer.id {
+            throw Abort.custom(status: .forbidden, message: "Can not modify another user's shipping.")
+        }
+
+        if shipping.isDefault {
+            if var next = try customer.defaultShippingAddress().filter("id", .notEquals, shipping.id!).first() {
+                next.isDefault = true
+                customer.defaultShipping = next.id
+
+                try next.save()
+                try customer.save()
+            }
         }
 
         try shipping.delete()

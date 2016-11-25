@@ -13,8 +13,7 @@ import HTTP
 final class CategoryController: ResourceRepresentable {
     
     func show(_ request: Request, category: Category) throws -> ResponseRepresentable {
-        let query = try Box.query().filter("category_id", category.id!).union(Category.self)
-        return try query.all().makeJSON()
+        return try category.boxes().all().makeJSON()
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
