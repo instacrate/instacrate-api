@@ -43,12 +43,12 @@ final class SubscriptionController: ResourceRepresentable {
         }
         
         if box.plan_id == nil {
-            try Stripe.createPlan(forBox: &box)
+            try Stripe.shared.createPlan(forBox: &box)
         }
         
         precondition(box.plan_id != nil, "Box must have plan id")
         
-        sub.sub_id = try Stripe.createSubscription(forUser: request.customer(), forBox: box)
+        sub.sub_id = try Stripe.shared.createSubscription(forUser: request.customer(), forBox: box)
         
         try sub.save()
         return try Response(status: .created, json: sub.makeJSON())

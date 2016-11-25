@@ -82,7 +82,7 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
             "brief" : .string(brief),
             "long_desc" : .string(long_desc),
             "short_desc" : .string(short_desc),
-            "bullets" : .array(bullets.map( { .string($0) })),
+            "bullets" : .string("\"" + bullets.joined(separator: "\",\"") + "\""),
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!,
             "publish_date" : .string(publish_date.ISO8601String),

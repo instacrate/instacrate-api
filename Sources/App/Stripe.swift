@@ -10,7 +10,48 @@ import Foundation
 import Vapor
 import HTTP
 
-final class Stripe {
+class HTTPClient {
+
+    let baseURLString: String
+
+    init(urlString: String) {
+        baseURLString = urlString
+    }
+
+    func get(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
+        let response = try drop.client.get(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
+
+        guard let json = try? response.json() else {
+            throw Abort.custom(status: .internalServerError, message: response.description)
+        }
+
+        return json
+    }
+
+    func post(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
+        let response = try drop.client.post(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
+
+        guard let json = try? response.json() else {
+            throw Abort.custom(status: .internalServerError, message: response.description)
+        }
+
+        return json
+    }
+
+    func delete(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
+        let response = try drop.client.delete(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
+
+        guard let json = try? response.json() else {
+            throw Abort.custom(status: .internalServerError, message: response.description)
+        }
+
+        return json
+    }
+}
+
+final class Stripe: HTTPClient {
+
+    static let shared = Stripe()
     
     static let secretKey = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn"
     static var encodedSecretKey: String {
@@ -18,42 +59,15 @@ final class Stripe {
     }
     
     static let authorizationHeader: [HeaderKey : String] = ["Authorization" : "Basic \(Stripe.encodedSecretKey)"]
-    static let baseURLString = "https://api.stripe.com/v1/"
-    
+
     typealias Token = String
-    
-    static func get(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
-        let response = try drop.client.get(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
-        
-        guard let json = try? response.json() else {
-            throw Abort.custom(status: .internalServerError, message: response.description)
-        }
-        
-        return json
-    }
-    
-    static func post(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
-        let response = try drop.client.post(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
-        
-        guard let json = try? response.json() else {
-            throw Abort.custom(status: .internalServerError, message: response.description)
-        }
-        
-        return json
-    }
-    
-    static func delete(_ resource: String, query: [String : CustomStringConvertible] = [:]) throws -> JSON {
-        let response = try drop.client.delete(baseURLString + resource, headers: Stripe.authorizationHeader, query: query)
-        
-        guard let json = try? response.json() else {
-            throw Abort.custom(status: .internalServerError, message: response.description)
-        }
-        
-        return json
+
+    fileprivate init() {
+        super.init(urlString: "https://api.stripe.com/v1/")
     }
     
     @discardableResult
-    static func createStripeCustomer(forUser user: inout Customer, withPaymentSource source: Token) throws -> String {
+    func createStripeCustomer(forUser user: inout Customer, withPaymentSource source: Token) throws -> String {
         let json = try post("customers", query: ["source" : source])
         
         guard let customer_id = json["id"]?.string else {
@@ -65,9 +79,22 @@ final class Stripe {
         
         return customer_id
     }
+
+    func createStripeCustomer(forVendor vendor: inout Vendor, withPaymentSource source: Token) throws -> String {
+        let json = try post("accounts", query: ["managed" : true, "country" : "US", "email" : vendor.contactEmail])
+
+        guard let account_id = json["id"]?.string else {
+            throw Abort.custom(status: .internalServerError, message: json.makeNode().nodeObject?.description ?? "Fuck.")
+        }
+
+        vendor.stripeAccountId = account_id
+        try vendor.save()
+
+        return account_id
+    }
     
     @discardableResult
-    static func associate(paymentSource source: Token, withCustomer user: Customer) throws -> Token {
+    func associate(paymentSource source: Token, withCustomer user: Customer) throws -> Token {
         
         precondition(user.stripe_id != nil, "User must have a stripe id.")
         
@@ -80,7 +107,7 @@ final class Stripe {
         return card_id
     }
     
-    static func createPlan(forBox box: inout Box) throws {
+    func createPlan(forBox box: inout Box) throws {
         precondition(box.plan_id == nil, "Box already had plan.")
         let planId = UUID().uuidString
         
@@ -101,7 +128,7 @@ final class Stripe {
     }
     
     @discardableResult
-    static func createSubscription(forUser user: Customer, forBox box: Box, withFrequency frequency: Frequency = .monthly) throws -> String {
+    func createSubscription(forUser user: Customer, forBox box: Box, withFrequency frequency: Frequency = .monthly) throws -> String {
         
         precondition(user.stripe_id != nil, "User must have a stripe id.")
         precondition(box.plan_id != nil, "Box must have a plan id.")
@@ -123,7 +150,7 @@ final class Stripe {
         return subscription_id
     }
     
-    static func paymentMethods(forUser user: Customer) throws -> JSON {
+    func paymentMethods(forUser user: Customer) throws -> JSON {
         
         let json = try get("customers/\(user.stripe_id!)/sources", query: ["object" : "card"])
         
@@ -134,8 +161,7 @@ final class Stripe {
         return cards
     }
     
-    static func information(forCustomer user: Customer) throws -> JSON {
-        
+    func information(forCustomer user: Customer) throws -> JSON {
         return try get("customers/\(user.stripe_id!)")
     }
 }

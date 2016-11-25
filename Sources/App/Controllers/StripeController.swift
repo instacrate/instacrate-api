@@ -35,7 +35,7 @@ final class StripeController: ResourceRepresentable {
             var customer = try request.customer()
             
             if let token = request.sourceToken {
-                try Stripe.createStripeCustomer(forUser: &customer, withPaymentSource: token)
+                try Stripe.shared.createStripeCustomer(forUser: &customer, withPaymentSource: token)
                 return try Response(status: .created, json: customer.makeJSON())
             }
         }
@@ -49,7 +49,7 @@ final class StripeController: ResourceRepresentable {
 
             guard customer.stripe_id != nil else { throw Abort.custom(status: .badRequest, message: "Must create stripe user before associating.") }
         
-            try Stripe.associate(paymentSource: token, withCustomer: customer)
+            try Stripe.shared.associate(paymentSource: token, withCustomer: customer)
             return Response(status: .noContent)
         }
         
