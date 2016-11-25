@@ -56,12 +56,24 @@ class LoggingMiddleware: Middleware {
                 drop.console.error()
                 return
             }
-            
+
             drop.console.error()
             drop.console.error(request.description)
+
             drop.console.error()
-            drop.console.error(response.description)
+
+            if response.json != nil {
+                drop.console.error(response.description)
+            } else {
+                drop.console.error("Response")
+                drop.console.error("\(response.status.statusCode) - \(response.status.reasonPhrase)")
+                drop.console.error(response.headers.description)
+            }
+
             drop.console.error()
+            
+
+
         } else {
             drop.console.error()
             drop.console.error(request.description)
