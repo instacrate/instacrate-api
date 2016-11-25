@@ -11,13 +11,13 @@ import HTTP
 import Routing
 import Vapor
 
-class V1Collection: RouteCollection {
+class StripeWebhookCollection: RouteCollection {
 
     typealias Wrapped = HTTP.Responder
 
     func build<B: RouteBuilder>(_ builder: B) where B.Value == Wrapped {
 
-        builder.group("webhook") { webhook in
+        builder.grouped("stripe").group("webhook") { webhook in
 
             webhook.post() { request in
                 drop.console.info(request.description)
