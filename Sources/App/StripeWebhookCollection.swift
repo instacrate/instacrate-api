@@ -39,9 +39,6 @@ func parseEvent(fromRequest request: Request) throws -> (StripeResource, Action)
     let _resource = components[0..<components.count - 1].joined(separator: ".").lowercased()
     let _action = components[components.count - 1].lowercased()
 
-    drop.console.info("resource \(_resource)")
-    drop.console.info("action \(_action)")
-
     guard let resource = StripeResource(rawValue: _resource), let action = Action(rawValue: _action) else {
         throw Abort.custom(status: .noContent, message: "Unsupported event type.")
     }
@@ -73,6 +70,8 @@ class StripeWebhookCollection: RouteCollection {
 
             webhook.post() { request in
                 let (resource, action) = try parseEvent(fromRequest: request)
+
+                print(self.webhookHandlers)
 
                 guard let handler = self.webhookHandlers[resource]?[action] else {
                     return try Response(status: .ok, json: Node(node: ["message" : "Not implemented"]).makeJSON())
