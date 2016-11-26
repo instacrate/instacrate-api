@@ -57,11 +57,19 @@ class StripeWebhookCollection: RouteCollection {
 
     typealias Wrapped = HTTP.Responder
 
-    fileprivate var webhookHandlers: [StripeResource : [Action : (StripeResource, Action, Request) throws -> (Response)]] = [:]
+    fileprivate var webhookHandlers: [StripeResource : [Action : [(StripeResource, Action, Request) throws -> (Response)]]] = [:]
 
     func registerHandler(forResource resource: StripeResource, action: Action, handler: @escaping (StripeResource, Action, Request) throws -> Response) {
+
+        var resourceHanderGroup = webhookHandlers[resource] ?? [:]
+        var actionHandlerGroup = resourceHanderGroup[action] ?? []
+
+        actionHandlerGroup.append(handler)
+
+        resourceHanderGroup[action] = actionHandlerGroup
+        webhookHandlers[resource] = resourceHanderGroup
+
         drop.console.info("Added handler for \(resource.rawValue).\(action.rawValue)")
-        webhookHandlers[resource]?[action] = handler
     }
 
     func build<B: RouteBuilder>(_ builder: B) where B.Value == Wrapped {
