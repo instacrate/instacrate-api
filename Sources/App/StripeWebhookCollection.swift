@@ -82,12 +82,16 @@ class StripeWebhookCollection: RouteCollection {
 
                 print(self.webhookHandlers)
 
-                guard let handler = self.webhookHandlers[resource]?[action] else {
+                guard let handlers = self.webhookHandlers[resource]?[action] else {
                     return try Response(status: .ok, json: Node(node: ["message" : "Not implemented"]).makeJSON())
                 }
 
-                drop.console.info("Forwarding \(resource.rawValue).\(action.rawValue) to registered handler.")
-                return try handler(resource, action, request)
+                drop.console.info("Forwarding \(resource.rawValue).\(action.rawValue) to registered handlers.")
+
+                let responses = try handlers.map { try $0(resource, action, request) }
+                let failingResponses = responses.filter { !(200..<300 ~= $0.status.statusCode) }
+
+                return failingResponses.count > 0 ? failingResponses.first! : Response(status: .noContent)
             }
         }
     }
