@@ -65,7 +65,7 @@ class StripeWebhookCollection: RouteCollection {
                 let (resource, action) = try parseEvent(fromRequest: request)
 
                 guard let handler = self.webhookHandlers[resource]?[action] else {
-                    throw Abort.custom(status: .noContent, message: "Webhook not implemented.")
+                    return try Response(status: .ok, json: Node(node: ["message" : "Not implemented"]).makeJSON())
                 }
 
                 drop.console.info("Forwarding \(resource.rawValue).\(action.rawValue) to registered handler.")
