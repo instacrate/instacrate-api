@@ -29,6 +29,7 @@ final class StripeController: ResourceRepresentable {
 
     init() {
         StripeWebhookCollection.shared.registerHandler(forResource: .account, action: .updated) { (resource, action, request) throws -> Response in
+            drop.console.info("testing")
             return try Response(status: .internalServerError, json: Node(node: ["test" : "test"]).makeJSON())
         }
     }
