@@ -46,6 +46,9 @@ func parseEvent(fromRequest request: Request) throws -> (StripeResource, Action)
         throw Abort.custom(status: .noContent, message: "Unsupported event type.")
     }
 
+    drop.console.info("resource \(resource)")
+    drop.console.info("action \(action)")
+
     return (resource, action)
 }
 
