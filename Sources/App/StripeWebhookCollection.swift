@@ -70,6 +70,7 @@ class StripeWebhookCollection: RouteCollection {
         webhookHandlers[resource] = resourceHanderGroup
 
         drop.console.info("Added handler for \(resource.rawValue).\(action.rawValue)")
+        drop.console.info("handlers \(webhandlers)")
     }
 
     func build<B: RouteBuilder>(_ builder: B) where B.Value == Wrapped {
