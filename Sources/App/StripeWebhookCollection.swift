@@ -53,6 +53,7 @@ class StripeWebhookCollection: RouteCollection {
     fileprivate var webhookHandlers: [StripeResource : [Action : (StripeResource, Action, Request) throws -> (Response)]] = [:]
 
     func registerHandler(forResource resource: StripeResource, action: Action, handler: @escaping (StripeResource, Action, Request) throws -> Response) {
+        drop.console.info("Added handler for \(resource.rawValue).\(action.rawValue)")
         webhookHandlers[resource]?[action] = handler
     }
 
@@ -67,6 +68,7 @@ class StripeWebhookCollection: RouteCollection {
                     throw Abort.custom(status: .noContent, message: "Webhook not implemented.")
                 }
 
+                drop.console.info("Forwarding \(resource.rawValue).\(action.rawValue) to registered handler.")
                 return try handler(resource, action, request)
             }
         }
