@@ -26,6 +26,12 @@ extension Request {
 }
 
 final class StripeController: ResourceRepresentable {
+
+    init() {
+        StripeWebhookCollection.shared.registerHandler(forResource: .account, action: .updated) { (resource, action, request) -> Response in
+            return Response(status: .enhanceYourCalm)
+        }
+    }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
         let type = try request.extract() as StripeModel
