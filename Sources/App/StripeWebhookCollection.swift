@@ -50,9 +50,9 @@ class StripeWebhookCollection: RouteCollection {
 
     typealias Wrapped = HTTP.Responder
 
-    fileprivate var webhookHandlers: [StripeResource : [Action : (StripeResource, Action, Request) -> (Response)]] = [:]
+    fileprivate var webhookHandlers: [StripeResource : [Action : (StripeResource, Action, Request) throws -> (Response)]] = [:]
 
-    func registerHandler(forResource resource: StripeResource, action: Action, handler: @escaping (StripeResource, Action, Request) -> Response) {
+    func registerHandler(forResource resource: StripeResource, action: Action, handler: @escaping (StripeResource, Action, Request) throws -> Response) {
         webhookHandlers[resource]?[action] = handler
     }
 
@@ -67,7 +67,7 @@ class StripeWebhookCollection: RouteCollection {
                     throw Abort.custom(status: .noContent, message: "Webhook not implemented.")
                 }
 
-                return handler(resource, action, request)
+                return try handler(resource, action, request)
             }
         }
     }
