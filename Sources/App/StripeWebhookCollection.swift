@@ -30,11 +30,7 @@ func parseEvent(fromRequest request: Request) throws -> (StripeResource, Action)
         throw Abort.custom(status: .badRequest, message: "Event type not found.")
     }
 
-    drop.console.info("event type \(eventType)")
-
     let components = eventType.components(separatedBy: ".")
-
-    drop.console.info("components \(components)")
 
     let _resource = components[0..<components.count - 1].joined(separator: ".").lowercased()
     let _action = components[components.count - 1].lowercased()
@@ -42,9 +38,6 @@ func parseEvent(fromRequest request: Request) throws -> (StripeResource, Action)
     guard let resource = StripeResource(rawValue: _resource), let action = Action(rawValue: _action) else {
         throw Abort.custom(status: .noContent, message: "Unsupported event type.")
     }
-
-    drop.console.info("resource \(resource)")
-    drop.console.info("action \(action)")
 
     return (resource, action)
 }
@@ -70,7 +63,6 @@ class StripeWebhookCollection: RouteCollection {
         webhookHandlers[resource] = resourceHanderGroup
 
         drop.console.info("Added handler for \(resource.rawValue).\(action.rawValue)")
-        drop.console.info("handlers \(webhookHandlers)")
     }
 
     func build<B: RouteBuilder>(_ builder: B) where B.Value == Wrapped {
