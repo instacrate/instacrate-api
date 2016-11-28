@@ -29,4 +29,6 @@ if [[ ! " ${configs[@]} " =~ " ${config} " ]]; then
 	printf "\n"
 fi
 
-vapor run --env="$config" &
+rm /var/run/instacrated.pid >> /dev/null
+touch /var/run/instacrated.pid
+vapor run --env="$config" & echo $! >> /var/run/instacrated.pid
