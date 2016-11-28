@@ -1,0 +1,11 @@
+[Unit]
+Description=Instacrate production API server
+After=network.target
+
+[Service]
+ExecStart=/bin/bash start.sh
+Type=forking
+PIDFile=/var/run/instacrated.pid
+
+[Install]
+WantedBy=default.target

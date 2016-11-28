@@ -29,7 +29,7 @@ final class StripeController: ResourceRepresentable {
 
     init() {
         StripeWebhookCollection.shared.registerHandler(forResource: .account, action: .updated) { (resource, action, request) throws -> Response in
-            return try Response(status: .noContent)
+            return Response(status: .noContent)
         }
     }
     

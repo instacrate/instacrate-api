@@ -1,14 +1,32 @@
 #!/usr/bin/env bash
 
-process=App
-start="/home/hakon/Subber/.build/debug/App"
+while getopts "e:" opt; do
+  	case $opt in
+    	e) config="$OPTARG"
+    	;;
+  	esac
+done
 
-if ps ax | grep -v grep | grep $process > /dev/null
-then
-	exit
-else
-	$start &
+declare -a configs
+configs=(development production staging)
+
+function printConfigs {
+	for item in ${configs[*]}; do
+    	printf "%s " "$item"
+	done
+}
+
+if [ -z "$config" ]; then
+  	printf "No environment was provided. Provde one with -e. Valid values are "
+  	printConfigs
+  	printf "\n"
+  	exit
 fi
 
-exit
+if [[ ! " ${configs[@]} " =~ " ${config} " ]]; then
+	printf "Invalid environment. Valid values are "
+	printConfigs
+	printf "\n"
+fi
 
+vapor run --env="$config"
