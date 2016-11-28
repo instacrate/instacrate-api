@@ -29,4 +29,4 @@ if [[ ! " ${configs[@]} " =~ " ${config} " ]]; then
 	printf "\n"
 fi
 
-vapor run --env="$config"
+vapor run --env="$config" &
