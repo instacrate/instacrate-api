@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
-serviceFileName="instacrated.service.txt"
-serviceName="instacrated.service"
-servicePath="/etc/systemd/system/"
+devServiceFileName="dev-instacrated.service.txt"
+devServiceName="dev-instacrated.service"
 
-sudo cp "$serviceFileName" "$servicePath$serviceName"
-sudo chmod 664 "$servicePath$serviceName"
+prodServiceFileName="instacrated.service.txt"
+prodServiceName="instacrated.service"
+
+destinationPath="/etc/systemd/system/"
+
+sudo cp "$devServiceFileName" "$destinationPath$devServiceName"
+sudo chmod 664 "$destinationPath$devServiceName"
+
+sudo cp "$prodServiceFileName" "$destinationPath$prodServiceName"
+sudo chmod 664 "$destinationPath$prodServiceName"
 
 systemctl daemon-reload
-systemctl start "$serviceName"
+
+systemctl start "$devServiceName"
+systemctl start "$prodServiceName"
