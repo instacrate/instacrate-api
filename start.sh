@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-while getopts "e:f" opt; do
+while getopts "e:f:" opt; do
   	case $opt in
     	e) config="$OPTARG"
     	;;
@@ -21,6 +21,11 @@ if [ -z "$config" ]; then
   	printConfigs
   	printf "\n"
   	exit
+fi
+
+if [ -z "$pidFile" ]; then
+    printf "No pidFile was provided."
+    exit
 fi
 
 if [[ ! " ${configs[@]} " =~ " ${config} " ]]; then
