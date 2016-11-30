@@ -7,7 +7,6 @@ while getopts "e:" opt; do
   	esac
 done
 
-declare -A configs
 configs=(development production staging)
 
 function printConfigs {
