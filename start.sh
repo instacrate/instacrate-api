@@ -7,7 +7,7 @@ while getopts "e:" opt; do
   	esac
 done
 
-configs=(development production staging)
+configs=("development" "production" "staging")
 
 function printConfigs {
 	for item in ${configs[*]}; do
