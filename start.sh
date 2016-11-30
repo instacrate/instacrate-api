@@ -31,4 +31,7 @@ fi
 
 rm /var/run/instacrated.pid >> /dev/null
 touch /var/run/instacrated.pid
+
+echo whoami
+
 vapor run --env="$config" & echo $! >> /var/run/instacrated.pid
