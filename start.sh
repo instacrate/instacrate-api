@@ -46,4 +46,8 @@ sudo touch "$pidFile"
 
 cd "$projectFolder"
 
+sudo -i
+
+PATH=$PATH:/swift/usr/bin
+
 /usr/local/bin/vapor run --env="$config" & echo $! > "$pidFile"
