@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-while getopts "e:" opt; do
+while getopts "e:f" opt; do
   	case $opt in
     	e) config="$OPTARG"
     	;;
+      f) pidFile="$OPTARG"
   	esac
 done
 
@@ -28,7 +29,7 @@ if [[ ! " ${configs[@]} " =~ " ${config} " ]]; then
 	printf "\n"
 fi
 
-rm /var/run/instacrated.pid >> /dev/null
-touch /var/run/instacrated.pid
+rm "$pidFile"
+touch "$pidFile"
 
-vapor run --env="$config" & echo $! > /var/run/instacrated.pid
+vapor run --env="$config" & echo $! > "$pidFile"

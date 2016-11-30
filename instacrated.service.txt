@@ -3,7 +3,7 @@ Description=Instacrate production API server
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /home/hakon/Subber/start.sh -e production
+ExecStart=/bin/bash /home/hakon/Subber/start.sh -e production -f /var/run/instacrated.pid
 Type=forking
 PIDFile=/var/run/instacrated.pid
 
