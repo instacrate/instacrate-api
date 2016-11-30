@@ -1,10 +1,12 @@
 #!/bin/bash
 
-while getopts "e:f:" opt; do
+while getopts "e:f:d:" opt; do
   	case $opt in
     	e) config="$OPTARG"
     	;;
       f) pidFile="$OPTARG"
+      ;;
+      d) projectFolder="$OPTARG"
   	esac
 done
 
@@ -28,6 +30,11 @@ if [ -z "$pidFile" ]; then
     exit
 fi
 
+if [ -z "$projectFolder" ]; then
+    printf "No projectFolder was provided."
+    exit
+fi
+
 if [[ ! " ${configs[@]} " =~ " ${config} " ]]; then
 	printf "Invalid environment. Valid values are "
 	printConfigs
@@ -36,5 +43,7 @@ fi
 
 sudo rm "$pidFile"
 sudo touch "$pidFile"
+
+cd "$projectFolder"
 
 /usr/local/bin/vapor run --env="$config" & echo $! > "$pidFile"
