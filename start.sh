@@ -37,4 +37,4 @@ fi
 sudo rm "$pidFile"
 sudo touch "$pidFile"
 
-vapor run --env="$config" & echo $! > "$pidFile"
+/usr/local/bin/vapor run --env="$config" & echo $! > "$pidFile"
