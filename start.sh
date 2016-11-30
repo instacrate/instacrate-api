@@ -34,7 +34,7 @@ if [[ ! " ${configs[@]} " =~ " ${config} " ]]; then
 	printf "\n"
 fi
 
-rm "$pidFile"
-touch "$pidFile"
+sudo rm "$pidFile"
+sudo touch "$pidFile"
 
 vapor run --env="$config" & echo $! > "$pidFile"
