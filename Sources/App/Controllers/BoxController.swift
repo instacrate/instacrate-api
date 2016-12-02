@@ -31,6 +31,11 @@ final class BoxController: ResourceRepresentable {
     }
 
     func create(_ request: Request) throws -> ResponseRepresentable {
+        
+        var node = try request.json().node
+        let bullets = try node.extract("bullets") as [String]
+        node["bullets"] = Node.string(bullets.joined(separator: Box.boxBulletSeparator))
+        
         var box = try Box(json: request.json())
         try box.save()
         return try Response(status: .created, json: box.makeJSON())
