@@ -28,11 +28,10 @@ final class SubscriptionController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var sub = try Subscription(json: request.json())
+        let customer = try request.customer()
 
-        guard try sub.customer_id == request.customer().id else {
-            throw Abort.custom(status: .forbidden, message: "Can not create subscription for another user.")
-        }
+        let node = try request.json().node.add(name: "customer_id", node: customer.id)
+        var sub = try Subscription(node: node)
 
         guard let address = try sub.address().get(), try address.customer_id == request.customer().id else {
             throw Abort.custom(status: .forbidden, message: "Logged in user does not own shipping address.")
