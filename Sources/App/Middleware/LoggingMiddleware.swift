@@ -10,6 +10,17 @@ import Foundation
 import Vapor
 import HTTP
 
+extension Status {
+    
+    var isSuccessfulStatus: Bool {
+        return statusCode > 199 && statusCode < 300
+    }
+    
+    var description: String {
+        return "\(isSuccessfulStatus ? "Success" : "Failure") - \(statusCode) : \(reasonPhrase)"
+    }
+}
+
 class LoggingMiddleware: Middleware {
     
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
@@ -19,65 +30,62 @@ class LoggingMiddleware: Middleware {
         do {
             response = try next.respond(to: request)
         } catch {
-            log(request, withResponse: nil)
+            log(request, error: error)
             return try Response(status: .internalServerError, json: Node(node: ["error" : "true", "message" : "Internal server error... Underlying error \(error)"]).makeJSON())
         }
         
-        log(request, withResponse: response)
+        log(request, response: response)
         
         return response
     }
     
-    func log(_ request: Request, withResponse response: Response?) {
+    func log(_ request: Request, response: Response? = nil, error: Error? = nil) {
         
-        if let response = response {
-            
-            drop.console.info()
-            drop.console.info("URL : \(request.uri)")
-            drop.console.info("Headers : \(request.headers.description)")
-            
-            if response.status.statusCode >= 200 && response.status.statusCode < 300 {
-                drop.console.info("Success - \(response.status.statusCode) \(response.status.reasonPhrase)")
-                return
-            }
-            
-            drop.console.info()
-            
-            if request.uri.path.contains("png") {
-                drop.console.error()
-                drop.console.error("File not found : \(request.uri.path)")
-                drop.console.error()
-                return
-            }
-            
-            if response.status == .notFound || response.status.statusCode == 404 {
-                drop.console.error()
-                drop.console.error("Page not found : \(request.uri.path)")
-                drop.console.error()
-                return
-            }
-
-            drop.console.error()
-            drop.console.error(request.description)
-
-            drop.console.error()
-
-            if response.json != nil {
-                drop.console.error(response.description)
-            } else {
-                drop.console.error("Response")
-                drop.console.error("\(response.status.statusCode) - \(response.status.reasonPhrase)")
-                drop.console.error(response.headers.description)
-            }
-
-            drop.console.error()
-            
-
-
+        let failure = { (string: String?) in
+            drop.console.error(string ?? "")
+        }
+        
+        let info = { (string: String?) in
+            drop.console.info(string ?? "")
+        }
+        
+        let log = error == nil ? info : failure
+        
+        if let multipart = request.multipart, multipart.count > 0 {
+            log("")
+            log("Request - Multipart Upload - Hiding request body due to large size")
+            log("URL : \(request.uri)")
+            log("Headers : \(request.headers.description)")
+            log("")
         } else {
-            drop.console.error()
-            drop.console.error(request.description)
-            drop.console.error()
+            log("")
+            log(request.description)
+            log("")
+        }
+        
+        if let response = response, request.uri.path.contains("png") {
+            
+            log("")
+            log("Response - \(response.status.description)")
+            log("URL : \(request.uri)")
+            log("Headers : \(request.headers.description)")
+            log("")
+            
+        } else if let response = response {
+            log("")
+            log(response.description)
+            log("")
+        } else {
+            log("")
+            log("No response.")
+            log("")
+        }
+        
+        if let error = error {
+            
+            log("")
+            log("Error \(error)")
+            log("")
         }
     }
 }
