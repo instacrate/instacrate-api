@@ -38,6 +38,7 @@ extension Droplet {
         drop.addConfigurable(middleware: UserAuthMiddleware(), name: "userAuth")
         drop.addConfigurable(middleware: VendorAuthMiddleware(), name: "userAuth")
         drop.addConfigurable(middleware: LoggingMiddleware(), name: "logger")
+        drop.addConfigurable(middleware: CustomAbortMiddleware(), name: "customAbort")
         
         let preparations: [Preparation.Type] = [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self, Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self]
         drop.preparations.append(contentsOf: preparations)
