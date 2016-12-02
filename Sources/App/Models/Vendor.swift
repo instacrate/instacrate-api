@@ -64,7 +64,7 @@ extension BCryptSalt: NodeInitializable {
 
 final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id or category", "estimatedTotalSubscribers"]
+    static var requiredJSONFields = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id or category", "estimatedTotalSubscribers", "applicationState", "username", "password"]
     
     var id: Node?
     var exists = false

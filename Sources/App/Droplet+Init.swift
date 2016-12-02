@@ -43,7 +43,7 @@ extension Droplet {
         var remainingMiddleare = drop.middleware.filter { !($0 is FileMiddleware) }
         
         if let fileMiddleware = drop.middleware.filter({ $0 is FileMiddleware }).first {
-            remainingMiddleare.insert(fileMiddleware, at: 0)
+            remainingMiddleare.append(fileMiddleware)
         }
         
         drop.middleware = remainingMiddleare

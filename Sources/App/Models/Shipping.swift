@@ -12,11 +12,13 @@ import Fluent
 protocol FastInitializable {
     
     static var requiredJSONFields: [String] { get }
+    
+    
 }
 
 final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["customer_id", "address", "apartment", "city", "state", "zip"]
+    static var requiredJSONFields = ["customer_id", "address", "firstName", "lastName", "apartment", "city", "state", "zip"]
     
     var id: Node?
     var exists = false
@@ -36,18 +38,17 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
+        
         customer_id = try node.extract("customer_id")
-        isDefault = (try? node.extract("isDefault")) ?? false
-        
         address = try node.extract("address")
-        apartment = try? node.extract("apartment")
-        
         firstName = try node.extract("firstName")
         lastName = try node.extract("lastName")
-        
         city = try node.extract("city")
         state = try node.extract("state")
         zip = try node.extract("zip")
+        
+        isDefault = (try? node.extract("isDefault")) ?? false
+        apartment = try? node.extract("apartment")
     }
     
     func makeNode(context: Context) throws -> Node {

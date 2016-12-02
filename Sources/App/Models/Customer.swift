@@ -14,7 +14,7 @@ import BCrypt
 
 final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["id", "email", "name", "password"]
+    static var requiredJSONFields = ["email", "name", "password"]
     
     var id: Node?
     var exists = false

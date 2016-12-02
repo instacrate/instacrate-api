@@ -46,6 +46,11 @@ class LoggingMiddleware: Middleware {
         logger("Request")
         logger("URL : \(request.uri)")
         logger("Headers : \(request.headers.description)")
+        
+        if request.json != nil {
+            logger("JSON : \(request.body.bytes?.string)")
+        }
+        
         logger("Response - \(response.status.description)")
         logger("")
     }

@@ -12,7 +12,7 @@ import Foundation
 
 final class Order: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["fulfulled", "subscription_id", "shipping_id"]
+    static var requiredJSONFields = ["fulfilled", "subscription_id", "shipping_id", "vendor_id"]
     
     var id: Node?
     var exists = false

@@ -65,7 +65,7 @@ enum Frequency: String, StringInitializable {
 
 final class Subscription: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["box_id", "shipping_id", "customer_id"]
+    static var requiredJSONFields = ["box_id", "shipping_id", "customer_id", "frequency"]
     
     var id: Node?
     var exists = false

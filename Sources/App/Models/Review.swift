@@ -12,7 +12,7 @@ import Foundation
 
 final class Review: Model, Preparation, JSONConvertible, FastInitializable {
     
-    static var requiredJSONFields = ["text", "rating", "date", "box_id", "customer_id"]
+    static var requiredJSONFields = ["text", "rating", "box_id", "customer_id"]
     
     var id: Node?
     var exists = false
@@ -26,11 +26,13 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
+        
         text = try node.extract("text")
         rating = try node.extract("rating")
-        date = (try? node.extract("date")) ?? Date()
         box_id = try node.extract("box_id")
         customer_id = try node.extract("customer_id")
+        
+        date = (try? node.extract("date")) ?? Date()
     }
     
     func makeNode(context: Context) throws -> Node {
