@@ -36,9 +36,17 @@ extension Droplet {
         
         drop.addConfigurable(middleware: SessionsMiddleware.createSessionsMiddleware(), name: "sessions")
         drop.addConfigurable(middleware: UserAuthMiddleware(), name: "userAuth")
-        drop.addConfigurable(middleware: VendorAuthMiddleware(), name: "userAuth")
+        drop.addConfigurable(middleware: VendorAuthMiddleware(), name: "vendorAuth")
         drop.addConfigurable(middleware: LoggingMiddleware(), name: "logger")
         drop.addConfigurable(middleware: CustomAbortMiddleware(), name: "customAbort")
+        
+        var remainingMiddleare = drop.middleware.filter { !($0 is FileMiddleware) }
+        
+        if let fileMiddleware = drop.middleware.filter({ $0 is FileMiddleware }).first {
+            remainingMiddleare.insert(fileMiddleware, at: 0)
+        }
+        
+        drop.middleware = remainingMiddleare
         
         let preparations: [Preparation.Type] = [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self, Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self]
         drop.preparations.append(contentsOf: preparations)

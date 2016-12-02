@@ -25,7 +25,7 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     let lastName: String
     
     let address: String
-    let apartment: String
+    let apartment: String?
     
     let city: String
     let state: String
@@ -40,7 +40,7 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
         isDefault = (try? node.extract("isDefault")) ?? false
         
         address = try node.extract("address")
-        apartment = try node.extract("apartment")
+        apartment = try? node.extract("apartment")
         
         firstName = try node.extract("firstName")
         lastName = try node.extract("lastName")
@@ -53,7 +53,6 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "address" : .string(address),
-            "apartment" : .string(apartment),
             "city" : .string(city),
             "state" : .string(state),
             "zip" : .string(zip),
@@ -61,14 +60,15 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
             "isDefault" : .bool(isDefault),
             "firstName" : .string(firstName),
             "lastName" : .string(lastName)
-        ]).add(objects: ["id" : id])
+        ]).add(objects: ["id" : id,
+                         "apartment" : apartment])
     }
     
     static func prepare(_ database: Database) throws {
         try database.create(self.entity, closure: { shipping in
             shipping.id()
             shipping.string("address")
-            shipping.string("apartment")
+            shipping.string("apartment", optional: true)
             shipping.string("city")
             shipping.string("state")
             shipping.string("zip")

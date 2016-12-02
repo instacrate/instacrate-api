@@ -17,16 +17,6 @@
             "vendorAuth",
             "userAuth"
         ],
-        "client": [
-            "file",
-            "customAbort",
-            "validation",
-            "type-safe",
-            "date",
-            "sessions",
-            "logger",
-            "vendorAuth",
-            "userAuth"
-        ]
+        "client": []
     }
 }
