@@ -13,7 +13,7 @@ import HTTP
 extension Status {
     
     var isSuccessfulStatus: Bool {
-        return statusCode > 199 && statusCode < 300
+        return statusCode > 199 && statusCode < 400
     }
     
     var description: String {
