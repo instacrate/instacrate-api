@@ -116,9 +116,7 @@ extension Customer: User {
                 throw AuthError.invalidCredentials
             }
             
-            let hashedPassword = BCrypt.hash(password: usernamePassword.password, salt: user.salt)
-            
-            if user.password == hashedPassword {
+            if user.password == BCrypt.hash(password: usernamePassword.password, salt: user.salt) {
                 return user
             } else {
                 throw AuthError.invalidBasicAuthorization

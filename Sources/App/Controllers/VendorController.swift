@@ -26,19 +26,10 @@ final class VendorController: ResourceRepresentable {
         return try Response(status: .created, json: vendor.makeJSON())
     }
     
-    func modify(_ request: Request, _vendor: Vendor) throws -> ResponseRepresentable {
-        var vendor = _vendor
-        
-        try vendor.update(withJSON: request.json())
-        try vendor.save()
-        return try Response(status: .created, json: vendor.makeJSON())
-    }
-    
     func makeResource() -> Resource<Vendor> {
         return Resource(
             store: create,
-            show: show,
-            modify: modify
+            show: show
         )
     }
 }

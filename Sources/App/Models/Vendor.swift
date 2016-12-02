@@ -30,11 +30,6 @@ extension Node {
     }
 }
 
-protocol Updateable: Model {
-    
-    func update(withJSON json: JSON) throws
-}
-
 enum ApplicationState: String, NodeConvertible {
     
     case none = "none"
@@ -91,9 +86,9 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
     
     let dateCreated: Date
 
-    var username: String?
-    var password: String?
-    var salt: BCryptSalt?
+    var username: String
+    var password: String
+    var salt: BCryptSalt
 
     var stripeAccountId: String?
     
@@ -105,10 +100,15 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
         
         applicationState = try node.extract("applicationState")
         
-        if applicationState == .accepted {
-            username = try node.extract("username")
-            password = try node.extract("password")
-            salt = try node.extract("salt")
+        username = try node.extract("username")
+        let password = try node.extract("password") as String
+        
+        if let salt = try? node.extract("salt") as String {
+            self.salt = try BCryptSalt(string: salt)
+            self.password = password
+        } else {
+            self.salt = BCryptSalt()
+            self.password = BCrypt.hash(password: password, salt: salt)
         }
         
         contactName = try node.extract("contactName")
@@ -146,12 +146,13 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             
             "established" : .string(established),
             "dateCreated" : .string(dateCreated.ISO8601String),
+            
+            "username" : .string(username),
+            "password": .string(password),
+            "salt" : .string(salt.string)
         ]).add(objects: ["id" : id,
                          "category_id" : category_id,
-                         "cut" : cut,
-                         "username" : username,
-                         "password": password,
-                         "salt" : salt?.string])
+                         "cut" : cut])
     }
     
     static func prepare(_ database: Database) throws {
@@ -192,27 +193,6 @@ extension Vendor {
     }
 }
 
-extension Vendor: Updateable {
-    
-    func update(withJSON json: JSON) throws {
-        let node = json.makeNode()
-    
-        guard let state: ApplicationState = try node.extract("applicationState") else {
-            throw Abort.custom(status: .badRequest, message: "Missing application state in json body.")
-        }
-        
-        self.applicationState = state
-        
-        if self.applicationState == .accepted {
-            username = try node.extract("username")
-            salt = BCryptSalt()
-            
-            let plainTextPassword = try node.extract("password") as String
-            password = BCrypt.hash(password: plainTextPassword, salt: salt!)
-        }
-    }
-}
-
 extension Vendor: Relationable {
 
     typealias Relations = (boxes: [Box], category: Category)
@@ -250,11 +230,7 @@ extension Vendor: User {
                 throw AuthError.invalidCredentials
             }
             
-            guard let salt = vendor.salt else {
-                throw Abort.custom(status: .internalServerError, message: "Missing salt for vendor with id \(vendor.id!)")
-            }
-            
-            if BCrypt.hash(password: usernamePassword.password, salt: salt) == vendor.password {
+            if vendor.password == BCrypt.hash(password: usernamePassword.password, salt: vendor.salt) {
                 return vendor
             } else {
                 throw AuthError.invalidBasicAuthorization
