@@ -25,8 +25,11 @@ class LoggingMiddleware: Middleware {
     
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
         
+        drop.console.info("here1")
         let response: Response = try next.respond(to: request)
+        drop.console.info("here2")
         log(request, response: response)
+        drop.console.info("here3")
         return response
     }
     
@@ -40,13 +43,13 @@ class LoggingMiddleware: Middleware {
             drop.console.info(string ?? "")
         }
         
-        let log = response.status.isSuccessfulStatus ? info : failure
+        let logger = response.status.isSuccessfulStatus ? info : failure
         
-        log("")
-        log("Request")
-        log("URL : \(request.uri)")
-        log("Headers : \(request.headers.description)")
-        log("Response - \(response.status.description)")
-        log("")
+        logger("")
+        logger("Request")
+        logger("URL : \(request.uri)")
+        logger("Headers : \(request.headers.description)")
+        logger("Response - \(response.status.description)")
+        logger("")
     }
 }

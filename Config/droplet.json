@@ -14,7 +14,8 @@
             "logger",
             "vendorAuth",
             "userAuth",
-            "file"
+            "file",
+            "abort"
         ],
         "client": [
             "validation",
@@ -24,7 +25,8 @@
             "logger",
             "vendorAuth",
             "userAuth",
-            "file"
+            "file",
+            "abort"
         ]
     }
 }
