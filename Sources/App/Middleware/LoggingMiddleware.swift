@@ -14,8 +14,17 @@ class LoggingMiddleware: Middleware {
     
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
         
-        let response = try next.respond(to: request)
+        let response: Response!
+        
+        do {
+            response = try next.respond(to: request)
+        } catch {
+            log(request, withResponse: nil)
+            return try Response(status: .internalServerError, json: Node(node: ["error" : "true", "message" : "Internal server error... Underlying error \(error)"]).makeJSON())
+        }
+        
         log(request, withResponse: response)
+        
         return response
     }
     
