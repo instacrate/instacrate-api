@@ -12,13 +12,6 @@ import Foundation
 
 import HTTP
 
-extension Array where Element: CustomStringConvertible {
-
-    public func joined(separator: CustomStringConvertible = ", ") -> String {
-        return map { String(describing: $0) }.reduce("") { $0 + ($0.characters.count > 0 ? ", " : "") + $1 }
-    }
-}
-
 extension Node {
 
     public func extract_<T : NodeInitializable>(_ path: PathIndex...) throws -> T {
@@ -38,6 +31,7 @@ extension Node {
 final class Box: Model, Preparation, JSONConvertible, FastInitializable {
     
     static var requiredJSONFields = ["name", "brief", "long_desc", "short_desc", "bullets", "freq", "price", "vendor_id"]
+    static let boxBulletSeparator = "<<<>>>"
     
     var id: Node?
     var exists = false
@@ -62,14 +56,10 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
         brief = try node.extract_("brief")
         long_desc = try node.extract_("long_desc")
         short_desc = try node.extract_("short_desc")
-
-        if let array = try? node.extract("bullets") as [Node] {
-            bullets = array.flatMap { $0.string }
-        } else {
-            let string = try node.extract("bullets") as String
-            bullets = string.trim(characters: ["\\", "\"", "[", "]"]).components(separatedBy: "\",\"")
-        }
         
+        let string = try node.extract("bullets") as String
+        bullets = string.components(separatedBy: Box.boxBulletSeparator)
+
         price = try node.extract_("price")
         vendor_id = try node.extract("vendor_id")
         publish_date = (try? node.extract_("publish_date")) ?? Date()
@@ -82,7 +72,7 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
             "brief" : .string(brief),
             "long_desc" : .string(long_desc),
             "short_desc" : .string(short_desc),
-            "bullets" : .string("\"" + bullets.joined(separator: "\",\"") + "\""),
+            "bullets" : .string(bullets.joined(separator: Box.boxBulletSeparator)),
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!,
             "publish_date" : .string(publish_date.ISO8601String),
