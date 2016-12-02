@@ -24,9 +24,6 @@ class CustomAbortMiddleware: Middleware {
             return try CustomAbortMiddleware.errorResponse(request, status, message)
         } catch {
             drop.console.error("\(error)")
-            drop.console.error()
-            drop.console.error(Thread.callStackSymbols.joined(separator: "\n"))
-            drop.console.error()
             return try CustomAbortMiddleware.errorResponse(request, .internalServerError, "Error \(error)")
         }
     }
