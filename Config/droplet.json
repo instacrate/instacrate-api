@@ -7,7 +7,6 @@
     "cipher": "crypto",
     "middleware": {
         "server": [
-            "file",
             "abort",
             "validation",
             "type-safe",
@@ -15,10 +14,19 @@
             "sessions",
             "logger",
             "vendorAuth",
-            "userAuth"
+            "userAuth",
+            "file"
         ],
         "client": [
-            
+            "abort",
+            "validation",
+            "type-safe",
+            "date",
+            "sessions",
+            "logger",
+            "vendorAuth",
+            "userAuth",
+            "file"
         ]
     }  
 }

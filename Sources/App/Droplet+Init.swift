@@ -29,14 +29,18 @@ extension Droplet {
     static var instance: Droplet?
     
     internal static func create() -> Droplet {
-
-        let drop = Droplet(availableMiddleware: ["sessions" : SessionsMiddleware.createSessionsMiddleware(),
-                                                 "vendorAuth" : UserAuthMiddleware(),
-                                                 "userAuth" : VendorAuthMiddleware(),
-                                                 "logger" : LoggingMiddleware()],
-                           preparations: [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self,
-                                      Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self],
-                           providers: [VaporMySQL.Provider.self])
+        
+        let drop = Droplet()
+        
+        try! drop.addProvider(VaporMySQL.Provider.self)
+        
+        drop.addConfigurable(middleware: SessionsMiddleware.createSessionsMiddleware(), name: "sessions")
+        drop.addConfigurable(middleware: UserAuthMiddleware(), name: "userAuth")
+        drop.addConfigurable(middleware: VendorAuthMiddleware(), name: "userAuth")
+        drop.addConfigurable(middleware: LoggingMiddleware(), name: "logger")
+        
+        let preparations: [Preparation.Type] = [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self, Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self]
+        drop.preparations.append(contentsOf: preparations)
         
         Droplet.instance = drop
         return drop
