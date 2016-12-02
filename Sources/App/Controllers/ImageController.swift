@@ -21,32 +21,53 @@ final class ImageController: ResourceRepresentable {
         guard let fileData = request.multipart?["image"]?.file?.data else {
             throw Abort.custom(status: .badRequest, message: "No file in request")
         }
+
+        let url = try save(data: Data(bytes: fileData))
         
-        guard let workPath = Droplet.instance?.workDir else {
-            throw Abort.custom(status: .internalServerError, message: "Missing working directory")
-        }
-        
-        let name = UUID().uuidString + ".png"
-        let imageFolder = "Public/images"
-        let saveURL = URL(fileURLWithPath: workPath).appendingPathComponent(imageFolder, isDirectory: true).appendingPathComponent(name, isDirectory: false)
-        
-        do {
-            let data = Data(bytes: fileData)
-            try data.write(to: saveURL)
-        } catch {
-            throw Abort.custom(status: .internalServerError, message: "Unable to write multipart form data to file. Underlying error \(error)")
-        }
-        
-        let cloudURL = URL(string: "http://api.instacrate.me/images/")!.appendingPathComponent(name)
-        var picture = Picture(url: cloudURL.absoluteString, box_id: box.id!.string!)
+        var picture = Picture(url: url, box_id: box.id!.string!)
         try picture.save()
         
         return try picture.makeJSON()
     }
     
-    func makeResource() -> Resource<String> {
+    func modify(_ request: Request, picture: Picture) throws -> ResponseRepresentable {
+        
+        guard let urlString = try request.json().node["url"]?.string else {
+            throw Abort.custom(status: .badRequest, message: "Missing url from json body.")
+        }
+        
+        guard let bytes = try drop.client.get(urlString).body.bytes else {
+            throw Abort.custom(status: .internalServerError, message: "No bytes in body")
+        }
+        
+        let _ = try save(data: Data(bytes: bytes), overriding: picture)
+        return try picture.makeJSON()
+    }
+    
+    func save(data: Data, overriding picture: Picture? = nil) throws -> String {
+    
+        let imageFolder = "Public/images"
+        
+        guard let workPath = Droplet.instance?.workDir else {
+            throw Abort.custom(status: .internalServerError, message: "Missing working directory")
+        }
+        
+        let name = picture == nil ? UUID().uuidString + ".png" : picture!.url
+        let saveURL = URL(fileURLWithPath: workPath).appendingPathComponent(imageFolder, isDirectory: true).appendingPathComponent(name, isDirectory: false)
+        
+        do {
+            try data.write(to: saveURL)
+        } catch {
+            throw Abort.custom(status: .internalServerError, message: "Unable to write multipart form data to file. Underlying error \(error)")
+        }
+        
+        return "http://api.instacrate.me/images/" + name
+    }
+    
+    func makeResource() -> Resource<Picture> {
         return Resource(
-            store: create
+            store: create,
+            modify: modify
         )
     }
 }
