@@ -46,7 +46,6 @@ class LoggingMiddleware: Middleware {
         log("Request")
         log("URL : \(request.uri)")
         log("Headers : \(request.headers.description)")
-        log("")
         log("Response - \(response.status.description)")
         log("")
     }
