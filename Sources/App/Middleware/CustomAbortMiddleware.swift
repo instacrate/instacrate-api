@@ -8,6 +8,7 @@
 
 import Vapor
 import HTTP
+import Foundation
 
 class CustomAbortMiddleware: Middleware {
     public func respond(to request: Request, chainingTo chain: Responder) throws -> Response {
@@ -22,6 +23,10 @@ class CustomAbortMiddleware: Middleware {
         } catch Abort.custom(let status, let message) {
             return try CustomAbortMiddleware.errorResponse(request, status, message)
         } catch {
+            drop.console.error("\(error)")
+            drop.console.error()
+            drop.console.error(Thread.callStackSymbols.joined(separator: "\n"))
+            drop.console.error()
             return try CustomAbortMiddleware.errorResponse(request, .internalServerError, "Error \(error)")
         }
     }
