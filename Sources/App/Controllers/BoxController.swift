@@ -36,7 +36,9 @@ final class BoxController: ResourceRepresentable {
         let bullets = try node.extract("bullets") as [String]
         node["bullets"] = Node.string(bullets.joined(separator: Box.boxBulletSeparator))
         
-        var box = try Box(json: request.json())
+        try print(node.extract("bullets") as String)
+        
+        var box = try Box(node: node)
         try box.save()
         return try Response(status: .created, json: box.makeJSON())
     }
