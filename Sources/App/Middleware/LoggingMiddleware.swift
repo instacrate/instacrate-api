@@ -24,12 +24,9 @@ extension Status {
 class LoggingMiddleware: Middleware {
     
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
-        
-        drop.console.info("here1")
+    
         let response: Response = try next.respond(to: request)
-        drop.console.info("here2")
         log(request, response: response)
-        drop.console.info("here3")
         return response
     }
     
