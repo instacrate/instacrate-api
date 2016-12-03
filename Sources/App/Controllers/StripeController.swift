@@ -46,7 +46,7 @@ final class StripeController: ResourceRepresentable {
             }
         }
         
-        return Response(status: .noContent)
+        throw Abort.custom(status: .badRequest, message: "Missing type from query string.")
     }
     
     func modify(_ request: Request, customer: Customer) throws -> ResponseRepresentable {

@@ -30,7 +30,9 @@ final class ImageController: ResourceRepresentable {
         return try picture.makeJSON()
     }
     
-    func modify(_ request: Request, picture: Picture) throws -> ResponseRepresentable {
+    func modify(_ request: Request, _picture: Picture) throws -> ResponseRepresentable {
+        
+        var picture = _picture
         
         guard let urlString = try request.json().node["url"]?.string else {
             throw Abort.custom(status: .badRequest, message: "Missing url from json body.")
@@ -40,7 +42,10 @@ final class ImageController: ResourceRepresentable {
             throw Abort.custom(status: .internalServerError, message: "No bytes in body")
         }
         
-        let _ = try save(data: Data(bytes: bytes), overriding: picture)
+        let path = try save(data: Data(bytes: bytes), overriding: picture)
+        picture.url = path
+        try picture.save()
+        
         return try picture.makeJSON()
     }
     
@@ -52,7 +57,7 @@ final class ImageController: ResourceRepresentable {
             throw Abort.custom(status: .internalServerError, message: "Missing working directory")
         }
         
-        let name = picture == nil ? UUID().uuidString + ".png" : picture!.url
+        let name = picture == nil ? UUID().uuidString + ".png" : URL(string: picture!.url)!.lastPathComponent
         let saveURL = URL(fileURLWithPath: workPath).appendingPathComponent(imageFolder, isDirectory: true).appendingPathComponent(name, isDirectory: false)
         
         do {
