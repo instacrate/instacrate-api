@@ -20,10 +20,12 @@ final class ShippingController: ResourceRepresentable {
     }
 
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var shipping = try Shipping(json: request.json())
         var customer = try request.customer()
+        let node = try request.json().node.add(name: "customer_id", node: customer.id)
+        
+        var shipping = try Shipping(node: node)
 
-        if customer.defaultShipping == nil {
+        if let defaultShipping = customer.defaultShipping, defaultShipping == .null || customer.defaultShipping == nil {
 
             shipping.isDefault = true
             try shipping.save()
