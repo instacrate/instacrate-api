@@ -29,6 +29,8 @@ final class LogFileController: ResourceRepresentable {
         let folder = "Private/Logs/\(description)"
         let saveFolder = URL(fileURLWithPath: workPath).appendingPathComponent(folder, isDirectory: true)
         
+        try FileManager.default.createDirectory(at: saveFolder, withIntermediateDirectories: true, attributes: nil)
+        
         for (name, multipart) in files {
             do {
                 if case let .file(file) = multipart {
