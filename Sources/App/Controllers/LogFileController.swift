@@ -18,13 +18,11 @@ final class LogFileController: ResourceRepresentable {
             throw Abort.custom(status: .badRequest, message: "No files in request")
         }
         
-        drop.console.info("files \(files)")
-        
         guard let workPath = Droplet.instance?.workDir else {
             throw Abort.custom(status: .internalServerError, message: "Missing working directory")
         }
         
-        guard let description = request.json?["description"]?.string else {
+        guard let description = files["description"]?.string else {
             throw Abort.custom(status: .badRequest, message: "No file description")
         }
         
