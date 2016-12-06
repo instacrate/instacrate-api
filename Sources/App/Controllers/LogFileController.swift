@@ -36,7 +36,7 @@ final class LogFileController: ResourceRepresentable {
                         throw Abort.custom(status: .badRequest, message: "Missing file name for \(name)")
                     }
                     
-                    guard fileName.hasSuffix(".txt") else {
+                    guard fileName.hasSuffix(".log") else {
                         throw Abort.custom(status: .badRequest, message: "Missing file extension for \(name)")
                     }
                     
