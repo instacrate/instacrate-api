@@ -14,11 +14,11 @@ final class LogFileController: ResourceRepresentable {
     
     func create(_ request: Request) throws -> ResponseRepresentable {
         
-        guard let files = request.multipart?.allItems else {
+        guard let files = request.multipart else {
             throw Abort.custom(status: .badRequest, message: "No files in request")
         }
         
-        drop.console.info("\(files)")
+        drop.console.info("files \(files)")
         
         guard let workPath = Droplet.instance?.workDir else {
             throw Abort.custom(status: .internalServerError, message: "Missing working directory")
@@ -46,6 +46,8 @@ final class LogFileController: ResourceRepresentable {
                     
                     let data = Data(bytes: file.data)
                     try data.write(to: saveURL)
+                } else {
+                    drop.console.info("wrong type")
                 }
             } catch {
                 throw Abort.custom(status: .internalServerError, message: "Unable to write multipart form data to file. Underlying error \(error)")
