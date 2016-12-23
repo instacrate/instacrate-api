@@ -10,18 +10,36 @@ import Foundation
 import Vapor
 import HTTP
 
+enum FetchType: String, TypesafeOptionsParameter {
+
+    case stripe
+    case shipping
+
+    static let key = "type"
+    static let values = [FetchType.stripe.rawValue, FetchType.shipping.rawValue]
+
+    static var defaultValue: FetchType? = nil
+}
+
 final class CustomerController {
 
     func detail(_ request: Request) throws -> ResponseRepresentable {
         let customer = try request.customer()
         var customerNode = try customer.makeNode()
 
-        if request.query?["stripe"]?.bool ?? false && customer.stripe_id != nil {
-            let stripeData = try Stripe.shared.information(forCustomer: customer)
-            customerNode["stripe"] = stripeData.makeNode()
+        let options = try request.extract() as [FetchType]
+
+        if options.contains(.stripe) {
+            if let card = request.query?["card"]?.string {
+                let stripeData = try Stripe.shared.information(forCustomer: customer)
+                customerNode["card"] = stripeData.makeNode()[["sources", "data"]]?.nodeArray?.filter { $0["id"]?.string == card }.first
+            } else {
+                let stripeData = try Stripe.shared.information(forCustomer: customer)
+                customerNode["stripe"] = stripeData.makeNode()
+            }
         }
-        
-        if let shouldIncludeShippingAddresses = request.query?["shipping"]?.bool, shouldIncludeShippingAddresses {
+
+        if options.contains(.shipping) {
             let shipping = try customer.shippingAddresses().all()
             customerNode["shipping"] = try shipping.makeNode()
         }

@@ -93,4 +93,12 @@ extension Request {
     func extract<T: TypesafeOptionsParameter>() throws -> T where T: RawRepresentable, T.RawValue == String {
         return try T.init(node: self.query?[T.key])
     }
+
+    func extract<T: TypesafeOptionsParameter>() throws -> [T] where T: RawRepresentable, T.RawValue == String {
+        guard let optionsArray = self.query?[T.key]?.nodeArray else {
+            throw Abort.custom(status: .badRequest, message: "Missing query option at key \(T.key). Acceptable values are \(T.values)")
+        }
+        
+        return try optionsArray.map { try T.init(node: $0) }
+    }
 }
