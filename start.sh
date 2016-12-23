@@ -44,10 +44,10 @@ fi
 sudo rm "$pidFile"
 sudo touch "$pidFile"
 
-cd "$projectFolder"
+cd "$projectFolder" || exit
 
 sudo -i
 
 PATH=$PATH:/swift/usr/bin
 
-/usr/local/bin/vapor run --env="$config" & echo $! > "$pidFile"
+/usr/local/bin/vapor run --env="$config" >> "$projectFolder""/Private/Logs/""$config" & echo $! > "$pidFile"
