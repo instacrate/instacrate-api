@@ -24,11 +24,11 @@ extension Model {
 
 extension Query {
     
-    func orderQuery(for customer: Customer) throws -> Query<Order> {
+    static func orderQuery(for customer: Customer) throws -> Query<Order> {
         return try Order.query().union(Subscription.self).filter(Subscription.self, "customer_id", customer.id!)
     }
     
-    func orderQuery(for vendor: Vendor) throws -> Query<Order> {
+    static func orderQuery(for vendor: Vendor) throws -> Query<Order> {
         return try Order.query().filter("vendor_id", vendor.id!).union(Vendor.self, localKey: "vendor_id", foreignKey: "id")
     }
 }
@@ -41,15 +41,14 @@ final class OrderController: ResourceRepresentable {
         
         switch request.sessionType {
         case .vendor:
-            let vendor = try request.vendor()
-            query = try Order.query().filter("vendor_id", vendor.id!)
+            query = try Query<Vendor>.orderQuery(for: request.vendor())
         case .customer:
-            query = try Order.query()
+            query = try Query<Customer>.orderQuery(for: request.customer())
         case .none:
             throw Abort.custom(status: .forbidden, message: "Must be logged in to see orders.");
         }
         
-        if request.query?["outstanding"]?.bool ?? false {
+        if request.query?["fulfilled"]?.bool ?? false {
             try query.filter("fulfilled", true)
         }
         
