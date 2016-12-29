@@ -22,4 +22,25 @@ extension Node: JSONConvertible {
         
         return self
     }
+
+    mutating func merge(with json: JSON) throws -> Node {
+        guard let update = json.node.nodeObject else {
+            throw Abort.custom(status: .badRequest, message: "Expected [String : Object] node but got \(json.node)")
+        }
+
+        for (key, object) in update {
+            self[key] = object
+        }
+
+        return self
+    }
+}
+
+extension NodeConvertible {
+
+    mutating func update(from json: JSON) throws -> Self {
+        var node = try self.makeNode()
+        let updatedNode = try node.merge(with: json)
+        return try Self.init(node: updatedNode, in: EmptyNode)
+    }
 }

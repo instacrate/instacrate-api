@@ -60,11 +60,26 @@ final class ShippingController: ResourceRepresentable {
         try shipping.delete()
         return Response(status: .noContent)
     }
+
+    func modify(_ request: Request, _shipping: Shipping) throws -> ResponseRepresentable {
+        guard try _shipping.customer_id == request.customer().id else {
+            throw Abort.custom(status: .forbidden, message: "Can not modify another user's shipping address.")
+        }
+
+        var shipping = _shipping
+        let json = try request.json()
+
+        var updated = try shipping.update(from: json)
+        try updated.save()
+
+        return try updated.makeResponse()
+    }
     
     func makeResource() -> Resource<Shipping> {
         return Resource(
             index: index,
             store: create,
+            modify: modify,
             destroy: delete
         )
     }

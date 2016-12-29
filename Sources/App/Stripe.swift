@@ -164,5 +164,9 @@ final class Stripe: HTTPClient {
     func information(forCustomer user: Customer) throws -> JSON {
         return try get("customers/\(user.stripe_id!)")
     }
+
+    func deletePayment(with id: String, for customer: Customer) throws -> JSON {
+        return try delete("customers/\(customer.stripe_id)/sources/\(id)")
+    }
 }
 

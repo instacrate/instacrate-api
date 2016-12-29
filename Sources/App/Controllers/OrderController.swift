@@ -48,8 +48,8 @@ final class OrderController: ResourceRepresentable {
             throw Abort.custom(status: .forbidden, message: "Must be logged in to see orders.");
         }
         
-        if request.query?["fulfilled"]?.bool ?? false {
-            try query.filter("fulfilled", true)
+        if let fulfilled = request.query?["fulfilled"]?.bool {
+            try query.filter("fulfilled", fulfilled)
         }
         
         return try query.all().makeJSON()
@@ -60,11 +60,17 @@ final class OrderController: ResourceRepresentable {
         try box.save()
         return try Response(status: .created, json: box.makeJSON())
     }
+
+    func delete(_ request: Request, order: Order) throws -> ResponseRepresentable {
+        try order.delete()
+        return Response(status: .noContent)
+    }
     
     func makeResource() -> Resource<Order> {
         return Resource(
             index: index,
-            store: create
+            store: create,
+            destroy: delete
         )
     }
 }
