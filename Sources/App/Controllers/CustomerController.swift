@@ -9,6 +9,7 @@
 import Foundation
 import Vapor
 import HTTP
+import Stripe
 
 enum FetchType: String, TypesafeOptionsParameter {
 
@@ -27,15 +28,19 @@ final class CustomerController {
         let customer = try request.customer()
         var customerNode = try customer.makeNode()
 
+        guard let stripe_id = customer.stripe_id else {
+            throw Abort.custom(status: .badRequest, message: "User is missing a stripe id.")
+        }
+
         let options = try request.extract() as [FetchType]
 
         if options.contains(.stripe) {
             if let card = request.query?["card"]?.string {
-                let stripeData = try Stripe.shared.information(forCustomer: customer)
-                customerNode["card"] = stripeData.makeNode()[["sources", "data"]]?.nodeArray?.filter { $0["id"]?.string == card }.first
+                let cards = try Stripe.shared.paymentInformation(for: stripe_id)
+                customerNode["card"] = try cards.filter { $0.id == card }.first?.makeNode()
             } else {
-                let stripeData = try Stripe.shared.information(forCustomer: customer)
-                customerNode["stripe"] = stripeData.makeNode()
+                let stripeData = try Stripe.shared.information(for: stripe_id)
+                customerNode["stripe"] = try stripeData.makeNode()
             }
         }
 

@@ -35,20 +35,20 @@ extension Date {
     }
 }
 
-extension Date: NodeConvertible {
-    
-    public func makeNode(context: Context = EmptyNode) throws -> Node {
-        return .string(self.ISO8601String)
-    }
-    
-    public init(node: Node, in context: Context) throws {
-        guard let string = node.string else {
-            throw Abort.custom(status: .internalServerError, message: "Failed to parse date from node : \(node)")
-        }
-        
-        self = try Date(ISO8601String: string)
-    }
-}
+//extension Date: NodeConvertible {
+//    
+//    public func makeNode(context: Context = EmptyNode) throws -> Node {
+//        return .string(self.ISO8601String)
+//    }
+//    
+//    public init(node: Node, in context: Context) throws {
+//        guard let string = node.string else {
+//            throw Abort.custom(status: .internalServerError, message: "Failed to parse date from node : \(node)")
+//        }
+//        
+//        self = try Date(ISO8601String: string)
+//    }
+//}
 
 enum Frequency: String, StringInitializable {
     case once = "once"

@@ -9,6 +9,7 @@
 import Foundation
 import Vapor
 import HTTP
+import Stripe
 
 final class SubscriptionController: ResourceRepresentable {
     
@@ -42,12 +43,21 @@ final class SubscriptionController: ResourceRepresentable {
         }
         
         if box.plan_id == nil {
-            try Stripe.shared.createPlan(forBox: &box)
+            let plan = try Stripe.shared.createPlan(with: box.price, name: box.name, interval: .month)
+            box.plan_id = plan.id
+            try box.save()
         }
-        
-        precondition(box.plan_id != nil, "Box must have plan id")
-        
-        sub.sub_id = try Stripe.shared.createSubscription(forUser: request.customer(), forBox: box)
+
+        guard let plan_id = box.plan_id else {
+            throw Abort.custom(status: .internalServerError, message: "Box did not have plan id after creating one.")
+        }
+
+        guard let stripe_id = try request.customer().stripe_id else {
+            throw Abort.custom(status: .badRequest, message: "User must have stripe id to subscribe to box.")
+        }
+
+        let subscription = try Stripe.shared.subscribe(user: stripe_id, to: plan_id, oneTime: false)
+        sub.sub_id = subscription.id
         
         try sub.save()
         return try Response(status: .created, json: sub.makeJSON())

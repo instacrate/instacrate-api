@@ -30,7 +30,7 @@ drop.resource("images", ImageController())
 drop.resource("contracts", ContractController())
 drop.resource("logs", LogFileController())
 
-drop.resource("stripe", StripeController())
+drop.collection(StripeCollection.self)
 drop.collection(StripeWebhookCollection.shared)
 
 drop.run()
