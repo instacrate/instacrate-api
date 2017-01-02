@@ -36,11 +36,12 @@ extension Node: JSONConvertible {
     }
 }
 
-extension NodeConvertible {
+extension Model {
 
     mutating func update(from json: JSON) throws -> Self {
         var node = try self.makeNode()
-        let updatedNode = try node.merge(with: json)
-        return try Self.init(node: updatedNode, in: EmptyNode)
+        var result = try Self.init(node: node.merge(with: json), in: EmptyNode)
+        result.exists = self.exists
+        return result
     }
 }

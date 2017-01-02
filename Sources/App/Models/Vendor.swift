@@ -12,6 +12,7 @@ import Auth
 import Turnstile
 import BCrypt
 import Foundation
+import Stripe
 
 extension Node {
 
@@ -73,6 +74,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
     let contactPhone: String
     let contactEmail: String
     var applicationState: ApplicationState = .none
+    var verificationState: VerificationStatus?
     
     let publicWebsite: String
     let supportEmail: String
@@ -129,6 +131,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
         
         cut = (try? node.extract("cut")) ?? 0.08
         stripeAccountId = try? node.extract("stripeAccountId")
+        verificationState = try? node.extract("verificationState")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -152,7 +155,8 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             "salt" : .string(salt.string)
         ]).add(objects: ["id" : id,
                          "category_id" : category_id,
-                         "cut" : cut])
+                         "cut" : cut,
+                         "verificationState" : verificationState])
     }
     
     static func prepare(_ database: Database) throws {
@@ -173,6 +177,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             vendor.string("password")
             vendor.string("salt")
             vendor.double("applicationState")
+            vendor.string("verificationState")
             vendor.parent(Category.self, optional: false)
         })
     }

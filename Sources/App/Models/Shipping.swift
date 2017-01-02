@@ -12,11 +12,11 @@ import Fluent
 protocol FastInitializable {
     
     static var requiredJSONFields: [String] { get }
-    
-    
 }
 
-final class Shipping: Model, Preparation, JSONConvertible, FastInitializable {
+protocol Updateable {}
+
+final class Shipping: Model, Preparation, JSONConvertible, FastInitializable, Updateable {
     
     static var requiredJSONFields = ["customer_id", "address", "firstName", "lastName", "apartment", "city", "state", "zip"]
     
