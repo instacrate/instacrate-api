@@ -30,7 +30,9 @@ class StripeCollection: RouteCollection, EmptyInitializable {
 
         builder.group("stripe") { stripe in
 
-            stripe.post("customer", Customer.self, String.self) { request, customer, source in
+            stripe.post("customer", String.self) { request, source in
+
+                let customer = try request.customer()
 
                 guard customer.stripe_id == nil else {
                     throw Abort.custom(status: .badRequest, message: "User \(customer.id!.int!) already has a stripe account.")
@@ -70,10 +72,23 @@ class StripeCollection: RouteCollection, EmptyInitializable {
 
             stripe.group("vendor") { vendor in
 
-                
+                vendor.get("verification", String.self) { request, country_code in
+                    guard let country = CountryCode(rawValue: country_code) else {
+                        throw Abort.custom(status: .badRequest, message: "\(country_code) is not a valid country code.")
+                    }
 
+                    return try Stripe.shared.verificationRequiremnts(for: country).makeNode().makeResponse()
+                }
+
+                vendor.get("disputes") { request in
+                    return try Stripe.shared.disputes().makeNode().makeResponse()
+                }
+
+                vendor.post("customer", String.self) { request, source in
+                    let vendor = try request.vendor()
+                    return try Stripe.shared.createManagedAccount(email: vendor.contactEmail, source: source).makeNode().makeResponse()
+                }
             }
-
         }
     }
 }

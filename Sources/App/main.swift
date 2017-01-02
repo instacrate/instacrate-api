@@ -13,6 +13,7 @@ import HTTP
 import Turnstile
 import Foundation
 import Auth
+import Stripe
 
 let drop = Droplet.create()
 
@@ -31,6 +32,6 @@ drop.resource("contracts", ContractController())
 drop.resource("logs", LogFileController())
 
 drop.collection(StripeCollection.self)
-drop.collection(StripeWebhookCollection.shared)
+drop.collection(StripeWebhookManager.shared)
 
 drop.run()
