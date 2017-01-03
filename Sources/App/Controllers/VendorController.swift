@@ -25,11 +25,27 @@ final class VendorController: ResourceRepresentable {
         try vendor.save()
         return try Response(status: .created, json: vendor.makeJSON())
     }
+
+    func modify(_ request: Request, _vendor: Vendor) throws -> ResponseRepresentable {
+        guard try request.vendor().id == _vendor.id else {
+            throw Abort.custom(status: .forbidden, message: "Can not modify another another vendor.")
+        }
+
+        var vendor = _vendor
+        let json = try request.json()
+
+        var updated = try vendor.update(from: json)
+        try updated.save()
+
+        return try updated.makeResponse()
+    }
     
     func makeResource() -> Resource<Vendor> {
         return Resource(
+            index: index,
             store: create,
-            show: show
+            show: show,
+            modify: modify
         )
     }
 }

@@ -63,7 +63,7 @@ extension BCryptSalt: NodeInitializable {
     }
 }
 
-final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
+final class Vendor: Model, Preparation, JSONConvertible, FastInitializable, Updateable {
     
     static var requiredJSONFields = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id or category", "estimatedTotalSubscribers", "applicationState", "username", "password"]
     
@@ -74,7 +74,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
     let contactPhone: String
     let contactEmail: String
     var applicationState: ApplicationState = .none
-    var verificationState: VerificationStatus?
+    var verificationState: LegalEntityVerificationStatus?
     
     let publicWebsite: String
     let supportEmail: String
