@@ -9,6 +9,7 @@
 import Foundation
 import Vapor
 import HTTP
+import JSON
 
 extension Status {
     
@@ -26,11 +27,11 @@ class LoggingMiddleware: Middleware {
     func respond(to request: Request, chainingTo next: Responder) throws -> Response {
     
         let response: Response = try next.respond(to: request)
-        log(request, response: response)
+        try log(request, response: response)
         return response
     }
     
-    func log(_ request: Request, response: Response) {
+    func log(_ request: Request, response: Response) throws {
         
         let failure = { (string: String?) in
             drop.console.error(string ?? "")
@@ -46,9 +47,9 @@ class LoggingMiddleware: Middleware {
         logger("Request")
         logger("URL : \(request.uri)")
         logger("Headers : \(request.headers.description)")
-        
-        if request.json != nil {
-            logger("JSON : \(request.body.bytes?.string)")
+
+        if let json = request.json {
+            try logger("JSON : \(String(bytes: json.serialize(prettyPrint: true)))")
         }
         
         logger("Response - \(response.status.description)")

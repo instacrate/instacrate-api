@@ -46,8 +46,6 @@ final class LogFileController: ResourceRepresentable {
                     
                     let data = Data(bytes: file.data)
                     try data.write(to: saveURL)
-                } else {
-                    drop.console.info("wrong type")
                 }
             } catch {
                 throw Abort.custom(status: .internalServerError, message: "Unable to write multipart form data to file. Underlying error \(error)")
