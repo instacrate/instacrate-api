@@ -38,29 +38,6 @@ extension Node {
     }
 }
 
-enum Format {
-    case short
-    case long
-    
-    func optimize<T : Model>(query: Query<T>) {
-        switch self {
-            
-        case .short:
-            
-            switch T.self {
-                
-            case is Picture.Type:
-                query.limit = Limit(count: 1)
-                
-            default: break
-                
-            }
-            
-        default: break
-        }
-    }
-}
-
 extension Array where Element : NodeRepresentable {
     
     public func makeJSON() throws -> JSON {

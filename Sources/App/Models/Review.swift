@@ -9,6 +9,7 @@
 import Vapor
 import Fluent
 import Foundation
+import Stripe
 
 final class Review: Model, Preparation, JSONConvertible, FastInitializable {
     
@@ -31,7 +32,7 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
         rating = try node.extract("rating")
         box_id = try node.extract("box_id")
         customer_id = try node.extract("customer_id")
-        
+
         date = (try? node.extract("date")) ?? Date()
     }
     

@@ -21,6 +21,14 @@ extension Query {
     func apply(_ option: QueryModifiable) throws -> Query<T> {
         return try option.modify(self)
     }
+
+    func apply(_ option: QueryModifiable?) throws -> Query<T> {
+        if let option = option {
+            return try option.modify(self)
+        }
+
+        return self
+    }
 }
 
 protocol QueryModifiable {

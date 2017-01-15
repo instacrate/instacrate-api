@@ -14,14 +14,21 @@ import Fluent
 final class BoxController: ResourceRepresentable {
 
     func index(_ request: Request) throws -> ResponseRepresentable {
-        let curated = try request.extract() as Box.Curated
-        let sorted = try request.extract() as Box.Sort
-        
-        let query = try curated.makeQuery().apply(sorted)
-        
-        let format = try request.extract() as Box.Format
+        switch request.sessionType {
 
-        return try format.apply(on: query.all()).makeJSON()
+        case .vendor:
+            return try Box.query().filter("vendor_id", request.vendor().id!).all().makeJSON()
+
+        case .customer: fallthrough
+        case .none:
+
+            let curated = try request.extract() as Box.Curated
+            let sorted = try request.extract() as Box.Sort
+            let query = try curated.makeQuery().apply(sorted)
+
+            let format = try request.extract() as Box.Format
+            return try format.apply(on: query.all()).makeJSON()
+        }
     }
     
     func show(_ request: Request, box: Box) throws -> ResponseRepresentable {

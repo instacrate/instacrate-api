@@ -9,7 +9,7 @@
 import Vapor
 import Fluent
 import Foundation
-
+import Stripe
 import HTTP
 
 final class Box: Model, Preparation, JSONConvertible, FastInitializable {

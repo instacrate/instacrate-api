@@ -62,7 +62,9 @@ final class ShippingController: ResourceRepresentable {
     }
 
     func modify(_ request: Request, _shipping: Shipping) throws -> ResponseRepresentable {
-        guard try _shipping.customer_id == request.customer().id else {
+        var customer = try request.customer()
+
+        guard _shipping.customer_id == customer.id else {
             throw Abort.custom(status: .forbidden, message: "Can not modify another user's shipping address.")
         }
 
@@ -70,8 +72,18 @@ final class ShippingController: ResourceRepresentable {
         let json = try request.json()
 
         var updated = try shipping.update(from: json)
-        try updated.save()
 
+        if updated.isDefault && !_shipping.isDefault {
+            if var previous = try request.customer().defaultShippingAddress().first() {
+                previous.isDefault = false
+                customer.defaultShipping = updated.id
+
+                try previous.save()
+                try customer.save()
+            }
+        }
+
+        try updated.save()
         return try updated.makeResponse()
     }
     

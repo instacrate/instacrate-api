@@ -13,17 +13,12 @@ import Fluent
 import Vapor
 import HTTP
 
-extension Array where Element: ResponseRepresentable {
-    
-    
-}
-
 protocol Formatter: TypesafeOptionsParameter {
-    
-    associatedtype Base
-    
-    func apply(on model: Base) throws -> Node
-    func apply(on models: [Base]) throws -> Node
+
+    associatedtype Input
+
+    func apply(on model: Input) throws -> Node
+    func apply(on models: [Input]) throws -> Node
 }
 
 extension Box {
@@ -90,14 +85,14 @@ extension Box {
     
     enum Format: String, Formatter {
 
-        typealias Base = Box
+        typealias Input = Box
         
         case long
         case short
         
         static let key = "format"
         static let values = ["long", "short"]
-        static let defaultValue: Format? = Format.short
+        static let defaultValue: Format? = .short
         
         func apply(on model: Box) throws -> Node {
             switch self {
@@ -122,7 +117,7 @@ fileprivate func createTerseView(forBox box: Box) throws -> Node {
     let boxReviews = try box.reviews().all()
     
     let numberOfReviews = boxReviews.count
-    let averageReviewScore = boxReviews.map { $0.rating }.average
+    let averageReviewScore = boxReviews.map { (review: Review) -> Int in review.rating }.mean()
     
     let vendor = try box.vendor().first()
     let picture = try box.pictures().first()
@@ -143,7 +138,7 @@ fileprivate func createLongView(forBox box: Box) throws -> Node {
         "reviews" : reviewNodes,
         "pictures" : Node(node: relations.pictures),
         "numberOfRatings" : relations.reviews.count,
-        "averageRating" : relations.reviews.map { $0.rating }.average
+        "averageRating" : relations.reviews.map { $0.rating }.mean()
     ] as [String : NodeConvertible?]
     
     return try box.makeNode().add(objects: nodes).add(name: "bulletSeparator", node: .string(Box.boxBulletSeparator))

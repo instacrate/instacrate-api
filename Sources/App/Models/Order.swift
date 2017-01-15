@@ -9,6 +9,7 @@
 import Vapor
 import Fluent
 import Foundation
+import Stripe
 
 final class Order: Model, Preparation, JSONConvertible, FastInitializable {
     
@@ -22,7 +23,9 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
     
     var subscription_id: Node?
     var vendor_id: Node?
+    var box_id: Node?
     var shipping_id: Node?
+    var customer_id: Node?
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
@@ -31,6 +34,8 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
         subscription_id = try node.extract("subscription_id")
         shipping_id = try node.extract("shipping_id")
         vendor_id = try node.extract("vendor_id")
+        box_id = try node.extract("box_id")
+        customer_id = try node.extract("customer_id")
     }
 
     func makeNode(context: Context) throws -> Node {
@@ -39,7 +44,9 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
             "fulfilled" : .bool(fulfilled),
             "subscription_id" : subscription_id!,
             "shipping_id" : shipping_id!,
-            "vendor_id" : vendor_id!
+            "vendor_id" : vendor_id!,
+            "box_id" : box_id!,
+            "customer_id" : customer_id!
         ]).add(name: "id", node: id)
     }
     
@@ -48,6 +55,8 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
             order.id()
             order.string("date")
             order.bool("fulfilled")
+            order.parent(Customer.self, optional: false)
+            order.parent(Box.self, optional: false)
             order.parent(Subscription.self, optional: false)
             order.parent(Shipping.self, optional: false)
             order.parent(Vendor.self, optional: false)
@@ -71,6 +80,14 @@ extension Order {
     
     func vendor() throws -> Parent<Vendor> {
         return try parent(vendor_id)
+    }
+
+    func box() throws -> Parent<Box> {
+        return try parent(box_id)
+    }
+
+    func customer() throws -> Parent<Customer> {
+        return try parent(customer_id)
     }
 }
 

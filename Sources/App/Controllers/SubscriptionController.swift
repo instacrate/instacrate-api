@@ -10,22 +10,31 @@ import Foundation
 import Vapor
 import HTTP
 import Stripe
+import Fluent
 
 final class SubscriptionController: ResourceRepresentable {
     
     func index(_ request: Request) throws -> ResponseRepresentable {
-        if let vendor = try? request.vendor() {
+        let session = request.sessionType
+
+        var query: Query<Subscription>
+
+        switch session {
+        case .vendor:
+            let vendor = try request.vendor()
             let box_ids = try vendor.boxes().all().map { $0.id! }
-            let query = try Subscription.query().filter("box_id", .in, box_ids)
-            return try query.all().makeJSON()
+            query = try Subscription.query().filter("box_id", .in, box_ids)
+
+        case .customer:
+            let customer = try request.customer()
+            query = try Subscription.query().filter("customer_id", customer.id!)
+
+        case .none:
+            throw Abort.custom(status: .forbidden, message: "You must be logged in as either a vendor or customer.")
         }
-        
-        if let customer = try? request.customer() {
-            let query = try Subscription.query().filter("customer_id", customer.id!)
-            return try query.all().makeJSON()
-        }
-        
-        return Response(status: .forbidden)
+
+        let format = try request.extract() as Subscription.Format
+        return try format.apply(on: query.all()).makeJSON()
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
