@@ -27,7 +27,9 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
     var shipping_id: Node?
     var customer_id: Node?
 
-    init(with subscription_id: Node?, vendor_id: Node?, box_id: Node?, shipping_id: Node?, customer_id: Node?) {
+    var order_id: String?
+
+    init(with subscription_id: Node?, vendor_id: Node?, box_id: Node?, shipping_id: Node?, customer_id: Node?, order_id: String) {
         self.subscription_id = subscription_id
         self.vendor_id = vendor_id
         self.box_id = box_id
@@ -36,6 +38,7 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
 
         date = Date()
         fulfilled = false
+        order_id = order_id
     }
     
     init(node: Node, in context: Context) throws {
