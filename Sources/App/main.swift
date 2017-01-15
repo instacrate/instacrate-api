@@ -34,4 +34,6 @@ drop.resource("logs", LogFileController())
 drop.collection(StripeCollection.self)
 drop.collection(StripeWebhookManager.shared)
 
+let webhooks = StripeWebhookCollection()
+
 drop.run()
