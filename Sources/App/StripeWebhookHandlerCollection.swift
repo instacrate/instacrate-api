@@ -30,7 +30,7 @@ class StripeWebhookCollection {
                 throw Abort.custom(status: .internalServerError, message: "Unable to parse node.")
             }
 
-            guard let metadata = node["object", "metadata"]?.nodeObject else {
+            guard let metadata = node["data", "object", "lines", "data", 0, "metadata"]?.nodeObject else {
                 throw Abort.custom(status: .badRequest, message: "could not extract metadata")
             }
 
@@ -43,7 +43,7 @@ class StripeWebhookCollection {
                 throw Abort.custom(status: .internalServerError, message: "Wrong or missing metadata \(metadata)")
             }
 
-            guard let order_id = node["object", "id"]?.string else {
+            guard let order_id = node["data", "object", "id"]?.string else {
                 throw Abort.custom(status: .badRequest, message: "could not find order id")
             }
 
