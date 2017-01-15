@@ -12,6 +12,17 @@ import HTTP
 import Stripe
 import Fluent
 
+func createMetadataArray(fromModels models: [Model]) -> [String: String] {
+
+    let primaryKeys = models.filter { $0.id != nil }.map { (type(of: $0).entity, "\($0.id!.int!)") }
+
+    return primaryKeys.reduce([:]) { (dict, element) in
+        var dict = dict
+        dict[element.0] = element.1
+        return dict
+    }
+}
+
 final class SubscriptionController: ResourceRepresentable {
     
     func index(_ request: Request) throws -> ResponseRepresentable {
@@ -42,6 +53,7 @@ final class SubscriptionController: ResourceRepresentable {
 
         let node = try request.json().node.add(name: "customer_id", node: customer.id)
         var sub = try Subscription(node: node)
+        try sub.save()
 
         guard let address = try sub.address().get(), try address.customer_id == request.customer().id else {
             throw Abort.custom(status: .forbidden, message: "Logged in user does not own shipping address.")
@@ -65,7 +77,11 @@ final class SubscriptionController: ResourceRepresentable {
             throw Abort.custom(status: .badRequest, message: "User must have stripe id to subscribe to box.")
         }
 
-        let subscription = try Stripe.shared.subscribe(user: stripe_id, to: plan_id, oneTime: false)
+        guard let vendor = try box.vendor().first() else {
+            throw Abort.custom(status: .internalServerError, message: "Could not find box's vendor.")
+        }
+
+        let subscription = try Stripe.shared.subscribe(user: stripe_id, to: plan_id, oneTime: false, metadata: createMetadataArray(fromModels: [address, customer, vendor, sub]))
         sub.sub_id = subscription.id
         
         try sub.save()
