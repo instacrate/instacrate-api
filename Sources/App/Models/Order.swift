@@ -26,6 +26,17 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
     var box_id: Node?
     var shipping_id: Node?
     var customer_id: Node?
+
+    init(with subscription_id: Node?, vendor_id: Node?, box_id: Node?, shipping_id: Node?, customer_id: Node?) {
+        self.subscription_id = subscription_id
+        self.vendor_id = vendor_id
+        self.box_id = box_id
+        self.shipping_id = shipping_id
+        self.customer_id = customer_id
+
+        date = Date()
+        fulfilled = false
+    }
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
