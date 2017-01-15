@@ -81,7 +81,7 @@ final class SubscriptionController: ResourceRepresentable {
             throw Abort.custom(status: .internalServerError, message: "Could not find box's vendor.")
         }
 
-        let subscription = try Stripe.shared.subscribe(user: stripe_id, to: plan_id, oneTime: false, metadata: createMetadataArray(fromModels: [address, customer, vendor, sub]))
+        let subscription = try Stripe.shared.subscribe(user: stripe_id, to: plan_id, oneTime: false, metadata: createMetadataArray(fromModels: [address, customer, vendor, sub, box]))
         sub.sub_id = subscription.id
         
         try sub.save()

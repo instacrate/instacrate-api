@@ -12,6 +12,10 @@ import Routing
 import Vapor
 import Stripe
 
+func extractFrom<T: Model>(metadata: [String : Node]) throws -> T? {
+    return try metadata[T.entity]?.string.flatMap { try T(from: $0) }
+}
+
 class StripeWebhookCollection {
 
     required init() {
@@ -21,40 +25,18 @@ class StripeWebhookCollection {
         }
 
         StripeWebhookManager.shared.registerHandler(forResource: .invoice, action: .created) { (resource, action, request) -> Response in
-            guard let node = request.json?.makeNode() else {
-                throw Abort.custom(status: .badRequest, message: "1")
+
+            guard let metadata = request.json?.makeNode()["object", "metadata"]?.nodeObject else {
+                throw Abort.custom(status: .badRequest, message: "could not extract metadata")
             }
 
-            guard let customer_id = node["object", "customer"] else {
-                throw Abort.custom(status: .badRequest, message: "2")
-            }
-
-            guard let subscription_id = node["object", "lines", "data", "id"] else {
-                throw Abort.custom(status: .badRequest, message: "3")
-            }
-
-            guard let plan_id = node["object", "lines", "data", "plan", "id"] else {
-                throw Abort.custom(status: .badRequest, message: "4")
-            }
-
-            guard let customer = try Customer.query().filter("stripe_id", customer_id).first() else {
-                throw Abort.custom(status: .badRequest, message: "5")
-            }
-
-            guard let subscription = try Subscription.query().filter("sub_id", subscription_id).first() else {
-                throw Abort.custom(status: .badRequest, message: "6")
-            }
-
-            guard let box = try Box.query().filter("plan_id", plan_id).first() else {
-                throw Abort.custom(status: .badRequest, message: "7")
-            }
-
-            guard let vendor = try box.vendor().first() else {
-                throw Abort.custom(status: .badRequest, message: "8")
-            }
-
-            guard let shipping = try subscription.address().get() else {
-                throw Abort.custom(status: .badRequest, message: "9")
+            guard let subscription: Subscription = try extractFrom(metadata: metadata),
+                  let vendor: Vendor = try extractFrom(metadata: metadata),
+                  let customer: Customer = try extractFrom(metadata: metadata),
+                  let shipping: Shipping = try extractFrom(metadata: metadata),
+                  let box: Box = try extractFrom(metadata: metadata)
+            else {
+                throw Abort.custom(status: .internalServerError, message: "Wrong or missing metadata \(metadata)")
             }
 
             var order = Order(with: subscription.id, vendor_id: vendor.id, box_id: box.id, shipping_id: shipping.id, customer_id: customer.id)
