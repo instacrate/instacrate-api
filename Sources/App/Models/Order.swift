@@ -35,10 +35,10 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
         self.box_id = box_id
         self.shipping_id = shipping_id
         self.customer_id = customer_id
+        self.order_id = order_id
 
         date = Date()
         fulfilled = false
-        order_id = order_id
     }
     
     init(node: Node, in context: Context) throws {
