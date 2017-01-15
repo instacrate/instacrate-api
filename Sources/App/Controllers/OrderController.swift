@@ -87,11 +87,24 @@ extension Order {
             query = try query.filter(Subscription.self, "box_id", box.id!)
         }
 
+        if let fulfilled = fulfilled {
+            query = try query.filter("fulfilled", fulfilled)
+        }
+
         return try query.apply(range).all()
     }
 
     static func orders(for vendor: Vendor, with range: OrderTimeRange? = nil, fulfilled: Bool? = nil, for box: Box? = nil) throws -> [Order] {
-        let query = try Order.query().filter("vendor_id", vendor.id!).union(Vendor.self, localKey: "vendor_id", foreignKey: "id")
+        var query = try Order.query().filter("vendor_id", vendor.id!).union(Vendor.self, localKey: "vendor_id", foreignKey: "id")
+
+        if let box = box {
+            query = try query.filter(Subscription.self, "box_id", box.id!)
+        }
+
+        if let fulfilled = fulfilled {
+            query = try query.filter("fulfilled", fulfilled)
+        }
+
         return try query.apply(range).all()
     }
 
