@@ -66,7 +66,13 @@ extension Authorization {
 extension Request {
     
     var sessionType: SessionType {
-        return (try? customer()) != nil ? .customer : .vendor
+        if (try? customer()) != nil {
+            return .customer
+        } else if (try? vendor()) != nil {
+            return .vendor
+        } else {
+            return .none
+        }
     }
     
     func customer() throws -> Customer {
