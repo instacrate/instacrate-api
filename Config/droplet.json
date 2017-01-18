@@ -16,7 +16,7 @@
             "logger",
             "vendorAuth",
             "userAuth",
-	        "bugsnag"
+            "bugsnag"
         ],
         "client": [
             "bugsnag"
