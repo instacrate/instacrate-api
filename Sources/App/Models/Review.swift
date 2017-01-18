@@ -52,8 +52,8 @@ final class Review: Model, Preparation, JSONConvertible, Sanitizable {
             throw ModelError.missingLink(from: Review.self, to: Box.self, id: box_id?.int)
         }
         
-        guard try user().first() != nil else {
-            throw ModelError.missingLink(from: Review.self, to: User.self, id: customer_id?.int)
+        guard try customer().first() != nil else {
+            throw ModelError.missingLink(from: Review.self, to: Customer.self, id: customer_id?.int)
         }
     }
     
@@ -79,7 +79,7 @@ extension Review {
         return try parent(box_id)
     }
     
-    func user() throws -> Parent<Customer> {
+    func customer() throws -> Parent<Customer> {
         return try parent(customer_id)
     }
 }
@@ -89,7 +89,9 @@ extension Review: Relationable {
     typealias Relations = (user: Customer, box: Box)
 
     func relations() throws -> (user: Customer, box: Box) {
-        let user = try self.user()
+        guard let user = try self.customer().first() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for review with text \(text)")
+        }
         
         guard let box = try self.box().get() else {
             throw Abort.custom(status: .internalServerError, message: "Missing box relation for review with text \(text)")

@@ -130,7 +130,12 @@ fileprivate func createLongView(forBox box: Box) throws -> Node {
     
     let reviewNodes = try Node(node: relations.reviews.map { review -> Node in
         var node = try review.makeNode()
-        return try node.substitute(key: "customer", model: review.user())
+        
+        if let user = try review.customer().first() {
+            node = try node.substitute(key: "customer", model: user)
+        }
+        
+        return node
     })
     
     let nodes = try [

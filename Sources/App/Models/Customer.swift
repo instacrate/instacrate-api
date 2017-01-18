@@ -61,7 +61,7 @@ final class Customer: Model, Preparation, JSONConvertible, Sanitizable {
     
     func postValidate() throws {
         if defaultShipping != nil {
-            guard let defaultShippingAddress().first() != nil else {
+            guard try defaultShippingAddress().first() != nil else {
                 throw ModelError.missingLink(from: Customer.self, to: Shipping.self, id: defaultShipping?.int)
             }
         }
