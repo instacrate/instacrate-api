@@ -1,0 +1,12 @@
+{
+    "apiKey": "651c283116cac651488966994d92806f",
+    "notifyReleaseStages": [
+    	"development",
+        "staging",
+        "production"
+    ],
+    "endpoint": "https://notify.bugsnag.com",
+    "filters" : [
+        "password"
+    ]
+}

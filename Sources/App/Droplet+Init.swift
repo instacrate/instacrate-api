@@ -36,6 +36,15 @@ extension Droplet {
         
         let drop = Droplet()
         
+        Droplet.instance = drop
+        Droplet.logger = drop.log.self
+        
+        do {
+            try drop.addConfigurable(middleware: BugsnagMiddleware(drop: drop), name: "bugsnag")
+        } catch {
+            logger?.fatal("failed to add bugsnag middleware \(error)")
+        }
+        
         try! drop.addProvider(VaporMySQL.Provider.self)
         
         drop.addConfigurable(middleware: SessionsMiddleware.createSessionsMiddleware(), name: "sessions")
@@ -61,15 +70,7 @@ extension Droplet {
         
         let preparations: [Preparation.Type] = [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self, Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self]
         drop.preparations.append(contentsOf: preparations)
-        
-        Droplet.instance = drop
-        Droplet.logger = drop.log.self
-        
-        do {
-            try drop.addConfigurable(middleware: BugsnagMiddleware(drop: drop), name: "bugsnag")
-        } catch {
-            logger?.fatal("failed to add bugsnag middleware \(error)")
-        }
+
         
         return drop
     }
