@@ -34,11 +34,15 @@ class LoggingMiddleware: Middleware {
     func log(_ request: Request, response: Response) throws {
         
         let failure = { (string: String?) in
-            drop.console.error(string ?? "")
+            if let string = string {
+                Droplet.logger?.error(string)
+            }
         }
         
         let info = { (string: String?) in
-            drop.console.info(string ?? "")
+            if let string = string {
+                Droplet.logger?.info(string)
+            }
         }
         
         let logger = response.status.isSuccessfulStatus ? info : failure

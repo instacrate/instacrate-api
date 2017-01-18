@@ -13,6 +13,7 @@ import Turnstile
 import BCrypt
 import Foundation
 import Stripe
+import Sanitized
 
 extension Node {
 
@@ -63,9 +64,9 @@ extension BCryptSalt: NodeInitializable {
     }
 }
 
-final class Vendor: Model, Preparation, JSONConvertible, FastInitializable, Updateable {
+final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id or category", "estimatedTotalSubscribers", "applicationState", "username", "password"]
+    static var permitted: [String] = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id", "estimatedTotalSubscribers", "applicationState", "username", "password", "verificationState0", "stripeAccountId", "cut"]
     
     var id: Node?
     var exists = false
@@ -157,6 +158,12 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable, Upda
                          "category_id" : category_id,
                          "cut" : cut,
                          "verificationState" : verificationState])
+    }
+    
+    func postValidate() throws {
+        guard try category().first() != nil else {
+            throw ModelError.missingLink(from: Vendor.self, to: Category.self, id: category_id?.int)
+        }
     }
     
     static func prepare(_ database: Database) throws {

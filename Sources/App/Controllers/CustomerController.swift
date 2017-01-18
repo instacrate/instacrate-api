@@ -53,9 +53,15 @@ final class CustomerController {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var user = try Customer(json: request.json())
-        try user.save()
-        return try Response(status: .created, json: user.makeJSON())
+        var customer: Customer = try request.extractModel()
+        try customer.save()
+        return customer
+    }
+    
+    func modify(_ request: Request, customer: Customer) throws -> ResponseRepresentable {
+        var customer: Customer = try request.patchModel(customer)
+        try customer.save()
+        return try Response(status: .ok, json: customer.makeJSON())
     }
 }
 
@@ -64,7 +70,8 @@ extension CustomerController: ResourceRepresentable {
     func makeResource() -> Resource<Customer> {
         return Resource(
             index: detail,
-            store: create
+            store: create,
+            modify: modify
         )
     }
 }

@@ -49,49 +49,60 @@ final class SubscriptionController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        let customer = try request.customer()
-
-        let node = try request.json().node.add(name: "customer_id", node: customer.id)
-        var sub = try Subscription(node: node)
-        try sub.save()
-
-        guard let address = try sub.address().get(), try address.customer_id == request.customer().id else {
-            throw Abort.custom(status: .forbidden, message: "Logged in user does not own shipping address.")
-        }
+        var subscription: Subscription = try request.extractModel()
+        try subscription.save()
+        return subscription
         
-        guard var box = try sub.box().get() else {
-            throw Abort.custom(status: .badRequest, message: "Invalid box id on subscription json")
-        }
-        
-        if box.plan_id == nil {
-            let plan = try Stripe.shared.createPlan(with: box.price, name: box.name, interval: .month)
-            box.plan_id = plan.id
-            try box.save()
-        }
-
-        guard let plan_id = box.plan_id else {
-            throw Abort.custom(status: .internalServerError, message: "Box did not have plan id after creating one.")
-        }
-
-        guard let stripe_id = try request.customer().stripe_id else {
-            throw Abort.custom(status: .badRequest, message: "User must have stripe id to subscribe to box.")
-        }
-
-        guard let vendor = try box.vendor().first() else {
-            throw Abort.custom(status: .internalServerError, message: "Could not find box's vendor.")
-        }
-
-        let subscription = try Stripe.shared.subscribe(user: stripe_id, to: plan_id, oneTime: false, metadata: createMetadataArray(fromModels: [address, customer, vendor, sub, box]))
-        sub.sub_id = subscription.id
-        
-        try sub.save()
-        return try Response(status: .created, json: sub.makeJSON())
+//        let customer = try request.customer()
+//
+//        let node = try request.json().node.add(name: "customer_id", node: customer.id)
+//        var sub = try Subscription(node: node)
+//        try sub.save()
+//
+//        guard let address = try sub.address().get(), try address.customer_id == request.customer().id else {
+//            throw Abort.custom(status: .forbidden, message: "Logged in user does not own shipping address.")
+//        }
+//        
+//        guard var box = try sub.box().get() else {
+//            throw Abort.custom(status: .badRequest, message: "Invalid box id on subscription json")
+//        }
+//        
+//        if box.plan_id == nil {
+//            let plan = try Stripe.shared.createPlan(with: box.price, name: box.name, interval: .month)
+//            box.plan_id = plan.id
+//            try box.save()
+//        }
+//
+//        guard let plan_id = box.plan_id else {
+//            throw Abort.custom(status: .internalServerError, message: "Box did not have plan id after creating one.")
+//        }
+//
+//        guard let stripe_id = try request.customer().stripe_id else {
+//            throw Abort.custom(status: .badRequest, message: "User must have stripe id to subscribe to box.")
+//        }
+//
+//        guard let vendor = try box.vendor().first() else {
+//            throw Abort.custom(status: .internalServerError, message: "Could not find box's vendor.")
+//        }
+//
+//        let subscription = try Stripe.shared.subscribe(user: stripe_id, to: plan_id, oneTime: false, metadata: createMetadataArray(fromModels: [address, customer, vendor, sub, box]))
+//        sub.sub_id = subscription.id
+//        
+//        try sub.save()
+//        return try Response(status: .created, json: sub.makeJSON())
+    }
+    
+    func modify(_ request: Request, subscription: Subscription) throws -> ResponseRepresentable {
+        var subscription: Subscription = try request.patchModel(subscription)
+        try subscription.save()
+        return try Response(status: .ok, json: subscription.makeJSON())
     }
     
     func makeResource() -> Resource<Subscription> {
         return Resource(
             index: index,
-            store: create
+            store: create,
+            modify: modify
         )
     }
 }

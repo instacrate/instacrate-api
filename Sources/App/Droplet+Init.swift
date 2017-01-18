@@ -15,6 +15,8 @@ import Auth
 import Turnstile
 import HTTP
 import Console
+import SwiftyBeaverVapor
+import SwiftyBeaver
 
 extension SessionsMiddleware {
     
@@ -27,6 +29,7 @@ extension SessionsMiddleware {
 extension Droplet {
     
     static var instance: Droplet?
+    static var logger: LogProtocol?
     
     internal static func create() -> Droplet {
         
@@ -48,10 +51,19 @@ extension Droplet {
         
         drop.middleware = remainingMiddleare
         
+        let console = ConsoleDestination()
+        let cloud = SBPlatformDestination(appID: "bJPz3G", appSecret: "6mjntsiwynN4FhcXOrx9odn8faQ0XikT", encryptionKey: "412glxzpnws07VhgiefsiggxkyhtjrW2")
+        
+        let sbProvider = SwiftyBeaverProvider(destinations: [console, cloud])
+        
+        drop.addProvider(sbProvider)
+        
         let preparations: [Preparation.Type] = [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self, Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self]
         drop.preparations.append(contentsOf: preparations)
         
         Droplet.instance = drop
+        Droplet.logger = drop.log.self
+        
         return drop
     }
     

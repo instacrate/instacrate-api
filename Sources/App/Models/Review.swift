@@ -10,10 +10,11 @@ import Vapor
 import Fluent
 import Foundation
 import Stripe
+import Sanitized
 
-final class Review: Model, Preparation, JSONConvertible, FastInitializable {
+final class Review: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["text", "rating", "box_id", "customer_id"]
+    static var permitted: [String] = ["text", "rating", "box_id", "customer_id", "date"]
     
     var id: Node?
     var exists = false
@@ -46,6 +47,16 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
         ]).add(name: "id", node: id)
     }
     
+    func postValidate() throws {
+        guard try box().first() != nil else {
+            throw ModelError.missingLink(from: Review.self, to: Box.self, id: box_id?.int)
+        }
+        
+        guard try user().first() != nil else {
+            throw ModelError.missingLink(from: Review.self, to: User.self, id: customer_id?.int)
+        }
+    }
+    
     static func prepare(_ database: Database) throws {
         try database.create(self.entity, closure: { box in
             box.id()
@@ -68,14 +79,8 @@ extension Review {
         return try parent(box_id)
     }
     
-    func user() throws -> Customer {
-        let relation = try parent(customer_id) as Parent<Customer>
-        
-        guard let result = try relation.get() else {
-            throw Abort.custom(status: .internalServerError, message: "Review with id \(id!) has no owning user.")
-        }
-        
-        return result
+    func user() throws -> Parent<Customer> {
+        return try parent(customer_id)
     }
 }
 

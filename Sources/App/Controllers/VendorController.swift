@@ -21,23 +21,15 @@ final class VendorController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var vendor = try Vendor(json: request.json())
+        var vendor: Vendor = try request.extractModel()
         try vendor.save()
-        return try Response(status: .created, json: vendor.makeJSON())
+        return vendor
     }
 
-    func modify(_ request: Request, _vendor: Vendor) throws -> ResponseRepresentable {
-        guard try request.vendor().id == _vendor.id else {
-            throw Abort.custom(status: .forbidden, message: "Can not modify another another vendor.")
-        }
-
-        var vendor = _vendor
-        let json = try request.json()
-
-        var updated = try vendor.update(from: json)
-        try updated.save()
-
-        return try updated.makeResponse()
+    func modify(_ request: Request, vendor: Vendor) throws -> ResponseRepresentable {
+        var vendor: Vendor = try request.patchModel(vendor)
+        try vendor.save()
+        return try Response(status: .ok, json: vendor.makeJSON())
     }
     
     func makeResource() -> Resource<Vendor> {

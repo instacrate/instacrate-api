@@ -37,21 +37,24 @@ final class BoxController: ResourceRepresentable {
     }
 
     func create(_ request: Request) throws -> ResponseRepresentable {
-        
-        var node = try request.json().node
-        let bullets = try node.extract("bullets") as [String]
-        node["bullets"] = Node.string(bullets.joined(separator: Box.boxBulletSeparator))
-        
-        try print(node.extract("bullets") as String)
-        
-        var box = try Box(node: node)
-
-        guard try box.vendor().get() != nil else {
-            throw Abort.custom(status: .badRequest, message: "There is no vendor with id \(box.vendor_id?.int)")
-        }
-
+        var box: Box = try request.extractModel()
         try box.save()
-        return try Response(status: .created, json: box.makeJSON())
+        return box
+        
+//        var node = try request.json().node
+//        let bullets = try node.extract("bullets") as [String]
+//        node["bullets"] = Node.string(bullets.joined(separator: Box.boxBulletSeparator))
+//        
+//        try print(node.extract("bullets") as String)
+//        
+//        var box = try Box(node: node)
+//
+//        guard try box.vendor().get() != nil else {
+//            throw Abort.custom(status: .badRequest, message: "There is no vendor with id \(box.vendor_id?.int)")
+//        }
+//
+//        try box.save()
+//        return try Response(status: .created, json: box.makeJSON())
     }
 
     func delete(_ request: Request, box: Box) throws -> ResponseRepresentable {
@@ -59,18 +62,10 @@ final class BoxController: ResourceRepresentable {
         return Response(status: .noContent)
     }
 
-    func modify(_ request: Request, _box: Box) throws -> ResponseRepresentable {
-        guard try _box.vendor_id == request.vendor().id else {
-            throw Abort.custom(status: .forbidden, message: "Can not modify another user's shipping address.")
-        }
-
-        var box = _box
-        let json = try request.json()
-
-        var updated = try box.update(from: json)
-        try updated.save()
-        
-        return try updated.makeResponse()
+    func modify(_ request: Request, box: Box) throws -> ResponseRepresentable {
+        var box: Box = try request.patchModel(box)
+        try box.save()
+        return try Response(status: .ok, json: box.makeJSON())
     }
 
     func makeResource() -> Resource<Box> {

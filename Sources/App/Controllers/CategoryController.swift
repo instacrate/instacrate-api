@@ -17,15 +17,22 @@ final class CategoryController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var category = try Category(json: request.json())
+        var category: Category = try request.extractModel()
         try category.save()
-        return try Response(status: .created, json: category.makeJSON())
+        return category
+    }
+    
+    func modify(_ request: Request, category: Category) throws -> ResponseRepresentable {
+        var category: Category = try request.patchModel(category)
+        try category.save()
+        return try Response(status: .ok, json: category.makeJSON())
     }
     
     func makeResource() -> Resource<Category> {
         return Resource(
             store: create,
-            show: show
+            show: show,
+            modify: modify
         )
     }
 }

@@ -11,10 +11,11 @@ import Fluent
 import Auth
 import Turnstile
 import BCrypt
+import Sanitized
 
-final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
+final class Customer: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["email", "name", "password"]
+    static var permitted: [String] = ["email", "name", "password", "defaultShipping", "stripe_id"]
     
     var id: Node?
     var exists = false
@@ -56,6 +57,14 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
         ]).add(objects: ["stripe_id" : stripe_id,
                          "id" : id,
                          "default_shipping" : defaultShipping])
+    }
+    
+    func postValidate() throws {
+        if defaultShipping != nil {
+            guard let defaultShippingAddress().first() != nil else {
+                throw ModelError.missingLink(from: Customer.self, to: Shipping.self, id: defaultShipping?.int)
+            }
+        }
     }
     
     static func prepare(_ database: Database) throws {

@@ -10,10 +10,11 @@ import Vapor
 import Fluent
 import Foundation
 import Stripe
+import Sanitized
 
-final class Order: Model, Preparation, JSONConvertible, FastInitializable {
+final class Order: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["fulfilled", "subscription_id", "shipping_id", "vendor_id"]
+    static var permitted: [String] = ["date", "fulfilled", "subscription_id", "shipping_id", "vendor_id", "box_id", "customer_id", "order_id"]
     
     var id: Node?
     var exists = false
@@ -62,6 +63,28 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
             "box_id" : box_id!,
             "customer_id" : customer_id!
         ]).add(name: "id", node: id)
+    }
+    
+    func postValidate() throws {
+        guard try subscription().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Subscription.self, id: subscription_id?.int)
+        }
+        
+        guard try shippingAddress().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Shipping.self, id: shipping_id?.int)
+        }
+        
+        guard try vendor().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Vendor.self, id: vendor_id?.int)
+        }
+        
+        guard try box().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Box.self, id: box_id?.int)
+        }
+        
+        guard try customer().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Customer.self, id: customer_id?.int)
+        }
     }
     
     static func prepare(_ database: Database) throws {

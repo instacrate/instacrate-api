@@ -8,17 +8,11 @@
 
 import Vapor
 import Fluent
+import Sanitized
 
-protocol FastInitializable {
+final class Shipping: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields: [String] { get }
-}
-
-protocol Updateable {}
-
-final class Shipping: Model, Preparation, JSONConvertible, FastInitializable, Updateable {
-    
-    static var requiredJSONFields = ["customer_id", "address", "firstName", "lastName", "apartment", "city", "state", "zip"]
+    static var permitted: [String] = ["customer_id", "address", "firstName", "lastName", "apartment", "city", "state", "zip", "isDefault"]
     
     var id: Node?
     var exists = false
@@ -63,6 +57,12 @@ final class Shipping: Model, Preparation, JSONConvertible, FastInitializable, Up
             "lastName" : .string(lastName)
         ]).add(objects: ["id" : id,
                          "apartment" : apartment])
+    }
+    
+    func postValidate() throws {
+        guard user().first() != nil else {
+            throw ModelError.missingLink(from: Shipping.self, to: Model.self, id: customer_id?.int)
+        }
     }
     
     static func prepare(_ database: Database) throws {

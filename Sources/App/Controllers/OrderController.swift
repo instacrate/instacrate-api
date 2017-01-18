@@ -131,9 +131,9 @@ final class OrderController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var box = try Order(json: request.json())
-        try box.save()
-        return try Response(status: .created, json: box.makeJSON())
+        var order: Order = try request.extractModel()
+        try order.save()
+        return order
     }
 
     func delete(_ request: Request, order: Order) throws -> ResponseRepresentable {
@@ -141,10 +141,17 @@ final class OrderController: ResourceRepresentable {
         return Response(status: .noContent)
     }
     
+    func modify(_ request: Request, order: Order) throws -> ResponseRepresentable {
+        var order: Order = try request.patchModel(order)
+        try order.save()
+        return try Response(status: .ok, json: order.makeJSON())
+    }
+    
     func makeResource() -> Resource<Order> {
         return Resource(
             index: index,
             store: create,
+            modify: modify,
             destroy: delete
         )
     }
