@@ -54,20 +54,19 @@ final class Stripe: HTTPClient {
     static let shared = Stripe()
     
     static let secretKey = "sk_test_6zSrUMIQfOCUorVvFMS2LEzn"
+    
     static var encodedSecretKey: String {
         return secretKey.data(using: .utf8)!.base64EncodedString()
     }
     
     static let authorizationHeader: [HeaderKey : String] = ["Authorization" : "Basic \(Stripe.encodedSecretKey)"]
 
-    typealias Token = String
-
     fileprivate init() {
         super.init(urlString: "https://api.stripe.com/v1/")
     }
     
     @discardableResult
-    func createStripeCustomer(forUser user: inout Customer, withPaymentSource source: Token) throws -> String {
+    func createStripeCustomer(forUser user: inout Customer, withPaymentSource source: String) throws -> String {
         let json = try post("customers", query: ["source" : source])
         
         guard let customer_id = json["id"]?.string else {
@@ -80,7 +79,8 @@ final class Stripe: HTTPClient {
         return customer_id
     }
 
-    func createStripeCustomer(forVendor vendor: inout Vendor, withPaymentSource source: Token) throws -> String {
+    @discardableResult
+    func createStripeCustomer(forVendor vendor: inout Vendor) throws -> String {
         let json = try post("accounts", query: ["managed" : true, "country" : "US", "email" : vendor.contactEmail])
 
         guard let account_id = json["id"]?.string else {
@@ -94,7 +94,7 @@ final class Stripe: HTTPClient {
     }
     
     @discardableResult
-    func associate(paymentSource source: Token, withCustomer user: Customer) throws -> Token {
+    func associate(paymentSource source: String, withCustomer user: Customer) throws -> String {
         
         precondition(user.stripe_id != nil, "User must have a stripe id.")
         

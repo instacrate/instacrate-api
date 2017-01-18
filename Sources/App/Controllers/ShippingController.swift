@@ -61,10 +61,37 @@ final class ShippingController: ResourceRepresentable {
         return Response(status: .noContent)
     }
     
+    func modify(_ request: Request, _shipping: Shipping) throws -> ResponseRepresentable {
+        var shipping = _shipping
+        var customer = try request.customer()
+        
+        guard shipping.customer_id == customer.id else {
+            throw Abort.custom(status: .badRequest, message: "Can not modify another user's shipping address.")
+        }
+        
+        if let isDefault = request.query?["default"]?.bool, isDefault {
+            if let oldDefaultShippingId = customer.defaultShipping, var oldShipping = try Shipping.find(oldDefaultShippingId) {
+                oldShipping.isDefault = false
+                try oldShipping.save()
+            }
+            
+            shipping.isDefault = true
+            customer.defaultShipping = shipping.id
+            
+            try shipping.save()
+            try customer.save()
+            
+            return Response(status: .noContent)
+        }
+        
+        throw Abort.custom(status: .badRequest, message: "Nothing to be done with current request.")
+    }
+    
     func makeResource() -> Resource<Shipping> {
         return Resource(
             index: index,
             store: create,
+            modify: modify,
             destroy: delete
         )
     }

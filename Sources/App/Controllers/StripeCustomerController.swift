@@ -12,6 +12,7 @@ import HTTP
 
 enum StripeModel: String, TypesafeOptionsParameter {
     case customer
+    case vendor
     
     static let key = "type"
     static let values = [StripeModel.customer.rawValue]
@@ -25,7 +26,7 @@ extension Request {
     }
 }
 
-final class StripeController: ResourceRepresentable {
+final class StripeCustomerController: ResourceRepresentable {
 
     init() {
         StripeWebhookCollection.shared.registerHandler(forResource: .account, action: .updated) { (resource, action, request) throws -> Response in
@@ -50,9 +51,12 @@ final class StripeController: ResourceRepresentable {
                     return Response(status: .noContent)
                 }
             }
+            
+        default:
+            break
         }
         
-        throw Abort.custom(status: .badRequest, message: "Missing type from query string.")
+        throw Abort.custom(status: .badRequest, message: "Missing or wrong type from query string.")
     }
     
     func makeResource() -> Resource<Customer> {

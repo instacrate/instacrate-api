@@ -30,7 +30,11 @@ drop.resource("images", ImageController())
 drop.resource("contracts", ContractController())
 drop.resource("logs", LogFileController())
 
-drop.resource("stripe", StripeController())
+drop.group("stripe") { stripe in
+    stripe.resource("customers", StripeCustomerController())
+    stripe.resource("vendors", StripeVendorController())
+}
+
 drop.collection(StripeWebhookCollection.shared)
 
 drop.run()
