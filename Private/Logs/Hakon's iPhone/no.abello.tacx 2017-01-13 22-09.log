@@ -1,0 +1,11 @@
+2017/01/13 16:09:30:927  RZBLog(RZBLogLevelSimulation): PeripheralManager is discoverable
+2017/01/13 16:09:30:940  RZBLog(RZBLogLevelSimulation): PeripheralManager is discoverable
+2017/01/13 16:09:30:940  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <RZBMockCentralManager: 0x1702720c0>
+2017/01/13 16:09:30:940  RZBLog(RZBLogLevelDelegateValue): State=5
+2017/01/13 16:09:30:947  performed request <NSMutableURLRequest: 0x174016ea0> { URL: http://api.instacrate.me/logs }
+2017/01/13 16:09:30:947  with response (null)
+2017/01/13 16:09:30:948  and error Error Domain=NSURLErrorDomain Code=-1001 "The request timed out." UserInfo={NSUnderlyingError=0x170249660 {Error Domain=kCFErrorDomainCFNetwork Code=-1001 "(null)" UserInfo={_kCFStreamErrorCodeKey=-2102, _kCFStreamErrorDomainKey=4}}, NSErrorFailingURLStringKey=http://api.instacrate.me/logs, NSErrorFailingURLKey=http://api.instacrate.me/logs, _kCFStreamErrorDomainKey=4, _kCFStreamErrorCodeKey=-2102, NSLocalizedDescription=The request timed out.}
+2017/01/13 16:09:38:478  error deleting file Error Domain=NSCocoaErrorDomain Code=4 "“no.abello.tacx 2017-01-13 22-01.log” couldn’t be removed." UserInfo={NSFilePath=/private/var/mobile/Containers/Data/Application/66E33515-DCEB-4FDF-B3CC-3DCD165719A6/Library/Caches/Logs/no.abello.tacx 2017-01-13 22-01.log, NSUserStringVariant=(
+    Remove
+), NSUnderlyingError=0x1742498d0 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+

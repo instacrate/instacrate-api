@@ -1,0 +1,36 @@
+2017/01/07 17:50:22:346  error deleting file Error Domain=NSCocoaErrorDomain Code=4 "“no.abello.tacx 2017-01-07 23-36.log” couldn’t be removed." UserInfo={NSFilePath=/private/var/mobile/Containers/Data/Application/53BF908B-1F09-46C5-9975-94EE52F819C3/Library/Caches/Logs/no.abello.tacx 2017-01-07 23-36.log, NSUserStringVariant=(
+    Remove
+), NSUnderlyingError=0x17005b510 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+2017/01/07 17:50:38:419  Adding initial activity to realm.
+2017/01/07 17:50:38:876  Binding data signals to new activity.
+2017/01/07 17:53:13:575  Adding initial activity to realm.
+2017/01/07 17:53:13:594  Binding data signals to new activity.
+2017/01/07 17:53:13:615  Recieved activity primary key.
+2017/01/07 17:55:09:864  Setting up new dataset.
+2017/01/07 17:55:09:907  Erasing dataset
+2017/01/07 17:55:10:009  performed request <NSMutableURLRequest: 0x174012260> { URL: http://api.instacrate.me/logs }
+2017/01/07 17:55:10:009  with response (null)
+2017/01/07 17:55:10:009  and error Error Domain=NSURLErrorDomain Code=-1001 "The request timed out." UserInfo={NSUnderlyingError=0x17005cef0 {Error Domain=kCFErrorDomainCFNetwork Code=-1001 "(null)" UserInfo={_kCFStreamErrorCodeKey=-2102, _kCFStreamErrorDomainKey=4}}, NSErrorFailingURLStringKey=http://api.instacrate.me/logs, NSErrorFailingURLKey=http://api.instacrate.me/logs, _kCFStreamErrorDomainKey=4, _kCFStreamErrorCodeKey=-2102, NSLocalizedDescription=The request timed out.}
+2017/01/07 17:55:17:715  Adding new data point.
+2017/01/07 17:55:17:738  Adding data with power 0
+2017/01/07 17:55:17:739  Updating dataset.
+2017/01/07 17:55:18:714  Adding new data point.
+2017/01/07 17:55:18:746  Adding data with power 150
+2017/01/07 17:55:18:748  Updating dataset.
+2017/01/07 17:55:19:715  Adding new data point.
+2017/01/07 17:55:19:733  Adding data with power 150
+2017/01/07 17:55:19:735  Updating dataset.
+2017/01/07 17:55:24:075  Adding new activity to realm.
+2017/01/07 17:55:24:082  Recieved activity primary key.
+2017/01/07 17:55:24:082  Setting up new dataset.
+2017/01/07 17:55:24:084  Erasing dataset
+2017/01/07 17:55:24:085  Binding data signals to new activity.
+2017/01/07 17:55:24:104  Updating activity name from edit page.
+2017/01/07 17:55:29:068  Adding new data point.
+2017/01/07 17:55:30:113  Adding new data point.
+2017/01/07 17:55:31:039  Adding new data point.
+2017/01/07 17:55:32:112  Adding new data point.
+2017/01/07 17:55:33:112  Adding new data point.
+2017/01/07 17:55:34:113  Adding new data point.
+2017/01/07 17:55:35:113  Adding new data point.
+

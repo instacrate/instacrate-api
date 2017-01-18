@@ -1,0 +1,22 @@
+2017/01/07 19:45:15:774  Adding new data point.
+2017/01/07 19:45:15:801  Got data change notification for 61649611-0953-49D7-84B4-BE20B9850E89
+2017/01/07 19:45:15:801  Adding data with power 0
+2017/01/07 19:45:15:802  Updating dataset.
+2017/01/07 19:45:16:776  Adding new data point.
+2017/01/07 19:45:16:801  Got data change notification for 61649611-0953-49D7-84B4-BE20B9850E89
+2017/01/07 19:45:16:802  Adding data with power 150
+2017/01/07 19:45:16:804  Updating dataset.
+2017/01/07 19:45:17:774  Adding new data point.
+2017/01/07 19:45:17:797  Got data change notification for 61649611-0953-49D7-84B4-BE20B9850E89
+2017/01/07 19:45:17:798  Adding data with power 150
+2017/01/07 19:45:17:799  Updating dataset.
+2017/01/07 19:45:19:281  Adding new activity to realm.
+2017/01/07 19:45:19:289  Recieved activity primary key.
+2017/01/07 19:45:19:289  Setting up new dataset, subscribing to EF2A5B7F-36CF-41EA-A378-5FC9FCED076E.
+2017/01/07 19:45:19:291  Erasing dataset
+2017/01/07 19:45:19:306  Adding new data point.
+2017/01/07 19:45:19:313  Updating activity name from edit page.
+2017/01/07 19:45:19:317  Got data change notification for EF2A5B7F-36CF-41EA-A378-5FC9FCED076E
+2017/01/07 19:45:19:317  Adding data with power 150
+2017/01/07 19:45:19:317  Updating dataset.
+

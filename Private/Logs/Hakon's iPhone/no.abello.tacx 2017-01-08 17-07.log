@@ -1,0 +1,18 @@
+2017/01/08 11:07:33:667  Adding initial activity to realm.
+2017/01/08 11:07:33:688  Recieved activity primary key.
+2017/01/08 11:07:33:689  Setting up new dataset, subscribing to AE275EC1-3D39-4F0B-A005-003F4B7BC116.
+2017/01/08 11:07:33:694  Erasing dataset
+2017/01/08 11:07:33:761  Got data change notification for AE275EC1-3D39-4F0B-A005-003F4B7BC116
+2017/01/08 11:10:03:273  Adding new data point.
+2017/01/08 11:10:03:283  Got data change notification for AE275EC1-3D39-4F0B-A005-003F4B7BC116
+2017/01/08 11:10:03:283  Adding data with power 0
+2017/01/08 11:10:03:284  Updating dataset data count 1.
+2017/01/08 11:10:04:273  Adding new data point.
+2017/01/08 11:10:04:280  Got data change notification for AE275EC1-3D39-4F0B-A005-003F4B7BC116
+2017/01/08 11:10:04:280  Adding data with power 150
+2017/01/08 11:10:04:281  Updating dataset data count 2.
+2017/01/08 11:10:05:273  Adding new data point.
+2017/01/08 11:10:05:284  Got data change notification for AE275EC1-3D39-4F0B-A005-003F4B7BC116
+2017/01/08 11:10:05:284  Adding data with power 150
+2017/01/08 11:10:05:285  Updating dataset data count 3.
+

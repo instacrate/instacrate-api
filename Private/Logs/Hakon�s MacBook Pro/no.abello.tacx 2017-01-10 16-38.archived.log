@@ -1,0 +1,10 @@
+2017/01/10 10:38:51:974  error deleting file Error Domain=NSCocoaErrorDomain Code=4 "“no.abello.tacx 2017-01-10 16-38.archived.log” couldn’t be removed." UserInfo={NSFilePath=/Users/hhanesand/Library/Developer/CoreSimulator/Devices/FB7BD617-1D17-4A3F-A3EA-C42307BA750C/data/Containers/Data/Application/1C97EEFC-E809-46F8-94B1-BE9D1F965EA2/Library/Caches/Logs/no.abello.tacx 2017-01-10 16-38.archived.log, NSUserStringVariant=(
+    Remove
+), NSUnderlyingError=0x60000025faa0 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+2017/01/10 10:39:06:125  error getting previous token from keychain, Error Domain=com.samsoffes.samkeychain Code=-25300 "The specified item could not be found in the keychain" UserInfo={NSLocalizedDescription=The specified item could not be found in the keychain}
+2017/01/10 10:39:25:727  scanning for peripherials
+2017/01/10 10:39:25:736  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x60000009bda0>
+2017/01/10 10:39:25:736  RZBLog(RZBLogLevelSimulatedDevice): State=5
+2017/01/10 10:39:25:736  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x608000096da0>
+2017/01/10 10:39:25:736  RZBLog(RZBLogLevelSimulatedDevice): State=5
+

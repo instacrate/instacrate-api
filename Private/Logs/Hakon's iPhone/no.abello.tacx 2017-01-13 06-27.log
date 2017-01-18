@@ -1,0 +1,4 @@
+2017/01/13 00:27:05:314  error deleting file Error Domain=NSCocoaErrorDomain Code=4 "“no.abello.tacx 2017-01-12 22-40.log” couldn’t be removed." UserInfo={NSFilePath=/private/var/mobile/Containers/Data/Application/66E33515-DCEB-4FDF-B3CC-3DCD165719A6/Library/Caches/Logs/no.abello.tacx 2017-01-12 22-40.log, NSUserStringVariant=(
+    Remove
+), NSUnderlyingError=0x17004f120 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+

@@ -1,0 +1,97 @@
+2017/01/07 20:00:11:821  Adding new data point.
+2017/01/07 20:00:11:855  Got data change notification for 35DCF2E1-7900-47C0-85B5-52BC82E4A655
+2017/01/07 20:00:11:855  Adding data with power 0
+2017/01/07 20:00:11:856  Updating dataset data count 1.
+2017/01/07 20:00:12:777  Adding new data point.
+2017/01/07 20:00:12:795  Got data change notification for 35DCF2E1-7900-47C0-85B5-52BC82E4A655
+2017/01/07 20:00:12:795  Adding data with power 150
+2017/01/07 20:00:12:799  Updating dataset data count 2.
+2017/01/07 20:00:13:826  Adding new data point.
+2017/01/07 20:00:13:838  Got data change notification for 35DCF2E1-7900-47C0-85B5-52BC82E4A655
+2017/01/07 20:00:13:838  Adding data with power 150
+2017/01/07 20:00:13:842  Updating dataset data count 3.
+2017/01/07 20:00:16:004  Adding new activity to realm.
+2017/01/07 20:00:16:011  Recieved activity primary key.
+2017/01/07 20:00:16:011  Setting up new dataset, subscribing to CBFDCE7F-1208-4226-9D73-24E25E5972FD.
+2017/01/07 20:00:16:012  Erasing dataset
+2017/01/07 20:00:16:028  Adding new data point.
+2017/01/07 20:00:16:034  Updating activity name from edit page.
+2017/01/07 20:00:16:036  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:16:036  Adding data with power 150
+2017/01/07 20:00:16:037  Updating dataset data count 1.
+2017/01/07 20:00:18:619  Adding new data point.
+2017/01/07 20:00:18:645  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:18:646  Adding data with power 150
+2017/01/07 20:00:18:649  Updating dataset data count 2.
+2017/01/07 20:00:19:547  Adding new data point.
+2017/01/07 20:00:19:565  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:19:566  Adding data with power 150
+2017/01/07 20:00:19:569  Updating dataset data count 3.
+2017/01/07 20:00:20:597  Adding new data point.
+2017/01/07 20:00:20:608  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:20:608  Adding data with power 150
+2017/01/07 20:00:20:610  Updating dataset data count 4.
+2017/01/07 20:00:21:615  Adding new data point.
+2017/01/07 20:00:21:633  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:21:633  Adding data with power 150
+2017/01/07 20:00:21:634  Updating dataset data count 5.
+2017/01/07 20:00:22:616  Adding new data point.
+2017/01/07 20:00:22:629  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:22:629  Adding data with power 150
+2017/01/07 20:00:22:630  Updating dataset data count 6.
+2017/01/07 20:00:23:617  Adding new data point.
+2017/01/07 20:00:23:632  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:23:632  Adding data with power 150
+2017/01/07 20:00:23:633  Updating dataset data count 7.
+2017/01/07 20:00:24:619  Adding new data point.
+2017/01/07 20:00:24:631  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:24:631  Adding data with power 145
+2017/01/07 20:00:24:632  Updating dataset data count 8.
+2017/01/07 20:00:25:620  Adding new data point.
+2017/01/07 20:00:25:634  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:25:634  Adding data with power 140
+2017/01/07 20:00:25:635  Updating dataset data count 9.
+2017/01/07 20:00:26:595  Adding new data point.
+2017/01/07 20:00:26:605  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:26:605  Adding data with power 140
+2017/01/07 20:00:26:605  Updating dataset data count 10.
+2017/01/07 20:00:27:602  Adding new data point.
+2017/01/07 20:00:27:613  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:27:613  Adding data with power 165
+2017/01/07 20:00:27:614  Updating dataset data count 11.
+2017/01/07 20:00:28:534  Adding new data point.
+2017/01/07 20:00:28:541  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:28:541  Adding data with power 190
+2017/01/07 20:00:28:542  Updating dataset data count 12.
+2017/01/07 20:00:29:613  Adding new data point.
+2017/01/07 20:00:29:625  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:29:625  Adding data with power 190
+2017/01/07 20:00:29:627  Updating dataset data count 13.
+2017/01/07 20:00:30:615  Adding new data point.
+2017/01/07 20:00:30:631  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:30:631  Adding data with power 190
+2017/01/07 20:00:30:632  Updating dataset data count 14.
+2017/01/07 20:00:31:620  Adding new data point.
+2017/01/07 20:00:31:632  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:31:632  Adding data with power 190
+2017/01/07 20:00:31:633  Updating dataset data count 15.
+2017/01/07 20:00:32:553  Adding new data point.
+2017/01/07 20:00:32:561  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:32:561  Adding data with power 190
+2017/01/07 20:00:32:562  Updating dataset data count 16.
+2017/01/07 20:00:33:620  Adding new data point.
+2017/01/07 20:00:33:673  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:33:673  Adding data with power 190
+2017/01/07 20:00:33:674  Updating dataset data count 17.
+2017/01/07 20:00:34:615  Adding new data point.
+2017/01/07 20:00:34:625  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:34:625  Adding data with power 190
+2017/01/07 20:00:34:627  Updating dataset data count 18.
+2017/01/07 20:00:35:622  Adding new data point.
+2017/01/07 20:00:35:652  Got data change notification for CBFDCE7F-1208-4226-9D73-24E25E5972FD
+2017/01/07 20:00:35:652  Adding data with power 190
+2017/01/07 20:00:35:655  Updating dataset data count 19.
+2017/01/07 20:20:17:907  performed request <NSMutableURLRequest: 0x170011230> { URL: http://api.instacrate.me/logs }
+2017/01/07 20:20:17:917  with response (null)
+2017/01/07 20:20:17:918  and error Error Domain=NSURLErrorDomain Code=-1001 "The request timed out." UserInfo={NSUnderlyingError=0x17404b2e0 {Error Domain=kCFErrorDomainCFNetwork Code=-1001 "(null)" UserInfo={_kCFStreamErrorCodeKey=-2102, _kCFStreamErrorDomainKey=4}}, NSErrorFailingURLStringKey=http://api.instacrate.me/logs, NSErrorFailingURLKey=http://api.instacrate.me/logs, _kCFStreamErrorDomainKey=4, _kCFStreamErrorCodeKey=-2102, NSLocalizedDescription=The request timed out.}
+

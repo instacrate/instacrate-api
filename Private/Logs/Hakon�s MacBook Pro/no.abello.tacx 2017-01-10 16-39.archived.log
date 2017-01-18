@@ -1,0 +1,20 @@
+2017/01/10 10:39:32:395  Adding initial activity to realm.
+2017/01/10 10:39:32:751  elevation calculation <mps:0|distanceChangeMps:0|distanceChange:0|slopePercentage:0|elechange:0>
+2017/01/10 10:39:32:766  RZBLog(RZBLogLevelCommand): 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/10 10:39:32:766  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/10 10:39:32:766  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/10 10:39:32:767  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/10 10:39:32:776  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/10 10:39:32:782  RZBLog(RZBLogLevelCommand): 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/10 10:39:32:782  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 31ffffff ffff5802 73>
+2017/01/10 10:39:32:782  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/10 10:39:32:783  recieved <TACPageTargetPower|targetPower:150.00>
+2017/01/10 10:39:32:783  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/10 10:39:32:873  Recieved activity primary key.
+2017/01/10 10:39:32:874  Setting up new dataset, subscribing to 338ED2C4-0603-4F13-81D7-A0E3254DC09E.
+2017/01/10 10:42:03:119  found previous peripherial
+2017/01/10 10:42:03:127  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x608000282580>
+2017/01/10 10:42:03:127  RZBLog(RZBLogLevelSimulatedDevice): State=5
+2017/01/10 10:42:03:127  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x6000002872b0>
+2017/01/10 10:42:03:127  RZBLog(RZBLogLevelSimulatedDevice): State=5
+

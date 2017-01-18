@@ -1,0 +1,50 @@
+2017/01/10 10:42:03:182  applicationDidBecomeActive:
+2017/01/10 10:42:03:415  RZBLog(RZBLogLevelSimulation): PeripheralManager is discoverable
+2017/01/10 10:42:03:416  RZBLog(RZBLogLevelSimulation): PeripheralManager is discoverable
+2017/01/10 10:42:03:417  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <RZBMockCentralManager: 0x60000007e5c0>
+2017/01/10 10:42:03:417  RZBLog(RZBLogLevelDelegateValue): State=5
+2017/01/10 10:42:03:418  RZBLog(RZBLogLevelCommand): scanForPeripheralsWithServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E, 669AA305-0C08-969E-E211-86AD5062675F] options:(null)
+2017/01/10 10:42:03:421  RZBLog(RZBLogLevelDelegate): centralManager:didDiscoverPeripheral:advertisementData:RSSI: - <RZBMockCentralManager: 0x60000007e5c0> 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807
+2017/01/10 10:42:03:421  RZBLog(RZBLogLevelDelegateValue): advertisementData=(null)
+2017/01/10 10:42:03:423  RZBLog(RZBLogLevelDelegateValue): RSSI=(null)
+2017/01/10 10:42:03:426  RZBLog(RZBLogLevelDelegate): centralManager:didDiscoverPeripheral:advertisementData:RSSI: - <RZBMockCentralManager: 0x60000007e5c0> A7D59AE0-6685-47BB-B810-30D1CA194564
+2017/01/10 10:42:03:431  RZBLog(RZBLogLevelDelegateValue): advertisementData=(null)
+2017/01/10 10:42:03:433  RZBLog(RZBLogLevelDelegateValue): RSSI=(null)
+2017/01/10 10:42:03:438  RZBLog(RZBLogLevelCommand): connectPeripheral:0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 options:(null)
+2017/01/10 10:42:03:440  RZBLog(RZBLogLevelCommand): connectPeripheral:A7D59AE0-6685-47BB-B810-30D1CA194564 options:(null)
+2017/01/10 10:42:03:440  RZBLog(RZBLogLevelDelegate): centralManager:didConnectPeripheral: - <RZBMockCentralManager: 0x60000007e5c0> 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807
+2017/01/10 10:42:03:441  RZBLog(RZBLogLevelDelegate): centralManager:didConnectPeripheral: - <RZBMockCentralManager: 0x60000007e5c0> A7D59AE0-6685-47BB-B810-30D1CA194564
+2017/01/10 10:42:03:441  RZBLog(RZBLogLevelCommand): 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 discoverServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/10 10:42:03:443  RZBLog(RZBLogLevelCommand): A7D59AE0-6685-47BB-B810-30D1CA194564 discoverServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/10 10:42:03:443  RZBLog(RZBLogLevelDelegate): peripheral:didDiscoverServices: - 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 (null)
+2017/01/10 10:42:03:444  RZBLog(RZBLogLevelDelegateValue): Services=@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/10 10:42:03:444  RZBLog(RZBLogLevelDelegate): peripheral:didDiscoverServices: - A7D59AE0-6685-47BB-B810-30D1CA194564 (null)
+2017/01/10 10:42:03:445  RZBLog(RZBLogLevelDelegateValue): Services=@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/10 10:42:03:445  RZBLog(RZBLogLevelCommand): 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 setNotifyValue:YES forCharacteristic:6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E
+2017/01/10 10:42:03:446  RZBLog(RZBLogLevelCommand): A7D59AE0-6685-47BB-B810-30D1CA194564 setNotifyValue:YES forCharacteristic:6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E
+2017/01/10 10:42:03:447  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:central:didSubscribeToCharacteristic: -  6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E
+2017/01/10 10:42:03:448  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateNotificationStateForCharacteristic:error: - 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/10 10:42:03:448  RZBLog(RZBLogLevelDelegateValue): Notify=YES
+2017/01/10 10:42:03:449  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:central:didSubscribeToCharacteristic: -  6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E
+2017/01/10 10:42:03:450  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateNotificationStateForCharacteristic:error: - A7D59AE0-6685-47BB-B810-30D1CA194564 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/10 10:42:03:450  RZBLog(RZBLogLevelDelegateValue): Notify=YES
+2017/01/10 10:42:03:958  Adding initial activity to realm.
+2017/01/10 10:42:04:000  elevation calculation <mps:0|distanceChangeMps:0|distanceChange:0|slopePercentage:0|elechange:0>
+2017/01/10 10:42:04:023  RZBLog(RZBLogLevelCommand): 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/10 10:42:04:025  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/10 10:42:04:032  RZBLog(RZBLogLevelCommand): 0D799DD4-14A2-4A60-8ADB-4B1A49CE6807 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/10 10:42:04:032  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 31ffffff ffff5802 73>
+2017/01/10 10:42:04:033  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/10 10:42:04:033  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/10 10:42:04:033  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/10 10:42:04:033  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/10 10:42:04:033  recieved <TACPageTargetPower|targetPower:150.00>
+2017/01/10 10:42:04:033  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/10 10:42:04:067  Recieved activity primary key.
+2017/01/10 10:42:04:068  Setting up new dataset, subscribing to 900B9DF5-286B-4DA7-887E-F7A40E5BB46C.
+2017/01/10 10:44:34:667  found previous peripherial
+2017/01/10 10:44:34:685  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x60800008bef0>
+2017/01/10 10:44:34:685  RZBLog(RZBLogLevelSimulatedDevice): State=5
+2017/01/10 10:44:34:685  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x600000081680>
+2017/01/10 10:44:34:685  RZBLog(RZBLogLevelSimulatedDevice): State=5
+
