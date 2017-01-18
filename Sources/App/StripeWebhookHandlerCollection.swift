@@ -21,7 +21,7 @@ class StripeWebhookCollection {
     required init() {
 
         StripeWebhookManager.shared.registerHandler(forResource: .account, action: .updated) { (resource, action, request) -> Response in
-            return Response(status: .noContent)
+            return Response(status: .ok)
         }
 
         StripeWebhookManager.shared.registerHandler(forResource: .invoice, action: .created) { (resource, action, request) -> Response in
@@ -53,18 +53,6 @@ class StripeWebhookCollection {
             let _ = try Stripe.shared.updateInvoiceMetadata(for: order.id!.int!, invoice_id: invoice_id)
 
             return try Response(status: .ok, json: Node(node: ["status" : "ok"]).makeJSON())
-        }
-
-        StripeWebhookManager.shared.registerHandler(forResource: .charge, action: .pending) { (resource, action, request) -> Response in
-            return Response(status: .noContent)
-        }
-
-        StripeWebhookManager.shared.registerHandler(forResource: .charge, action: .refunded) { (resource, action, request) -> Response in
-            return Response(status: .noContent)
-        }
-
-        StripeWebhookManager.shared.registerHandler(forResource: .charge, action: .updated) { (resource, action, request) -> Response in
-            return Response(status: .noContent)
         }
     }
 }

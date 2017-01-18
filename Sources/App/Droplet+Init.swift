@@ -43,7 +43,6 @@ extension Droplet {
         drop.addConfigurable(middleware: VendorAuthMiddleware(), name: "vendorAuth")
         drop.addConfigurable(middleware: LoggingMiddleware(), name: "logger")
         drop.addConfigurable(middleware: CustomAbortMiddleware(), name: "customAbort")
-        try! drop.addConfigurable(middleware: BugsnagMiddleware(drop: drop), name: "bugsnag")
         
         var remainingMiddleare = drop.middleware.filter { !($0 is FileMiddleware) }
         
@@ -65,6 +64,12 @@ extension Droplet {
         
         Droplet.instance = drop
         Droplet.logger = drop.log.self
+        
+        do {
+            try drop.addConfigurable(middleware: BugsnagMiddleware(drop: drop), name: "bugsnag")
+        } catch {
+            logger?.fatal("failed to add bugsnag middleware \(error)")
+        }
         
         return drop
     }
