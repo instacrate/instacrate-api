@@ -8,10 +8,11 @@
 
 import Vapor
 import Fluent
+import Sanitized
 
-final class Category: Model, Preparation, JSONConvertible, FastInitializable {
+final class Category: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["name"]
+    static var permitted = ["name"]
     
     var id: Node?
     var exists = false

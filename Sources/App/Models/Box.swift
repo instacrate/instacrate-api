@@ -9,19 +9,24 @@
 import Vapor
 import Fluent
 import Foundation
-
+import Stripe
 import HTTP
+import Sanitized
 
-
-
-final class Box: Model, Preparation, JSONConvertible, FastInitializable {
+enum ModelError: Error {
     
-    static var requiredJSONFields = ["name", "brief", "long_desc", "short_desc", "bullets", "freq", "price", "vendor_id"]
+    case missingLink(from: Model.Type, to: Model.Type, id: Int?)
+}
+
+final class Box: Model, Preparation, JSONConvertible, Sanitizable {
+    
+    static var permitted = ["name", "brief", "long_desc", "short_desc", "bullets", "price", "vendor_id", "plan_id", "publish_date"]
+    static let boxBulletSeparator = "<<<>>>"
+    
+    public static var entity = "boxes"
     
     var id: Node?
     var exists = false
-    
-    public static var entity = "boxes"
     
     let name: String
     let brief: String
@@ -32,7 +37,6 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
     let publish_date: Date
     
     var plan_id: String?
-    
     var vendor_id: Node?
     
     init(node: Node, in context: Context) throws {
@@ -42,10 +46,9 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
         long_desc = try node.extract("long_desc")
         short_desc = try node.extract("short_desc")
         
-        let string = try (node.extract("bullets") as String).trim(characters: ["\\", "\"", "[", "]"])
-        let a = string.components(separatedBy: "\",\"")
-        bullets = a
-        
+        let string = try node.extract("bullets") as String
+        bullets = string.components(separatedBy: Box.boxBulletSeparator)
+
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
         publish_date = (try? node.extract("publish_date")) ?? Date()
@@ -58,12 +61,18 @@ final class Box: Model, Preparation, JSONConvertible, FastInitializable {
             "brief" : .string(brief),
             "long_desc" : .string(long_desc),
             "short_desc" : .string(short_desc),
-            "bullets" : .array(bullets.map( { .string($0) })),
+            "bullets" : .string(bullets.joined(separator: Box.boxBulletSeparator)),
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!,
             "publish_date" : .string(publish_date.ISO8601String),
-            ]).add(objects: ["id" : id,
+        ]).add(objects: ["id" : id,
                          "plan_id" : plan_id])
+    }
+    
+    func postValidate() throws {
+        guard try vendor().first() != nil else {
+            throw ModelError.missingLink(from: Box.self, to: Vendor.self, id: vendor_id?.int)
+        }
     }
     
     static func prepare(_ database: Database) throws {

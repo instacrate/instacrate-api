@@ -1,0 +1,25 @@
+{
+    "server": "engine",
+    "client": "engine",
+    "console": "terminal",
+    "log": "console",
+    "hash": "crypto",
+    "cipher": "crypto",
+    "middleware": {
+        "server": [
+            "file",
+            "customAbort",
+            "validation",
+            "type-safe",
+            "date",
+            "sessions",
+            "logger",
+            "vendorAuth",
+            "userAuth",
+            "bugsnag"
+        ],
+        "client": [
+            "bugsnag"
+        ]
+    }
+}

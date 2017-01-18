@@ -11,10 +11,11 @@ import Fluent
 import Auth
 import Turnstile
 import BCrypt
+import Sanitized
 
-final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
+final class Customer: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["id", "email", "name", "password"]
+    static var permitted: [String] = ["email", "name", "password", "defaultShipping", "stripe_id"]
     
     var id: Node?
     var exists = false
@@ -29,7 +30,7 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
-        defaultShipping = try? node.extract("defaultShipping")
+        defaultShipping = try? node.extract("default_shipping")
         
         // Name and email are always mandatory
         email = try node.extract("email")
@@ -55,19 +56,27 @@ final class Customer: Model, Preparation, JSONConvertible, FastInitializable {
             "salt" : .string(salt.string)
         ]).add(objects: ["stripe_id" : stripe_id,
                          "id" : id,
-                         "defaultShipping" : defaultShipping])
+                         "default_shipping" : defaultShipping])
+    }
+    
+    func postValidate() throws {
+        if defaultShipping != nil {
+            guard try defaultShippingAddress().first() != nil else {
+                throw ModelError.missingLink(from: Customer.self, to: Shipping.self, id: defaultShipping?.int)
+            }
+        }
     }
     
     static func prepare(_ database: Database) throws {
-        try database.create(self.entity, closure: { box in
+        try database.create(self.entity) { box in
             box.id()
             box.string("name")
             box.string("stripe_id")
             box.string("email")
             box.string("password")
             box.string("salt")
-            box.int("defaultShipping", optional: true)
-        })
+            box.int("default_shipping", optional: false)
+        }
     }
     
     static func revert(_ database: Database) throws {
@@ -116,9 +125,7 @@ extension Customer: User {
                 throw AuthError.invalidCredentials
             }
             
-            let hashedPassword = BCrypt.hash(password: usernamePassword.password, salt: user.salt)
-            
-            if user.password == hashedPassword {
+            if user.password == BCrypt.hash(password: usernamePassword.password, salt: user.salt) {
                 return user
             } else {
                 throw AuthError.invalidBasicAuthorization

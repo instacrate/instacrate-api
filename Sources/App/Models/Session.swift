@@ -10,25 +10,15 @@ import Vapor
 import Fluent
 import Auth
 
-enum SessionType: String, NodeConvertible {
-    case user = "customer"
-    case vendor = "vendor"
-    
-    init(node: Node, in context: Context = EmptyNode) throws {
-        guard let string = node.string else {
-            throw NodeError.unableToConvert(node: node, expected: "\(String.self)")
-        }
-        
-        guard let type = SessionType(rawValue: string) else {
-            throw Abort.custom(status: .badRequest, message: "Invalid value for SessionType in request.")
-        }
-        
-        self = type
-    }
-    
-    func makeNode(context: Context = EmptyNode) throws -> Node {
-        return .string(self.rawValue)
-    }
+enum SessionType: String, TypesafeOptionsParameter {
+    case customer
+    case vendor
+    case none
+
+    static let key = "type"
+    static let values = [SessionType.customer.rawValue, SessionType.vendor.rawValue, SessionType.none.rawValue]
+
+    static var defaultValue: SessionType? = .none
 }
 
 extension AccessToken: NodeRepresentable {
@@ -90,7 +80,7 @@ final class Session: Model, Preparation, JSONConvertible {
 extension Session {
     
     func user() throws -> Parent<Customer> {
-        precondition(self.type == .user)
+        precondition(self.type == .customer)
         return try parent(customer_id)
     }
     

@@ -12,6 +12,8 @@ import Auth
 import Turnstile
 import BCrypt
 import Foundation
+import Stripe
+import Sanitized
 
 extension Node {
 
@@ -20,17 +22,14 @@ extension Node {
         if var object = try? self.extract(key) as T {
             try object.save()
             return object.id
-        } else if let object_id = try? self.extract("\(key)_id") as String {
-            return .string(object_id)
+        }
+
+        guard let object_id: String = try self.extract("\(key)_id") else {
+            throw Abort.custom(status: .badRequest, message: "Missing value for \(key) or \(key)_id")
         }
         
-        return nil
+        return .string(object_id)
     }
-}
-
-protocol Updateable: Model {
-    
-    func update(withJSON json: JSON) throws
 }
 
 enum ApplicationState: String, NodeConvertible {
@@ -65,9 +64,9 @@ extension BCryptSalt: NodeInitializable {
     }
 }
 
-final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
+final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id or category", "estimatedTotalSubscribers"]
+    static var permitted: [String] = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id", "estimatedTotalSubscribers", "applicationState", "username", "password", "verificationState0", "stripeAccountId", "cut"]
     
     var id: Node?
     var exists = false
@@ -76,6 +75,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
     let contactPhone: String
     let contactEmail: String
     var applicationState: ApplicationState = .none
+    var verificationState: LegalEntityVerificationStatus?
     
     let publicWebsite: String
     let supportEmail: String
@@ -89,9 +89,11 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
     
     let dateCreated: Date
 
-    var username: String?
-    var password: String?
-    var salt: BCryptSalt?
+    var username: String
+    var password: String
+    var salt: BCryptSalt
+
+    var stripeAccountId: String?
     
     let cut: Double?
     
@@ -101,10 +103,15 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
         
         applicationState = try node.extract("applicationState")
         
-        if applicationState == .accepted {
-            username = try node.extract("username")
-            password = try node.extract("password")
-            salt = try node.extract("salt")
+        username = try node.extract("username")
+        let password = try node.extract("password") as String
+        
+        if let salt = try? node.extract("salt") as String {
+            self.salt = try BCryptSalt(string: salt)
+            self.password = password
+        } else {
+            self.salt = BCryptSalt()
+            self.password = BCrypt.hash(password: password, salt: salt)
         }
         
         contactName = try node.extract("contactName")
@@ -123,7 +130,9 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
         
         category_id = try node.autoextract(type: Category.self, key: "category")
         
-        cut = try? node.extract("cut")
+        cut = (try? node.extract("cut")) ?? 0.08
+        stripeAccountId = try? node.extract("stripeAccountId")
+        verificationState = try? node.extract("verificationState")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -141,12 +150,20 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             
             "established" : .string(established),
             "dateCreated" : .string(dateCreated.ISO8601String),
+            
+            "username" : .string(username),
+            "password": .string(password),
+            "salt" : .string(salt.string)
         ]).add(objects: ["id" : id,
                          "category_id" : category_id,
                          "cut" : cut,
-                         "username" : username,
-                         "password": password,
-                         "salt" : salt?.string])
+                         "verificationState" : verificationState])
+    }
+    
+    func postValidate() throws {
+        guard try category().first() != nil else {
+            throw ModelError.missingLink(from: Vendor.self, to: Category.self, id: category_id?.int)
+        }
     }
     
     static func prepare(_ database: Database) throws {
@@ -167,6 +184,7 @@ final class Vendor: Model, Preparation, JSONConvertible, FastInitializable {
             vendor.string("password")
             vendor.string("salt")
             vendor.double("applicationState")
+            vendor.string("verificationState")
             vendor.parent(Category.self, optional: false)
         })
     }
@@ -184,27 +202,6 @@ extension Vendor {
     
     func category() throws -> Parent<Category> {
         return try parent(category_id)
-    }
-}
-
-extension Vendor: Updateable {
-    
-    func update(withJSON json: JSON) throws {
-        let node = json.makeNode()
-    
-        guard let state: ApplicationState = try node.extract("applicationState") else {
-            throw Abort.custom(status: .badRequest, message: "Missing application state in json body.")
-        }
-        
-        self.applicationState = state
-        
-        if self.applicationState == .accepted {
-            username = try node.extract("username")
-            salt = BCryptSalt()
-            
-            let plainTextPassword = try node.extract("password") as String
-            password = BCrypt.hash(password: plainTextPassword, salt: salt!)
-        }
     }
 }
 
@@ -232,7 +229,7 @@ extension Vendor: User {
         case let token as AccessToken:
             let session = try Session.session(forToken: token, type: .vendor)
             
-            guard let vendor = try session.vendor().first() else {
+            guard let vendor = try session.vendor().get() else {
                 throw AuthError.invalidCredentials
             }
             
@@ -245,11 +242,7 @@ extension Vendor: User {
                 throw AuthError.invalidCredentials
             }
             
-            guard let salt = vendor.salt else {
-                throw Abort.custom(status: .internalServerError, message: "Missing salt for vendor with id \(vendor.id!)")
-            }
-            
-            if BCrypt.hash(password: usernamePassword.password, salt: salt) == vendor.password {
+            if vendor.password == BCrypt.hash(password: usernamePassword.password, salt: vendor.salt) {
                 return vendor
             } else {
                 throw AuthError.invalidBasicAuthorization

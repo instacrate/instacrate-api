@@ -16,7 +16,7 @@ final class FeaturedBox: Model, Preparation, JSONConvertible {
     var exists = false
     
     var id: Node?
-    var type: Curated
+    var type: Box.Curated
     var box_id: Node?
     
     init(node: Node, in context: Context) throws {

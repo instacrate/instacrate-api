@@ -16,21 +16,23 @@ import Fluent
 final class AuthenticationController: ResourceRepresentable {
     
     func login(_ request: Request) throws -> ResponseRepresentable {
-        
-        let type = try SessionType(node: request.query?["type"])
+
+        let type = try request.extract() as SessionType
         
         guard let credentials = request.auth.header?.usernamePassword else {
-            throw Abort.badRequest
+            throw AuthError.noAuthorizationHeader
         }
         
         switch type {
-        case .user:
+        case .customer:
             try request.userSubject().login(credentials: credentials, persist: true)
         case .vendor:
             try request.vendorSubject().login(credentials: credentials, persist: true)
+        case .none:
+            throw Abort.custom(status: .badRequest, message: "Can not log in with a session type of none.")
         }
         
-        let modelSubject: JSONConvertible = type == .user ? try request.customer() : try request.vendor()
+        let modelSubject: JSONConvertible = type == .customer ? try request.customer() : try request.vendor()
         return try Response(status: .ok, json: modelSubject.makeJSON())
     }
     
@@ -62,6 +64,16 @@ extension Authorization {
 }
 
 extension Request {
+    
+    var sessionType: SessionType {
+        if (try? customer()) != nil {
+            return .customer
+        } else if (try? vendor()) != nil {
+            return .vendor
+        } else {
+            return .none
+        }
+    }
     
     func customer() throws -> Customer {
         let subject = try userSubject()

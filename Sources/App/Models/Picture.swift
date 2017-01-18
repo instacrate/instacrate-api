@@ -14,7 +14,7 @@ final class Picture: Model, Preparation, JSONConvertible {
     var id: Node?
     var exists = false
     
-    let url: String
+    var url: String
     
     var box_id: Node?
     

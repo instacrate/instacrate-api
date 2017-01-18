@@ -9,10 +9,12 @@
 import Vapor
 import Fluent
 import Foundation
+import Stripe
+import Sanitized
 
-final class Order: Model, Preparation, JSONConvertible, FastInitializable {
+final class Order: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["fulfulled", "subscription_id", "shipping_id"]
+    static var permitted: [String] = ["date", "fulfilled", "subscription_id", "shipping_id", "vendor_id", "box_id", "customer_id", "order_id"]
     
     var id: Node?
     var exists = false
@@ -22,15 +24,33 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
     
     var subscription_id: Node?
     var vendor_id: Node?
+    var box_id: Node?
     var shipping_id: Node?
+    var customer_id: Node?
+
+    var order_id: String?
+
+    init(with subscription_id: Node?, vendor_id: Node?, box_id: Node?, shipping_id: Node?, customer_id: Node?, order_id: String) {
+        self.subscription_id = subscription_id
+        self.vendor_id = vendor_id
+        self.box_id = box_id
+        self.shipping_id = shipping_id
+        self.customer_id = customer_id
+        self.order_id = order_id
+
+        date = Date()
+        fulfilled = false
+    }
     
     init(node: Node, in context: Context) throws {
-        id = try node.extract("id")
+        id = try? node.extract("id")
         date = (try? node.extract("date")) ?? Date()
-        fulfilled = try node.extract("fulfilled")
+        fulfilled = (try? node.extract("fulfilled")) ?? false
         subscription_id = try node.extract("subscription_id")
         shipping_id = try node.extract("shipping_id")
         vendor_id = try node.extract("vendor_id")
+        box_id = try node.extract("box_id")
+        customer_id = try node.extract("customer_id")
     }
 
     func makeNode(context: Context) throws -> Node {
@@ -39,8 +59,32 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
             "fulfilled" : .bool(fulfilled),
             "subscription_id" : subscription_id!,
             "shipping_id" : shipping_id!,
-            "vendor_id" : vendor_id!
+            "vendor_id" : vendor_id!,
+            "box_id" : box_id!,
+            "customer_id" : customer_id!
         ]).add(name: "id", node: id)
+    }
+    
+    func postValidate() throws {
+        guard try subscription().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Subscription.self, id: subscription_id?.int)
+        }
+        
+        guard try shippingAddress().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Shipping.self, id: shipping_id?.int)
+        }
+        
+        guard try vendor().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Vendor.self, id: vendor_id?.int)
+        }
+        
+        guard try box().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Box.self, id: box_id?.int)
+        }
+        
+        guard try customer().first() != nil else {
+            throw ModelError.missingLink(from: Order.self, to: Customer.self, id: customer_id?.int)
+        }
     }
     
     static func prepare(_ database: Database) throws {
@@ -48,6 +92,8 @@ final class Order: Model, Preparation, JSONConvertible, FastInitializable {
             order.id()
             order.string("date")
             order.bool("fulfilled")
+            order.parent(Customer.self, optional: false)
+            order.parent(Box.self, optional: false)
             order.parent(Subscription.self, optional: false)
             order.parent(Shipping.self, optional: false)
             order.parent(Vendor.self, optional: false)
@@ -72,6 +118,14 @@ extension Order {
     func vendor() throws -> Parent<Vendor> {
         return try parent(vendor_id)
     }
+
+    func box() throws -> Parent<Box> {
+        return try parent(box_id)
+    }
+
+    func customer() throws -> Parent<Customer> {
+        return try parent(customer_id)
+    }
 }
 
 extension Order: Relationable {
@@ -89,4 +143,9 @@ extension Order: Relationable {
         
         return (sub, ship)
     }
+}
+
+extension Order {
+    
+    
 }

@@ -1,0 +1,12 @@
+[Unit]
+Description=Instacrate development API server
+After=network.target
+
+[Service]
+ExecStart=/bin/bash /home/hakon/subber-dev/start.sh -e development -f /var/run/dev-instacrated.pid -d /home/hakon/subber-dev/
+Type=forking
+PIDFile=/var/run/dev-instacrated.pid
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

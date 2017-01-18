@@ -9,10 +9,12 @@
 import Vapor
 import Fluent
 import Foundation
+import Stripe
+import Sanitized
 
-final class Review: Model, Preparation, JSONConvertible, FastInitializable {
+final class Review: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var requiredJSONFields = ["text", "rating", "date", "box_id", "customer_id"]
+    static var permitted: [String] = ["text", "rating", "box_id", "customer_id", "date"]
     
     var id: Node?
     var exists = false
@@ -26,11 +28,13 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
     
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
+        
         text = try node.extract("text")
         rating = try node.extract("rating")
-        date = (try? node.extract("date")) ?? Date()
         box_id = try node.extract("box_id")
         customer_id = try node.extract("customer_id")
+
+        date = (try? node.extract("date")) ?? Date()
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -41,6 +45,16 @@ final class Review: Model, Preparation, JSONConvertible, FastInitializable {
             "box_id" : box_id!,
             "customer_id" : customer_id!
         ]).add(name: "id", node: id)
+    }
+    
+    func postValidate() throws {
+        guard try box().first() != nil else {
+            throw ModelError.missingLink(from: Review.self, to: Box.self, id: box_id?.int)
+        }
+        
+        guard try customer().first() != nil else {
+            throw ModelError.missingLink(from: Review.self, to: Customer.self, id: customer_id?.int)
+        }
     }
     
     static func prepare(_ database: Database) throws {
@@ -65,7 +79,7 @@ extension Review {
         return try parent(box_id)
     }
     
-    func user() throws -> Parent<Customer> {
+    func customer() throws -> Parent<Customer> {
         return try parent(customer_id)
     }
 }
@@ -75,8 +89,8 @@ extension Review: Relationable {
     typealias Relations = (user: Customer, box: Box)
 
     func relations() throws -> (user: Customer, box: Box) {
-        guard let user = try self.user().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing user relation for review with text \(text)")
+        guard let user = try self.customer().first() else {
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for review with text \(text)")
         }
         
         guard let box = try self.box().get() else {
