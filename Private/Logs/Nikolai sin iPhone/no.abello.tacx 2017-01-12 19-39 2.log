@@ -1,0 +1,13 @@
+2017/01/12 20:39:29:615  applicationDidBecomeActive:
+2017/01/12 20:39:38:188  applicationWillResignActive:
+2017/01/12 20:39:39:472  applicationDidBecomeActive:
+2017/01/12 20:39:39:670  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <CBCentralManager: 0x174268b40>
+2017/01/12 20:39:39:671  RZBLog(RZBLogLevelDelegateValue): State=5
+2017/01/12 20:39:52:055  applicationWillResignActive:
+2017/01/12 20:39:52:932  applicationDidEnterBackground:
+2017/01/12 20:39:52:954  applicationWillTerminate:
+2017/01/12 20:39:54:611  found previous peripherial
+2017/01/12 20:39:54:618  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <CBCentralManager: 0x174271740>
+2017/01/12 20:39:54:618  RZBLog(RZBLogLevelDelegateValue): State=5
+2017/01/12 20:39:54:618  RZBLog(RZBLogLevelCommand): scanForPeripheralsWithServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E, 669AA305-0C08-969E-E211-86AD5062675F] options:(null)
+

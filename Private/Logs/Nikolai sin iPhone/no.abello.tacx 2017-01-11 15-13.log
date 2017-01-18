@@ -1,0 +1,145 @@
+2017/01/11 16:13:35:681  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateNotificationStateForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:35:681  RZBLog(RZBLogLevelDelegateValue): Notify=YES
+2017/01/11 16:13:35:861  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:35:861  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:36:104  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:36:105  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19d300db 37004020 a0>
+2017/01/11 16:13:36:381  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:36:381  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:36:387  performed request <NSMutableURLRequest: 0x1740153d0> { URL: http://api.instacrate.me/logs }
+2017/01/11 16:13:36:388  with response (null)
+2017/01/11 16:13:36:389  and error Error Domain=NSURLErrorDomain Code=-1005 "The network connection was lost." UserInfo={NSUnderlyingError=0x17405d5b0 {Error Domain=kCFErrorDomainCFNetwork Code=-1005 "(null)" UserInfo={_kCFStreamErrorCodeKey=-4, _kCFStreamErrorDomainKey=4}}, NSErrorFailingURLStringKey=http://api.instacrate.me/logs, NSErrorFailingURLKey=http://api.instacrate.me/logs, _kCFStreamErrorDomainKey=4, _kCFStreamErrorCodeKey=-4, NSLocalizedDescription=The network connection was lost.}
+2017/01/11 16:13:36:611  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:36:611  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19d400db 37004020 a7>
+2017/01/11 16:13:36:852  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:36:852  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:37:135  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:37:136  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19d500db 37004020 a6>
+2017/01/11 16:13:37:362  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:37:362  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:37:872  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:37:872  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:38:150  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:38:150  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19d700db 37004020 a4>
+2017/01/11 16:13:38:352  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:38:352  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:38:592  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:38:592  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19d800db 37004020 ab>
+2017/01/11 16:13:38:872  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:38:872  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:39:101  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:39:101  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19d900db 37004020 aa>
+2017/01/11 16:13:39:346  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:39:346  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:39:612  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:39:612  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19da00db 37004020 a9>
+2017/01/11 16:13:39:852  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:39:852  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:40:123  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:40:124  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19db00db 37004020 a8>
+2017/01/11 16:13:40:362  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:40:362  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:40:602  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:40:602  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19dc00db 37004020 af>
+2017/01/11 16:13:40:872  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:40:872  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:41:154  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:41:154  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19dd00db 37004020 ae>
+2017/01/11 16:13:41:352  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:41:352  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:41:656  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:41:656  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19de00db 37004020 ad>
+2017/01/11 16:13:41:861  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:41:861  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:42:101  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:42:101  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19df00db 37004020 ac>
+2017/01/11 16:13:42:372  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:42:372  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:42:612  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:42:612  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e000db 37004020 93>
+2017/01/11 16:13:42:852  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:42:852  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:43:166  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:43:167  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 f0000000 00000000 16>
+2017/01/11 16:13:43:361  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:43:362  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 fa000201 0000ff00 e0>
+2017/01/11 16:13:43:602  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:43:602  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e100db 37004020 92>
+2017/01/11 16:13:43:872  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:43:872  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:44:148  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:44:148  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e200db 37004020 91>
+2017/01/11 16:13:44:357  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:44:357  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:44:621  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:44:621  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e300db 37004020 90>
+2017/01/11 16:13:44:862  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:44:862  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:45:149  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:45:149  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e400db 37004020 97>
+2017/01/11 16:13:45:372  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:45:372  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:45:612  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:45:612  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e500db 37004020 96>
+2017/01/11 16:13:45:852  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:45:852  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:46:123  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:46:123  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e600db 37004020 95>
+2017/01/11 16:13:46:363  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:46:364  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:46:602  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:46:602  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e700db 37004020 94>
+2017/01/11 16:13:46:872  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:46:872  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:47:152  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:47:152  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e800db 37004020 9b>
+2017/01/11 16:13:47:352  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:47:352  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:47:622  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:47:622  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19e900db 37004020 9a>
+2017/01/11 16:13:47:862  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:47:862  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:48:123  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:48:123  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ea00db 37004020 99>
+2017/01/11 16:13:48:372  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:48:372  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:48:613  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:48:613  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19eb00db 37004020 98>
+2017/01/11 16:13:48:852  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:48:852  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:49:149  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:49:149  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ec00db 37004020 9f>
+2017/01/11 16:13:49:362  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:49:362  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:49:602  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:49:602  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ed00db 37004020 9e>
+2017/01/11 16:13:49:879  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:49:879  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:50:111  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:50:111  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ee00db 37004020 9d>
+2017/01/11 16:13:50:352  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:50:352  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:50:622  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:50:622  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ef00db 37004020 9c>
+2017/01/11 16:13:50:862  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:50:862  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:51:102  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:51:103  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 50ffff01 5900f00a 14>
+2017/01/11 16:13:51:911  RZBLog(RZBLogLevelDelegate): centralManager:willRestoreState: - <CBCentralManager: 0x174269d00>
+2017/01/11 16:13:51:912  RZBLog(RZBLogLevelDelegateValue): Restore State={
+    kCBRestoredPeripherals =     (
+        "<CBPeripheral: 0x1700fcd80, identifier = 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE, name = Tacx Neo 06588, state = connected>"
+    );
+}
+2017/01/11 16:13:51:914  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <CBCentralManager: 0x174269d00>
+2017/01/11 16:13:51:914  RZBLog(RZBLogLevelDelegateValue): State=5
+2017/01/11 16:13:51:914  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:51:914  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19f000db 37004020 83>
+2017/01/11 16:13:51:914  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:51:914  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10195834 0000ff24 58>
+2017/01/11 16:13:51:915  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE setNotifyValue:YES forCharacteristic:6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E
+2017/01/11 16:13:51:923  found previous peripherial
+2017/01/11 16:13:51:924  RZBLog(RZBLogLevelCommand): scanForPeripheralsWithServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E, 669AA305-0C08-969E-E211-86AD5062675F] options:(null)
+2017/01/11 16:13:51:971  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateNotificationStateForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/11 16:13:51:971  RZBLog(RZBLogLevelDelegateValue): Notify=YES
+

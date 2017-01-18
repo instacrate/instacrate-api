@@ -1,0 +1,79 @@
+2017/01/08 12:40:24:081  Adding new data point.
+2017/01/08 12:40:24:102  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:24:103  Adding data with power 0
+2017/01/08 12:40:24:103  Updating dataset data count 1.
+2017/01/08 12:40:25:008  Adding new data point.
+2017/01/08 12:40:25:022  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:25:022  Adding data with power 150
+2017/01/08 12:40:25:025  Updating dataset data count 2.
+2017/01/08 12:40:26:086  Adding new data point.
+2017/01/08 12:40:26:094  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:26:094  Adding data with power 170
+2017/01/08 12:40:26:095  Updating dataset data count 3.
+2017/01/08 12:40:27:053  Adding new data point.
+2017/01/08 12:40:27:086  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:27:086  Adding data with power 180
+2017/01/08 12:40:27:087  Updating dataset data count 4.
+2017/01/08 12:40:28:058  Adding new data point.
+2017/01/08 12:40:28:073  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:28:073  Adding data with power 195
+2017/01/08 12:40:28:074  Updating dataset data count 5.
+2017/01/08 12:40:29:085  Adding new data point.
+2017/01/08 12:40:29:102  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:29:102  Adding data with power 205
+2017/01/08 12:40:29:103  Updating dataset data count 6.
+2017/01/08 12:40:29:994  Adding new data point.
+2017/01/08 12:40:30:004  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:30:005  Adding data with power 225
+2017/01/08 12:40:30:007  Updating dataset data count 7.
+2017/01/08 12:40:31:083  Adding new data point.
+2017/01/08 12:40:31:106  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:31:106  Adding data with power 205
+2017/01/08 12:40:31:107  Updating dataset data count 8.
+2017/01/08 12:40:32:078  Adding new data point.
+2017/01/08 12:40:32:087  Got data change notification for 8AF1FF82-89C9-4F52-851A-D3DF101F379D
+2017/01/08 12:40:32:087  Adding data with power 200
+2017/01/08 12:40:32:089  Updating dataset data count 9.
+2017/01/08 13:23:26:330  Adding initial activity to realm.
+2017/01/08 13:23:26:386  Recieved activity primary key.
+2017/01/08 13:23:26:388  Setting up new dataset, subscribing to 72792555-3F44-41EA-B293-684D46F26537.
+2017/01/08 13:23:26:396  Erasing dataset
+2017/01/08 13:23:26:465  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:28:786  Adding new data point.
+2017/01/08 13:23:28:792  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:28:792  Adding data with power 0
+2017/01/08 13:23:28:792  Updating dataset data count 1.
+2017/01/08 13:23:29:790  Adding new data point.
+2017/01/08 13:23:29:800  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:29:800  Adding data with power 150
+2017/01/08 13:23:29:801  Updating dataset data count 2.
+2017/01/08 13:23:30:788  Adding new data point.
+2017/01/08 13:23:30:794  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:30:794  Adding data with power 150
+2017/01/08 13:23:30:795  Updating dataset data count 3.
+2017/01/08 13:23:31:790  Adding new data point.
+2017/01/08 13:23:31:795  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:31:795  Adding data with power 150
+2017/01/08 13:23:31:797  Updating dataset data count 4.
+2017/01/08 13:23:32:736  Adding new data point.
+2017/01/08 13:23:32:740  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:32:740  Adding data with power 140
+2017/01/08 13:23:32:740  Updating dataset data count 5.
+2017/01/08 13:23:33:784  Adding new data point.
+2017/01/08 13:23:33:787  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:33:787  Adding data with power 115
+2017/01/08 13:23:33:788  Updating dataset data count 6.
+2017/01/08 13:23:34:786  Adding new data point.
+2017/01/08 13:23:34:791  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:34:791  Adding data with power 95
+2017/01/08 13:23:34:792  Updating dataset data count 7.
+2017/01/08 13:23:35:790  Adding new data point.
+2017/01/08 13:23:35:801  Got data change notification for 72792555-3F44-41EA-B293-684D46F26537
+2017/01/08 13:23:35:801  Adding data with power 70
+2017/01/08 13:23:35:802  Updating dataset data count 8.
+2017/01/08 13:33:22:401  found previous peripherial
+2017/01/08 13:33:22:406  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x174099b90>
+2017/01/08 13:33:22:406  RZBLog(RZBLogLevelSimulatedDevice): State=5
+2017/01/08 13:33:22:408  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x174099be0>
+2017/01/08 13:33:22:408  RZBLog(RZBLogLevelSimulatedDevice): State=5
+

@@ -1,0 +1,6 @@
+2017/01/10 10:32:49:813  found previous peripherial
+2017/01/10 10:32:49:817  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x170089ba0>
+2017/01/10 10:32:49:818  RZBLog(RZBLogLevelSimulatedDevice): State=5
+2017/01/10 10:32:49:818  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x174085dc0>
+2017/01/10 10:32:49:818  RZBLog(RZBLogLevelSimulatedDevice): State=5
+

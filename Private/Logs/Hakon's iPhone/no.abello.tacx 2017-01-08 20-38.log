@@ -1,0 +1,861 @@
+2017/01/08 14:38:08:722  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:08:722  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:08:722  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:08:722  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:08:723  Adding new data point.
+2017/01/08 14:38:08:725  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:08:725  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:08:725  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:08:725  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:08:726  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:08:726  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:08:726  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:08:726  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:08:726  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:08:726  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:08:726  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:08:726  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:173|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:08:726  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:08:726  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:150>
+2017/01/08 14:38:08:726  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:08:727  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:08:728  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:08:728  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:08:728  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:08:728  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:08:728  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:08:728  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:08:729  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:08:729  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37944300 00000000>
+2017/01/08 14:38:08:730  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:08:730  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00960000>
+2017/01/08 14:38:08:730  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:08:730  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:08:731  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:08:731  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:08:731  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:08:731  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:08:732  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:08:735  Got data change notification for 80FF33F8-984C-47D8-A96F-FA0981D0D258
+2017/01/08 14:38:08:735  Adding data with power 0
+2017/01/08 14:38:09:804  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:09:804  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:09:804  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:09:804  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:09:804  Skipping old data point.
+2017/01/08 14:38:09:806  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:09:806  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:09:806  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:09:806  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:09:806  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:09:806  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:09:807  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:09:807  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:09:807  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:09:807  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:09:807  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:09:807  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:176|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:09:807  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:09:807  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:150>
+2017/01/08 14:38:09:807  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:09:807  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37c04400 00000000>
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00960000>
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:09:808  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:09:809  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:09:809  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:09:809  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:09:809  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:09:809  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:10:501  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:10:502  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 31ffffff ffff6c02 47>
+2017/01/08 14:38:10:502  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:10:503  recieved <TACPageTargetPower|targetPower:155.00>
+2017/01/08 14:38:10:503  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:10:803  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:10:803  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:10:804  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:10:804  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:10:805  Adding new data point.
+2017/01/08 14:38:10:805  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:10:805  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:10:805  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:10:805  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:10:805  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:10:805  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:10:805  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:10:805  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:10:806  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:10:806  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:10:806  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:10:806  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:82|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:10:806  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:10:806  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:155>
+2017/01/08 14:38:10:806  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:10:806  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:10:806  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:10:806  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:10:806  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:10:806  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:10:807  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:10:807  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:10:807  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:10:807  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37082000 00000000>
+2017/01/08 14:38:10:807  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:10:807  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 009b0000>
+2017/01/08 14:38:10:808  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:10:808  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:10:808  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:10:808  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:10:808  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:10:808  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:10:808  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:10:809  Got data change notification for 80FF33F8-984C-47D8-A96F-FA0981D0D258
+2017/01/08 14:38:10:809  Adding data with power 150
+2017/01/08 14:38:11:800  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:11:800  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:11:800  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:11:800  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:11:800  Skipping old data point.
+2017/01/08 14:38:11:800  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:11:801  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:11:801  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:11:801  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:92|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:11:802  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:155>
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:11:802  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:11:802  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37f02300 00000000>
+2017/01/08 14:38:11:803  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:11:803  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 009b0000>
+2017/01/08 14:38:11:803  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:11:803  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:11:803  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:11:803  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:11:803  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:11:803  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:11:804  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:12:772  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:12:772  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:12:772  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:12:772  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:12:772  Adding new data point.
+2017/01/08 14:38:12:773  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:12:773  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:12:773  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:12:773  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:12:773  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:12:773  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:12:773  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:12:773  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:12:774  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:12:774  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:12:774  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:12:774  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:157|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:12:774  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:12:774  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:155>
+2017/01/08 14:38:12:774  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:12:774  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:12:774  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:12:774  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:12:774  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37543d00 00000000>
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 009b0000>
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:12:775  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:12:776  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:12:776  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:12:776  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:12:776  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:12:776  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:12:777  Got data change notification for 80FF33F8-984C-47D8-A96F-FA0981D0D258
+2017/01/08 14:38:12:777  Adding data with power 155
+2017/01/08 14:38:13:716  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:13:716  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:13:717  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:13:717  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:13:717  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:13:717  Skipping old data point.
+2017/01/08 14:38:13:717  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:13:718  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:13:718  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:13:718  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:13:718  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:13:719  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:13:720  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:13:720  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:13:721  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:13:721  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:13:721  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:146|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:13:722  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:13:722  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:155>
+2017/01/08 14:38:13:722  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:13:722  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:13:723  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:13:723  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:13:723  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:13:724  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:13:724  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:13:724  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:13:725  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:13:725  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37083900 00000000>
+2017/01/08 14:38:13:726  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:13:726  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 009b0000>
+2017/01/08 14:38:13:727  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:13:727  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:13:728  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:13:728  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:13:729  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:13:729  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:13:729  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:14:804  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:14:805  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:14:805  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:14:806  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:14:808  Adding new data point.
+2017/01/08 14:38:14:822  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:14:823  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:14:823  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:14:823  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:14:824  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:14:824  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:14:824  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:14:824  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:14:827  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:14:827  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:14:828  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:14:829  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:173|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:14:829  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:14:830  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:155>
+2017/01/08 14:38:14:830  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:14:830  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:14:831  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:14:831  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:14:831  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:14:832  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:14:835  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:14:835  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:14:837  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:14:837  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37944300 00000000>
+2017/01/08 14:38:14:838  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:14:838  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 009b0000>
+2017/01/08 14:38:14:839  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:14:839  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:14:840  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:14:840  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:14:841  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:14:841  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:14:842  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:14:851  Got data change notification for 80FF33F8-984C-47D8-A96F-FA0981D0D258
+2017/01/08 14:38:14:851  Adding data with power 155
+2017/01/08 14:38:15:805  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:15:805  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:15:806  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:15:806  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:15:806  Skipping old data point.
+2017/01/08 14:38:15:813  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:15:813  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:15:813  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:15:814  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:15:814  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:15:814  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:15:814  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:15:814  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:15:815  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:15:820  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:15:822  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:15:822  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:129|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:15:823  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:15:823  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:155>
+2017/01/08 14:38:15:826  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:15:827  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:15:827  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:15:828  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:15:828  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:15:828  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:15:828  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:15:828  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:15:829  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:15:830  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37643200 00000000>
+2017/01/08 14:38:15:830  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:15:830  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 009b0000>
+2017/01/08 14:38:15:831  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:15:831  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:15:833  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:15:833  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:15:834  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:15:835  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:15:835  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:16:801  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:16:802  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:16:802  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:16:802  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:16:805  Adding new data point.
+2017/01/08 14:38:16:812  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:16:812  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:16:814  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:16:814  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:16:814  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:16:814  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:16:815  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:16:815  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:16:818  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:16:819  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:16:820  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:16:820  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:86|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:16:821  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:16:824  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:155>
+2017/01/08 14:38:16:824  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:16:824  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:16:825  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:16:825  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:16:826  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:16:826  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:16:826  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:16:826  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:16:830  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:16:830  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37982100 00000000>
+2017/01/08 14:38:16:831  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:16:831  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 009b0000>
+2017/01/08 14:38:16:832  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:16:832  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:16:834  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:16:834  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:16:835  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:16:835  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:16:835  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:16:850  Got data change notification for 80FF33F8-984C-47D8-A96F-FA0981D0D258
+2017/01/08 14:38:16:850  Adding data with power 155
+2017/01/08 14:38:17:753  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:17:754  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:17:754  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:17:755  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:17:755  Skipping old data point.
+2017/01/08 14:38:17:762  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:17:762  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:17:762  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:17:762  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:17:763  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:17:763  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:17:763  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:17:763  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:17:764  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:17:764  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:17:765  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:17:765  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:182|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:17:769  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:17:770  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:155>
+2017/01/08 14:38:17:770  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:17:771  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:17:771  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:17:772  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:17:772  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:17:772  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:17:772  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:17:773  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:17:774  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:17:774  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37184700 00000000>
+2017/01/08 14:38:17:777  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:17:777  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 009b0000>
+2017/01/08 14:38:17:779  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:17:779  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:17:781  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:17:781  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:17:781  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:17:782  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:17:782  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:19:341  Calling generate new activity handler.
+2017/01/08 14:38:19:342  Adding new activity to realm.
+2017/01/08 14:38:19:349  Recieved activity primary key.
+2017/01/08 14:38:19:349  Setting up new dataset, subscribing to 30D6ED11-A38F-4DF5-9AE9-2B45AB68A0E4.
+2017/01/08 14:38:19:368  Adding new data point.
+2017/01/08 14:38:19:372  Updating activity name from edit page.
+2017/01/08 14:38:19:380  Got data change notification for 30D6ED11-A38F-4DF5-9AE9-2B45AB68A0E4
+2017/01/08 14:38:19:380  Adding data with power 155
+2017/01/08 14:38:19:882  Calling cancel activity handler.
+2017/01/08 14:38:21:831  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:21:831  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 31ffffff ffff8002 ab>
+2017/01/08 14:38:21:832  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:21:832  recieved <TACPageTargetPower|targetPower:160.00>
+2017/01/08 14:38:21:833  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:23:630  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:23:631  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:23:631  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:23:631  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:23:632  Skipping old data point.
+2017/01/08 14:38:23:640  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:23:640  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:23:640  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:23:641  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:23:641  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:23:641  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:23:641  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:23:641  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:23:642  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:23:642  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:23:643  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:23:643  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:132|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:23:644  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:23:644  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:23:645  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:23:645  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:23:646  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:23:647  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:23:647  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:23:648  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:23:648  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:23:648  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:23:654  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:23:654  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37903300 00000000>
+2017/01/08 14:38:23:655  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:23:655  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:23:657  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:23:658  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:23:659  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:23:659  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:23:660  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:23:661  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:23:661  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:24:631  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:24:631  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:24:631  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:24:631  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:24:634  Adding new data point.
+2017/01/08 14:38:24:641  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:24:641  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:24:645  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:24:645  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:24:646  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:24:646  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:24:646  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:24:646  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:24:647  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:24:650  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:24:655  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:24:656  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:195|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:24:657  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:24:657  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:24:658  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:24:658  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:24:659  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:24:659  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:24:659  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:24:660  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:24:660  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:24:660  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:24:661  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:24:661  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 372c4c00 00000000>
+2017/01/08 14:38:24:662  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:24:662  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:24:664  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:24:664  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:24:665  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:24:665  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:24:666  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:24:666  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:24:667  Got data change notification for 30D6ED11-A38F-4DF5-9AE9-2B45AB68A0E4
+2017/01/08 14:38:24:667  Adding data with power 160
+2017/01/08 14:38:24:668  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:26:557  Calling generate new activity handler.
+2017/01/08 14:38:26:558  Adding new activity to realm.
+2017/01/08 14:38:26:564  Recieved activity primary key.
+2017/01/08 14:38:26:564  Setting up new dataset, subscribing to 41113FC2-A440-4AF2-8BC9-03838764860B.
+2017/01/08 14:38:26:570  Got data change notification for 41113FC2-A440-4AF2-8BC9-03838764860B
+2017/01/08 14:38:26:586  Adding new data point.
+2017/01/08 14:38:26:591  Updating activity name from edit page.
+2017/01/08 14:38:26:600  Got data change notification for 41113FC2-A440-4AF2-8BC9-03838764860B
+2017/01/08 14:38:26:600  Adding data with power 160
+2017/01/08 14:38:27:100  Calling cancel activity handler.
+2017/01/08 14:38:31:946  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:31:946  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:31:946  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:31:947  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:31:947  Skipping old data point.
+2017/01/08 14:38:31:949  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:31:949  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:31:949  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:31:949  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:31:949  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:31:949  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:31:950  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:31:950  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:31:951  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:31:952  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:31:952  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:31:952  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:175|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:31:952  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:31:952  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:31:952  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:31:952  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:31:952  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:31:952  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:31:952  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:31:952  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:31:952  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:31:953  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:31:953  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:31:953  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 375c4400 00000000>
+2017/01/08 14:38:31:953  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:31:953  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:31:954  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:31:954  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:31:954  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:31:955  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:31:955  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:31:955  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:31:955  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:32:971  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:32:971  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:32:971  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:32:971  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:32:972  Adding new data point.
+2017/01/08 14:38:32:975  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:32:975  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:32:976  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:32:976  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:137|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:32:976  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:32:977  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:32:977  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:32:977  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:32:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:32:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:32:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:32:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:32:977  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:32:977  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:32:978  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:32:978  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37843500 00000000>
+2017/01/08 14:38:32:978  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:32:978  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:32:979  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:32:979  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:32:979  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:32:979  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:32:979  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:32:979  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:32:979  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:32:981  Got data change notification for 41113FC2-A440-4AF2-8BC9-03838764860B
+2017/01/08 14:38:32:981  Adding data with power 160
+2017/01/08 14:38:33:912  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:33:912  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:33:912  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:33:912  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:33:912  Skipping old data point.
+2017/01/08 14:38:33:915  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:33:915  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:33:915  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:33:915  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:33:916  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:33:916  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:33:916  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:33:916  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:33:916  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:33:916  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:33:916  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:33:916  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:106|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:33:916  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:33:918  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:33:918  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:33:919  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:33:919  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:33:919  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:33:919  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:33:919  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:33:919  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:33:919  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:33:919  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:33:919  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37682900 00000000>
+2017/01/08 14:38:33:920  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:33:920  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:33:920  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:33:920  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:33:921  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:33:921  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:33:921  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:33:921  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:33:921  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:34:966  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:34:966  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:34:966  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:34:966  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:34:967  Adding new data point.
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:34:970  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:34:970  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:34:970  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:191|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:34:971  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:34:971  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:34:971  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:34:971  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:34:971  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:34:971  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:34:971  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:34:971  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:34:971  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:34:971  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:34:975  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:34:975  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 379c4a00 00000000>
+2017/01/08 14:38:34:976  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:34:976  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:34:976  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:34:976  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:34:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:34:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:34:977  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:34:977  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:34:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:34:978  Got data change notification for 41113FC2-A440-4AF2-8BC9-03838764860B
+2017/01/08 14:38:34:978  Adding data with power 160
+2017/01/08 14:38:35:964  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:35:964  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:35:964  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:35:964  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:35:964  Skipping old data point.
+2017/01/08 14:38:35:968  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:35:969  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:35:969  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:35:969  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:185|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:35:970  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:35:970  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:35:970  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37444800 00000000>
+2017/01/08 14:38:35:971  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:35:971  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:35:972  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:35:972  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:35:974  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:35:974  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:35:974  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:35:974  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:35:974  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:36:972  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:36:972  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:36:972  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:36:972  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:36:973  Adding new data point.
+2017/01/08 14:38:36:975  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:36:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:36:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:36:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:36:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:36:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:36:977  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:36:977  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:36:977  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:36:977  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:36:977  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:36:977  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:153|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:36:978  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:36:978  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:36:978  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:36:978  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:36:978  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:36:978  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:36:978  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:36:978  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:36:978  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:36:978  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:36:980  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:36:980  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37c43b00 00000000>
+2017/01/08 14:38:36:980  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:36:980  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:36:980  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:36:980  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:36:981  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:36:981  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:36:981  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:36:981  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:36:981  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:36:983  Got data change notification for 41113FC2-A440-4AF2-8BC9-03838764860B
+2017/01/08 14:38:36:983  Adding data with power 160
+2017/01/08 14:38:37:975  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:37:976  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:37:976  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:37:976  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:37:976  Skipping old data point.
+2017/01/08 14:38:37:979  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:37:979  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:37:979  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:37:979  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:37:979  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:37:979  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:37:979  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:37:979  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:37:980  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:37:980  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:37:980  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:37:980  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:147|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:37:980  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:37:980  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:37:980  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:37:980  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:37:980  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:37:980  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:37:980  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 376c3900 00000000>
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:37:981  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:37:982  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:37:982  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:37:982  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:37:982  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:37:982  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:38:975  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:38:975  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:38:975  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:38:975  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:38:976  Adding new data point.
+2017/01/08 14:38:38:978  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:38:978  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:38:979  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:38:980  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:38:980  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:38:980  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:38:980  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:38:980  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:38:981  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:38:981  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:38:981  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:38:981  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:68|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:38:981  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:38:981  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:38:981  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:38:981  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:38:981  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:38:981  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:38:982  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:38:982  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:38:982  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:38:982  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:38:982  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:38:982  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37901a00 00000000>
+2017/01/08 14:38:38:982  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:38:982  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:38:983  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:38:983  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:38:983  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:38:983  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:38:983  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:38:983  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:38:984  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:38:987  Got data change notification for 41113FC2-A440-4AF2-8BC9-03838764860B
+2017/01/08 14:38:38:987  Adding data with power 160
+2017/01/08 14:38:39:973  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:39:973  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:39:973  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:39:973  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:39:973  Skipping old data point.
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803701 17>
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2017/01/08 14:38:39:976  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:39:976  requested <TrackResistance|51> with response <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:39:977  requested <UserConfiguration|55> with response <TACPageUserConfiguration|userWeightKg:106|bicycleWheelDiameterOffsetMm:0|bicycleWeightKg:0|bicycleWheelDiameterM:0|gearRatio:0>
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:39:977  requested <SpecificTrainerDataPage|25> with response <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:160>
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:39:977  requested <GeneralFEDataPage|16> with response <TACPageGeneralFEDataPage|speed:0|distance:0>
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:39:977  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 33000000 00204e00>
+2017/01/08 14:38:39:978  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:39:978  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 37682900 00000000>
+2017/01/08 14:38:39:978  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:39:978  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 19000000 00a00000>
+2017/01/08 14:38:39:978  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - EDA61138-2D1F-4083-BBBB-23E5EDB6D379 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/08 14:38:39:978  RZBLog(RZBLogLevelDelegateValue): Value=<a4090000 10000000 00000022>
+2017/01/08 14:38:39:979  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:39:979  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/08 14:38:39:979  RZBLog(RZBLogLevelSimulatedDevice): peripheralManager:didReceiveWriteRequests: -  @[6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2017/01/08 14:38:39:979  recieved <TACPageTrackResistance|gradePercent:0.00>
+2017/01/08 14:38:39:979  RZBLog(RZBLogLevelSimulation): Not responding to write without response
+2017/01/08 14:38:48:419  <timed_Slope> requested TrackResistance:<TACPageRequestPage|requestPage:51>
+2017/01/08 14:38:48:420  <timed_Weight> requested UserConfiguration:<TACPageRequestPage|requestPage:55>
+2017/01/08 14:38:48:420  <timed_RPM> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2017/01/08 14:38:48:420  <timed_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2017/01/08 14:38:48:422  Adding new data point.
+2017/01/08 14:38:48:442  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:38:48:442  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff803301 13>
+2017/01/08 14:38:48:442  RZBLog(RZBLogLevelCommand): EDA61138-2D1F-4083-BBBB-23E5EDB6D379 writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/08 14:40:36:355  found previous peripherial
+2017/01/08 14:40:36:365  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x170284790>
+2017/01/08 14:40:36:365  RZBLog(RZBLogLevelSimulatedDevice): State=5
+2017/01/08 14:40:36:365  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x174285230>
+2017/01/08 14:40:36:365  RZBLog(RZBLogLevelSimulatedDevice): State=5
+

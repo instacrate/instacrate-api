@@ -1,0 +1,10 @@
+2016/12/25 10:50:10:370  error deleting file Error Domain=NSCocoaErrorDomain Code=4 "“no.abello.tacx 2016-12-22 22-20.log” couldn’t be removed." UserInfo={NSFilePath=/private/var/mobile/Containers/Data/Application/618B5575-973C-4FB8-B400-F43A048A5809/Library/Caches/Logs/no.abello.tacx 2016-12-22 22-20.log, NSUserStringVariant=(
+    Remove
+), NSUnderlyingError=0x17005f0e0 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+2016/12/25 10:50:17:384  error deleting file Error Domain=NSCocoaErrorDomain Code=4 "“no.abello.tacx 2016-12-24 19-36.log” couldn’t be removed." UserInfo={NSFilePath=/private/var/mobile/Containers/Data/Application/618B5575-973C-4FB8-B400-F43A048A5809/Library/Caches/Logs/no.abello.tacx 2016-12-24 19-36.log, NSUserStringVariant=(
+    Remove
+), NSUnderlyingError=0x17005aa00 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+2016/12/25 10:51:23:657  found previous peripherial
+2016/12/25 10:51:23:675  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x17008dd40>
+2016/12/25 10:51:23:676  RZBLog(RZBLogLevelSimulatedDevice): State=5
+

@@ -1,0 +1,235 @@
+2017/01/09 15:33:38:262  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:38:262  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 191e00e4 70004020 15>
+2017/01/09 15:33:38:609  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:38:611  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:38:629  Adding initial activity to realm.
+2017/01/09 15:33:38:741  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:38:741  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 191f00e4 70004020 14>
+2017/01/09 15:33:39:015  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:39:016  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 191f00e4 70004020 14>
+2017/01/09 15:33:39:251  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:39:252  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192000e4 70004020 2b>
+2017/01/09 15:33:39:365  elevation calculation <mps:0|distanceChangeMps:0|distanceChange:0|slopePercentage:0|elechange:0>
+2017/01/09 15:33:39:467  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/09 15:33:39:467  RZBLog(RZBLogLevelWriteCommandData): Data=<a4090000 33000000 00204e00>
+2017/01/09 15:33:39:505  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:39:507  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:39:552  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2017/01/09 15:33:39:552  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 31ffffff ffff5802 73>
+2017/01/09 15:33:39:732  Recieved activity primary key.
+2017/01/09 15:33:39:739  Setting up new dataset, subscribing to 63317945-AA6C-408C-897D-92F71F9131DB.
+2017/01/09 15:33:39:751  Erasing dataset
+2017/01/09 15:33:39:761  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:39:762  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192100e4 70004020 2a>
+2017/01/09 15:33:40:001  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:40:002  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:40:218  Got data change notification for 63317945-AA6C-408C-897D-92F71F9131DB
+2017/01/09 15:33:40:243  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:40:244  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192200e4 70004020 29>
+2017/01/09 15:33:40:511  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:40:512  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:40:752  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:40:752  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192300e4 70004020 28>
+2017/01/09 15:33:40:789  performed request <NSMutableURLRequest: 0x17001a770> { URL: http://api.instacrate.me/logs }
+2017/01/09 15:33:40:793  with response <NSHTTPURLResponse: 0x170222e40> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:40 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 15:33:40:794  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x17044cf60 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x170222e40> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:40 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 15:33:40:992  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:40:992  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:41:162  performed request <NSMutableURLRequest: 0x1740138e0> { URL: http://api.instacrate.me/logs }
+2017/01/09 15:33:41:163  with response <NSHTTPURLResponse: 0x174221760> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 15:33:41:164  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x1742583c0 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x174221760> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 15:33:41:262  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:41:262  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 f0000000 00000000 16>
+2017/01/09 15:33:41:300  performed request <NSMutableURLRequest: 0x1740159c0> { URL: http://api.instacrate.me/logs }
+2017/01/09 15:33:41:302  with response <NSHTTPURLResponse: 0x17402b6a0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 15:33:41:303  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x17044b850 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17402b6a0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 15:33:41:352  performed request <NSMutableURLRequest: 0x170019bf0> { URL: http://api.instacrate.me/logs }
+2017/01/09 15:33:41:353  with response <NSHTTPURLResponse: 0x1740349e0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 15:33:41:355  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x174057550 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x1740349e0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 15:33:41:374  performed request <NSMutableURLRequest: 0x17001a940> { URL: http://api.instacrate.me/logs }
+2017/01/09 15:33:41:376  with response <NSHTTPURLResponse: 0x1740349e0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 15:33:41:378  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x1744591a0 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x1740349e0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 15:33:41:383  performed request <NSMutableURLRequest: 0x174018ff0> { URL: http://api.instacrate.me/logs }
+2017/01/09 15:33:41:384  with response <NSHTTPURLResponse: 0x1702223e0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 15:33:41:385  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x1744596b0 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x1702223e0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 15:33:41:502  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:41:502  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 f0000000 00000000 16>
+2017/01/09 15:33:41:683  performed request <NSMutableURLRequest: 0x174019630> { URL: http://api.instacrate.me/logs }
+2017/01/09 15:33:41:685  with response <NSHTTPURLResponse: 0x1702237a0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 15:33:41:687  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x17044cd20 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x1702237a0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 14:33:41 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 15:33:41:742  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:41:742  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192400e4 70004020 2f>
+2017/01/09 15:33:42:011  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:42:011  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:42:251  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:42:252  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192500e4 70004020 2e>
+2017/01/09 15:33:42:524  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:42:525  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:42:762  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:42:762  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:43:001  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:43:002  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:43:241  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:43:242  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192700e4 70004020 2c>
+2017/01/09 15:33:43:511  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:43:512  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:43:776  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:43:776  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192800e4 70004020 23>
+2017/01/09 15:33:43:991  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:43:992  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192800e4 70004020 23>
+2017/01/09 15:33:44:261  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:44:262  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192900e4 70004020 22>
+2017/01/09 15:33:44:531  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:44:532  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:44:741  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:44:742  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192a00e4 70004020 21>
+2017/01/09 15:33:45:011  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:45:012  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:45:252  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:45:252  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192b00e4 70004020 20>
+2017/01/09 15:33:45:492  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:45:492  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:45:761  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:45:762  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192c00e4 70004020 27>
+2017/01/09 15:33:46:001  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:46:002  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:46:242  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:46:242  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192d00e4 70004020 26>
+2017/01/09 15:33:46:512  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:46:512  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192d00e4 70004020 26>
+2017/01/09 15:33:46:751  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:46:752  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192e00e4 70004020 25>
+2017/01/09 15:33:47:262  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:47:262  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 192f00e4 70004020 24>
+2017/01/09 15:33:47:502  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:47:503  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0d00ff24 e2>
+2017/01/09 15:33:47:741  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:47:742  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0d00ff24 e2>
+2017/01/09 15:33:48:009  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:48:010  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 193000e4 70004020 3b>
+2017/01/09 15:33:48:251  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:48:252  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 193100e4 70004020 3a>
+2017/01/09 15:33:48:491  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:48:492  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:48:731  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:48:732  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019cb10 0000ff24 ef>
+2017/01/09 15:33:49:001  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:49:002  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 193200e4 70004020 39>
+2017/01/09 15:33:49:264  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:49:264  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 50ffff01 5900f00a 14>
+2017/01/09 15:33:53:327  RZBLog(RZBLogLevelDelegate): centralManager:willRestoreState: - <CBCentralManager: 0x174460c40>
+2017/01/09 15:33:53:329  RZBLog(RZBLogLevelDelegateValue): Restore State={
+    kCBRestoredPeripherals =     (
+        "<CBPeripheral: 0x1742e2800, identifier = 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE, name = Tacx Neo 06588, state = connected>"
+    );
+    kCBRestoredScanServices =     (
+        "6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E",
+        "669AA305-0C08-969E-E211-86AD5062675F"
+    );
+}
+2017/01/09 15:33:53:358  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <CBCentralManager: 0x174460c40>
+2017/01/09 15:33:53:359  RZBLog(RZBLogLevelDelegateValue): State=5
+2017/01/09 15:33:53:359  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:53:359  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019d111 0200ff24 f6>
+2017/01/09 15:33:53:361  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:53:362  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 193800f3 70014020 25>
+2017/01/09 15:33:53:362  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:53:362  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019d111 0200ff24 f6>
+2017/01/09 15:33:53:362  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:53:363  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019d111 0200ff24 f6>
+2017/01/09 15:33:53:363  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:53:363  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019d111 0200ff24 f6>
+2017/01/09 15:33:53:363  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:53:364  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 193a00f4 70004020 21>
+2017/01/09 15:33:53:364  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE setNotifyValue:YES forCharacteristic:6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E
+2017/01/09 15:33:53:369  found previous peripherial
+2017/01/09 15:33:53:371  RZBLog(RZBLogLevelCommand): scanForPeripheralsWithServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E, 669AA305-0C08-969E-E211-86AD5062675F] options:(null)
+2017/01/09 15:33:53:412  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateNotificationStateForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:53:412  RZBLog(RZBLogLevelDelegateValue): Notify=YES
+2017/01/09 15:33:53:502  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2017/01/09 15:33:53:502  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 1019d111 0000ff24 f4>
+

@@ -1,0 +1,109 @@
+2016/12/22 11:55:34:735  got user weight 148
+2016/12/22 11:55:34:744  got user weight 148
+2016/12/22 11:56:54:669  got user weight 183
+2016/12/22 11:56:54:680  got user weight 183
+2016/12/22 11:57:54:767  got user weight 123
+2016/12/22 11:57:54:772  got user weight 123
+2016/12/22 12:02:24:599  got user weight 121
+2016/12/22 12:02:24:604  got user weight 121
+2016/12/22 12:02:56:235  got user weight 132
+2016/12/22 12:02:56:240  got user weight 132
+2016/12/22 12:03:27:264  got user weight 147
+2016/12/22 12:03:27:271  got user weight 147
+2016/12/22 12:07:09:058  got user weight 94
+2016/12/22 12:07:09:064  got user weight 94
+2016/12/22 12:08:44:611  got user weight 87
+2016/12/22 12:08:44:625  got user weight 87
+2016/12/22 12:09:50:532  got user weight 129
+2016/12/22 12:09:50:537  got user weight 129
+2016/12/22 12:11:19:978  got user weight 124
+2016/12/22 12:11:19:983  got user weight 124
+2016/12/22 12:15:08:039  got user weight 138
+2016/12/22 12:15:08:044  got user weight 138
+2016/12/22 12:18:20:561  got user weight 165
+2016/12/22 12:18:20:568  got user weight 165
+2016/12/22 12:18:32:968  got user weight 165
+2016/12/22 12:20:32:549  got user weight 134
+2016/12/22 12:20:32:554  got user weight 134
+2016/12/22 12:22:04:441  got user weight 134
+2016/12/22 12:26:40:779  got user weight 94
+2016/12/22 12:26:40:790  got user weight 94
+2016/12/22 12:28:03:422  got user weight 94
+2016/12/22 12:30:09:949  emulator sending initial value as 0 for Watt
+2016/12/22 12:30:09:995  emulator sending initial value as 0 for Slope
+2016/12/22 12:30:10:231  got user weight 87
+2016/12/22 12:30:10:232  got user weight 87
+2016/12/22 12:30:18:166  got user weight 87
+2016/12/22 12:31:22:603  emulator sending initial value as 0 for Watt
+2016/12/22 12:31:22:653  emulator sending initial value as 0 for Slope
+2016/12/22 12:31:22:878  got user weight 179
+2016/12/22 12:31:22:878  got user weight 179
+2016/12/22 15:23:45:781  emulator sending initial value as 0 for Watt
+2016/12/22 15:23:45:795  emulator sending initial value as 0 for Slope
+2016/12/22 15:23:46:074  got user weight 99
+2016/12/22 15:23:46:074  got user weight 99
+2016/12/22 15:24:02:084  got user weight 99
+2016/12/22 15:29:39:646  emulator sending initial value as 0 for Watt
+2016/12/22 15:29:39:700  emulator sending initial value as 0 for Slope
+2016/12/22 15:29:39:959  got user weight 143
+2016/12/22 15:29:39:959  got user weight 143
+2016/12/22 15:30:33:171  got user weight 143
+2016/12/22 15:39:42:375  emulator sending initial value as 0 for Watt
+2016/12/22 15:39:42:382  emulator sending initial value as 0 for Slope
+2016/12/22 15:39:42:603  got user weight 90
+2016/12/22 15:39:42:604  got user weight 90
+2016/12/22 15:51:04:713  emulator sending initial value as 0 for Watt
+2016/12/22 15:51:04:764  emulator sending initial value as 0 for Slope
+2016/12/22 15:51:04:983  got user weight 92
+2016/12/22 15:51:04:984  got user weight 92
+2016/12/22 15:52:06:454  emulator sending initial value as 0 for Watt
+2016/12/22 15:52:06:506  emulator sending initial value as 0 for Slope
+2016/12/22 15:52:06:727  got user weight 87
+2016/12/22 15:52:06:728  got user weight 87
+2016/12/22 15:52:51:713  emulator sending initial value as 0 for Watt
+2016/12/22 15:52:51:766  emulator sending initial value as 0 for Slope
+2016/12/22 15:52:51:988  got user weight 160
+2016/12/22 15:52:51:989  got user weight 160
+2016/12/22 15:53:45:487  emulator sending initial value as 0 for Watt
+2016/12/22 15:53:45:512  emulator sending initial value as 0 for Slope
+2016/12/22 15:53:45:737  got user weight 129
+2016/12/22 15:53:45:737  got user weight 129
+2016/12/22 15:54:47:050  emulator sending initial value as 0 for Watt
+2016/12/22 15:54:47:057  emulator sending initial value as 0 for Slope
+2016/12/22 15:54:47:286  got user weight 179
+2016/12/22 15:54:47:286  got user weight 179
+2016/12/22 15:56:59:421  emulator sending initial value as 0 for Watt
+2016/12/22 15:56:59:428  emulator sending initial value as 0 for Slope
+2016/12/22 15:56:59:667  got user weight 154
+2016/12/22 15:56:59:667  got user weight 154
+2016/12/22 15:59:57:335  emulator sending initial value as 0 for Watt
+2016/12/22 15:59:57:384  emulator sending initial value as 0 for Slope
+2016/12/22 15:59:57:639  got user weight 103
+2016/12/22 15:59:57:639  got user weight 103
+2016/12/22 16:01:06:760  emulator sending initial value as 0 for Watt
+2016/12/22 16:01:06:769  emulator sending initial value as 0 for Slope
+2016/12/22 16:01:07:018  got user weight 95
+2016/12/22 16:01:07:018  got user weight 95
+2016/12/22 16:01:49:831  emulator sending initial value as 0 for Watt
+2016/12/22 16:01:49:882  emulator sending initial value as 0 for Slope
+2016/12/22 16:01:50:118  got user weight 197
+2016/12/22 16:01:50:118  got user weight 197
+2016/12/22 16:04:43:073  emulator sending initial value as 0 for Watt
+2016/12/22 16:04:43:125  emulator sending initial value as 0 for Slope
+2016/12/22 16:04:43:356  got user weight 75
+2016/12/22 16:04:43:356  got user weight 75
+2016/12/22 16:12:35:628  emulator sending initial value as 0 for Watt
+2016/12/22 16:12:35:637  emulator sending initial value as 0 for Slope
+2016/12/22 16:12:35:888  got user weight 169
+2016/12/22 16:12:35:888  got user weight 169
+2016/12/22 16:13:59:246  emulator sending initial value as 0 for Watt
+2016/12/22 16:13:59:296  emulator sending initial value as 0 for Slope
+2016/12/22 16:13:59:516  got user weight 112
+2016/12/22 16:13:59:517  got user weight 112
+2016/12/22 16:14:07:575  got user weight 112
+2016/12/22 16:14:19:270  got user weight 112
+2016/12/22 16:17:45:369  emulator sending initial value as 10 for Watt
+2016/12/22 16:17:45:375  emulator sending initial value as 10 for Slope
+2016/12/22 16:17:45:581  got user weight 112
+2016/12/22 16:17:45:581  got user weight 112
+

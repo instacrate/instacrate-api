@@ -1,0 +1,237 @@
+2016/12/26 11:10:07:900  RZBLog(RZBLogLevelDelegate): centralManager:didDiscoverPeripheral:advertisementData:RSSI: - <CBCentralManager: 0x1744609c0> 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE
+2016/12/26 11:10:07:901  RZBLog(RZBLogLevelDelegateValue): advertisementData={
+    kCBAdvDataIsConnectable = 1;
+    kCBAdvDataLocalName = "Tacx Neo 06588";
+    kCBAdvDataServiceUUIDs =     (
+        1818,
+        "Cycling Speed and Cadence",
+        "Device Information",
+        "6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E"
+    );
+}
+2016/12/26 11:10:07:901  RZBLog(RZBLogLevelDelegateValue): RSSI=-64
+2016/12/26 11:10:07:902  RZBLog(RZBLogLevelCommand): connectPeripheral:4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE options:(null)
+2016/12/26 11:10:07:940  Setting up bindings to data providers
+2016/12/26 11:10:07:941  <reader_initial_Speed> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2016/12/26 11:10:07:941  <reader_initial_Distance> requested GeneralFEDataPage:<TACPageRequestPage|requestPage:16>
+2016/12/26 11:10:07:943  Setting up bindings to activity signal.
+2016/12/26 11:10:07:944  Binding data signals to new activity.
+2016/12/26 11:10:08:005  <adjustor_initial_Watt> requested SpecificTrainerDataPage:<TACPageRequestPage|requestPage:25>
+2016/12/26 11:10:08:130  RZBLog(RZBLogLevelDelegate): centralManager:didConnectPeripheral: - <CBCentralManager: 0x1744609c0> 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE
+2016/12/26 11:10:08:131  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE discoverServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E]
+2016/12/26 11:10:08:741  RZBLog(RZBLogLevelDelegate): peripheral:didDiscoverServices: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE (null)
+2016/12/26 11:10:08:742  RZBLog(RZBLogLevelDelegateValue): Services=@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E]
+2016/12/26 11:10:08:744  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE discoverCharacteristics:@[6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E, 6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E] forService:6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E
+2016/12/26 11:10:08:891  RZBLog(RZBLogLevelDelegate): peripheral:didDiscoverCharacteristicsForService:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:08:892  RZBLog(RZBLogLevelDelegateValue): Characteristics=@[6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E, 6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E]
+2016/12/26 11:10:08:892  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE setNotifyValue:YES forCharacteristic:6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E
+2016/12/26 11:10:08:893  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2016/12/26 11:10:08:893  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2016/12/26 11:10:08:894  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2016/12/26 11:10:08:895  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801001 30>
+2016/12/26 11:10:08:896  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2016/12/26 11:10:08:897  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 31ffffff ffff5802 73>
+2016/12/26 11:10:08:897  RZBLog(RZBLogLevelCommand): 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE writeData:<data> forCharacteristic:6E40FEC3-B5A3-F393-E0A9-E50E24DCCA9E type:1
+2016/12/26 11:10:08:897  RZBLog(RZBLogLevelWriteCommandData): Data=<a4094f05 46ffffff ff801901 39>
+2016/12/26 11:10:09:071  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateNotificationStateForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:09:071  RZBLog(RZBLogLevelDelegateValue): Notify=YES
+2016/12/26 11:10:09:130  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:09:130  RZBLog(RZBLogLevelDelegateValue): Value=<a4094f05 47107202 ffffffff c0>
+2016/12/26 11:10:09:131  Notify with data <a4094f05 47107202 ffffffff c0> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageCommandStatus|lastrec:16|seq:114|status:Not supported|data:FFFFFFFF>
+2016/12/26 11:10:09:131  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:09:131  RZBLog(RZBLogLevelDelegateValue): Value=<a4094f05 47107302 ffffffff c1>
+2016/12/26 11:10:09:131  Notify with data <a4094f05 47107302 ffffffff c1> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageCommandStatus|lastrec:16|seq:115|status:Not supported|data:FFFFFFFF>
+2016/12/26 11:10:09:132  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:09:132  RZBLog(RZBLogLevelDelegateValue): Value=<a4094f05 50ffff01 5900f00a 15>
+2016/12/26 11:10:09:132  Notify with data <a4094f05 50ffff01 5900f00a 15> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageManufacturersIdentification|hwRevision1|manufacturerID89|modelNumber2800>
+2016/12/26 11:10:09:219  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:09:220  RZBLog(RZBLogLevelDelegateValue): Value=<a4094f05 50ffff01 5900f00a 15>
+2016/12/26 11:10:09:220  Notify with data <a4094f05 50ffff01 5900f00a 15> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageManufacturersIdentification|hwRevision1|manufacturerID89|modelNumber2800>
+2016/12/26 11:10:09:461  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:09:461  RZBLog(RZBLogLevelDelegateValue): Value=<a4094f05 47197502 ffffffff ce>
+2016/12/26 11:10:09:462  Notify with data <a4094f05 47197502 ffffffff ce> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageCommandStatus|lastrec:25|seq:117|status:Not supported|data:FFFFFFFF>
+2016/12/26 11:10:09:700  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:09:701  RZBLog(RZBLogLevelDelegateValue): Value=<a4094f05 47197502 ffffffff ce>
+2016/12/26 11:10:09:701  Notify with data <a4094f05 47197502 ffffffff ce> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageCommandStatus|lastrec:25|seq:117|status:Not supported|data:FFFFFFFF>
+2016/12/26 11:10:09:706  performed request <NSMutableURLRequest: 0x174012a30> { URL: http://api.instacrate.me/logs }
+2016/12/26 11:10:09:708  with response <NSHTTPURLResponse: 0x174225440> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2016/12/26 11:10:09:710  and error Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: request too large (413)" UserInfo={NSUnderlyingError=0x170252900 {Error Domain=com.alamofire.error.serialization.response Code=-1016 "Request failed: unacceptable content-type: text/html" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x174225440> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e343133 20526571 75657374 20456e74 69747920 546f6f20 4c617267 653c2f74 69746c65 3e3c2f68 6561643e 0d0a3c62 6f647920 6267636f 6c6f723d 22776869 7465223e 0d0a3c63 656e7465 723e3c68 313e3431 33205265 71756573 7420456e 74697479 20546f6f 204c6172 67653c2f 68313e3c 2f63656e 7465723e 0d0a3c68 723e3c63 656e7465 723e6e67 696e782f 312e3130 2e302028 5562756e 7475293c 2f63656e 7465723e 0d0a3c2f 626f6479 3e0d0a3c 2f68746d 6c3e0d0a>, NSLocalizedDescription=Request failed: unacceptable content-type: text/html}}, com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x174225440> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e343133 20526571 75657374 20456e74 69747920 546f6f20 4c617267 653c2f74 69746c65 3e3c2f68 6561643e 0d0a3c62 6f647920 6267636f 6c6f723d 22776869 7465223e 0d0a3c63 656e7465 723e3c68 313e3431 33205265 71756573 7420456e 74697479 20546f6f 204c6172 67653c2f 68313e3c 2f63656e 7465723e 0d0a3c68 723e3c63 656e7465 723e6e67 696e782f 312e3130 2e302028 5562756e 7475293c 2f63656e 7465723e 0d0a3c2f 626f6479 3e0d0a3c 2f68746d 6c3e0d0a>, NSLocalizedDescription=Request failed: request too large (413)}
+2016/12/26 11:10:09:971  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:09:972  RZBLog(RZBLogLevelDelegateValue): Value=<a4094f05 47197502 ffffffff ce>
+2016/12/26 11:10:09:973  Notify with data <a4094f05 47197502 ffffffff ce> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageCommandStatus|lastrec:25|seq:117|status:Not supported|data:FFFFFFFF>
+2016/12/26 11:10:10:210  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:10:211  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:10:214  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:10:450  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:10:450  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ad0012 00004020 20>
+2016/12/26 11:10:10:452  Notify with data <a4094e05 19ad0012 00004020 20> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:10:620  performed request <NSMutableURLRequest: 0x174012bf0> { URL: http://api.instacrate.me/logs }
+2016/12/26 11:10:10:621  with response <NSHTTPURLResponse: 0x17022f2a0> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2016/12/26 11:10:10:622  and error Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: request too large (413)" UserInfo={NSUnderlyingError=0x1742585d0 {Error Domain=com.alamofire.error.serialization.response Code=-1016 "Request failed: unacceptable content-type: text/html" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17022f2a0> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e343133 20526571 75657374 20456e74 69747920 546f6f20 4c617267 653c2f74 69746c65 3e3c2f68 6561643e 0d0a3c62 6f647920 6267636f 6c6f723d 22776869 7465223e 0d0a3c63 656e7465 723e3c68 313e3431 33205265 71756573 7420456e 74697479 20546f6f 204c6172 67653c2f 68313e3c 2f63656e 7465723e 0d0a3c68 723e3c63 656e7465 723e6e67 696e782f 312e3130 2e302028 5562756e 7475293c 2f63656e 7465723e 0d0a3c2f 626f6479 3e0d0a3c 2f68746d 6c3e0d0a>, NSLocalizedDescription=Request failed: unacceptable content-type: text/html}}, com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17022f2a0> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e343133 20526571 75657374 20456e74 69747920 546f6f20 4c617267 653c2f74 69746c65 3e3c2f68 6561643e 0d0a3c62 6f647920 6267636f 6c6f723d 22776869 7465223e 0d0a3c63 656e7465 723e3c68 313e3431 33205265 71756573 7420456e 74697479 20546f6f 204c6172 67653c2f 68313e3c 2f63656e 7465723e 0d0a3c68 723e3c63 656e7465 723e6e67 696e782f 312e3130 2e302028 5562756e 7475293c 2f63656e 7465723e 0d0a3c2f 626f6479 3e0d0a3c 2f68746d 6c3e0d0a>, NSLocalizedDescription=Request failed: request too large (413)}
+2016/12/26 11:10:10:628  performed request <NSMutableURLRequest: 0x170013a70> { URL: http://api.instacrate.me/logs }
+2016/12/26 11:10:10:630  with response <NSHTTPURLResponse: 0x17022eae0> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2016/12/26 11:10:10:631  and error Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: request too large (413)" UserInfo={NSUnderlyingError=0x1744482b0 {Error Domain=com.alamofire.error.serialization.response Code=-1016 "Request failed: unacceptable content-type: text/html" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17022eae0> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e343133 20526571 75657374 20456e74 69747920 546f6f20 4c617267 653c2f74 69746c65 3e3c2f68 6561643e 0d0a3c62 6f647920 6267636f 6c6f723d 22776869 7465223e 0d0a3c63 656e7465 723e3c68 313e3431 33205265 71756573 7420456e 74697479 20546f6f 204c6172 67653c2f 68313e3c 2f63656e 7465723e 0d0a3c68 723e3c63 656e7465 723e6e67 696e782f 312e3130 2e302028 5562756e 7475293c 2f63656e 7465723e 0d0a3c2f 626f6479 3e0d0a3c 2f68746d 6c3e0d0a>, NSLocalizedDescription=Request failed: unacceptable content-type: text/html}}, com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17022eae0> { URL: http://api.instacrate.me/logs } { status code: 413, headers {
+    Connection = close;
+    "Content-Length" = 208;
+    "Content-Type" = "text/html";
+    Date = "Mon, 26 Dec 2016 10:10:08 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e343133 20526571 75657374 20456e74 69747920 546f6f20 4c617267 653c2f74 69746c65 3e3c2f68 6561643e 0d0a3c62 6f647920 6267636f 6c6f723d 22776869 7465223e 0d0a3c63 656e7465 723e3c68 313e3431 33205265 71756573 7420456e 74697479 20546f6f 204c6172 67653c2f 68313e3c 2f63656e 7465723e 0d0a3c68 723e3c63 656e7465 723e6e67 696e782f 312e3130 2e302028 5562756e 7475293c 2f63656e 7465723e 0d0a3c2f 626f6479 3e0d0a3c 2f68746d 6c3e0d0a>, NSLocalizedDescription=Request failed: request too large (413)}
+2016/12/26 11:10:10:720  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:10:720  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:10:722  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:10:960  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:10:960  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ae0012 00004020 23>
+2016/12/26 11:10:10:960  Notify with data <a4094e05 19ae0012 00004020 23> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:11:200  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:11:200  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:11:201  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:11:470  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:11:470  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19af0012 00004020 22>
+2016/12/26 11:10:11:476  Notify with data <a4094e05 19af0012 00004020 22> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:11:710  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:11:710  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:11:713  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:11:950  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:11:950  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b00012 00004020 3d>
+2016/12/26 11:10:11:953  Notify with data <a4094e05 19b00012 00004020 3d> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:12:220  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:12:220  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:12:222  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:12:460  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:12:460  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b10012 00004020 3c>
+2016/12/26 11:10:12:462  Notify with data <a4094e05 19b10012 00004020 3c> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:12:699  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:12:699  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:12:700  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:12:969  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:12:969  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b20012 00004020 3f>
+2016/12/26 11:10:12:969  Notify with data <a4094e05 19b20012 00004020 3f> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:13:209  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:13:209  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:13:210  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:13:449  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:13:449  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b30012 00004020 3e>
+2016/12/26 11:10:13:449  Notify with data <a4094e05 19b30012 00004020 3e> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:13:720  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:13:720  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:13:722  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:13:960  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:13:960  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b40012 00004020 39>
+2016/12/26 11:10:13:962  Notify with data <a4094e05 19b40012 00004020 39> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:14:200  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:14:200  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:14:202  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:14:470  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:14:470  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b50012 00004020 38>
+2016/12/26 11:10:14:472  Notify with data <a4094e05 19b50012 00004020 38> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:14:711  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:14:711  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:14:712  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:15:220  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:15:220  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:15:221  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:15:460  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:15:460  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b70012 00004020 3a>
+2016/12/26 11:10:15:462  Notify with data <a4094e05 19b70012 00004020 3a> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:15:700  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:15:700  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:15:703  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:15:942  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:15:942  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b80012 00004020 35>
+2016/12/26 11:10:15:944  Notify with data <a4094e05 19b80012 00004020 35> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:16:179  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:16:179  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:16:180  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:16:451  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:16:451  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b90012 00004020 34>
+2016/12/26 11:10:16:452  Notify with data <a4094e05 19b90012 00004020 34> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:16:698  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:16:700  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19b90012 00004020 34>
+2016/12/26 11:10:16:701  Notify with data <a4094e05 19b90012 00004020 34> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:16:930  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:16:931  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:16:931  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:17:200  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:17:201  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 fb000302 00040200 1a>
+2016/12/26 11:10:17:201  Notify with data <a4094e05 fb000302 00040200 1a> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as (null)
+2016/12/26 11:10:17:470  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:17:472  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ba0012 00004020 37>
+2016/12/26 11:10:17:473  Notify with data <a4094e05 19ba0012 00004020 37> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:17:681  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:17:681  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19ba0012 00004020 37>
+2016/12/26 11:10:17:684  Notify with data <a4094e05 19ba0012 00004020 37> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:17:950  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:17:951  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19bb0012 00004020 36>
+2016/12/26 11:10:17:952  Notify with data <a4094e05 19bb0012 00004020 36> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:18:220  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:18:220  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:18:222  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:18:460  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:18:460  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19bc0012 00004020 31>
+2016/12/26 11:10:18:461  Notify with data <a4094e05 19bc0012 00004020 31> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:18:699  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:18:700  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:18:700  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:18:969  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:18:969  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19bd0012 00004020 30>
+2016/12/26 11:10:18:969  Notify with data <a4094e05 19bd0012 00004020 30> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:19:210  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:19:210  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 10197c1c 0000ff24 54>
+2016/12/26 11:10:19:211  Notify with data <a4094e05 10197c1c 0000ff24 54> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageGeneralFEDataPage|speed:0|distance:28>
+2016/12/26 11:10:19:450  RZBLog(RZBLogLevelDelegate): peripheral:didUpdateValueForCharacteristic:error: - 4D60CAA0-AAD7-41E3-95A8-C3A21885DFEE 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E (null)
+2016/12/26 11:10:19:450  RZBLog(RZBLogLevelDelegateValue): Value=<a4094e05 19be0012 00004020 33>
+2016/12/26 11:10:19:450  Notify with data <a4094e05 19be0012 00004020 33> for characteristic 6E40FEC2-B5A3-F393-E0A9-E50E24DCCA9E parsed as <TACPageSpecificTrainerDataPage|cadenceRPM:0|powerW:0>
+2016/12/26 11:10:19:979  found previous peripherial
+2016/12/26 11:10:19:995  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <CBCentralManager: 0x170277dc0>
+2016/12/26 11:10:19:995  RZBLog(RZBLogLevelDelegateValue): State=5
+2016/12/26 11:10:19:995  RZBLog(RZBLogLevelCommand): scanForPeripheralsWithServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E, 669AA305-0C08-969E-E211-86AD5062675F] options:(null)
+

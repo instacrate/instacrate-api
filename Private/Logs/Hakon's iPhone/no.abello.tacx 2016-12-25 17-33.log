@@ -1,0 +1,4 @@
+2016/12/25 11:33:17:018  scanning for peripherials
+2016/12/25 11:33:17:023  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x170093970>
+2016/12/25 11:33:17:023  RZBLog(RZBLogLevelSimulatedDevice): State=5
+

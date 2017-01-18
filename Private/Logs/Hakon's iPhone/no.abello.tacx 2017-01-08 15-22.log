@@ -1,0 +1,9 @@
+2017/01/08 09:22:17:479  error deleting file Error Domain=NSCocoaErrorDomain Code=4 "“no.abello.tacx 2017-01-08 14-57.log” couldn’t be removed." UserInfo={NSFilePath=/private/var/mobile/Containers/Data/Application/B51B38A9-2C80-4E95-A8D7-06FAF1941D0A/Library/Caches/Logs/no.abello.tacx 2017-01-08 14-57.log, NSUserStringVariant=(
+    Remove
+), NSUnderlyingError=0x17005cd10 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}
+2017/01/08 09:22:38:440  Adding initial activity to realm.
+2017/01/08 09:22:38:879  Recieved activity primary key.
+2017/01/08 09:22:38:880  Setting up new dataset, subscribing to 8ED6791E-6DE2-4434-B7EB-FAE54D27054F.
+2017/01/08 09:22:38:890  Erasing dataset
+2017/01/08 09:22:38:952  Got data change notification for 8ED6791E-6DE2-4434-B7EB-FAE54D27054F
+

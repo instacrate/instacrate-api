@@ -1,0 +1,10 @@
+2017/01/08 14:41:46:174  applicationWillResignActive:
+2017/01/08 14:41:46:174  applicationDidEnterBackground:
+2017/01/08 14:43:45:592  applicationWillEnterForeground:
+2017/01/08 14:43:46:121  applicationDidBecomeActive:
+2017/01/08 14:44:12:080  found previous peripherial
+2017/01/08 14:44:12:085  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x17408aa50>
+2017/01/08 14:44:12:085  RZBLog(RZBLogLevelSimulatedDevice): State=5
+2017/01/08 14:44:12:085  RZBLog(RZBLogLevelSimulatedDevice): peripheralManagerDidUpdateState: - <RZBMockPeripheralManager: 0x17408ab40>
+2017/01/08 14:44:12:085  RZBLog(RZBLogLevelSimulatedDevice): State=5
+

@@ -1,0 +1,116 @@
+2017/01/09 16:09:23:968  applicationDidBecomeActive:
+2017/01/09 16:09:24:924  applicationWillResignActive:
+2017/01/09 16:09:26:473  performed request <NSMutableURLRequest: 0x17000a8a0> { URL: http://api.instacrate.me/logs }
+2017/01/09 16:09:26:475  with response <NSHTTPURLResponse: 0x17003d5c0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 16:09:26:476  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x174240780 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17003d5c0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 16:09:26:477  performed request <NSMutableURLRequest: 0x170008eb0> { URL: http://api.instacrate.me/logs }
+2017/01/09 16:09:26:478  with response <NSHTTPURLResponse: 0x17403eec0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 16:09:26:478  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x1702453a0 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17403eec0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 16:09:26:580  performed request <NSMutableURLRequest: 0x17000aa00> { URL: http://api.instacrate.me/logs }
+2017/01/09 16:09:26:580  with response <NSHTTPURLResponse: 0x17003f380> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 16:09:26:581  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x170246480 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17003f380> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 16:09:26:662  performed request <NSMutableURLRequest: 0x17400ca50> { URL: http://api.instacrate.me/logs }
+2017/01/09 16:09:26:663  with response <NSHTTPURLResponse: 0x17003ed20> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 16:09:26:663  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x174242670 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17003ed20> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 16:09:26:738  performed request <NSMutableURLRequest: 0x17400c890> { URL: http://api.instacrate.me/logs }
+2017/01/09 16:09:26:738  with response <NSHTTPURLResponse: 0x17003daa0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 16:09:26:739  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x170246720 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17003daa0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 16:09:26:982  performed request <NSMutableURLRequest: 0x17400c6d0> { URL: http://api.instacrate.me/logs }
+2017/01/09 16:09:26:982  with response <NSHTTPURLResponse: 0x17003dd60> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 16:09:26:982  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x174240ff0 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17003dd60> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 16:09:27:097  performed request <NSMutableURLRequest: 0x17400cc00> { URL: http://api.instacrate.me/logs }
+2017/01/09 16:09:27:097  with response <NSHTTPURLResponse: 0x17003fda0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }
+2017/01/09 16:09:27:097  and error Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x170247e00 {Error Domain=com.alamofire.error.serialization.response Code=-1011 "Request failed: bad gateway (502)" UserInfo={com.alamofire.serialization.response.error.response=<NSHTTPURLResponse: 0x17003fda0> { URL: http://api.instacrate.me/logs } { status code: 502, headers {
+    Connection = "keep-alive";
+    "Content-Length" = 182;
+    "Content-Type" = "text/html";
+    Date = "Mon, 09 Jan 2017 15:09:26 GMT";
+    Server = "nginx/1.10.0 (Ubuntu)";
+} }, NSErrorFailingURLKey=http://api.instacrate.me/logs, com.alamofire.serialization.response.error.data=<3c68746d 6c3e0d0a 3c686561 643e3c74 69746c65 3e353032 20426164 20476174 65776179 3c2f7469 746c653e 3c2f6865 61643e0d 0a3c626f 64792062 67636f6c 6f723d22 77686974 65223e0d 0a3c6365 6e746572 3e3c6831 3e353032 20426164 20476174 65776179 3c2f6831 3e3c2f63 656e7465 723e0d0a 3c68723e 3c63656e 7465723e 6e67696e 782f312e 31302e30 20285562 756e7475 293c2f63 656e7465 723e0d0a 3c2f626f 64793e0d 0a3c2f68 746d6c3e 0d0a>, NSLocalizedDescription=Request failed: bad gateway (502)}}}
+2017/01/09 16:09:34:657  applicationDidBecomeActive:
+2017/01/09 16:09:36:876  applicationWillResignActive:
+2017/01/09 16:09:37:804  applicationDidEnterBackground:
+2017/01/09 16:09:37:817  applicationWillTerminate:
+2017/01/09 16:09:39:692  found previous peripherial
+2017/01/09 16:09:39:692  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <CBCentralManager: 0x170271500>
+2017/01/09 16:09:39:692  RZBLog(RZBLogLevelDelegateValue): State=5
+2017/01/09 16:09:39:692  RZBLog(RZBLogLevelCommand): scanForPeripheralsWithServices:@[6E40FEC1-B5A3-F393-E0A9-E50E24DCCA9E, 669AA305-0C08-969E-E211-86AD5062675F] options:(null)
+

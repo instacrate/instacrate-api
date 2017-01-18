@@ -1,0 +1,4 @@
+2017/01/12 20:39:29:579  RZBLog(RZBLogLevelDelegate): centralManagerDidUpdateState: - <CBCentralManager: 0x174268b40>
+2017/01/12 20:39:29:579  RZBLog(RZBLogLevelDelegateValue): State=4
+2017/01/12 20:39:29:580  found previous peripherial
+
