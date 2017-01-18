@@ -43,7 +43,7 @@ extension Droplet {
         drop.addConfigurable(middleware: VendorAuthMiddleware(), name: "vendorAuth")
         drop.addConfigurable(middleware: LoggingMiddleware(), name: "logger")
         drop.addConfigurable(middleware: CustomAbortMiddleware(), name: "customAbort")
-        drop.addConfigurable(middleware: BugsnagMiddleware(), name: "bugsnag")
+        try! drop.addConfigurable(middleware: BugsnagMiddleware(drop: drop), name: "bugsnag")
         
         var remainingMiddleare = drop.middleware.filter { !($0 is FileMiddleware) }
         
