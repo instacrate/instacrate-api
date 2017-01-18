@@ -31,9 +31,18 @@ drop.resource("images", ImageController())
 drop.resource("contracts", ContractController())
 drop.resource("logs", LogFileController())
 
+<<<<<<< HEAD
 drop.collection(StripeCollection.self)
 drop.collection(StripeWebhookManager.shared)
 
 let webhooks = StripeWebhookCollection()
+=======
+drop.group("stripe") { stripe in
+    stripe.resource("customers", StripeCustomerController())
+    stripe.resource("vendors", StripeVendorController())
+}
+
+drop.collection(StripeWebhookCollection.shared)
+>>>>>>> startup
 
 drop.run()
