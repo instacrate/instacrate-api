@@ -117,7 +117,7 @@ fileprivate func createTerseView(forBox box: Box) throws -> Node {
     let boxReviews = try box.reviews().all()
     
     let numberOfReviews = boxReviews.count
-    let averageReviewScore = boxReviews.map { (review: Review) -> Int in review.rating }.mean()
+    let averageReviewScore = boxReviews.map { $0.rating }.mean()
     
     let vendor = try box.vendor().first()
     let picture = try box.pictures().first()

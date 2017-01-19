@@ -78,8 +78,10 @@ extension Collection where Iterator.Element: DoubleConvertible, Iterator.Element
 
     /// Return arithmetic mean of values in collection
     func mean() -> Double {
-        assert(!self.isEmpty, "cannot calculate mean of empty collection")
-
+        if (self.count == 0) {
+            return 0
+        }
+        
         return self.sum().doubleValue / self.count.doubleValue
     }
 }
