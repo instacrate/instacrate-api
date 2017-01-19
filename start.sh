@@ -4,13 +4,13 @@ while getopts "e:f:d:" opt; do
   	case $opt in
     	e) config="$OPTARG"
     	;;
-      f) pidFile="$OPTARG"
-      ;;
-      d) projectFolder="$OPTARG"
+     	f) pidFile="$OPTARG"
+     	;;
+     	d) projectFolder="$OPTARG"
   	esac
 done
 
-configs=("development" "production" "staging")
+configs=("debug" "release")
 
 function printConfigs {
 	for item in ${configs[*]}; do
@@ -46,8 +46,4 @@ sudo touch "$pidFile"
 
 cd "$projectFolder" || exit
 
-sudo -i
-
-PATH=$PATH:/swift/usr/bin
-
-.build/debug/App & echo $! > "$pidFile"
+.build/"$config"/App & echo $! > "$pidFile"
