@@ -50,4 +50,4 @@ sudo -i
 
 PATH=$PATH:/swift/usr/bin
 
-.build/debug/App >> "$projectFolder""/Private/Logs/""$config" & echo $! > "$pidFile"
+.build/debug/App & echo $! > "$pidFile"
