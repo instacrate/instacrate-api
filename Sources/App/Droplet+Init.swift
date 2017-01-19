@@ -45,7 +45,11 @@ extension Droplet {
             logger?.fatal("failed to add bugsnag middleware \(error)")
         }
         
-        try! drop.addProvider(VaporMySQL.Provider.self)
+        do {
+            try drop.addProvider(VaporMySQL.Provider.self)
+        } catch {
+            logger?.fatal("failed to add vapor provider \(error)")
+        }
         
         drop.addConfigurable(middleware: SessionsMiddleware.createSessionsMiddleware(), name: "sessions")
         drop.addConfigurable(middleware: UserAuthMiddleware(), name: "userAuth")
