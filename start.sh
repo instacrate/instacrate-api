@@ -50,4 +50,4 @@ sudo -i
 
 PATH=$PATH:/swift/usr/bin
 
-/usr/local/bin/vapor run --env="$config" >> "$projectFolder""/Private/Logs/""$config" & echo $! > "$pidFile"
+.build/debug/App >> "$projectFolder""/Private/Logs/""$config" & echo $! > "$pidFile"
