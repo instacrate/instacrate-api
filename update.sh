@@ -12,16 +12,16 @@ reset_development_server() {
 
 	destinationPath="/etc/systemd/system/"
 
-	echo "{$red}sudo cp "$devServiceFileName" "$destinationPath$devServiceName"{$end}"
+	echo "sudo cp "$devServiceFileName" "$destinationPath$devServiceName""
 	sudo cp "$devServiceFileName" "$destinationPath$devServiceName"
 
-	echo "{$red}sudo chmod 664 "$destinationPath$devServiceName"{$end}"
+	echo "sudo chmod 664 "$destinationPath$devServiceName""
 	sudo chmod 664 "$destinationPath$devServiceName"
 
-	echo "{$red}systemctl daemon-reload{$end}"
+	echo "systemctl daemon-reload"
 	systemctl daemon-reload
 
-	echo "{$red}systemctl restart "$devServiceName"{$end}"
+	echo "systemctl restart "$devServiceName""
 	systemctl restart "$devServiceName"
 }
 
@@ -30,29 +30,29 @@ reset_production_server() {
 	prodServiceFileName="instacrated.service.txt"
 	prodServiceName="instacrated.service"
 
-	echo "{$red}sudo cp "$prodServiceFileName" "$destinationPath$prodServiceName"{$end}"
+	echo "sudo cp "$prodServiceFileName" "$destinationPath$prodServiceName""
 	sudo cp "$prodServiceFileName" "$destinationPath$prodServiceName"
 
-	echo "{$red}sudo chmod 664 "$destinationPath$prodServiceName"{$end}"
+	echo "sudo chmod 664 "$destinationPath$prodServiceName""
 	sudo chmod 664 "$destinationPath$devServiceName"
 
-	echo "{$red}systemctl daemon-reload{$end}"
+	echo "systemctl daemon-reload"
 	systemctl daemon-reload
 
-	echo "{$red}systemctl restart "$prodServiceName"{$end}"
+	echo "systemctl restart "$prodServiceName""
 	systemctl restart "$prodServiceName"
 }
 
-echo "{$red}git pull origin master{$end}"
+echo "git pull origin master"
 git pull origin master
 
-echo "{$red}vapor build --release=true{$end}"
+echo "vapor build --release=true"
 vapor build --release=true
 
-echo "{$red}sudo systemctl restart instacrated.service{$end}"
+echo "sudo systemctl restart instacrated.service"
 sudo systemctl restart instacrated.service
 
-echo "{$red}sudo systemctl restart dev-instacrated.service{$end}"
+echo "sudo systemctl restart dev-instacrated.service"
 sudo systemctl restart dev-instacrated.service
 
 changes=$(git diff --name-only HEAD~1 HEAD)
