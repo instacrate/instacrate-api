@@ -57,12 +57,12 @@ sudo systemctl restart dev-instacrated.service
 
 changes=$(git diff --name-only HEAD~1 HEAD)
 
-if grep '^instacrated.service.txt$' changes; then
+if grep '^instacrated.service.txt$' "$changes"; then
 	echo "\n>>>> Detected changes in production server configuration files!"
 	reset_production_server
 fi
 
-if grep '^dev-instacrated.service.txt$' changes; then
+if grep '^dev-instacrated.service.txt$' "$changes"; then
 	echo "\n>>>> Detected changes in development server configuration files!"
 	reset_development_server
 fi
