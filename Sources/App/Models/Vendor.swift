@@ -97,6 +97,9 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     
     let cut: Double?
     
+    var missingFields: Bool
+    var needsIdentityUpload: Bool
+    
     init(node: Node, in context: Context) throws {
         
         id = try? node.extract("id")
@@ -133,6 +136,9 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
         cut = (try? node.extract("cut")) ?? 0.08
         stripeAccountId = try? node.extract("stripeAccountId")
         verificationState = try? node.extract("verificationState")
+        
+        missingFields = try node.extract("missingFields")
+        needsIdentityUpload = try node.extract("needsIdentityUpload")
     }
     
     func makeNode(context: Context) throws -> Node {

@@ -40,7 +40,7 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                         throw Abort.custom(status: .badRequest, message: "User \(customer.id!.int!) already has a stripe account.")
                     }
 
-                    return try Stripe.shared.createNormalAccount(email: customer.email, source: source).makeResponse()
+                    return try Stripe.shared.createNormalAccount(email: customer.email, source: source, local_id: customer.id?.int).makeResponse()
                 }
 
                 customer.group("sources") { sources in
@@ -69,28 +69,27 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                         }
 
                         return try Stripe.shared.delete(payment: source, from: id).makeResponse()
-
                     }
                 }
             }
+            
+            stripe.get("country", "verification", String.self) { request, country_code in
+                guard let country = try? CountryCode(node: country_code) else {
+                    throw Abort.custom(status: .badRequest, message: "\(country_code) is not a valid country code.")
+                }
+                
+                return try Stripe.shared.verificationRequiremnts(for: country).makeNode().makeResponse()
+            }
 
             stripe.group("vendor") { vendor in
-
-                vendor.get("verification", String.self) { request, country_code in
-                    guard let country = try? CountryCode(node: country_code) else {
-                        throw Abort.custom(status: .badRequest, message: "\(country_code) is not a valid country code.")
-                    }
-
-                    return try Stripe.shared.verificationRequiremnts(for: country).makeNode().makeResponse()
-                }
 
                 vendor.get("disputes") { request in
                     return try Stripe.shared.disputes().makeNode().makeResponse()
                 }
 
-                vendor.post("customer", String.self) { request, source in
+                vendor.post("create", String.self) { request, source in
                     let vendor = try request.vendor()
-                    return try Stripe.shared.createManagedAccount(email: vendor.contactEmail, source: source).makeNode().makeResponse()
+                    return try Stripe.shared.createManagedAccount(email: vendor.contactEmail, source: source, local_id: vendor.id?.int).makeNode().makeResponse()
                 }
 
                 vendor.post("acceptedtos", String.self) { request, ip in
@@ -101,6 +100,22 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     }
 
                     return try Stripe.shared.acceptedTermsOfService(for: stripe_id, ip: ip).makeNode().makeResponse()
+                }
+                
+                vendor.post("upload", String.self) { request, _uploadReason in
+                    guard let uploadReason = try UploadReason(from: _uploadReason) else {
+                        throw Abort.custom(status: .badRequest, message: "\(_uploadReason) is not an acceptable reason.")
+                    }
+                    
+                    guard let multipart = request.multipart?.allItems.first, case let .file(file) = multipart.1 else {
+                        throw Abort.custom(status: .badRequest, message: "Missing file to upload.")
+                    }
+                    
+                    guard let type = file.type, let fileType = try FileType(from: type) else {
+                        throw Abort.custom(status: .badRequest, message: "Misisng upload file type.")
+                    }
+                    
+                    return try Stripe.shared.upload(file: file.data, with: uploadReason, type: fileType).makeResponse()
                 }
             }
         }
