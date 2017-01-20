@@ -103,8 +103,14 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                 }
                 
                 vendor.post("upload", String.self) { request, _uploadReason in
+                    let vendor = try request.vendor()
+                    
                     guard let uploadReason = try UploadReason(from: _uploadReason) else {
                         throw Abort.custom(status: .badRequest, message: "\(_uploadReason) is not an acceptable reason.")
+                    }
+                    
+                    if uploadReason != .identity_document {
+                        throw Abort.custom(status: .badRequest, message: "Currently only \(UploadReason.identity_document.rawValue) is supported")
                     }
                     
                     guard let multipart = request.multipart?.allItems.first, case let .file(file) = multipart.1 else {
@@ -115,7 +121,13 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                         throw Abort.custom(status: .badRequest, message: "Misisng upload file type.")
                     }
                     
-                    return try Stripe.shared.upload(file: file.data, with: uploadReason, type: fileType).makeResponse()
+                    let fileUpload = try Stripe.shared.upload(file: file.data, with: uploadReason, type: fileType)
+                    
+                    guard let stripeAccountId = vendor.stripeAccountId else {
+                        throw Abort.custom(status: .badRequest, message: "Vendor with id \(vendor.id?.int ?? 0) does't have a stripe acocunt yet. Call /vendor/create/{token_id} to create one.")
+                    }
+                    
+                    return try Stripe.shared.updateAccount(id: stripeAccountId, parameters: ["legal_entity[verification][document]" : fileUpload.id]).makeResponse()
                 }
             }
         }
