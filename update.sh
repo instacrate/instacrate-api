@@ -1,9 +1,11 @@
-red=$'\e[1;31m'
-gray=$'\e[90m'
-grn=$'\e[1;32m'
-end=$'\e[0m'
-lgrn=$'\e[1;92m'
-yel=$'\e[33m'
+f () {
+    errcode=$?
+    echo "error $errorcode"
+    echo "the command executing at the time of the error was"
+    echo "$BASH_COMMAND"
+    echo "on line ${BASH_LINENO[0]}"
+    exit $errcode
+}
 
 reset_development_server() {
 
@@ -42,6 +44,8 @@ reset_production_server() {
 	echo "\n>>>> systemctl restart "$prodServiceName""
 	systemctl restart "$prodServiceName"
 }
+
+trap f ERR
 
 echo "\n>>>> git pull origin master"
 git pull origin master
