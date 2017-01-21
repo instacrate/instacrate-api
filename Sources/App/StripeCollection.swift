@@ -88,8 +88,13 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                 }
 
                 vendor.post("create", String.self) { request, source in
-                    let vendor = try request.vendor()
-                    return try Stripe.shared.createManagedAccount(email: vendor.contactEmail, source: source, local_id: vendor.id?.int).makeNode().makeResponse()
+                    var vendor = try request.vendor()
+                    let account = try Stripe.shared.createManagedAccount(email: vendor.contactEmail, source: source, local_id: vendor.id?.int)
+                    
+                    vendor.stripeAccountId = account.id
+                    try vendor.save()
+                    
+                    return try vendor.makeResponse()
                 }
 
                 vendor.post("acceptedtos", String.self) { request, ip in
@@ -110,7 +115,8 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     }
                     
                     let account = try Stripe.shared.vendorInformation(for: stripeAccountId)
-                    return try account.makeNode().makeResponse()
+                    let descriptions = try account.descriptionsForNeededFields()
+                    return try Node(node: descriptions).makeResponse()
                 }
                 
                 vendor.post("upload", String.self) { request, _uploadReason in

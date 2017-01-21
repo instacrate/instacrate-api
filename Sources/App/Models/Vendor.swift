@@ -166,7 +166,8 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
         ]).add(objects: ["id" : id,
                          "category_id" : category_id,
                          "cut" : cut,
-                         "verificationState" : verificationState])
+                         "verificationState" : verificationState,
+                         "stripeAccountId" : stripeAccountId])
     }
     
     func postValidate() throws {
@@ -191,6 +192,7 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             vendor.bool("missingFields")
             vendor.bool("needsIdentityUpload")
             vendor.string("dateCreated")
+            vendor.string("stripeAccountId")
             vendor.string("username")
             vendor.string("password")
             vendor.string("salt")
