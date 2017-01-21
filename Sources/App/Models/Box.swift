@@ -13,9 +13,16 @@ import Stripe
 import HTTP
 import Sanitized
 
-enum ModelError: Error {
+enum ModelError: Error, CustomStringConvertible {
     
     case missingLink(from: Model.Type, to: Model.Type, id: Int?)
+    
+    var description: String {
+        switch self {
+        case let .missingLink(from, to, id):
+            return "Missing relation link on \(from) to \(to) with foreign id \(id ?? 0)."
+        }
+    }
 }
 
 final class Box: Model, Preparation, JSONConvertible, Sanitizable {
