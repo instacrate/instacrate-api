@@ -102,6 +102,17 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     return try Stripe.shared.acceptedTermsOfService(for: stripe_id, ip: ip).makeNode().makeResponse()
                 }
                 
+                vendor.get("verification") { request in
+                    let vendor = try request.vendor()
+                    
+                    guard let stripeAccountId = vendor.stripeAccountId else {
+                        throw Abort.custom(status: .badRequest, message: "Vendor does not have stripe id.")
+                    }
+                    
+                    let account = try Stripe.shared.vendorInformation(for: stripeAccountId)
+                    return try account.makeNode().makeResponse()
+                }
+                
                 vendor.post("upload", String.self) { request, _uploadReason in
                     let vendor = try request.vendor()
                     

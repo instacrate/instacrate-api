@@ -39,7 +39,7 @@ final class CustomerController {
                 let cards = try Stripe.shared.paymentInformation(for: stripe_id)
                 customerNode["card"] = try cards.filter { $0.id == card }.first?.makeNode()
             } else {
-                let stripeData = try Stripe.shared.information(for: stripe_id)
+                let stripeData = try Stripe.shared.customerInformation(for: stripe_id)
                 customerNode["stripe"] = try stripeData.makeNode()
             }
         }

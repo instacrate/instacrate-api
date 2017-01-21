@@ -159,7 +159,10 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             
             "username" : .string(username),
             "password": .string(password),
-            "salt" : .string(salt.string)
+            "salt" : .string(salt.string),
+            
+            "missingFields" : .bool(missingFields),
+            "needsIdentityUpload" : .bool(needsIdentityUpload)
         ]).add(objects: ["id" : id,
                          "category_id" : category_id,
                          "cut" : cut,
@@ -185,6 +188,8 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             vendor.double("cut")
             vendor.string("estimatedTotalSubscribers")
             vendor.string("established")
+            vendor.bool("missingFields")
+            vendor.bool("needsIdentityUpload")
             vendor.string("dateCreated")
             vendor.string("username")
             vendor.string("password")
