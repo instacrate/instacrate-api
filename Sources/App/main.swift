@@ -30,6 +30,7 @@ drop.resource("search", SearchController())
 drop.resource("images", ImageController())
 drop.resource("contracts", ContractController())
 drop.resource("logs", LogFileController())
+drop.resource("onboard", OnboardingController())
 
 drop.collection(StripeCollection.self)
 drop.collection(StripeWebhookManager.shared)
