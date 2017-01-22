@@ -264,7 +264,7 @@ extension Vendor: User {
             return vendor
             
         case let usernamePassword as UsernamePassword:
-            let query = try Vendor.query().filter("username", usernamePassword.username).filter("applicationState", ApplicationState.accepted)
+            let query = try Vendor.query().filter("username", usernamePassword.username)
             
             guard let vendor = try query.first() else {
                 throw AuthError.invalidCredentials
