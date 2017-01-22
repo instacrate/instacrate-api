@@ -266,7 +266,15 @@ extension Vendor: User {
         case let usernamePassword as UsernamePassword:
             let query = try Vendor.query().filter("username", usernamePassword.username)
             
-            guard let vendor = try query.first() else {
+            guard let vendors = try? query.all() else {
+                throw AuthError.invalidCredentials
+            }
+            
+            if vendors.count > 0 {
+                Droplet.logger?.error("found multiple accounts with the same username \(vendors.map { $0.id?.int ?? 0 })")
+            }
+            
+            guard let vendor = vendors.first else {
                 throw AuthError.invalidCredentials
             }
             

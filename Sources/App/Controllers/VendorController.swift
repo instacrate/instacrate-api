@@ -9,6 +9,8 @@
 import Foundation
 import Vapor
 import HTTP
+import Turnstile
+import Auth
 
 final class VendorController: ResourceRepresentable {
 
@@ -23,6 +25,14 @@ final class VendorController: ResourceRepresentable {
     func create(_ request: Request) throws -> ResponseRepresentable {
         var vendor: Vendor = try request.extractModel()
         try vendor.save()
+        
+        let node = try request.json().node
+        let username: String = try node.extract("username")
+        let password: String = try node.extract("password")
+        
+        let usernamePassword = UsernamePassword(username: username, password: password)
+        try request.vendorSubject().login(credentials: usernamePassword, persist: true)
+        
         return vendor
     }
 
