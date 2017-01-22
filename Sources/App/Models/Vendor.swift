@@ -139,8 +139,8 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
         stripeAccountId = try? node.extract("stripeAccountId")
         verificationState = try? node.extract("verificationState")
         
-        missingFields = try node.extract("missingFields")
-        needsIdentityUpload = try node.extract("needsIdentityUpload")
+        missingFields = try (node.extract("missingFields") ?? false)
+        needsIdentityUpload = try (node.extract("needsIdentityUpload") ?? false)
         
         if stripeAccountId != nil {
             let publishable: String = try node.extract("publishableKey")
