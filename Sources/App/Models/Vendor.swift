@@ -100,6 +100,8 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     var missingFields: Bool
     var needsIdentityUpload: Bool
     
+    var keys: Keys?
+    
     init(node: Node, in context: Context) throws {
         
         id = try? node.extract("id")
@@ -139,6 +141,13 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
         
         missingFields = try node.extract("missingFields")
         needsIdentityUpload = try node.extract("needsIdentityUpload")
+        
+        if stripeAccountId != nil {
+            let publishable: String = try node.extract("publishableKey")
+            let secret: String = try node.extract("secretKey")
+            
+            keys = try Keys(node: Node(node: ["secret" : secret, "publishable" : publishable]))
+        }
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -163,11 +172,15 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             
             "missingFields" : .bool(missingFields),
             "needsIdentityUpload" : .bool(needsIdentityUpload)
-        ]).add(objects: ["id" : id,
-                         "category_id" : category_id,
-                         "cut" : cut,
-                         "verificationState" : verificationState,
-                         "stripeAccountId" : stripeAccountId])
+        ]).add(objects: [
+            "id" : id,
+             "category_id" : category_id,
+             "cut" : cut,
+             "verificationState" : verificationState,
+             "stripeAccountId" : stripeAccountId,
+             "publishableKey" : keys?.publishable,
+             "secretKey" : keys?.secret
+        ])
     }
     
     func postValidate() throws {
@@ -198,6 +211,8 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             vendor.string("salt")
             vendor.double("applicationState")
             vendor.string("verificationState")
+            vendor.string("publishableKey")
+            vendor.string("secretKey")
             vendor.parent(Category.self, optional: false)
         })
     }

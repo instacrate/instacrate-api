@@ -92,6 +92,7 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     let account = try Stripe.shared.createManagedAccount(email: vendor.contactEmail, source: source, local_id: vendor.id?.int)
                     
                     vendor.stripeAccountId = account.id
+                    vendor.keys = account.keys
                     try vendor.save()
                     
                     return try vendor.makeResponse()
