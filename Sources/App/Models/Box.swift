@@ -114,7 +114,11 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
         if let connectAccountPlan = try self.connectAccountPlans().filter("box_id", box_id).first() {
             return connectAccountPlan.plan_id
         } else {
-            let plan = try Stripe.shared.createPlanFor(box: self)
+            guard let secret = vendor.keys?.secret else {
+                throw Abort.custom(status: .internalServerError, message: "Missing secret keys for vendor. \(vendor.id?.int ?? 0)")
+            }
+            
+            let plan = try Stripe.shared.createPlanFor(box: self, on: secret)
             
             var boxPlan = try BoxPlan(box: self, plan_id: plan.id, vendor: vendor)
             try boxPlan.save()

@@ -233,17 +233,12 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
                 throw Abort.custom(status: .internalServerError, message: "Can not duplicate account onto vendor connect account if it has not been created on the platform first.")
             }
             
-            guard let connectAccountId = stripeAccountId else {
-                throw Abort.custom(status: .internalServerError, message: "Can not duplicate account onto vendor that does not have a connect account.")
+            guard let secretKey = keys?.secret else {
+                throw Abort.custom(status: .internalServerError, message: "Missing secret key for vendor with id \(id?.int ?? 0)")
             }
             
-            let token = try Stripe.shared.createToken(for: stripeCustomerId, representing: card, on: connectAccountId)
-            
-            guard let publishableKey = keys?.publishable else {
-                throw Abort.custom(status: .internalServerError, message: "Missing publishable key for vendor with id \(id?.int ?? 0)")
-            }
-            
-            let stripeCustomer = try Stripe.shared.createStandaloneAccount(for: customer, from: token, on: publishableKey)
+            let token = try Stripe.shared.createToken(for: stripeCustomerId, representing: card, on: secretKey)
+            let stripeCustomer = try Stripe.shared.createStandaloneAccount(for: customer, from: token, on: secretKey)
             
             var vendorCustomer = try VendorCustomer(vendor: self, customer: customer, account: stripeCustomer.id)
             try vendorCustomer.save()

@@ -72,7 +72,7 @@ extension Droplet {
         
         drop.addProvider(sbProvider)
         
-        let preparations: [Preparation.Type] = [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self, Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self, Onboarding.self]
+        let preparations: [Preparation.Type] = [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self, Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self, Onboarding.self, BoxPlan.self, VendorCustomer.self]
         drop.preparations.append(contentsOf: preparations)
 
         

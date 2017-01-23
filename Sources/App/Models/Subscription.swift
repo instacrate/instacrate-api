@@ -27,7 +27,7 @@ enum Frequency: String, StringInitializable {
 
 final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var permitted: [String] = ["date", "active", "frequency", "box_id", "shipping_id"]
+    static var permitted: [String] = ["date", "active", "frequency", "box_id", "shipping_id", "payment"]
     
     var id: Node?
     var exists = false
@@ -69,7 +69,8 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
             "box_id" : box_id!,
             "shipping_id" : shipping_id!,
             "customer_id" : customer_id!,
-            "frequency" : .string(frequency.rawValue)
+            "frequency" : .string(frequency.rawValue),
+            "payment" : .string(payment)
         ]).add(objects: [
             "id" : id,
              "sub_id" : sub_id

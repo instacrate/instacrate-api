@@ -59,6 +59,15 @@ class StripeCollection: RouteCollection, EmptyInitializable {
 
                         return try Stripe.shared.delete(payment: source, from: id).makeResponse()
                     }
+                    
+                    sources.get() { request in
+                        guard let customer = try? request.customer(), let stripeId = customer.stripe_id else {
+                            throw Abort.badRequest
+                        }
+                        
+                        let cards = try Stripe.shared.paymentInformation(for: stripeId).map { try $0.makeNode() }
+                        return try Node.array(cards).makeResponse()
+                    }
                 }
             }
             

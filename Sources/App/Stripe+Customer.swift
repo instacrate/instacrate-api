@@ -20,8 +20,8 @@ extension Stripe {
         return try Stripe.shared.createNormalAccount(email: customer.email, source: source.id, local_id: customerId, on: account)
     }
     
-    func createPlanFor(box: Box, with interval: Interval = .month) throws -> Plan {
-        return try Stripe.shared.createPlan(with: box.price, name: box.name, interval: interval)
+    func createPlanFor(box: Box, with interval: Interval = .month, on account: String) throws -> Plan {
+        return try Stripe.shared.createPlan(with: box.price, name: box.name, interval: interval, on: account)
     }
     
     func complete(subscription: inout Subscription) throws {
