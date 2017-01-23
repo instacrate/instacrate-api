@@ -11,6 +11,28 @@ import Vapor
 import HTTP
 import JSON
 
+extension JSON {
+    
+    var prettyString: String {
+        do {
+            return try String(bytes: serialize(prettyPrint: true))
+        } catch {
+            return "Error serializing json into string : \(error)"
+        }
+    }
+}
+
+extension Model {
+    
+    var prettyString: String {
+        do {
+            return try makeJSON().prettyString
+        } catch {
+            return "Error making JSON from model : \(error)"
+        }
+    }
+}
+
 extension Status {
     
     var isSuccessfulStatus: Bool {

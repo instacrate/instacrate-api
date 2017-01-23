@@ -48,11 +48,11 @@ final class Review: Model, Preparation, JSONConvertible, Sanitizable {
     }
     
     func postValidate() throws {
-        guard try box().first() != nil else {
+        guard (try? box().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Review.self, to: Box.self, id: box_id?.int)
         }
         
-        guard try customer().first() != nil else {
+        guard (try? customer().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Review.self, to: Customer.self, id: customer_id?.int)
         }
     }

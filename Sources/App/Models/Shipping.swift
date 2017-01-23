@@ -60,7 +60,7 @@ final class Shipping: Model, Preparation, JSONConvertible, Sanitizable {
     }
     
     func postValidate() throws {
-        guard try user().first() != nil else {
+        guard (try? user().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Shipping.self, to: Customer.self, id: customer_id?.int)
         }
     }

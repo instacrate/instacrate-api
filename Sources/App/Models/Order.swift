@@ -66,23 +66,23 @@ final class Order: Model, Preparation, JSONConvertible, Sanitizable {
     }
     
     func postValidate() throws {
-        guard try subscription().first() != nil else {
+        guard (try? subscription().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Order.self, to: Subscription.self, id: subscription_id?.int)
         }
         
-        guard try shippingAddress().first() != nil else {
+        guard (try? shippingAddress().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Order.self, to: Shipping.self, id: shipping_id?.int)
         }
         
-        guard try vendor().first() != nil else {
+        guard (try? vendor().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Order.self, to: Vendor.self, id: vendor_id?.int)
         }
         
-        guard try box().first() != nil else {
+        guard (try? box().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Order.self, to: Box.self, id: box_id?.int)
         }
         
-        guard try customer().first() != nil else {
+        guard (try? customer().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Order.self, to: Customer.self, id: customer_id?.int)
         }
     }

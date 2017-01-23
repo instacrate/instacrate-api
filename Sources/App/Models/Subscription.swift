@@ -27,7 +27,7 @@ enum Frequency: String, StringInitializable {
 
 final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var permitted: [String] = ["date", "active", "frequency", "box_id", "shipping_id", "customer_id"]
+    static var permitted: [String] = ["date", "active", "frequency", "box_id", "shipping_id"]
     
     var id: Node?
     var exists = false
@@ -39,6 +39,8 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
     var box_id: Node?
     var shipping_id: Node?
     var customer_id: Node?
+    var vendor_id: Node?
+    var payment: String
     
     var sub_id: String?
     
@@ -55,18 +57,9 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
         box_id = try node.extract("box_id")
         shipping_id = try node.extract("shipping_id")
         customer_id = try node.extract("customer_id")
+        payment = try node.extract("payment")
         
         sub_id = try? node.extract("sub_id")
-    }
-    
-    init(withId id: String, box: Box, user: Customer, shipping: Shipping, freq: Frequency = .monthly) {
-        sub_id = id
-        box_id = box.id
-        customer_id = user.id
-        shipping_id = shipping.id
-        date = Date()
-        active = true
-        frequency = freq
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -77,20 +70,27 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
             "shipping_id" : shipping_id!,
             "customer_id" : customer_id!,
             "frequency" : .string(frequency.rawValue)
-        ]).add(objects: ["id" : id,
-                         "sub_id" : sub_id])
+        ]).add(objects: [
+            "id" : id,
+             "sub_id" : sub_id
+        ])
     }
     
     func postValidate() throws {
-        guard try address().first() != nil else {
+
+        guard let address = (try? self.address().first()) ?? nil else {
             throw ModelError.missingLink(from: Subscription.self, to: Shipping.self, id: shipping_id?.int)
         }
         
-        guard try box().first() != nil else {
+        guard address.customer_id == customer_id else {
+            throw ModelError.ownerMismatch(from: Subscription.self, to: Shipping.self, fromId: customer_id?.int, toId: address.customer_id?.int)
+        }
+        
+        guard (try? box().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Subscription.self, to: Box.self, id: box_id?.int)
         }
         
-        guard try user().first() != nil else {
+        guard (try? customer().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Subscription.self, to: Customer.self, id: customer_id?.int)
         }
     }
@@ -102,6 +102,7 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
             subscription.bool("active")
             subscription.string("sub_id")
             subscription.string("frequency")
+            subscription.string("payment")
             subscription.parent(Box.self, optional: false)
             subscription.parent(Shipping.self, optional: false)
             subscription.parent(Customer.self, optional: false)
@@ -127,7 +128,7 @@ extension Subscription {
         return try parent(box_id)
     }
     
-    func user() throws -> Parent<Customer> {
+    func customer() throws -> Parent<Customer> {
         return try parent(customer_id)
     }
 }

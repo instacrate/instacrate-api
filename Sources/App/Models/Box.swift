@@ -16,11 +16,14 @@ import Sanitized
 enum ModelError: Error, CustomStringConvertible {
     
     case missingLink(from: Model.Type, to: Model.Type, id: Int?)
+    case ownerMismatch(from: Model.Type, to: Model.Type, fromId: Int?, toId: Int?)
     
     var description: String {
         switch self {
         case let .missingLink(from, to, id):
-            return "Missing relation link on \(from) to \(to) with foreign id \(id ?? 0)."
+            return "Missing relation from \(from) to \(to) with foreign id \(id ?? 0)."
+        case let .ownerMismatch(from, to, fromId, toId):
+            return "The object on \(to) linked from \(from) is not owned by the \(from)'s #\(fromId ?? 0). It is owned by \(toId ?? 0)"
         }
     }
 }
@@ -72,12 +75,14 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
             "price" : .number(.double(price)),
             "vendor_id" : vendor_id!,
             "publish_date" : .string(publish_date.ISO8601String),
-        ]).add(objects: ["id" : id,
-                         "plan_id" : plan_id])
+        ]).add(objects: [
+            "id" : id,
+             "plan_id" : plan_id
+        ])
     }
     
     func postValidate() throws {
-        guard try vendor().first() != nil else {
+        guard (try? vendor().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Box.self, to: Vendor.self, id: vendor_id?.int)
         }
     }
@@ -99,6 +104,23 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
     
     static func revert(_ database: Database) throws {
         try database.delete(self.entity)
+    }
+    
+    func fetchConnectPlan(for vendor: Vendor) throws -> String {
+        guard let box_id = self.id else {
+            throw Abort.custom(status: .internalServerError, message: "Missing box id.")
+        }
+        
+        if let connectAccountPlan = try self.connectAccountPlans().filter("box_id", box_id).first() {
+            return connectAccountPlan.plan_id
+        } else {
+            let plan = try Stripe.shared.createPlanFor(box: self)
+            
+            var boxPlan = try BoxPlan(box: self, plan_id: plan.id, vendor: vendor)
+            try boxPlan.save()
+            
+            return boxPlan.plan_id
+        }
     }
 }
 
@@ -122,6 +144,10 @@ extension Box {
     
     func subscriptions() -> Children<Subscription> {
         return children("box_id", Subscription.self)
+    }
+    
+    func connectAccountPlans() -> Children<BoxPlan> {
+        return children()
     }
 }
 

@@ -32,17 +32,6 @@ class StripeCollection: RouteCollection, EmptyInitializable {
 
             stripe.group("customer") { customer in
 
-                customer.post("create", String.self) { request, source in
-
-                    let customer = try request.customer()
-
-                    guard customer.stripe_id == nil else {
-                        throw Abort.custom(status: .badRequest, message: "User \(customer.id!.int!) already has a stripe account.")
-                    }
-
-                    return try Stripe.shared.createNormalAccount(email: customer.email, source: source, local_id: customer.id?.int).makeResponse()
-                }
-
                 customer.group("sources") { sources in
 
                     sources.post(String.self) { request, source in

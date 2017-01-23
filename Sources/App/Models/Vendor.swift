@@ -12,8 +12,8 @@ import Auth
 import Turnstile
 import BCrypt
 import Foundation
-import Stripe
 import Sanitized
+import Stripe
 
 extension Node {
 
@@ -184,7 +184,7 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     }
     
     func postValidate() throws {
-        guard try category().first() != nil else {
+        guard (try? category().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Vendor.self, to: Category.self, id: category_id?.int)
         }
     }
@@ -220,6 +220,37 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     static func revert(_ database: Database) throws {
         try database.delete(self.entity)
     }
+    
+    func fetchConnectAccount(for customer: Customer, with card: String) throws -> String {
+        guard let customer_id = customer.id else {
+            throw Abort.custom(status: .internalServerError, message: "Asked to find connect account customer for customer with no id.")
+        }
+        
+        if let connectAccountCustomer = try self.connectAccountCustomers().filter("customer_id", customer_id).first() {
+            return connectAccountCustomer.connectAccountCustomerId
+        } else {
+            guard let stripeCustomerId = customer.stripe_id else {
+                throw Abort.custom(status: .internalServerError, message: "Can not duplicate account onto vendor connect account if it has not been created on the platform first.")
+            }
+            
+            guard let connectAccountId = stripeAccountId else {
+                throw Abort.custom(status: .internalServerError, message: "Can not duplicate account onto vendor that does not have a connect account.")
+            }
+            
+            let token = try Stripe.shared.createToken(for: stripeCustomerId, representing: card, on: connectAccountId)
+            
+            guard let publishableKey = keys?.publishable else {
+                throw Abort.custom(status: .internalServerError, message: "Missing publishable key for vendor with id \(id?.int ?? 0)")
+            }
+            
+            let stripeCustomer = try Stripe.shared.createStandaloneAccount(for: customer, from: token, on: publishableKey)
+            
+            var vendorCustomer = try VendorCustomer(vendor: self, customer: customer, account: stripeCustomer.id)
+            try vendorCustomer.save()
+            
+            return vendorCustomer.connectAccountCustomerId
+        }
+    }
 }
 
 extension Vendor {
@@ -230,6 +261,10 @@ extension Vendor {
     
     func category() throws -> Parent<Category> {
         return try parent(category_id)
+    }
+    
+    func connectAccountCustomers() throws -> Children<VendorCustomer> {
+        return children()
     }
 }
 
