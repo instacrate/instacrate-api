@@ -1,4 +1,3 @@
-
 //
 //  StripeCollection.swift
 //  subber-api
@@ -13,10 +12,70 @@ import Routing
 import Vapor
 import Stripe
 
+extension Sequence where Iterator.Element == Bool {
+    
+    public func all() -> Bool {
+        return reduce(true) { $0 && $1 }
+    }
+}
+
 extension NodeConvertible {
 
     public func makeResponse() throws -> Response {
         return try Response(status: .ok, json: self.makeNode().makeJSON())
+    }
+}
+
+extension Sequence where Iterator.Element == (key: String, value: String) {
+    
+    func reduceDictionary() -> [String : String] {
+        return flatMap { $0 }.reduce([:]) { (_dict, tuple) in
+            var dict = _dict
+            dict.updateValue(tuple.1, forKey: tuple.0)
+            return dict
+        }
+    }
+}
+
+
+fileprivate func stripeKeyPathFor(base: String, appending: String) -> String {
+    if base.characters.count == 0 {
+        return appending
+    }
+    
+    return "\(base)[\(appending)]"
+}
+
+extension Node {
+    
+    var isLeaf : Bool {
+        switch self {
+        case .array(_), .object(_):
+            return false
+            
+        case .bool(_), .bytes(_), .string(_), .number(_), .null:
+            return true
+        }
+    }
+
+    func collected() throws -> [String : String] {
+        return collectLeaves(prefix: "")
+    }
+    
+    private func collectLeaves(prefix: String) -> [String : String] {
+        switch self {
+        case let .array(nodes):
+            return nodes.map { $0.collectLeaves(prefix: prefix) }.joined().reduceDictionary()
+            
+        case let .object(object):
+            return object.map { $1.collectLeaves(prefix: stripeKeyPathFor(base: prefix, appending: $0)) }.joined().reduceDictionary()
+            
+        case .bool(_), .bytes(_), .string(_), .number(_):
+            return [prefix : string ?? ""]
+            
+        case .null:
+            return [:]
+        }
     }
 }
 
@@ -116,6 +175,22 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     let account = try Stripe.shared.vendorInformation(for: stripeAccountId)
                     let descriptions = try account.descriptionsForNeededFields()
                     return try Node(node: descriptions).makeResponse()
+                }
+                
+                vendor.post("verification") { request in
+                    let vendor = try request.vendor()
+                    
+                    guard let stripeAccountId = vendor.stripeAccountId else {
+                        throw Abort.custom(status: .badRequest, message: "Vendor does not have stripe id")
+                    }
+                    
+                    var updates = try request.json().node.collected()
+                    
+                    if updates.keys.contains(where: { $0.hasPrefix("external_account") }) {
+                        updates["external_account[object]"] = "bank_account"
+                    }
+                    
+                    return try Stripe.shared.updateAccount(id: stripeAccountId, parameters: updates).makeResponse()
                 }
                 
                 vendor.post("upload", String.self) { request, _uploadReason in
