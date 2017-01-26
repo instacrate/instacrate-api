@@ -173,8 +173,7 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     }
                     
                     let account = try Stripe.shared.vendorInformation(for: stripeAccountId)
-                    let descriptions = try account.descriptionsForNeededFields()
-                    return try Node(node: descriptions).makeResponse()
+                    return try account.descriptionsForNeededFields().makeResponse()
                 }
                 
                 vendor.post("verification") { request in
