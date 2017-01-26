@@ -92,6 +92,8 @@ class StripeCollection: RouteCollection, EmptyInitializable {
             stripe.group("customer") { customer in
 
                 customer.group("sources") { sources in
+                    
+                    // TODO : double check
 
                     sources.post(String.self) { request, source in
 
@@ -177,6 +179,7 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                 }
                 
                 vendor.post("verification") { request in
+                    // TOOD : unix format for date
                     let vendor = try request.vendor()
                     
                     guard let stripeAccountId = vendor.stripeAccountId else {
@@ -187,6 +190,28 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     
                     if updates.keys.contains(where: { $0.hasPrefix("external_account") }) {
                         updates["external_account[object]"] = "bank_account"
+                    }
+                    
+                    if updates.keys.contains(where: { $0.contains("dob") }) {
+                        guard let unix = updates["legal_entity[dob]"]?.string else {
+                            throw Abort.custom(status: .badRequest, message: "Could not parse unix time from updates : \(updates)")
+                        }
+                        
+                        guard let timestamp = Int(unix) else {
+                            throw Abort.custom(status: .badRequest, message: "Could not get number from unix : \(unix)")
+                        }
+                        
+                        let date = Date(timeIntervalSince1970: Double(timestamp))
+                        
+                        let calendar = Calendar.current
+                        
+                        let year = calendar.component(.year, from: date)
+                        let month = calendar.component(.month, from: date)
+                        let day = calendar.component(.day, from: date)
+                        
+                        updates["legal_entity[dob][day]"] = "\(day)"
+                        updates["legal_entity[dob][month]"] = "\(month)"
+                        updates["legal_entity[dob][year]"] = "\(year)"
                     }
                     
                     return try Stripe.shared.updateAccount(id: stripeAccountId, parameters: updates).makeResponse()

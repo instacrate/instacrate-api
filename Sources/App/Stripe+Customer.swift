@@ -49,7 +49,7 @@ extension Stripe {
         }
         
         let metadata = createMetadataArray(fromModels: [address, customer, vendor, subscription, box])
-        let sub = try Stripe.shared.subscribe(user: stripeCustomer, to: plan, oneTime: false, metadata: metadata, under: secret)
+        let sub = try Stripe.shared.subscribe(user: stripeCustomer, to: plan, oneTime: false, cut: vendor.cut, metadata: metadata, under: secret)
         
         subscription.sub_id = sub.id
         try subscription.save()

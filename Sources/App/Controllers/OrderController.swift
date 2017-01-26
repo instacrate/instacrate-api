@@ -79,6 +79,8 @@ extension Model {
 }
 
 extension Order {
+    
+    // TODO : make sure this works
 
     static func orders(for customer: Customer, with range: OrderTimeRange? = nil, fulfilled: Bool? = nil, for box: Box? = nil) throws -> [Order] {
         var query = try Order.query().union(Subscription.self).filter(Subscription.self, "customer_id", customer.id!)

@@ -95,7 +95,7 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
 
     var stripeAccountId: String?
     
-    let cut: Double?
+    let cut: Double
     
     var missingFields: Bool
     var needsIdentityUpload: Bool
