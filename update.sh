@@ -50,7 +50,7 @@ trap f ERR
 echo "\n>>>> git pull origin master"
 git pull origin master
 
-echo "\n>>>> vapor build --release=true"
+echo "\n>>>> vapor build --release=true --fetch=false"
 vapor build --release=true --fetch=false
 
 echo "\n>>>> sudo systemctl restart instacrated.service"

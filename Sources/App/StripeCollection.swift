@@ -186,35 +186,35 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                         throw Abort.custom(status: .badRequest, message: "Vendor does not have stripe id")
                     }
                     
-                    guard let _updates = try request.json().node.nodeObject else {
-                        throw Abort.custom(status: .badRequest, message: "Could not convert to node object.")
-                    }
+                    let account = try Stripe.shared.vendorInformation(for: stripeAccountId)
+                    let fieldsNeeded = account.filteredNeededFieldsWithCombinedDateOfBirth()
+                    var node = try request.json().permit(fieldsNeeded).node
                     
-                    var updates: [String: String] = [:]
-                        
-                    _updates.forEach {
-                        updates[$0] = $1.string ?? "Couldn't convert to string!"
+                    if node.nodeObject?.keys.contains(where: { $0.hasPrefix("external_account") }) ?? false {
+                        node["external_account.object"] = "bank_account"
                     }
-                    
-                    if updates.keys.contains(where: { $0.hasPrefix("external_account") }) {
-                        updates["external_account.object"] = "bank_account"
-                    }
-                    
-                    if updates.keys.contains(where: { $0.contains("dob") }) {
-                        guard let unix = updates["legal_entity.dob"]?.string else {
-                            throw Abort.custom(status: .badRequest, message: "Could not parse unix time from updates : \(updates)")
-                        }
-                        
-                        guard let timestamp = Int(unix) else {
-                            throw Abort.custom(status: .badRequest, message: "Could not get number from unix : \(unix)")
-                        }
+
+                    if node["legal_entity.dob"] != nil {
+                        guard let unix = node["legal_entity.dob"]?.string else { throw Abort.custom(status: .badRequest, message: "Could not parse unix time from updates)") }
+                        guard let timestamp = Int(unix) else { throw Abort.custom(status: .badRequest, message: "Could not get number from unix : \(unix)") }
                         
                         let calendar = Calendar.current
                         let date = Date(timeIntervalSince1970: Double(timestamp))
                         
-                        updates["legal_entity.dob.day"] = "\(calendar.component(.day, from: date))"
-                        updates["legal_entity.dob.month"] = "\(calendar.component(.month, from: date))"
-                        updates["legal_entity.dob.year"] = "\(calendar.component(.year, from: date))"
+                        node["legal_entity.dob"] = nil
+                        node["legal_entity.dob.day"] = .string("\(calendar.component(.day, from: date))")
+                        node["legal_entity.dob.month"] = .string("\(calendar.component(.month, from: date))")
+                        node["legal_entity.dob.year"] = .string("\(calendar.component(.year, from: date))")
+                    }
+                    
+                    var updates: [String : String] = [:]
+                    
+                    try node.nodeObject?.forEach {
+                        guard let string = $1.string else {
+                            throw Abort.custom(status: .badRequest, message: "could not convert object at key \($0) to string.")
+                        }
+                        
+                        updates[$0] = string
                     }
                     
                     return try Stripe.shared.updateAccount(id: stripeAccountId, parameters: updates).makeResponse()
