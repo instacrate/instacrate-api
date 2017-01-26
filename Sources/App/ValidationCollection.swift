@@ -19,24 +19,27 @@ class ValidationCollection: RouteCollection, EmptyInitializable {
     
     func build<B: RouteBuilder>(_ builder: B) where B.Value == Wrapped {
         
-        builder.group("customer", "available") { customer in
+        builder.group("available") { available in
             
-            customer.get("email") { email in
-                let customers = try Customer.query().filter("email", email).count()
-                return Response(status: customers > 0 ? .conflict : .ok)
-            }
-        }
-        
-        builder.group("vendor", "available") { vendor in
-            
-            vendor.get("contactEmail") { email in
-                let vendors = try Vendor.query().filter("contactEmail", email).count()
-                return Response(status: vendors.count > 0 ? .conflict : .ok)
+            available.group("customer") { customer in
+                
+                customer.get("email", String.self) { request, email in
+                    let customers = try Customer.query().filter("email", email).count()
+                    return Response(status: customers > 0 ? .conflict : .ok)
+                }
             }
             
-            vendor.get("username") { username in
-                let vendors = try Vendor.query().filter("username", username).count()
-                return Response(status: vendors.count > 0 ? .conflict : .ok)
+            available.group("vendor") { vendor in
+                
+                vendor.get("contactEmail", String.self) { request, email in
+                    let vendors = try Vendor.query().filter("contactEmail", email).count()
+                    return Response(status: vendors.count > 0 ? .conflict : .ok)
+                }
+                
+                vendor.get("username", String.self) { request, username in
+                    let vendors = try Vendor.query().filter("username", username).count()
+                    return Response(status: vendors.count > 0 ? .conflict : .ok)
+                }
             }
         }
     }

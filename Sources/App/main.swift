@@ -33,6 +33,7 @@ drop.resource("logs", LogFileController())
 drop.resource("onboard", OnboardingController())
 
 drop.collection(StripeCollection.self)
+drop.collection(ValidationCollection.self)
 drop.collection(StripeWebhookManager.shared)
 
 let webhooks = StripeWebhookCollection()

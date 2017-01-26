@@ -36,7 +36,7 @@ extension Model {
 extension Status {
     
     var isSuccessfulStatus: Bool {
-        return statusCode > 199 && statusCode < 400
+        return (statusCode > 199 && statusCode < 400) || statusCode == Status.conflict.statusCode
     }
     
     var description: String {
