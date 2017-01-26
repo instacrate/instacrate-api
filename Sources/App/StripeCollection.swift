@@ -214,7 +214,19 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                             throw Abort.custom(status: .badRequest, message: "could not convert object at key \($0) to string.")
                         }
                         
-                        updates[$0] = string
+                        var split = $0.components(separatedBy: ".")
+                        
+                        if split.count == 1 {
+                            updates[$0] = string
+                            return
+                        }
+                        
+                        var key = split[0]
+                        split.remove(at: 0)
+
+                        key = key + split.reduce("") { $0 + "[\($1)]" }
+                        
+                        updates[key] = string
                     }
                     
                     return try Stripe.shared.updateAccount(id: stripeAccountId, parameters: updates).makeResponse()
