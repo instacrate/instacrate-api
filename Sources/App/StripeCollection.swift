@@ -186,14 +186,22 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                         throw Abort.custom(status: .badRequest, message: "Vendor does not have stripe id")
                     }
                     
-                    var updates = try request.json().node.collected()
+                    guard let _updates = try request.json().node.nodeObject else {
+                        throw Abort.custom(status: .badRequest, message: "Could not convert to node object.")
+                    }
+                    
+                    var updates: [String: String] = [:]
+                        
+                    _updates.forEach {
+                        updates[$0] = $1.string ?? "Couldn't convert to string!"
+                    }
                     
                     if updates.keys.contains(where: { $0.hasPrefix("external_account") }) {
-                        updates["external_account[object]"] = "bank_account"
+                        updates["external_account.object"] = "bank_account"
                     }
                     
                     if updates.keys.contains(where: { $0.contains("dob") }) {
-                        guard let unix = updates["legal_entity[dob]"]?.string else {
+                        guard let unix = updates["legal_entity.dob"]?.string else {
                             throw Abort.custom(status: .badRequest, message: "Could not parse unix time from updates : \(updates)")
                         }
                         
@@ -201,17 +209,12 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                             throw Abort.custom(status: .badRequest, message: "Could not get number from unix : \(unix)")
                         }
                         
+                        let calendar = Calendar.current
                         let date = Date(timeIntervalSince1970: Double(timestamp))
                         
-                        let calendar = Calendar.current
-                        
-                        let year = calendar.component(.year, from: date)
-                        let month = calendar.component(.month, from: date)
-                        let day = calendar.component(.day, from: date)
-                        
-                        updates["legal_entity[dob][day]"] = "\(day)"
-                        updates["legal_entity[dob][month]"] = "\(month)"
-                        updates["legal_entity[dob][year]"] = "\(year)"
+                        updates["legal_entity.dob.day"] = "\(calendar.component(.day, from: date))"
+                        updates["legal_entity.dob.month"] = "\(calendar.component(.month, from: date))"
+                        updates["legal_entity.dob.year"] = "\(calendar.component(.year, from: date))"
                     }
                     
                     return try Stripe.shared.updateAccount(id: stripeAccountId, parameters: updates).makeResponse()
