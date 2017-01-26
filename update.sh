@@ -1,4 +1,4 @@
-f () {
+f() {
     errcode=$?
     echo "error $errorcode"
     echo "the command executing at the time of the error was"
@@ -51,7 +51,7 @@ echo "\n>>>> git pull origin master"
 git pull origin master
 
 echo "\n>>>> vapor build --release=true"
-vapor build --release=true
+vapor build --release=true --fetch=false
 
 echo "\n>>>> sudo systemctl restart instacrated.service"
 sudo systemctl restart instacrated.service
