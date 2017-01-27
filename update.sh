@@ -47,7 +47,7 @@ reset_production_server() {
 
 trap f ERR
 
-cd "Packages/Stripe*/"
+cd Packages/Stripe*/
 git pull origin master
 cd ../..
 
