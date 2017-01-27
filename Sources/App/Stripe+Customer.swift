@@ -41,6 +41,10 @@ extension Stripe {
             throw Abort.custom(status: .internalServerError, message: "missing address id")
         }
         
+        guard vendor.stripeAccountId != nil else {
+            throw Abort.custom(status: .internalServerError, message: "vendor must sign up for stripe before it can be subscribed to")
+        }
+        
         let plan = try box.fetchConnectPlan(for: vendor)
         let stripeCustomer = try vendor.fetchConnectAccount(for: customer, with: subscription.payment)
         

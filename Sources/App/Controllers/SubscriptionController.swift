@@ -33,12 +33,12 @@ final class SubscriptionController: ResourceRepresentable {
         switch session {
         case .vendor:
             let vendor = try request.vendor()
-            let box_ids = try vendor.boxes().all().map { $0.id! }
+            let box_ids = try vendor.boxes().all().map { try $0.throwableId() }
             query = try Subscription.query().filter("box_id", .in, box_ids)
 
         case .customer:
-            let customer = try request.customer()
-            query = try Subscription.query().filter("customer_id", customer.id!)
+            let id = try request.customer().throwableId()
+            query = try Subscription.query().filter("customer_id", id)
 
         case .none:
             throw Abort.custom(status: .forbidden, message: "You must be logged in as either a vendor or customer.")

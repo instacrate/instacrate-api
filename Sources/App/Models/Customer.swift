@@ -153,3 +153,48 @@ extension Customer: Relationable {
         return (reviews, shippingAddresess, sessions)
     }
 }
+
+extension Node {
+    
+    var type: String {
+        switch self {
+        case .array(_):
+            return "array"
+        case .null:
+            return "null"
+        case .bool(_):
+            return "bool"
+        case .bytes(_):
+            return "bytes"
+        case let .number(number):
+            switch number {
+            case .int(_):
+                return "number.int"
+            case .double(_):
+                return "number.double"
+            case .uint(_):
+                return "number.uint"
+            }
+        case .object(_):
+            return "object"
+        case .string(_):
+            return "string"
+        }
+    }
+    
+}
+
+extension Model {
+    
+    func throwableId() throws -> Int {
+        guard let id = id else {
+            throw Abort.custom(status: .internalServerError, message: "Bad internal state. \(type(of: self).entity) does not have database id when it was requested.")
+        }
+        
+        guard let customerIdInt = id.int else {
+            throw Abort.custom(status: .internalServerError, message: "Bad internal state. \(type(of: self).entity) has database id but it was of type \(id.type) while we expected number.int")
+        }
+        
+        return customerIdInt
+    }
+}

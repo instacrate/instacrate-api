@@ -80,45 +80,93 @@ extension Model {
 
 extension Order {
     
+    enum Format: String, TypesafeOptionsParameter {
+        case long
+        case short
+        
+        static let key = "format"
+        static let values = ["long", "short"]
+        static let defaultValue: Format? = .short
+        
+        func apply(on order: Order) throws -> Node {
+            switch self {
+            case .long:
+                return try createLongView(for: order)
+                
+            case .short:
+                return try createTerseView(for: order)
+            }
+        }
+        
+        func apply(on orders: [Order]) throws -> Node {
+            
+            return try .array(orders.map {
+                return try self.apply(on: $0)
+            })
+        }
+    }
+}
+
+fileprivate func createTerseView(for order: Order) throws -> Node {
+    let customer = try order.customer().first()
+    let box = try order.box().first()
+    
+    return try Node(node: [
+        "id" : "\(order.throwableId())",
+        "date" : "\(order.date.timeIntervalSince1970)"
+    ]).add(objects: [
+        "customerName" : customer?.name,
+        "boxName" : box?.name,
+        "price" : box?.price
+    ])
+}
+
+fileprivate func createLongView(for order: Order) throws -> Node {
+    let customer = try order.customer().first()
+    let box = try order.box().first()
+    let shipping = try order.shippingAddress().first()
+    
+    return try Node(node: [
+        "id" : "\(order.throwableId())",
+        "date" : "\(order.date.timeIntervalSince1970)"
+    ]).add(objects: [
+        "customerName" : customer?.name,
+        "boxName" : box?.name,
+        "price" : box?.price,
+        "customerEmail" : customer?.email,
+        "address" : shipping
+    ])
+}
+
+extension Order {
+    
     // TODO : make sure this works
-
-    static func orders(for customer: Customer, with range: OrderTimeRange? = nil, fulfilled: Bool? = nil, for box: Box? = nil) throws -> [Order] {
-        var query = try Order.query().union(Subscription.self).filter(Subscription.self, "customer_id", customer.id!)
-
-        if let box = box {
-            query = try query.filter(Subscription.self, "box_id", box.id!)
-        }
-
-        if let fulfilled = fulfilled {
-            query = try query.filter("fulfilled", fulfilled)
-        }
-
-        return try query.apply(range).all()
-    }
-
-    static func orders(for vendor: Vendor, with range: OrderTimeRange? = nil, fulfilled: Bool? = nil, for box: Box? = nil) throws -> [Order] {
-        var query = try Order.query().filter("vendor_id", vendor.id!).union(Vendor.self, localKey: "vendor_id", foreignKey: "id")
-
-        if let box = box {
-            query = try query.filter(Subscription.self, "box_id", box.id!)
-        }
-
-        if let fulfilled = fulfilled {
-            query = try query.filter("fulfilled", fulfilled)
-        }
-
-        return try query.apply(range).all()
-    }
-
-    static func orders(for request: Request, with range: OrderTimeRange? = nil, fulfilled: Bool? = nil, for box: Box? = nil) throws -> [Order] {
+    
+    static func orders(for request: Request) throws -> Query<Order> {
         switch request.sessionType {
         case .vendor:
-            return try orders(for: request.vendor(), with: range, fulfilled: fulfilled, for: box)
+            let vendor = try request.vendor()
+            return try Order.query().filter("vendor_id", vendor.throwableId())
         case .customer:
-            return try orders(for: request.customer(), with: range, fulfilled: fulfilled, for: box)
+            let customer = try request.customer()
+            return try Order.query().filter("customer_id", customer.throwableId())
         case .none:
-            throw Abort.custom(status: .forbidden, message: "You must be logged in.")
+            throw Abort.custom(status: .forbidden, message: "Login to fetch orders.")
         }
+    }
+
+    static func orders(for request: Request, with range: OrderTimeRange? = nil, fulfilled: Bool? = nil, for box: Box? = nil) throws -> Query<Order> {
+        var query = try Order.orders(for: request)
+
+        if let box = box {
+            query = try query.filter("box_id", box.throwableId())
+        }
+
+        if let fulfilled = fulfilled {
+            query = try query.filter("fulfilled", fulfilled)
+        }
+
+        return try query.apply(range)
     }
 }
 
@@ -128,8 +176,10 @@ final class OrderController: ResourceRepresentable {
 
         let period = try? request.extract() as OrderTimeRange
         let fulfilled = request.query?["fulfilled"]?.bool
+        let format = try request.extract() as Order.Format
 
-        return try Order.orders(for: request, with: period, fulfilled: fulfilled).makeJSON()
+        let orders = try Order.orders(for: request, with: period, fulfilled: fulfilled).all()
+        return try format.apply(on: orders).makeJSON()
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {

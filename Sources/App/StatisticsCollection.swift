@@ -27,7 +27,7 @@ class StatisticsCollection: RouteCollection, EmptyInitializable {
                     let range = try? request.extract() as OrderTimeRange
                     let fulfilled = request.query?["fulfilled"]?.bool
 
-                    let orders = try Order.orders(for: request, with: range, fulfilled: fulfilled)
+                    let orders = try Order.orders(for: request, with: range, fulfilled: fulfilled).all()
                     let revenue = try orders.map { try $0.box().get()?.price ?? 0 }.sum()
                     let unfullfilled = orders.filter { !$0.fulfilled }
 
@@ -42,7 +42,7 @@ class StatisticsCollection: RouteCollection, EmptyInitializable {
                     let range = try? request.extract() as OrderTimeRange
                     let fulfilled = request.query?["fulfilled"]?.bool
 
-                    let orders = try Order.orders(for: request, with: range, fulfilled: fulfilled, for: box)
+                    let orders = try Order.orders(for: request, with: range, fulfilled: fulfilled, for: box).all()
                     let revenue = try orders.map { try $0.box().get()?.price ?? 0 }.sum()
                     let unfullfilled = orders.filter { !$0.fulfilled }
 
