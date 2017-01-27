@@ -47,8 +47,13 @@ reset_production_server() {
 
 trap f ERR
 
+echo "\n>>>> cd Packages/Stripe*/"
 cd Packages/Stripe*/
+
+echo "\n>>>> git pull origin master"
 git pull origin master
+
+echo "\n>>>> cd ../.."
 cd ../..
 
 echo "\n>>>> git pull origin master"
