@@ -35,6 +35,7 @@ drop.resource("onboard", OnboardingController())
 drop.collection(StripeCollection.self)
 drop.collection(ValidationCollection.self)
 drop.collection(StripeWebhookManager.shared)
+drop.collection(StatisticsCollection.self)
 
 let webhooks = StripeWebhookCollection()
 
