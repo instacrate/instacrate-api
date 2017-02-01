@@ -17,7 +17,11 @@ final class BoxController: ResourceRepresentable {
         switch request.sessionType {
 
         case .vendor:
-            return try Box.query().filter("vendor_id", request.vendor().id!).all().makeJSON()
+            let sorted = try request.extract() as Box.Sort
+            let format = try request.extract() as Box.Format
+            
+            let query = try request.vendor().boxes().apply(sorted)
+            return try format.apply(on: query.all()).makeJSON()
 
         case .customer: fallthrough
         case .none:
@@ -37,24 +41,13 @@ final class BoxController: ResourceRepresentable {
     }
 
     func create(_ request: Request) throws -> ResponseRepresentable {
+        if let bullets: [String] = try request.json?.node.extract("bullets") {
+            request.json?["bullets"] = JSON(Node.string(bullets.joined(separator: Box.boxBulletSeparator)))
+        }
+        
         var box: Box = try request.extractModel()
         try box.save()
         return box
-        
-//        var node = try request.json().node
-//        let bullets = try node.extract("bullets") as [String]
-//        node["bullets"] = Node.string(bullets.joined(separator: Box.boxBulletSeparator))
-//        
-//        try print(node.extract("bullets") as String)
-//        
-//        var box = try Box(node: node)
-//
-//        guard try box.vendor().get() != nil else {
-//            throw Abort.custom(status: .badRequest, message: "There is no vendor with id \(box.vendor_id?.int)")
-//        }
-//
-//        try box.save()
-//        return try Response(status: .created, json: box.makeJSON())
     }
 
     func delete(_ request: Request, box: Box) throws -> ResponseRepresentable {

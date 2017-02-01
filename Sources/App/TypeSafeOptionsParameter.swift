@@ -16,18 +16,18 @@ import Fluent
 import Vapor
 import HTTP
 
-extension Query {
+extension QueryRepresentable {
     
     func apply(_ option: QueryModifiable) throws -> Query<T> {
-        return try option.modify(self)
+        return try option.modify(self.makeQuery())
     }
 
     func apply(_ option: QueryModifiable?) throws -> Query<T> {
         if let option = option {
-            return try option.modify(self)
+            return try option.modify(self.makeQuery())
         }
 
-        return self
+        return try self.makeQuery()
     }
 }
 
