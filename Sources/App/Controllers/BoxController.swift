@@ -45,7 +45,7 @@ final class BoxController: ResourceRepresentable {
             request.json?["bullets"] = JSON(Node.string(bullets.joined(separator: Box.boxBulletSeparator)))
         }
         
-        var box: Box = try request.extractModel()
+        var box: Box = try request.extractModel(injecting: request.vendorInjectable())
         try box.save()
         return box
     }

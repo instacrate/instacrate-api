@@ -37,7 +37,6 @@ extension Sequence where Iterator.Element == (key: String, value: String) {
     }
 }
 
-
 fileprivate func stripeKeyPathFor(base: String, appending: String) -> String {
     if base.characters.count == 0 {
         return appending
@@ -176,6 +175,16 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     
                     let account = try Stripe.shared.vendorInformation(for: stripeAccountId)
                     return try account.descriptionsForNeededFields().makeResponse()
+                }
+                
+                vendor.get("payouts") { request in
+                    let vendor = try request.vendor()
+                    
+                    guard let secretKey = vendor.keys?.secret else {
+                        throw Abort.custom(status: .badRequest, message: "Vendor is missing stripe id.")
+                    }
+                    
+                    return try Stripe.shared.transfers(for: secretKey).makeNode().makeResponse()
                 }
                 
                 vendor.post("verification") { request in
