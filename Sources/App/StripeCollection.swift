@@ -88,21 +88,26 @@ class StripeCollection: RouteCollection, EmptyInitializable {
 
         builder.group("stripe") { stripe in
             
-            stripe.group("cupons") { cupon in
+            stripe.group("coupons") { coupon in
                 
-                cupon.get(String.self) { request, code in
-                    let query = try Cupon.query().filter("code", code)
-                    return try query.first() ?? Response(status: .notFound, json: JSON(Node.string("Invalid cupon code.")))
+                coupon.get(String.self) { request, code in
+                    let query = try Coupon.query().filter("code", code)
+                    return try query.first() ?? Response(status: .notFound, json: JSON(Node.string("Invalid coupon code.")))
                 }
                 
-                cupon.post() { request in
-                    let customer = try request.customer().throwableId()
+                coupon.post() { request in
+                    guard let email: String = try request.json?.node.extract("customerEmail") else {
+                        throw Abort.custom(status: .badRequest, message: "missing customer email")
+                    }
                     
                     let fullCode = UUID().uuidString
                     let code = fullCode.substring(to: fullCode.index(fullCode.startIndex, offsetBy: 8))
-                    var cupon = try Cupon(node: ["code" : code, "discount" : 0.05, "customer_id" : customer])
-                    try cupon.save()
-                    return cupon
+                    var coupon = try Coupon(node: ["code" : code, "discount" : 0.05, "customerEmail" : email])
+                    
+                    let _ = try Stripe.shared.createCoupon(code: coupon.code)
+                    
+                    try coupon.save()
+                    return coupon
                 }
             }
 

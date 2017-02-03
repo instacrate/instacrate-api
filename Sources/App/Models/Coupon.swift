@@ -1,5 +1,5 @@
 //
-//  Cupon.swift
+//  Coupon.swift
 //  subber-api
 //
 //  Created by Hakon Hanesand on 2/1/17.
@@ -12,7 +12,7 @@ import Auth
 import Fluent
 import Sanitized
 
-final class Cupon: Model, JSONConvertible, Preparation, Sanitizable {
+final class Coupon: Model, JSONConvertible, Preparation, Sanitizable {
 
     static var permitted: [String] = [""]
 
@@ -22,29 +22,29 @@ final class Cupon: Model, JSONConvertible, Preparation, Sanitizable {
     var code: String
     var discount: String
     
-    var customer_id: Node?
+    var customerEmail: String
 
     init(node: Node, in context: Context = EmptyNode) throws {
         id = node["id"]
         code = try node.extract("code")
         discount = try node.extract("discount")
-        customer_id = try node.extract("customer_id")
+        customerEmail = try node.extract("customerEmail")
     }
 
     func makeNode(context: Context = EmptyNode) throws -> Node {
         return try Node(node: [
-            "code" : .string(code)
+            "code" : .string(code),
+            "customerEmail": .string(customerEmail)
         ]).add(objects: [
-            "id" : id,
-            "customer_id": customer_id
+            "id" : id
         ])
     }
     
     static func prepare(_ database: Database) throws {
-        try database.create(self.entity) { cupon in
-            cupon.string("code")
-            cupon.parent(Customer.self)
-            cupon.id()
+        try database.create(self.entity) { coupon in
+            coupon.string("code")
+            coupon.string("customerEmail")
+            coupon.id()
         }
     }
     

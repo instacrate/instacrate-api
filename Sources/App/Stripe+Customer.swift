@@ -63,20 +63,16 @@ extension Stripe {
             throw Abort.custom(status: .internalServerError, message: "missing publishable key")
         }
         
-        var cupon: Cupon?
+        var coupon: Coupon?
         
-        if let cuponCode = code {
-            let query = try Cupon.query().filter("code", cuponCode)
-            cupon = try query.first()
-            subscription.cupon_id = cupon?.id
-            
-//            guard cupon.customer_id == customer.id else {
-//                throw Abort.custom(status: .badRequest, message: "That cupon is invalid for this user. Cupon tied to \(cupon.customer_id ?? 0) while sub is for \(customer.id ?? 0)")
-//            }
+        if let couponCode = code {
+            let query = try Coupon.query().filter("code", couponCode)
+            coupon = try query.first()
+            subscription.coupon_id = coupon?.id
         }
         
-        let metadata = createMetadataArray(fromModels: [address, customer, vendor, subscription, box, cupon])
-        let sub = try Stripe.shared.subscribe(user: stripeCustomer, to: plan, oneTime: false, cut: vendor.cut, cupon: cupon?.code, metadata: metadata, under: secret)
+        let metadata = createMetadataArray(fromModels: [address, customer, vendor, subscription, box, coupon])
+        let sub = try Stripe.shared.subscribe(user: stripeCustomer, to: plan, oneTime: false, cut: vendor.cut, coupon: coupon?.code, metadata: metadata, under: secret)
         
         subscription.sub_id = sub.id
         try subscription.save()
