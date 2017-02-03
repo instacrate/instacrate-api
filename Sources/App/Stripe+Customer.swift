@@ -35,7 +35,7 @@ extension Stripe {
         return try Stripe.shared.createPlan(with: box.price, name: box.name, interval: interval, on: account)
     }
     
-    func complete(subscription: inout Subscription) throws {
+    func complete(subscription: inout Subscription, coupon code: String?) throws {
         guard let box = try subscription.box().first() else {
             throw ModelError.missingLink(from: Subscription.self, to: Box.self, id: subscription.box_id?.int)
         }
@@ -63,12 +63,16 @@ extension Stripe {
             throw Abort.custom(status: .internalServerError, message: "missing publishable key")
         }
         
-        let cupon = try subscription.cupon().first()
+        var cupon: Cupon?
         
-        if let cupon = cupon {
-            guard cupon.customer_id == customer.id else {
-                throw Abort.custom(status: .badRequest, message: "That cupon is invalid for this user. Cupon tied to \(cupon.customer_id ?? 0) while sub is for \(customer.id ?? 0)")
-            }
+        if let cuponCode = code {
+            let query = try Cupon.query().filter("code", cuponCode)
+            cupon = try query.first()
+            subscription.cupon_id = cupon?.id
+            
+//            guard cupon.customer_id == customer.id else {
+//                throw Abort.custom(status: .badRequest, message: "That cupon is invalid for this user. Cupon tied to \(cupon.customer_id ?? 0) while sub is for \(customer.id ?? 0)")
+//            }
         }
         
         let metadata = createMetadataArray(fromModels: [address, customer, vendor, subscription, box, cupon])

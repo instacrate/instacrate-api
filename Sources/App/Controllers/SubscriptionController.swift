@@ -38,8 +38,9 @@ final class SubscriptionController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
+        let couponCode: String? = try request.json?.node.extract("couponCode")
         var subscription: Subscription = try request.extractModel(injecting: request.customerInjectable())
-        try Stripe.shared.complete(subscription: &subscription)
+        try Stripe.shared.complete(subscription: &subscription, coupon: couponCode)
         return subscription
     }
     
