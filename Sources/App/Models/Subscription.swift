@@ -40,6 +40,7 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
     var shipping_id: Node?
     var customer_id: Node?
     var vendor_id: Node?
+    var cupon_id: Node?
     var payment: String
     
     var sub_id: String?
@@ -58,6 +59,7 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
         shipping_id = try node.extract("shipping_id")
         customer_id = try node.extract("customer_id")
         payment = try node.extract("payment")
+        cupon_id = try node.extract("cupon_id")
         
         sub_id = try? node.extract("sub_id")
     }
@@ -73,7 +75,8 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
             "payment" : .string(payment)
         ]).add(objects: [
             "id" : id,
-             "sub_id" : sub_id
+            "sub_id" : sub_id,
+            "cupon_id" : cupon_id
         ])
     }
     
@@ -107,6 +110,7 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
             subscription.parent(Box.self, optional: false)
             subscription.parent(Shipping.self, optional: false)
             subscription.parent(Customer.self, optional: false)
+            subscription.parent(Cupon.self, optional: true)
         })
     }
     
@@ -131,6 +135,10 @@ extension Subscription {
     
     func customer() throws -> Parent<Customer> {
         return try parent(customer_id)
+    }
+    
+    func cupon() throws -> Parent<Cupon> {
+        return try parent(cupon_id)
     }
 }
 

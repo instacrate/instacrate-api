@@ -12,17 +12,6 @@ import HTTP
 import Stripe
 import Fluent
 
-func createMetadataArray(fromModels models: [Model]) -> [String: String] {
-
-    let primaryKeys = models.filter { $0.id != nil }.map { (type(of: $0).entity, "\($0.id!.int!)") }
-
-    return primaryKeys.reduce([:]) { (dict, element) in
-        var dict = dict
-        dict[element.0] = element.1
-        return dict
-    }
-}
-
 final class SubscriptionController: ResourceRepresentable {
     
     func index(_ request: Request) throws -> ResponseRepresentable {

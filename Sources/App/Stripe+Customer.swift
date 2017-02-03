@@ -10,6 +10,17 @@ import Foundation
 import Stripe
 import Vapor
 
+func createMetadataArray(fromModels models: [Model?]) -> [String: String] {
+    
+    let primaryKeys = models.filter { $0?.id != nil }.map { (type(of: $0!).entity, "\($0!.id!.int!)") }
+    
+    return primaryKeys.reduce([:]) { (dict, element) in
+        var dict = dict
+        dict[element.0] = element.1
+        return dict
+    }
+}
+
 extension Stripe {
     
     func createStandaloneAccount(for customer: Customer, from source: Token, on account: String) throws -> StripeCustomer {
@@ -52,8 +63,16 @@ extension Stripe {
             throw Abort.custom(status: .internalServerError, message: "missing publishable key")
         }
         
-        let metadata = createMetadataArray(fromModels: [address, customer, vendor, subscription, box])
-        let sub = try Stripe.shared.subscribe(user: stripeCustomer, to: plan, oneTime: false, cut: vendor.cut, metadata: metadata, under: secret)
+        let cupon = try subscription.cupon().first()
+        
+        if let cupon = cupon {
+            guard cupon.customer_id == customer.id else {
+                throw Abort.custom(status: .badRequest, message: "That cupon is invalid for this user. Cupon tied to \(cupon.customer_id ?? 0) while sub is for \(customer.id ?? 0)")
+            }
+        }
+        
+        let metadata = createMetadataArray(fromModels: [address, customer, vendor, subscription, box, cupon])
+        let sub = try Stripe.shared.subscribe(user: stripeCustomer, to: plan, oneTime: false, cut: vendor.cut, cupon: cupon?.code, metadata: metadata, under: secret)
         
         subscription.sub_id = sub.id
         try subscription.save()
