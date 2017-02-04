@@ -12,6 +12,9 @@ import Vapor
 
 final class ContractController: ResourceRepresentable {
     
+    // TODO : Consider who can create contracts
+    // TODO : Consider moving uploads to one endpoint
+    
     func create(_ request: Request) throws -> ResponseRepresentable {
         
         guard let vendor = try Vendor.find(id: request.query?["vendor"]?.int) else {

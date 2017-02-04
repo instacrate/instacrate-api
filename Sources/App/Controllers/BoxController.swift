@@ -8,8 +8,27 @@
 
 import Foundation
 import Vapor
+import enum HTTP.Method
 import HTTP
 import Fluent
+
+extension Box {
+    
+    func shouldAllow(request: Request) throws {
+        switch request.sessionType {
+        case .vendor:
+            let vendor = try request.vendor()
+            
+            guard try vendor.throwableId() == vendor_id?.int else {
+                throw try Abort.custom(status: .forbidden, message: "This Vendor(\(vendor.throwableId()) does not have access to resource Box(\(throwableId()). Must be logged in as Vendor(\(vendor_id?.int ?? 0).")
+            }
+            
+        case .customer: fallthrough
+        case .none:
+            throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Box(\(throwableId())) by this user. Must be logged in as Vendor(\(vendor_id?.int ?? 0)).")
+        }
+    }
+}
 
 final class BoxController: ResourceRepresentable {
 
@@ -41,7 +60,11 @@ final class BoxController: ResourceRepresentable {
     }
 
     func create(_ request: Request) throws -> ResponseRepresentable {
-        if let bullets: [String] = try request.json?.node.extract("bullets") {
+        guard request.sessionType == .vendor else {
+            throw Abort.custom(status: .forbidden, message: "Users can not create boxes. Please login as a vendor.")
+        }
+        
+        if let bullets: [String] = try request.json().node.extract("bullets") {
             request.json?["bullets"] = JSON(Node.string(bullets.joined(separator: Box.boxBulletSeparator)))
         }
         
@@ -51,11 +74,15 @@ final class BoxController: ResourceRepresentable {
     }
 
     func delete(_ request: Request, box: Box) throws -> ResponseRepresentable {
+        try box.shouldAllow(request: request)
+        
         try box.delete()
         return Response(status: .noContent)
     }
 
     func modify(_ request: Request, box: Box) throws -> ResponseRepresentable {
+        try box.shouldAllow(request: request)
+        
         var box: Box = try request.patchModel(box)
         try box.save()
         return try Response(status: .ok, json: box.makeJSON())

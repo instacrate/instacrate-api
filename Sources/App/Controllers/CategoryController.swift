@@ -12,6 +12,8 @@ import HTTP
 
 final class CategoryController: ResourceRepresentable {
     
+    // TODO : consider who can create categories
+    
     func show(_ request: Request, category: Category) throws -> ResponseRepresentable {
         return try category.boxes().all().makeJSON()
     }

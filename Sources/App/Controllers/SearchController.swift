@@ -14,8 +14,7 @@ final class SearchController: ResourceRepresentable {
     
     func index(_ request: Request) throws -> ResponseRepresentable {
         let boxes = try Box.query().all()
-        let names: [Node] = boxes.map { .string($0.name) }
-        return JSON(.array(names))
+        return JSON(.array(boxes.map { .string($0.name) }))
     }
     
     func makeResource() -> Resource<Box> {

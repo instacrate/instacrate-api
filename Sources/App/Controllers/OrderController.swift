@@ -11,6 +11,8 @@ import HTTP
 import Vapor
 import Fluent
 
+// TODO : Change to how stripe does it by just having one parameter that specifies to and from
+
 enum OrderTimeRange: String, TypesafeOptionsParameter, QueryModifiable {
 
     case day

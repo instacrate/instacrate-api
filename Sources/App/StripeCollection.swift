@@ -96,7 +96,7 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                 }
                 
                 coupon.post() { request in
-                    guard let email: String = try request.json?.node.extract("customerEmail") else {
+                    guard let email: String = try request.json().node.extract("customerEmail") else {
                         throw Abort.custom(status: .badRequest, message: "missing customer email")
                     }
                     

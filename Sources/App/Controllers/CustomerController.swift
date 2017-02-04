@@ -22,6 +22,27 @@ enum FetchType: String, TypesafeOptionsParameter {
     static var defaultValue: FetchType? = nil
 }
 
+extension Customer {
+    
+    func shouldAllow(request: Request) throws {
+        switch request.sessionType {
+        case .none:
+            throw try Abort.custom(status: .forbidden, message: "Must authenticate as Customer(\(throwableId()) to perform \(request.method) on it.")
+            
+        case .vendor:
+            let vendor = try request.vendor()
+            throw try Abort.custom(status: .forbidden, message: "Vendor(\(vendor.throwableId()) can not perform \(request.method) on Customer(\(throwableId())).")
+            
+        case .customer:
+            let customer = try request.customer()
+            
+            guard try customer.throwableId() == throwableId() else {
+                throw try Abort.custom(status: .forbidden, message: "Customer(\(customer.throwableId()) can not perform \(request.method) on Customer(\(throwableId()).")
+            }
+        }
+    }
+}
+
 final class CustomerController {
 
     func detail(_ request: Request) throws -> ResponseRepresentable {
@@ -59,6 +80,8 @@ final class CustomerController {
     }
     
     func modify(_ request: Request, customer: Customer) throws -> ResponseRepresentable {
+        try customer.shouldAllow(request: request)
+        
         var customer: Customer = try request.patchModel(customer)
         try customer.save()
         return try Response(status: .ok, json: customer.makeJSON())

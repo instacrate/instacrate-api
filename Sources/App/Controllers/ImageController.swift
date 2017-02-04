@@ -12,6 +12,8 @@ import Vapor
 
 final class ImageController: ResourceRepresentable {
     
+    // TODO : Better handling of images, allow all images to be stored in one request
+    
     func create(_ request: Request) throws -> ResponseRepresentable {
         
         guard let box = try Box.find(id: request.query?["box"]?.int) else {

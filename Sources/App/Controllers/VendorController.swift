@@ -12,6 +12,24 @@ import HTTP
 import Turnstile
 import Auth
 
+extension Vendor {
+    
+    func shouldAllow(request: Request) throws {
+        switch request.sessionType {
+        case .vendor:
+            let vendor = try request.vendor()
+            
+            guard try vendor.throwableId() == throwableId() else {
+                throw try Abort.custom(status: .forbidden, message: "This Vendor(\(vendor.throwableId()) does not have access to resource Vendor(\(throwableId()). Must be logged in as Vendor(\(throwableId()).")
+            }
+            
+        case .customer: fallthrough
+        case .none:
+            throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Vendor(\(throwableId())) by this user. Must be logged in as Vendor(\(throwableId())).")
+        }
+    }
+}
+
 final class VendorController: ResourceRepresentable {
 
     func index(_ request: Request) throws -> ResponseRepresentable {
@@ -19,6 +37,7 @@ final class VendorController: ResourceRepresentable {
     }
     
     func show(_ request: Request, vendor: Vendor) throws -> ResponseRepresentable {
+        try vendor.shouldAllow(request: request)
         return try vendor.makeJSON()
     }
     
@@ -37,6 +56,8 @@ final class VendorController: ResourceRepresentable {
     }
 
     func modify(_ request: Request, vendor: Vendor) throws -> ResponseRepresentable {
+        try vendor.shouldAllow(request: request)
+        
         var vendor: Vendor = try request.patchModel(vendor)
         try vendor.save()
         return try Response(status: .ok, json: vendor.makeJSON())

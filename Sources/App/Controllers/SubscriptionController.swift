@@ -12,6 +12,23 @@ import HTTP
 import Stripe
 import Fluent
 
+extension Subscription {
+    
+    func shouldAllow(request: Request) throws {
+        switch request.sessionType {
+        case .customer:
+            let customer = try request.customer()
+            guard try customer.throwableId() == customer_id?.int else {
+                throw try Abort.custom(status: .forbidden, message: "This Customer(\(customer.throwableId())) does not have access to resource Subscription(\(throwableId()). Must be logged in as Customer(\(customer_id?.int ?? 0).")
+            }
+            
+        case .vendor: fallthrough
+        case .none:
+            throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Subscription(\(throwableId())) by this user. Must be logged in as Customer(\(customer_id?.int ?? 0)).")
+        }
+    }
+}
+
 final class SubscriptionController: ResourceRepresentable {
     
     func index(_ request: Request) throws -> ResponseRepresentable {
@@ -30,7 +47,7 @@ final class SubscriptionController: ResourceRepresentable {
             query = try Subscription.query().filter("customer_id", id)
 
         case .none:
-            throw Abort.custom(status: .forbidden, message: "You must be logged in as either a vendor or customer.")
+            throw Abort.custom(status: .forbidden, message: "You must be logged in as either a vendor or customer to fetch subscriptions.")
         }
 
         let format = try request.extract() as Subscription.Format
@@ -38,23 +55,33 @@ final class SubscriptionController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        let couponCode: String? = try request.json?.node.extract("couponCode")
+        let couponCode: String? = try request.json().node.extract("couponCode")
         var subscription: Subscription = try request.extractModel(injecting: request.customerInjectable())
         try Stripe.shared.complete(subscription: &subscription, coupon: couponCode)
         return subscription
     }
     
     func modify(_ request: Request, subscription: Subscription) throws -> ResponseRepresentable {
+        try subscription.shouldAllow(request: request)
+        
         var subscription: Subscription = try request.patchModel(subscription)
         try subscription.save()
         return try Response(status: .ok, json: subscription.makeJSON())
+    }
+    
+    func delete(_ request: Request, subscription: Subscription) throws -> ResponseRepresentable {
+        try subscription.shouldAllow(request: request)
+        
+        try subscription.delete()
+        return Response(status: .noContent)
     }
     
     func makeResource() -> Resource<Subscription> {
         return Resource(
             index: index,
             store: create,
-            modify: modify
+            modify: modify,
+            destroy: delete
         )
     }
 }

@@ -10,33 +10,34 @@ import Foundation
 import Vapor
 import HTTP
 
+extension Review {
+    
+    func shouldAllow(request: Request) throws {
+        switch request.sessionType {
+        case .customer:
+            let customer = try request.customer()
+            guard try customer.throwableId() == customer_id?.int else {
+                throw try Abort.custom(status: .forbidden, message: "This Customer(\(customer.throwableId())) does not have access to resource Review(\(throwableId()). Must be logged in as Customer(\(customer_id?.int ?? 0).")
+            }
+            
+       case .vendor: fallthrough
+        case .none:
+            throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Review(\(throwableId())) by this user. Must be logged in as Customer(\(customer_id?.int ?? 0)).")
+        }
+    }
+}
+
 final class ReviewController: ResourceRepresentable {
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var modify: Review = try request.extractModel()
-        try modify.save()
-        return modify
-        
-//        var review = try Review(json: request.json())
-//        let customer = try request.customer()
-//
-//        if review.customer_id != nil {
-//            guard review.customer_id == customer.id else {
-//                throw Abort.custom(status: .badRequest, message: "User id provided in object does not match logged in user.")
-//            }
-//        } else {
-//            review.customer_id = customer.id
-//        }
-//
-//        guard try review.box().get() != nil else {
-//            throw Abort.custom(status: .badRequest, message: "No such box with id \(review.box_id)")
-//        }
-//
-//        try review.save()
-//        return try Response(status: .created, json: review.makeJSON())
+        var review: Review = try request.extractModel(injecting: request.customerInjectable())
+        try review.save()
+        return review
     }
     
     func modify(_ request: Request, review: Review) throws -> ResponseRepresentable {
+        try review.shouldAllow(request: request)
+        
         var review: Review = try request.patchModel(review)
         try review.save()
         return try Response(status: .ok, json: review.makeJSON())
