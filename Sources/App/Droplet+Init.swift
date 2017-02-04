@@ -15,7 +15,6 @@ import Auth
 import Turnstile
 import HTTP
 import Console
-import Sentry
 
 extension SessionsMiddleware {
     
@@ -31,9 +30,6 @@ extension Droplet {
     static var logger: LogProtocol?
     
     internal static func create() -> Droplet {
-        
-        SentryClient.shared = SentryClient(dsnString: "https://73517071d5e449388c91e419f6c5cb7a:10ae772807654220913a372ba28c4781@sentry.io/133330")
-        SentryClient.shared?.startCrashHandler()
         
         let drop = Droplet()
         
