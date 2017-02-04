@@ -15,8 +15,7 @@
             "sessions",
             "logger",
             "vendorAuth",
-            "userAuth",
-            "bugsnag"
+            "userAuth"
         ],
         "client": []
     }

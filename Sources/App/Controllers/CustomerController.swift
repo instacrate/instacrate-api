@@ -56,6 +56,7 @@ final class CustomerController {
         let options = try request.extract() as [FetchType]
 
         if options.contains(.stripe) {
+            // TODO : is card needed here, and update documentation
             if let card = request.query?["card"]?.string {
                 let cards = try Stripe.shared.paymentInformation(for: stripe_id)
                 customerNode["card"] = try cards.filter { $0.id == card }.first?.makeNode()

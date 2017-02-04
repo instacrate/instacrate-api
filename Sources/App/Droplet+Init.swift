@@ -15,9 +15,7 @@ import Auth
 import Turnstile
 import HTTP
 import Console
-import SwiftyBeaverVapor
-import SwiftyBeaver
-import Bugsnag
+import Sentry
 
 extension SessionsMiddleware {
     
@@ -34,16 +32,13 @@ extension Droplet {
     
     internal static func create() -> Droplet {
         
+        SentryClient.shared = SentryClient(dsnString: "https://73517071d5e449388c91e419f6c5cb7a:10ae772807654220913a372ba28c4781@sentry.io/133330")
+        SentryClient.shared?.startCrashHandler()
+        
         let drop = Droplet()
         
         Droplet.instance = drop
         Droplet.logger = drop.log.self
-        
-        do {
-            try drop.addConfigurable(middleware: BugsnagMiddleware(drop: drop), name: "bugsnag")
-        } catch {
-            logger?.fatal("failed to add bugsnag middleware \(error)")
-        }
         
         do {
             try drop.addProvider(VaporMySQL.Provider.self)
@@ -64,13 +59,6 @@ extension Droplet {
         }
         
         drop.middleware = remainingMiddleare
-        
-        let console = ConsoleDestination()
-        let cloud = SBPlatformDestination(appID: "bJPz3G", appSecret: "6mjntsiwynN4FhcXOrx9odn8faQ0XikT", encryptionKey: "412glxzpnws07VhgiefsiggxkyhtjrW2")
-        
-        let sbProvider = SwiftyBeaverProvider(destinations: [console, cloud])
-        
-        drop.addProvider(sbProvider)
         
         let preparations: [Preparation.Type] = [Box.self, Review.self, Vendor.self, Category.self, Picture.self, Order.self, Shipping.self, Subscription.self, Pivot<Box, Category>.self, Customer.self, Session.self, FeaturedBox.self, Onboarding.self, BoxPlan.self, VendorCustomer.self, Coupon.self]
         drop.preparations.append(contentsOf: preparations)
