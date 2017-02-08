@@ -36,6 +36,7 @@ final class CategoryController: ResourceRepresentable {
     
     func makeResource() -> Resource<Category> {
         return Resource(
+            index: index,
             store: create,
             show: show,
             modify: modify
