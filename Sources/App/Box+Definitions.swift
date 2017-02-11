@@ -40,7 +40,7 @@ extension Box {
                 
             case .staffpicks: fallthrough
             case .featured:
-                return try Box.query().union(FeaturedBox.self, localKey: "id", foreignKey: "box_id").filter(FeaturedBox.self, "type", self.rawValue)
+                return try Box.query().filter("type", self.rawValue)
                 
             case .new:
                 let query = try Box.query().sort("publish_date", .descending)
