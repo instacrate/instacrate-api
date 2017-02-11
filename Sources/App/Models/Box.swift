@@ -45,6 +45,7 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
     var bullets: [String]
     let price: Double
     let publish_date: Date
+    let type: String?
     
     var plan_id: String?
     var vendor_id: Node?
@@ -63,6 +64,7 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
         vendor_id = try node.extract("vendor_id")
         publish_date = (try? node.extract("publish_date")) ?? Date()
         plan_id = try? node.extract("plan_id")
+        type = try? node.extract("type")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -77,7 +79,8 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
             "publish_date" : .string(publish_date.ISO8601String),
         ]).add(objects: [
             "id" : id,
-             "plan_id" : plan_id
+             "plan_id" : plan_id,
+             "type" : type
         ])
     }
     
@@ -98,6 +101,7 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
             box.double("price")
             box.double("publish_date")
             box.string("plan_id")
+            box.string("type")
             box.parent(Vendor.self, optional: false)
         })
     }
