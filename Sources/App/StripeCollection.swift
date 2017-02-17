@@ -119,10 +119,10 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                     
                     sources.post("default", String.self) { request, source in
                         guard let id = try request.customer().stripe_id else {
-                            try throw Abort.custom(status: .badRequest, message: "user \(request.customer().throwableId()) doesn't have a stripe account")
+                            throw try Abort.custom(status: .badRequest, message: "user \(request.customer().throwableId()) doesn't have a stripe account")
                         }
                         
-                        return try Stripe.shared.update(customer: id, parameters: "default_source" : source)
+                        return try Stripe.shared.update(customer: id, parameters: ["default_source" : source])
                     }
 
                     sources.post(String.self) { request, source in
