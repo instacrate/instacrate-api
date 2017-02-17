@@ -122,7 +122,7 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                             throw try Abort.custom(status: .badRequest, message: "user \(request.customer().throwableId()) doesn't have a stripe account")
                         }
                         
-                        return try Stripe.shared.update(customer: id, parameters: ["default_source" : source])
+                        return try Stripe.shared.update(customer: id, parameters: ["default_source" : source]).makeResponse()
                     }
 
                     sources.post(String.self) { request, source in
