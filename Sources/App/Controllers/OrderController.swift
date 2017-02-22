@@ -127,16 +127,23 @@ fileprivate func createLongView(for order: Order) throws -> Node {
     let customer = try order.customer().first()
     let box = try order.box().first()
     let shipping = try order.shippingAddress().first()
+    var billing: Node?
+    
+    if let stripe_id = customer?.stripe_id, let payment = try order.subscription().first()?.payment {
+        let cards = try Stripe.shared.paymentInformation(for: stripe_id)
+        billing = try cards.filter { $0.id == payment }.first?.makeNode()
+    }
     
     return try Node(node: [
         "id" : "\(order.throwableId())",
-        "date" : "\(order.date.timeIntervalSince1970)"
+        "date" : String(Int(order.date.timeIntervalSince1970))
     ]).add(objects: [
         "customerName" : customer?.name,
         "boxName" : box?.name,
         "price" : box?.price,
         "customerEmail" : customer?.email,
-        "address" : shipping
+        "shipping" : shipping,
+        "billing" : billing
     ])
 }
 

@@ -12,7 +12,7 @@ import Sanitized
 
 final class Shipping: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var permitted: [String] = ["customer_id", "address", "firstName", "lastName", "apartment", "city", "state", "zip", "isDefault"]
+    static var permitted: [String] = ["customer_id", "address", "firstName", "lastName", "apartment", "city", "state", "zip", "isDefault", "number"]
     
     var id: Node?
     var exists = false
@@ -26,6 +26,7 @@ final class Shipping: Model, Preparation, JSONConvertible, Sanitizable {
     let city: String
     let state: String
     let zip: String
+    let number: String?
     var isDefault: Bool
     
     var customer_id: Node?
@@ -40,9 +41,9 @@ final class Shipping: Model, Preparation, JSONConvertible, Sanitizable {
         city = try node.extract("city")
         state = try node.extract("state")
         zip = try node.extract("zip")
-        
-        isDefault = (try? node.extract("isDefault")) ?? false
-        apartment = try? node.extract("apartment")
+        number = try node.extract("number")
+        isDefault = try node.extract("isDefault") ?? false
+        apartment = try node.extract("apartment")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -54,9 +55,12 @@ final class Shipping: Model, Preparation, JSONConvertible, Sanitizable {
             "customer_id" : customer_id!,
             "isDefault" : .bool(isDefault),
             "firstName" : .string(firstName),
-            "lastName" : .string(lastName)
-        ]).add(objects: ["id" : id,
-                         "apartment" : apartment])
+            "lastName" : .string(lastName),
+        ]).add(objects: [
+            "id" : id,
+             "apartment" : apartment,
+            "number" : number
+        ])
     }
     
     func postValidate() throws {
@@ -75,6 +79,7 @@ final class Shipping: Model, Preparation, JSONConvertible, Sanitizable {
             shipping.string("zip")
             shipping.string("firstName")
             shipping.string("lastName")
+            shipping.string("number")
             shipping.bool("isDefault")
             shipping.parent(Customer.self, optional: false)
         })
