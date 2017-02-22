@@ -126,19 +126,18 @@ class StripeCollection: RouteCollection, EmptyInitializable {
 
                     sources.post(String.self) { request, source in
 
-                        guard let customer = try? request.customer() else {
+                        guard var customer = try? request.customer() else {
                             throw Abort.custom(status: .forbidden, message: "Log in first.")
                         }
                         
-                        if customer.stripe_id == nil {
-                            try Stripe.shared.createNormalAccount(email: customer.email, source: source, local_id: customer.id?.int)
+                        if let stripe_id = customer.stripe_id {
+                            return try Stripe.shared.associate(source: source, withStripe: stripe_id).makeResponse()
+                        } else {
+                            let stripeCustomer = try Stripe.shared.createNormalAccount(email: customer.email, source: source, local_id: customer.id?.int)
+                            customer.stripe_id = stripeCustomer.id
+                            try customer.save()
+                            return try stripeCustomer.makeResponse()
                         }
-                        
-                        guard let id = customer.stripe_id else {
-                            throw Abort.custom(status: .badRequest, message: "User \(customer.id!.int!) doesn't have a stripe account.")
-                        }
-
-                        return try Stripe.shared.associate(source: source, withStripe: id).makeResponse()
                     }
 
                     sources.delete(String.self) { request, source in
