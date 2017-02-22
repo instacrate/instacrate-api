@@ -24,18 +24,15 @@ final class VendorAddress: Model, Preparation, JSONConvertible, Sanitizable {
     let state: String
     let zip: String
     
-    var vendor_id: Node?
-    
     init(node: Node, in context: Context) throws {
         id = try? node.extract("id")
         
-        vendor_id = try node.extract("vendor_id")
         address = try node.extract("address")
         city = try node.extract("city")
         state = try node.extract("state")
         zip = try node.extract("zip")
         
-        apartment = try? node.extract("apartment")
+        apartment = try node.extract("apartment")
     }
     
     func makeNode(context: Context) throws -> Node {
@@ -46,15 +43,8 @@ final class VendorAddress: Model, Preparation, JSONConvertible, Sanitizable {
             "zip" : .string(zip)
         ]).add(objects: [
             "id" : id,
-             "apartment" : apartment,
-             "vendor_id" : vendor_id
+             "apartment" : apartment
         ])
-    }
-    
-    func postValidate() throws {
-        guard (try? vendor().first()) ?? nil != nil else {
-            throw ModelError.missingLink(from: Shipping.self, to: Customer.self, id: vendor_id?.int)
-        }
     }
     
     static func prepare(_ database: Database) throws {
@@ -65,18 +55,10 @@ final class VendorAddress: Model, Preparation, JSONConvertible, Sanitizable {
             shipping.string("city")
             shipping.string("state")
             shipping.string("zip")
-            shipping.parent(Vendor.self, optional: false)
         })
     }
     
     static func revert(_ database: Database) throws {
         try database.delete(self.entity)
-    }
-}
-
-extension VendorAddress {
-    
-    func vendor() throws -> Parent<Vendor> {
-        return try parent(vendor_id)
     }
 }

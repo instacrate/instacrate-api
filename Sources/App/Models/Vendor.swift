@@ -181,13 +181,18 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
              "verificationState" : verificationState,
              "stripeAccountId" : stripeAccountId,
              "publishableKey" : keys?.publishable,
-             "secretKey" : keys?.secret
+             "secretKey" : keys?.secret,
+             "address_id" : address_id
         ])
     }
     
     func postValidate() throws {
         guard (try? category().first()) ?? nil != nil else {
             throw ModelError.missingLink(from: Vendor.self, to: Category.self, id: category_id?.int)
+        }
+        
+        guard (try? address().first()) ?? nil != nil else {
+            throw ModelError.missingLink(from: Vendor.self, to: VendorAddress.self, id: address_id?.int)
         }
     }
     

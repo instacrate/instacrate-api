@@ -33,8 +33,9 @@ extension Box {
 final class BoxController: ResourceRepresentable {
 
     func index(_ request: Request) throws -> ResponseRepresentable {
-        switch request.sessionType {
-
+        let type = try request.extract() as SessionType
+        
+        switch type {
         case .vendor:
             let sorted = try request.extract() as Box.Sort
             let format = try request.extract() as Box.Format
