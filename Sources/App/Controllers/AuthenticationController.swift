@@ -65,6 +65,17 @@ extension Authorization {
 
 extension Request {
     
+    func has(session type: SessionType) throws {
+        switch type {
+        case .customer:
+            let _ = try customer()
+        case .vendor:
+            let _ = try vendor()
+        case .none:
+            return
+        }
+    }
+    
     var sessionType: SessionType {
         if (try? customer()) != nil {
             return .customer

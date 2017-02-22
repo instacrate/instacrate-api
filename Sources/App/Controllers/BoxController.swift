@@ -60,9 +60,7 @@ final class BoxController: ResourceRepresentable {
     }
 
     func create(_ request: Request) throws -> ResponseRepresentable {
-        guard request.sessionType == .vendor else {
-            throw Abort.custom(status: .forbidden, message: "Users can not create boxes. Please login as a vendor.")
-        }
+        try? request.has(session: .vendor)
         
         if let bullets: [String] = try request.json().node.extract("bullets") {
             request.json?["bullets"] = JSON(Node.string(bullets.joined(separator: Box.boxBulletSeparator)))

@@ -130,7 +130,11 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                         guard let customer = try? request.customer() else {
                             throw Abort.custom(status: .forbidden, message: "Log in first.")
                         }
-
+                        
+                        if customer.stripe_id == nil {
+                            try Stripe.shared.createNormalAccount(email: customer.email, source: source, local_id: customer.id?.int)
+                        }
+                        
                         guard let id = customer.stripe_id else {
                             throw Abort.custom(status: .badRequest, message: "User \(customer.id!.int!) doesn't have a stripe account.")
                         }

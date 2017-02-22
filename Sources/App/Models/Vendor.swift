@@ -102,6 +102,8 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     
     var keys: Keys?
     
+    var address_id: Node?
+    
     init(node: Node, in context: Context) throws {
         
         id = try? node.extract("id")
@@ -134,6 +136,7 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
         estimatedTotalSubscribers = try node.extract("estimatedTotalSubscribers")
         
         category_id = try node.autoextract(type: Category.self, key: "category")
+        address_id = try node.autoextract(type: VendorAddress.self, key: "address")
         
         cut = (try? node.extract("cut")) ?? 0.08
         stripeAccountId = try? node.extract("stripeAccountId")
@@ -260,6 +263,10 @@ extension Vendor {
     
     func connectAccountCustomers() throws -> Children<VendorCustomer> {
         return children()
+    }
+    
+    func address() throws -> Parent<VendorAddress> {
+        return try parent(address_id)
     }
 }
 
