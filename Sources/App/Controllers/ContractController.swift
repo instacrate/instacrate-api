@@ -21,7 +21,7 @@ final class ContractController: ResourceRepresentable {
             throw Abort.custom(status: .badRequest, message: "Missing box from request")
         }
 
-        guard let fileData = request.multipart?["contract"]?.file?.data else {
+        guard let fileData = request.formData?.first?.1.part.body else {
             throw Abort.custom(status: .badRequest, message: "No file in request")
         }
 

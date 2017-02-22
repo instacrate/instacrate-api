@@ -20,7 +20,7 @@ final class ImageController: ResourceRepresentable {
             throw Abort.custom(status: .badRequest, message: "Missing box from request")
         }
         
-        guard let fileData = request.multipart?["image"]?.file?.data else {
+        guard let fileData = request.formData?["image"]?.part.body else {
             throw Abort.custom(status: .badRequest, message: "No file in request")
         }
 

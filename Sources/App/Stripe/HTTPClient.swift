@@ -8,9 +8,15 @@
 
 import Foundation
 import JSON
+import class HTTP.Serializer
+import class HTTP.Parser
 import HTTP
+import enum Vapor.Abort
 import Transport
-import Vapor
+import class FormData.Serializer
+import class Multipart.Serializer
+import struct Multipart.Part
+import FormData
 
 func createToken(token: String) -> [HeaderKey: String] {
     let data = token.data(using: .utf8)!.base64EncodedString()
@@ -20,12 +26,11 @@ func createToken(token: String) -> [HeaderKey: String] {
 public class HTTPClient {
     
     let baseURLString: String
-    let client: Client<TCPClientStream, Serializer<Request>, Parser<Response>>.Type
+    let client: Client<TCPClientStream, HTTP.Serializer<Request>, HTTP.Parser<Response>>.Type
     
     init(urlString: String) {
         baseURLString = urlString
-        
-        client = Client<TCPClientStream, Serializer<Request>, Parser<Response>>.self
+        client = Client<TCPClientStream, HTTP.Serializer<Request>, HTTP.Parser<Response>>.self
     }
     
     func get<T: NodeConvertible>(_ resource: String, query: [String : CustomStringConvertible] = [:], token: String = Stripe.token) throws -> T {
@@ -70,11 +75,27 @@ public class HTTPClient {
         return try T.init(node: json.makeNode())
     }
     
-    func upload<T: NodeConvertible>(_ resource: String, query: [String: CustomStringConvertible] = [:], multipart: Multipart) throws -> T {
-        let boundry = "\(UUID().uuidString)-boundary-\(UUID().uuidString)"
-        let data = try multipart.serialized(boundary: boundry, keyName: "file")
+    func upload<T: NodeConvertible>(_ resource: String, query: [String: CustomStringConvertible] = [:], name: String, bytes: Bytes) throws -> T {
+        guard let boundry = "\(UUID().uuidString)-boundary-\(UUID().uuidString)".data(using: .utf8) else {
+            throw Abort.custom(status: .internalServerError, message: "Error generating mulitpart form data boundy for upload to Stripe.")
+        }
         
-        let response = try client.post(baseURLString + resource, headers: [.contentType : "multipart/form-data"], body: Body.data(data))
+        var data: Bytes = []
+        
+        let multipartSerializer = Multipart.Serializer(boundary: [UInt8](boundry))
+        
+        multipartSerializer.onSerialize = { bytes in
+            data.append(contentsOf: bytes)
+        }
+        
+        let formDataSerializer = FormData.Serializer(multipart: multipartSerializer)
+        let fileField = Field(name: name, filename: nil, part: Multipart.Part.init(headers: [:], body: bytes))
+        
+        try formDataSerializer.serialize(fileField)
+        try formDataSerializer.multipart.finish()
+        
+        let contentType = try FormData.Serializer.generateContentType(boundary: boundry).string()
+        let response = try client.post(baseURLString + resource, headers: [.contentType : contentType], body: Body.data(data))
         
         guard let json = try? response.json() else {
             throw Abort.custom(status: .internalServerError, message: response.description)

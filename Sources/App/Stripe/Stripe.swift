@@ -132,7 +132,6 @@ public final class Stripe {
     }
     
     public func upload(file bytes: Bytes, with reason: UploadReason, type: FileType) throws -> FileUpload {
-        let file = Multipart.File(name: "file", type: type.rawValue, data: bytes)
-        return try uploads.upload("files", multipart: Multipart.file(file))
+        return try uploads.upload("files", name: "file", bytes: bytes)
     }
 }

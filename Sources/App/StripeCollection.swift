@@ -284,23 +284,23 @@ class StripeCollection: RouteCollection, EmptyInitializable {
                         throw Abort.custom(status: .badRequest, message: "Currently only \(UploadReason.identity_document.rawValue) is supported")
                     }
                     
-                    guard let multipart = request.multipart?.allItems.first, case let .file(file) = multipart.1 else {
+                    guard let fileField = request.formData?.allItems.first?.1 else {
                         throw Abort.custom(status: .badRequest, message: "Missing file to upload.")
                     }
                     
-                    guard let type = file.type, let fileType = try FileType(from: type) else {
+                    guard let name = fileField.filename, let type = NSURL(fileURLWithPath: name).deletingPathExtension?.lastPathComponent, let fileType = try FileType(from: type) else {
                         throw Abort.custom(status: .badRequest, message: "Misisng upload file type.")
                     }
-                    
-                    let fileUpload = try Stripe.shared.upload(file: file.data, with: uploadReason, type: fileType)
                     
                     guard let stripeAccountId = vendor.stripeAccountId else {
                         throw Abort.custom(status: .badRequest, message: "Vendor with id \(vendor.id?.int ?? 0) does't have a stripe acocunt yet. Call /vendor/create/{token_id} to create one.")
                     }
                     
+                    let fileUpload = try Stripe.shared.upload(file: fileField.part.body, with: uploadReason, type: fileType)
                     return try Stripe.shared.updateAccount(id: stripeAccountId, parameters: ["legal_entity[verification][document]" : fileUpload.id]).makeResponse()
                 }
             }
         }
     }
 }
+

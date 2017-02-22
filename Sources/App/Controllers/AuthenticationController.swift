@@ -51,7 +51,10 @@ extension Authorization {
         
         let authString = header.substring(from: range.upperBound)
         
-        let decodedAuthString = authString.base64DecodedString
+        guard let decodedAuthString = try? authString.base64Decoded.string() else {
+            return nil
+        }
+        
         guard let separatorRange = decodedAuthString.range(of: ":") else {
             return nil
         }
