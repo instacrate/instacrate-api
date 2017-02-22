@@ -15,7 +15,7 @@ import Sanitized
 
 final class Customer: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var permitted: [String] = ["email", "name", "password", "defaultShipping", "stripe_id"]
+    static var permitted: [String] = ["email", "name", "password", "defaultShipping"]
     
     var id: Node?
     var exists = false

@@ -65,7 +65,7 @@ extension BCryptSalt: NodeInitializable {
 
 final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     
-    static var permitted: [String] = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id", "estimatedTotalSubscribers", "applicationState", "username", "password", "verificationState0", "stripeAccountId", "cut"]
+    static var permitted: [String] = ["contactName", "businessName", "parentCompanyName", "contactPhone", "contactEmail", "supportEmail", "publicWebsite", "dateCreated", "established", "category_id", "estimatedTotalSubscribers", "applicationState", "username", "password", "verificationState0", "stripeAccountId", "cut", "address"]
     
     var id: Node?
     var exists = false
