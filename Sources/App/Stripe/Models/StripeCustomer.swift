@@ -10,7 +10,7 @@ import Foundation
 import Node
 import Vapor
 
-public final class Customer: NodeConvertible {
+public final class StripeCustomer: NodeConvertible {
     
     static let type = "customer"
     
@@ -26,12 +26,12 @@ public final class Customer: NodeConvertible {
     public let email: String?
     public let livemode: Bool
     public let sources: [Card]
-    public let subscriptions: [Subscription]
+    public let subscriptions: [StripeSubscription]
     
     public init(node: Node, in context: Context = EmptyNode) throws {
         
-        guard try node.extract("object") == Customer.type else {
-            throw NodeError.unableToConvert(node: node, expected: Customer.type)
+        guard try node.extract("object") == StripeCustomer.type else {
+            throw NodeError.unableToConvert(node: node, expected: StripeCustomer.type)
         }
         
         id = try node.extract("id")

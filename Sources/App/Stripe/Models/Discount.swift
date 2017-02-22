@@ -13,7 +13,7 @@ public final class Discount: NodeConvertible {
     
     static let type = "discount"
     
-    public let coupon: Coupon
+    public let coupon: StripeCoupon
     public let customer: String
     public let end: Date
     public let start: Date

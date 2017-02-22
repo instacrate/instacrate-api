@@ -10,7 +10,6 @@ import Foundation
 import HTTP
 import Routing
 import Vapor
-import Stripe
 
 func extractFrom<T: Model>(metadata: Node) throws -> T? {
     return try metadata[T.entity]?.string.flatMap { try T(from: $0) }
@@ -27,7 +26,7 @@ class StripeWebhookCollection {
     required init() {
 
         StripeWebhookManager.shared.registerHandler(forResource: .account, action: .updated) { (event) -> Response in
-            guard let account = event.data.object as? Account else {
+            guard let account = event.data.object as? StripeAccount else {
                 throw Abort.custom(status: .internalServerError, message: "Failed to parse the account from the account.updated event.")
             }
             

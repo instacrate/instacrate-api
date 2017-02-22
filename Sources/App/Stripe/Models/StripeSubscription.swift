@@ -18,7 +18,7 @@ public enum SubscriptionStatus: String, NodeConvertible {
     case unpaid
 }
 
-public final class Subscription: NodeConvertible {
+public final class StripeSubscription: NodeConvertible {
     
     static let type = "subscription"
     
@@ -43,8 +43,8 @@ public final class Subscription: NodeConvertible {
     
     public init(node: Node, in context: Context = EmptyNode) throws {
         
-        guard try node.extract("object") == Subscription.type else {
-            throw NodeError.unableToConvert(node: node, expected: Customer.type)
+        guard try node.extract("object") == StripeSubscription.type else {
+            throw NodeError.unableToConvert(node: node, expected: StripeSubscription.type)
         }
         
         id = try node.extract("id")

@@ -140,7 +140,7 @@ extension Sequence where Iterator.Element == (key: String, value: Node) {
     }
 }
 
-public final class Account: NodeConvertible {
+public final class StripeAccount: NodeConvertible {
     
     static let type = "account"
 
@@ -174,8 +174,8 @@ public final class Account: NodeConvertible {
 
     public required init(node: Node, in context: Context) throws {
         
-        guard try node.extract("object") == Account.type else {
-            throw NodeError.unableToConvert(node: node, expected: Account.type)
+        guard try node.extract("object") == StripeAccount.type else {
+            throw NodeError.unableToConvert(node: node, expected: StripeAccount.type)
         }
         
         id = try node.extract("id")

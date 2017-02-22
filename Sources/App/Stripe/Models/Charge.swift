@@ -95,7 +95,7 @@ public enum ErrorType: String, NodeConvertible {
     case rate_limit_error
 }
 
-public final class Shipping: NodeConvertible {
+public final class StripeShipping: NodeConvertible {
 
     public let address: Address
     public let name: String
@@ -120,7 +120,7 @@ public final class Shipping: NodeConvertible {
     }
 }
 
-public enum Status: String, NodeConvertible {
+public enum ChargeStatus: String, NodeConvertible {
 
     case succeeded
     case pending
@@ -157,11 +157,11 @@ public final class Charge: NodeConvertible {
     public let refunded: Bool
     public let refunds: Node
     public let review: String?
-    public let shipping: Shipping?
+    public let shipping: StripeShipping?
     public let source: Card
     public let source_transfer: String?
     public let statement_descriptor: String?
-    public let status: Status?
+    public let status: ChargeStatus?
     public let transfer: String
 
     public required init(node: Node, in context: Context = EmptyNode) throws {

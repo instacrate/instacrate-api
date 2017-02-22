@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Stripe
 import Vapor
 
 func createMetadataArray(fromModels models: [Model?]) -> [String: String] {

@@ -9,7 +9,6 @@
 import Vapor
 import Fluent
 import Foundation
-import Stripe
 import Sanitized
 
 final class Order: Model, Preparation, JSONConvertible, Sanitizable {

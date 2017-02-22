@@ -13,7 +13,6 @@ import HTTP
 import Turnstile
 import Foundation
 import Auth
-import Stripe
 
 let drop = Droplet.create()
 

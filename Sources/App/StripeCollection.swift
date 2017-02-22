@@ -10,7 +10,6 @@ import Foundation
 import HTTP
 import Routing
 import Vapor
-import Stripe
 
 extension Sequence where Iterator.Element == Bool {
     

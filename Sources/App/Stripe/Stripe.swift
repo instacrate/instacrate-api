@@ -46,14 +46,14 @@ public final class Stripe {
         return try base.post("tokens", query: ["customer" : customer, "card" : card], token: account)
     }
 
-    public func createNormalAccount(email: String, source: String, local_id: Int?, on account: String = token) throws -> Customer {
+    public func createNormalAccount(email: String, source: String, local_id: Int?, on account: String = token) throws -> StripeCustomer {
         let defaultQuery = ["source" : source]
         let query = local_id.flatMap { merge(query: defaultQuery, with: ["id" : "\($0)"]) } ?? defaultQuery
 
         return try base.post("customers", query: query, token: account)
     }
 
-    public func createManagedAccount(email: String, local_id: Int?) throws -> Account {
+    public func createManagedAccount(email: String, local_id: Int?) throws -> StripeAccount {
         let defaultQuery: [String: CustomStringConvertible] = ["managed" : true, "country" : "US", "email" : email, "legal_entity[type]" : "company"]
         let query = local_id.flatMap { merge(query: defaultQuery, with: ["id" : "\($0)"]) } ?? defaultQuery
         
@@ -69,12 +69,12 @@ public final class Stripe {
         return try base.post("plans", query: parameters, token: account)
     }
     
-    public func update(customer id: String, parameters: [String : String]) throws-> Customer {
+    public func update(customer id: String, parameters: [String : String]) throws-> StripeCustomer {
         return try base.post("customer/\(id)", query: parameters)
     }
 
-    public func subscribe(user userId: String, to planId: String, with frequency: Interval = .month, oneTime: Bool, cut: Double, coupon: String? = nil, metadata: [String : CustomStringConvertible], under publishableKey: String) throws -> Subscription {
-        let subscription: Subscription = try base.post("subscriptions", query: merge(query: ["customer" : userId, "plan" : planId, "application_fee_percent" : cut, "coupon" : coupon], with: metadata), token: publishableKey)
+    public func subscribe(user userId: String, to planId: String, with frequency: Interval = .month, oneTime: Bool, cut: Double, coupon: String? = nil, metadata: [String : CustomStringConvertible], under publishableKey: String) throws -> StripeSubscription {
+        let subscription: StripeSubscription = try base.post("subscriptions", query: merge(query: ["customer" : userId, "plan" : planId, "application_fee_percent" : cut, "coupon" : coupon], with: metadata), token: publishableKey)
 
         if oneTime {
             let json = try base.delete("/subscriptions/\(subscription.id)", query: ["at_period_end" : true])
@@ -87,7 +87,7 @@ public final class Stripe {
         return subscription
     }
     
-    public func createCoupon(code: String) throws -> Coupon {
+    public func createCoupon(code: String) throws -> StripeCoupon {
         return try base.post("coupons", query: ["duration": Duration.once.rawValue, "id" : code, "percent_off" : 5, "max_redemptions" : 1])
     }
 
@@ -95,11 +95,11 @@ public final class Stripe {
         return try base.get("customers/\(customer)/sources", query: ["object" : "card"])
     }
 
-    public func customerInformation(for customer: String) throws -> Customer {
+    public func customerInformation(for customer: String) throws -> StripeCustomer {
         return try base.get("customers/\(customer)")
     }
     
-    public func vendorInformation(for vendor: String) throws -> Account {
+    public func vendorInformation(for vendor: String) throws -> StripeAccount {
         return try base.get("accounts/\(vendor)")
     }
     
@@ -119,7 +119,7 @@ public final class Stripe {
         return try base.get("country_specs/\(country.rawValue.uppercased())")
     }
 
-    public func acceptedTermsOfService(for user: String, ip: String) throws -> Account {
+    public func acceptedTermsOfService(for user: String, ip: String) throws -> StripeAccount {
         return try base.post("accounts/\(user)", query: ["tos_acceptance[date]" : "\(Int(Date().timeIntervalSince1970))", "tos_acceptance[ip]" : ip])
     }
 
@@ -127,7 +127,7 @@ public final class Stripe {
         return try base.post("invoices/\(invoice_id)", query: ["metadata[orders]" : "\(id)"])
     }
     
-    public func updateAccount(id: String, parameters: [String : String]) throws -> Account {
+    public func updateAccount(id: String, parameters: [String : String]) throws -> StripeAccount {
         return try base.post("accounts/\(id)", query: parameters)
     }
     

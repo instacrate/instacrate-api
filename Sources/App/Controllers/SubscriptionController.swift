@@ -9,7 +9,6 @@
 import Foundation
 import Vapor
 import HTTP
-import Stripe
 import Fluent
 
 extension Subscription {

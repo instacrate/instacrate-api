@@ -48,7 +48,7 @@ public final class LineItem: NodeConvertible {
     public let plan: Plan
     public let proration: Bool
     public let quantity: Int
-    public let subscription: Subscription
+    public let subscription: StripeSubscription
     public let subscription_item: String
     public let type: LineItemType
     

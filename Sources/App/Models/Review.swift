@@ -9,7 +9,6 @@
 import Vapor
 import Fluent
 import Foundation
-import Stripe
 import Sanitized
 
 final class Review: Model, Preparation, JSONConvertible, Sanitizable {

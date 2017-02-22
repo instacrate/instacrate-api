@@ -19,7 +19,7 @@ public enum ReviewReason: String, NodeConvertible {
     case disputed
 }
 
-public final class Review: NodeConvertible {
+public final class StripeReview: NodeConvertible {
 
     static let type = "review"
 
@@ -32,8 +32,8 @@ public final class Review: NodeConvertible {
 
     public required init(node: Node, in context: Context = EmptyNode) throws {
 
-        guard try node.extract("object") == Review.type else {
-            throw NodeError.unableToConvert(node: node, expected: Review.type)
+        guard try node.extract("object") == StripeReview.type else {
+            throw NodeError.unableToConvert(node: node, expected: StripeReview.type)
         }
 
         id = try node.extract("id")

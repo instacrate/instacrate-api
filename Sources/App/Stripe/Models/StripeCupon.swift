@@ -16,7 +16,7 @@ public enum Duration: String, NodeConvertible {
     case repeating
 }
 
-public final class Coupon: NodeConvertible {
+public final class StripeCoupon: NodeConvertible {
     
     static let type = "coupon"
     
@@ -34,8 +34,8 @@ public final class Coupon: NodeConvertible {
     public let valid: Bool
     
     public init(node: Node, in context: Context = EmptyNode) throws {
-        guard try node.extract("object") == Coupon.type else {
-            throw NodeError.unableToConvert(node: node, expected: Coupon.type)
+        guard try node.extract("object") == StripeCoupon.type else {
+            throw NodeError.unableToConvert(node: node, expected: StripeCoupon.type)
         }
         
         id = try node.extract("id")

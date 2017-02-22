@@ -9,7 +9,6 @@
 import Vapor
 import Fluent
 import Foundation
-import Stripe
 import HTTP
 import Sanitized
 

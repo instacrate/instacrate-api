@@ -43,7 +43,7 @@ public enum EventResource: String {
     var internalModelType: NodeConvertible.Type {
         switch self {
         case .account:
-            return Account.self
+            return StripeAccount.self
         case .charge:
             return Charge.self
         case .invoice:
