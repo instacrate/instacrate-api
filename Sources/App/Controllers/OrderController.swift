@@ -145,15 +145,17 @@ extension Order {
     // TODO : make sure this works
     
     static func orders(for request: Request) throws -> Query<Order> {
-        switch request.sessionType {
+        let type = try request.extract() as SessionType
+        
+        switch type {
         case .vendor:
             let vendor = try request.vendor()
             return try Order.query().filter("vendor_id", vendor.throwableId())
+            
+        case .none: fallthrough
         case .customer:
             let customer = try request.customer()
             return try Order.query().filter("customer_id", customer.throwableId())
-        case .none:
-            throw Abort.custom(status: .forbidden, message: "Login to fetch orders.")
         }
     }
 
@@ -185,7 +187,7 @@ final class OrderController: ResourceRepresentable {
     }
     
     func create(_ request: Request) throws -> ResponseRepresentable {
-        var order: Order = try request.extractModel()
+        var order: Order = try request.extractModel(injecting: request.customerInjectable())
         try order.save()
         return order
     }

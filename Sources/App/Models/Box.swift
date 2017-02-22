@@ -110,11 +110,7 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
     }
     
     func fetchConnectPlan(for vendor: Vendor) throws -> String {
-        guard let box_id = self.id else {
-            throw Abort.custom(status: .internalServerError, message: "Missing box id.")
-        }
-        
-        if let connectAccountPlan = try self.connectAccountPlans().filter("box_id", box_id).first() {
+        if let connectAccountPlan = try self.connectAccountPlans().filter("vendor_id", vendor.throwableId()).first() {
             return connectAccountPlan.plan_id
         } else {
             guard let secret = vendor.keys?.secret else {

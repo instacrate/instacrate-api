@@ -35,6 +35,7 @@ extension Stripe {
     }
     
     func complete(subscription: inout Subscription, coupon code: String?) throws {
+
         guard let box = try subscription.box().first() else {
             throw ModelError.missingLink(from: Subscription.self, to: Box.self, id: subscription.box_id?.int)
         }

@@ -91,8 +91,8 @@ public final class Stripe {
         return try base.post("coupons", query: ["duration": Duration.once.rawValue, "id" : code, "percent_off" : 5, "max_redemptions" : 1])
     }
 
-    public func paymentInformation(for customer: String) throws -> [Card] {
-        return try base.get("customers/\(customer)/sources", query: ["object" : "card"])
+    public func paymentInformation(for customer: String, under account: String = token) throws -> [Card] {
+        return try base.get("customers/\(customer)/sources", query: ["object" : "card"], token: account)
     }
 
     public func customerInformation(for customer: String) throws -> StripeCustomer {

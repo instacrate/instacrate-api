@@ -233,17 +233,25 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             throw Abort.custom(status: .internalServerError, message: "Asked to find connect account customer for customer with no id.")
         }
         
+        guard let stripeCustomerId = customer.stripe_id else {
+            throw Abort.custom(status: .internalServerError, message: "Can not duplicate account onto vendor connect account if it has not been created on the platform first.")
+        }
+        
+        guard let secretKey = keys?.secret else {
+            throw Abort.custom(status: .internalServerError, message: "Missing secret key for vendor with id \(id?.int ?? 0)")
+        }
+        
         if let connectAccountCustomer = try self.connectAccountCustomers().filter("customer_id", customer_id).first() {
+            
+            let hasPaymentMethod = try Stripe.shared.paymentInformation(for: connectAccountCustomer.connectAccountCustomerId, under: secretKey).filter { $0.id == card }.count > 0
+            
+            if !hasPaymentMethod {
+                let token = try Stripe.shared.createToken(for: connectAccountCustomer.connectAccountCustomerId, representing: card, on: secretKey)
+                let _ = try Stripe.shared.associate(source: token.id, withStripe: connectAccountCustomer.connectAccountCustomerId, under: secretKey)
+            }
+            
             return connectAccountCustomer.connectAccountCustomerId
         } else {
-            guard let stripeCustomerId = customer.stripe_id else {
-                throw Abort.custom(status: .internalServerError, message: "Can not duplicate account onto vendor connect account if it has not been created on the platform first.")
-            }
-            
-            guard let secretKey = keys?.secret else {
-                throw Abort.custom(status: .internalServerError, message: "Missing secret key for vendor with id \(id?.int ?? 0)")
-            }
-            
             let token = try Stripe.shared.createToken(for: stripeCustomerId, representing: card, on: secretKey)
             let stripeCustomer = try Stripe.shared.createStandaloneAccount(for: customer, from: token, on: secretKey)
             

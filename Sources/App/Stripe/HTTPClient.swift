@@ -35,7 +35,7 @@ public class HTTPClient {
             throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
-        try checkForStripeError(in: json)
+        try checkForStripeError(in: json, from: resource)
         
         return try T.init(node: json.makeNode())
     }
@@ -47,7 +47,7 @@ public class HTTPClient {
             throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
-        try checkForStripeError(in: json)
+        try checkForStripeError(in: json, from: resource)
         
         guard let objects = json.node["data"]?.nodeArray else {
             throw Abort.custom(status: .internalServerError, message: "Unexpected response formatting. \(json)")
@@ -65,7 +65,7 @@ public class HTTPClient {
             throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
-        try checkForStripeError(in: json)
+        try checkForStripeError(in: json, from: resource)
         
         return try T.init(node: json.makeNode())
     }
@@ -80,7 +80,7 @@ public class HTTPClient {
             throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
-        try checkForStripeError(in: json)
+        try checkForStripeError(in: json, from: resource)
         
         return try T.init(node: json.makeNode())
     }
@@ -92,23 +92,14 @@ public class HTTPClient {
             throw Abort.custom(status: .internalServerError, message: response.description)
         }
         
-        try checkForStripeError(in: json)
+        try checkForStripeError(in: json, from: resource)
         
         return json
     }
     
-    private func checkForStripeError(in json: JSON) throws {
-        if let error = json.node["error"]?.nodeObject {
-            
-            guard let type = error["type"]?.string else {
-                throw Abort.custom(status: .internalServerError, message: "Unknown error recieved from Stripe.")
-            }
-            
-            guard let message = error["message"]?.string else {
-                throw Abort.custom(status: .internalServerError, message: "Unknown error of type \(type) recieved from Stripe.")
-            }
-            
-            throw StripeError.error(type: type, message: message)
+    private func checkForStripeError(in json: JSON, from resource: String) throws {
+        if json.node["error"] != nil {
+            throw Abort.custom(status: .internalServerError, message: "Error from Stripe:\(resource) >>> \(json.prettyString)")
         }
     }
 }
