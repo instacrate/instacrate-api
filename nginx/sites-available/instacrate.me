@@ -1,3 +1,6 @@
+proxy_cache_path /tmp/nginx levels=1:2 keys_zone=static_prod:10m inactive=60m;
+proxy_cache_path /tmp/nginx levels=1:2 keys_zone=static_stag:10m inactive=60m;
+proxy_cache_key "$scheme$request_method$host$request_uri";
 
 server {
 	listen 80;
@@ -14,9 +17,6 @@ server {
 }
 
 server {
-	proxy_cache_path /tmp/nginx levels=1:2 keys_zone=static_prod:10m inactive=60m;
-	proxy_cache_key "$scheme$request_method$host$request_uri";
-
 	listen 80;
 	listen [::]:80;
 
@@ -47,9 +47,6 @@ server {
 }
 
 server {
-	proxy_cache_path /tmp/nginx levels=1:2 keys_zone=static_stag:10m inactive=60m;
-	proxy_cache_key "$scheme$request_method$host$request_uri";
-
 	listen 80;
 	listen [::]:80;
 
