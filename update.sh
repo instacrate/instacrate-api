@@ -39,7 +39,7 @@ reset_production_server() {
 echo "\n>>>> git pull origin master"
 git pull origin master
 
-if [[ $(git diff --name-only HEAD~1 HEAD update.sh) ]]; then
+if [[ $(git diff --name-only HEAD~1 HEAD 'update.sh') ]]; then
 	# re-run the update script because it was just updated in the git pull
 	exec $0
 fi
@@ -63,7 +63,7 @@ if [[ $(git diff --name-only instacrated.service.txt) ]]; then
 	reset_production_server
 fi
 
-if [[ $( git diff --name-only dev-instacrated.service.txt) ]]; then
+if [[ $(git diff --name-only dev-instacrated.service.txt) ]]; then
 	echo "\n>>>> Detected changes in development server configuration files!"
 	reset_development_server
 fi
