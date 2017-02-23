@@ -45,8 +45,6 @@ reset_production_server() {
 	systemctl restart "$prodServiceName"
 }
 
-trap f ERR
-
 echo "\n>>>> cd Packages/Stripe*/"
 cd Packages/Stripe*/
 
@@ -67,6 +65,8 @@ sudo systemctl restart instacrated.service
 
 echo "\n>>>> sudo systemctl restart dev-instacrated.service"
 sudo systemctl restart dev-instacrated.service
+
+cp -uvr ./nginx/* /etc/nginx/
 
 changes=$(git diff --name-only HEAD~1 HEAD)
 
