@@ -41,13 +41,13 @@ reset_production_server() {
 echo "\n>>>> git pull origin master"
 git pull origin master
 
-if [[ $(git diff --name-only HEAD~1 HEAD 'update.sh') ]]; then
+if [[ $(git diff --name-only HEAD~1 HEAD -- update.sh) ]]; then
 	# re-run the update script because it was just updated in the git pull
 	exec 'sh update.sh'
 	exit 0
 fi
 
-if [[ $(git diff --name-only HEAD~	1 HEAD nginx/) ]]; then
+if [[ $(git diff --name-only HEAD~ HEAD -- nginx/) ]]; then
 	echo "\n>>>> sudo cp -ru nginx/* /etc/nginx/"
 	sudo cp -ru nginx/* /etc/nginx/
 fi
@@ -61,12 +61,12 @@ sudo systemctl restart instacrated.service
 echo "\n>>>> sudo systemctl restart dev-instacrated.service"
 sudo systemctl restart dev-instacrated.service
 
-if [[ $(git diff --name-only instacrated.service.txt) ]]; then
+if [[ $(git diff --name-only HEAD~1 HEAD -- instacrated.service.txt) ]]; then
     echo "\n>>>> Detected changes in production server configuration files!"
 	reset_production_server
 fi
 
-if [[ $(git diff --name-only dev-instacrated.service.txt) ]]; then
+if [[ $(git diff --name-only HEAD~1 HEAD -- dev-instacrated.service.txt) ]]; then
 	echo "\n>>>> Detected changes in development server configuration files!"
 	reset_development_server
 fi
