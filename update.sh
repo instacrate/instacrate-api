@@ -41,7 +41,7 @@ git pull origin master
 
 if [[ $(git diff --name-only HEAD~1 HEAD 'update.sh') ]]; then
 	# re-run the update script because it was just updated in the git pull
-	exec "sh update.sh"
+	exec 'sh update.sh'
 fi
 
 if [[ $(git diff --name-only HEAD~1 HEAD nginx/) ]]; then
