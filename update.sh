@@ -41,12 +41,6 @@ reset_production_server() {
 echo "\n>>>> git pull origin master"
 git pull origin master
 
-if [[ $(git diff --name-only HEAD~1 HEAD -- update.sh) ]]; then
-	# re-run the update script because it was just updated in the git pull
-	exec 'sh update.sh'
-	exit 0
-fi
-
 if [[ $(git diff --name-only HEAD~ HEAD -- nginx/) ]]; then
 	echo "\n>>>> sudo cp -ru nginx/* /etc/nginx/"
 	sudo cp -ru nginx/* /etc/nginx/
