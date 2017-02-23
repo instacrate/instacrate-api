@@ -1,12 +1,3 @@
-f() {
-    errcode=$?
-    echo "error $errorcode"
-    echo "the command executing at the time of the error was"
-    echo "$BASH_COMMAND"
-    echo "on line ${BASH_LINENO[0]}"
-    exit $errcode
-}
-
 reset_development_server() {
 
 	devServiceFileName="dev-instacrated.service.txt"
@@ -47,6 +38,11 @@ reset_production_server() {
 
 echo "\n>>>> git pull origin master"
 git pull origin master
+
+if [[ $(git diff --name-only HEAD~1 HEAD update.sh) ]]; then
+	# re-run the update script because it was just updated in the git pull
+	exec $0
+fi
 
 if [[ $(git diff --name-only HEAD~1 HEAD nginx/) ]]; then
 	echo "\nsudo cp -ru nginx/* /etc/nginx/"
