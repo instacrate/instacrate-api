@@ -45,17 +45,13 @@ reset_production_server() {
 	systemctl restart "$prodServiceName"
 }
 
-echo "\n>>>> cd Packages/Stripe*/"
-cd Packages/Stripe*/
-
 echo "\n>>>> git pull origin master"
 git pull origin master
 
-echo "\n>>>> cd ../.."
-cd ../..
-
-echo "\n>>>> git pull origin master"
-git pull origin master
+if [[ $(git diff --name-only HEAD~1 HEAD nginx/) ]]; then
+	echo "\nsudo cp -ru nginx/* /etc/nginx/"
+	sudo cp -ru nginx/* /etc/nginx/
+fi
 
 echo "\n>>>> vapor build --release=true --fetch=false"
 vapor build --release=true --fetch=false
@@ -66,16 +62,12 @@ sudo systemctl restart instacrated.service
 echo "\n>>>> sudo systemctl restart dev-instacrated.service"
 sudo systemctl restart dev-instacrated.service
 
-cp -uvr ./nginx/* /etc/nginx/
-
-changes=$(git diff --name-only HEAD~1 HEAD)
-
-if grep '^instacrated.service.txt$' "$changes"; then
-	echo "\n>>>> Detected changes in production server configuration files!"
+if [[ $(git diff --name-only instacrated.service.txt) ]]; then
+    echo "\n>>>> Detected changes in production server configuration files!"
 	reset_production_server
 fi
 
-if grep '^dev-instacrated.service.txt$' "$changes"; then
+if [[ $( git diff --name-only dev-instacrated.service.txt) ]]; then
 	echo "\n>>>> Detected changes in development server configuration files!"
 	reset_development_server
 fi
