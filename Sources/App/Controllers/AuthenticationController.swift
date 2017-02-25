@@ -68,14 +68,14 @@ extension Authorization {
 
 extension Request {
     
-    func has(session type: SessionType) throws {
+    func has(session type: SessionType) -> Bool {
         switch type {
         case .customer:
-            let _ = try customer()
+            return (try? customer()) != nil
         case .vendor:
-            let _ = try vendor()
+            return (try? vendor()) != nil
         case .none:
-            return
+            return type == .none
         }
     }
     

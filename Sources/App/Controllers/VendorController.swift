@@ -15,13 +15,10 @@ import Auth
 extension Vendor {
     
     func shouldAllow(request: Request) throws {
-        do {
-            try request.has(session: .vendor)
-        } catch {
+        guard let vendor = try? request.vendor() else {
             throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Vendor(\(throwableId())) by this user. Must be logged in as Vendor(\(throwableId())).")
         }
-        
-        let vendor = try request.vendor()
+
         guard try vendor.throwableId() == throwableId() else {
             throw try Abort.custom(status: .forbidden, message: "This Vendor(\(vendor.throwableId()) does not have access to resource Vendor(\(throwableId()). Must be logged in as Vendor(\(throwableId()).")
         }

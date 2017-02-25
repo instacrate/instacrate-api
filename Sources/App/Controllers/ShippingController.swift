@@ -15,13 +15,9 @@ import FluentMySQL
 extension Shipping {
     
     func shouldAllow(request: Request) throws {
-        do {
-            try request.has(session: .vendor)
-        } catch {
+        guard let customer = try? request.customer() else {
             throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Review(\(throwableId())) by this user. Must be logged in as Customer(\(customer_id?.int ?? 0)).")
         }
-        
-        let customer = try request.customer()
         
         guard try customer.throwableId() == customer_id?.int else {
             throw try Abort.custom(status: .forbidden, message: "This Customer(\(customer.throwableId())) does not have access to resource Shipping(\(throwableId()). Must be logged in as Customer(\(customer_id?.int ?? 0).")
