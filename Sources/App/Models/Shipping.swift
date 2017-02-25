@@ -93,7 +93,7 @@ final class Shipping: Model, Preparation, JSONConvertible, Sanitizable {
 extension Shipping {
     
     func orders() -> Children<Order> {
-        return children("shipping_id", Order.self)
+        return fix_children()
     }
     
     func user() throws -> Parent<Customer> {

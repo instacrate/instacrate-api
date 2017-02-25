@@ -87,7 +87,7 @@ final class Customer: Model, Preparation, JSONConvertible, Sanitizable {
 extension Customer {
     
     func reviews() -> Children<Review> {
-        return children("customer_id", Review.self)
+        return fix_children()
     }
 
     func defaultShippingAddress() throws -> Parent<Shipping> {
@@ -95,11 +95,11 @@ extension Customer {
     }
     
     func shippingAddresses() -> Children<Shipping> {
-        return children("customer_id", Shipping.self)
+        return fix_children()
     }
     
     func sessions() -> Children<Session> {
-        return children("customer_id", Session.self)
+        return fix_children()
     }
 }
 

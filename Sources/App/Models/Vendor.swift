@@ -263,10 +263,16 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
     }
 }
 
+extension Entity {
+    public func fix_children<T: Entity>(_ child: T.Type = T.self) -> Children<T> {
+        return Children(parent: self, foreignKey: "\(Self.name)_\(Self.idKey)")
+    }
+}
+
 extension Vendor {
     
     func boxes() -> Children<Box> {
-        return children()
+        return fix_children()
     }
     
     func category() throws -> Parent<Category> {
@@ -274,7 +280,7 @@ extension Vendor {
     }
     
     func connectAccountCustomers() throws -> Children<VendorCustomer> {
-        return children()
+        return fix_children()
     }
     
     func address() throws -> Parent<VendorAddress> {

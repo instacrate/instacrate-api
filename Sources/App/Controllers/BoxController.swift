@@ -15,17 +15,16 @@ import Fluent
 extension Box {
     
     func shouldAllow(request: Request) throws {
-        switch request.sessionType {
-        case .vendor:
-            let vendor = try request.vendor()
-            
-            guard try vendor.throwableId() == vendor_id?.int else {
-                throw try Abort.custom(status: .forbidden, message: "This Vendor(\(vendor.throwableId()) does not have access to resource Box(\(throwableId()). Must be logged in as Vendor(\(vendor_id?.int ?? 0).")
-            }
-            
-        case .customer: fallthrough
-        case .none:
+        do {
+            try request.has(session: .vendor)
+        } catch {
             throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Box(\(throwableId())) by this user. Must be logged in as Vendor(\(vendor_id?.int ?? 0)).")
+        }
+        
+        let vendor = try request.vendor()
+        
+        guard try vendor.throwableId() == vendor_id?.int else {
+            throw try Abort.custom(status: .forbidden, message: "This Vendor(\(vendor.throwableId()) does not have access to resource Box(\(throwableId()). Must be logged in as Vendor(\(vendor_id?.int ?? 0).")
         }
     }
 }

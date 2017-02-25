@@ -134,11 +134,11 @@ extension Box {
     }
     
     func pictures() -> Children<Picture> {
-        return children("box_id", Picture.self)
+        return fix_children()
     }
     
     func reviews() -> Children<Review> {
-        return children("box_id", Review.self)
+        return fix_children()
     }
     
     func categories() throws -> Siblings<Category> {
@@ -146,11 +146,11 @@ extension Box {
     }
     
     func subscriptions() -> Children<Subscription> {
-        return children("box_id", Subscription.self)
+        return fix_children()
     }
     
     func connectAccountPlans() -> Children<BoxPlan> {
-        return children()
+        return fix_children()
     }
 }
 

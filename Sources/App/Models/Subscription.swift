@@ -121,7 +121,7 @@ final class Subscription: Model, Preparation, JSONConvertible, Sanitizable {
 extension Subscription {
     
     func orders() -> Children<Order> {
-        return children()
+        return fix_children()
     }
     
     func address() throws -> Parent<Shipping> {
