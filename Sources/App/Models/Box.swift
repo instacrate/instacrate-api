@@ -56,9 +56,17 @@ final class Box: Model, Preparation, JSONConvertible, Sanitizable {
         long_desc = try node.extract("long_desc")
         short_desc = try node.extract("short_desc")
         
-        let string = try node.extract("bullets") as String
-        bullets = string.components(separatedBy: Box.boxBulletSeparator)
-
+        if let bullets = node["bullets"] {
+            switch bullets {
+            case let .array(strings):
+                self.bullets = strings.map { String(describing: $0) }
+            case let .string(bullets):
+                self.bullets = bullets.components(separatedBy: Box.boxBulletSeparator)
+            default:
+                throw Abort.custom(status: .badRequest, message: "Unknown format for bullets... got \(bullets)")
+            }
+        }
+        bullets = try node.extract("bullets")
         price = try node.extract("price")
         vendor_id = try node.extract("vendor_id")
         publish_date = (try? node.extract("publish_date")) ?? Date()
