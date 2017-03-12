@@ -13,11 +13,10 @@ import Auth
 enum SessionType: String, TypesafeOptionsParameter {
     case customer
     case vendor
-    case admin
     case none
 
     static let key = "type"
-    static let values = [SessionType.customer.rawValue, SessionType.vendor.rawValue, SessionType.admin.rawValue, SessionType.none.rawValue]
+    static let values = [SessionType.customer.rawValue, SessionType.vendor.rawValue, SessionType.none.rawValue]
 
     static var defaultValue: SessionType? = .none
 }
