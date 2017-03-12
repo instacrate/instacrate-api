@@ -106,7 +106,7 @@ extension Session: Relationable {
 
     func relations() throws -> User {
         guard let user = try user().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing user relation for session with id \(id)")
+            throw Abort.custom(status: .internalServerError, message: "Missing user relation for session with id \(String(describing: id))")
         }
         
         return user

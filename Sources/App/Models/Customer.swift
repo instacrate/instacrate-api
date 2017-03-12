@@ -43,8 +43,8 @@ final class Customer: Model, Preparation, JSONConvertible, Sanitizable {
             self.salt = try BCryptSalt(string: salt)
             self.password = password
         } else {
-            self.salt = BCryptSalt()
-            self.password = BCrypt.hash(password: password, salt: salt)
+            self.salt = try BCryptSalt(workFactor: 10)
+            self.password = try BCrypt.digest(password: password, salt: self.salt)
         }
     }
     
@@ -124,8 +124,8 @@ extension Customer: User {
             guard let user = try query.first() else {
                 throw AuthError.invalidCredentials
             }
-            
-            if user.password == BCrypt.hash(password: usernamePassword.password, salt: user.salt) {
+
+            if try user.password == BCrypt.digest(password: usernamePassword.password, salt: user.salt) {
                 return user
             } else {
                 throw AuthError.invalidBasicAuthorization

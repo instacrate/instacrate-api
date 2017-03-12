@@ -28,6 +28,35 @@ extension Box {
 final class BoxController: ResourceRepresentable {
 
     func index(_ request: Request) throws -> ResponseRepresentable {
+        let boxes = try { () -> [Box] in
+            let type = (try? request.extract() as SessionType) ?? .none
+            
+            switch type {
+            case .vendor:
+                return try request.vendor().boxes().all()
+            case .customer: fallthrough
+            case .none:
+                let curated = try request.extract() as Box.Curated
+                return try curated.makeQuery().all()
+            }
+        }()
+        
+        if let expander: Expander = try request.extract() {
+            return try Node.array(expander.expand(for: boxes, owner: "box", mappings: { (key, box) -> (NodeRepresentable?) in
+                switch key {
+                case "pictures":
+                    return try box.pictures().all().makeNode()
+                case "reviews":
+                    return try box.reviews().all().makeNode()
+                case "vendor":
+                    return try box.vendor().first()
+                default:
+                    Droplet.logger?.warning("Could not find expansion for \(key) on BoxController.")
+                    return nil
+                }
+            })).makeJSON()
+        }
+        
         let type = (try? request.extract() as SessionType) ?? .none
         
         switch type {

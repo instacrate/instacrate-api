@@ -116,8 +116,8 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             self.salt = try BCryptSalt(string: salt)
             self.password = password
         } else {
-            self.salt = BCryptSalt()
-            self.password = BCrypt.hash(password: password, salt: salt)
+            self.salt = try BCryptSalt(workFactor: 10)
+            self.password = try BCrypt.digest(password: password, salt: self.salt)
         }
         
         contactName = try node.extract("contactName")
@@ -171,13 +171,13 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             "username" : .string(username),
             "password": .string(password),
             "salt" : .string(salt.string),
+            "cut" : .number(.double(cut)),
             
             "missingFields" : .bool(missingFields),
             "needsIdentityUpload" : .bool(needsIdentityUpload)
         ]).add(objects: [
             "id" : id,
              "category_id" : category_id,
-             "cut" : cut,
              "verificationState" : verificationState,
              "stripeAccountId" : stripeAccountId,
              "publishableKey" : keys?.publishable,
@@ -333,7 +333,7 @@ extension Vendor: User {
                 throw AuthError.invalidCredentials
             }
             
-            if vendor.password == BCrypt.hash(password: usernamePassword.password, salt: vendor.salt) {
+            if try vendor.password == BCrypt.digest(password: usernamePassword.password, salt: vendor.salt) {
                 return vendor
             } else {
                 throw AuthError.invalidBasicAuthorization

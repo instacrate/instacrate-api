@@ -10,9 +10,6 @@ let package = Package(
     exclude: [
         "Config",
         "Database",
-        "Localization",
-        "Public",
-        "Resources",
-        "Tests",
+        "Public"
     ]
 )

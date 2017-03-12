@@ -133,11 +133,11 @@ extension Order: Relationable {
 
     func relations() throws -> (subscription: Subscription, shipping: Shipping) {
         guard let sub = try subscription().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing subscription for order with id \(id) on date \(date)")
+            throw Abort.custom(status: .internalServerError, message: "Missing subscription for order with id \(String(describing: id)) on date \(date)")
         }
         
         guard let ship = try shippingAddress().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing shipping id for order with id \(id) on date \(date)")
+            throw Abort.custom(status: .internalServerError, message: "Missing shipping id for order with id \(String(describing: id)) on date \(date)")
         }
         
         return (sub, ship)

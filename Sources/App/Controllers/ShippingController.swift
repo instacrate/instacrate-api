@@ -16,7 +16,7 @@ extension Shipping {
     
     func shouldAllow(request: Request) throws {
         guard let customer = try? request.customer() else {
-            throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Review(\(throwableId())) by this user. Must be logged in as Customer(\(customer_id?.int ?? 0)).")
+            throw try Abort.custom(status: .forbidden, message: "Method \(request.method) is not allowed on resource Shipping(\(throwableId())) by this user. Must be logged in as Customer(\(customer_id?.int ?? 0)).")
         }
         
         guard try customer.throwableId() == customer_id?.int else {

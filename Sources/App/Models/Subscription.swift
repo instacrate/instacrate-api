@@ -149,11 +149,11 @@ extension Subscription: Relationable {
         let orders = try self.orders().all()
         
         guard let shipping = try self.address().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing box relation for subscription with id \(id)")
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for subscription with id \(String(describing: id))")
         }
         
         guard let box = try self.box().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing box relation for subscription with id \(id)")
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for subscription with id \(String(describing: id))")
         }
         
         return (orders, shipping, box)
