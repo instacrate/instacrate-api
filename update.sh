@@ -47,7 +47,7 @@ if [ $(git diff --name-only HEAD~ HEAD -- nginx/) ]; then
 fi
 
 echo "\n>>>> vapor build --release=true --fetch=false"
-vapor build --release=true --fetch=false
+vapor build --release=true --fetch=false --verbose
 
 echo "\n>>>> sudo systemctl restart instacrated.service"
 sudo systemctl restart instacrated.service
