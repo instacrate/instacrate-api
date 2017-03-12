@@ -56,6 +56,8 @@ final class BoxController: ResourceRepresentable {
                 }
             })).makeJSON()
         }
+        
+        return try boxes.makeJSON()
     }
     
     func show(_ request: Request, box: Box) throws -> ResponseRepresentable {
