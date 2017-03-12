@@ -56,27 +56,6 @@ final class BoxController: ResourceRepresentable {
                 }
             })).makeJSON()
         }
-        
-        let type = (try? request.extract() as SessionType) ?? .none
-        
-        switch type {
-        case .vendor:
-            let sorted = try request.extract() as Box.Sort
-            let format = try request.extract() as Box.Format
-            
-            let query = try request.vendor().boxes().apply(sorted)
-            return try format.apply(on: query.all()).makeJSON()
-
-        case .customer: fallthrough
-        case .none:
-
-            let curated = try request.extract() as Box.Curated
-            let sorted = try request.extract() as Box.Sort
-            let query = try curated.makeQuery().apply(sorted)
-
-            let format = try request.extract() as Box.Format
-            return try format.apply(on: query.all()).makeJSON()
-        }
     }
     
     func show(_ request: Request, box: Box) throws -> ResponseRepresentable {
