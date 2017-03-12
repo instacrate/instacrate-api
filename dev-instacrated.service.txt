@@ -3,7 +3,7 @@ Description=Instacrate development API server
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /home/hakon/subber-dev/start.sh -e debug -f /var/run/dev-instacrated.pid -d /home/hakon/subber-dev/
+ExecStart=/bin/bash /home/hakon/instacrate/instacrate-staging-api/start.sh -e release -f /var/run/dev-instacrated.pid -d /home/hakon/instacrate/instacrate-staging-api
 Type=forking
 PIDFile=/var/run/dev-instacrated.pid
 Restart=always
