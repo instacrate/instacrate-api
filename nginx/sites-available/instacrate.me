@@ -31,19 +31,19 @@ server {
 	}
 }
 
-# server {
-# 	listen 80;
-# 	listen [::]:80;
+server {
+	listen 80;
+	listen [::]:80;
 
-# 	server_name staging.instacrate.me www.staging.instacrate.me;
-# 	charset utf-8;
-# 	include h5bp/basic.conf;
+	server_name staging.instacrate.me www.staging.instacrate.me;
+	charset utf-8;
+	include h5bp/basic.conf;
 
-# 	location / {
-# 		include proxy_params;
-# 		proxy_pass http://127.0.0.1:8081;
-# 	}
-# }
+	location / {
+		include proxy_params;
+		proxy_pass http://127.0.0.1:8081;
+	}
+}
 
 # server {
 # 	listen 80;

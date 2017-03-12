@@ -63,7 +63,7 @@ extension Picture: Relationable {
 
     func relations() throws -> Box {
         guard let box = try box().get() else {
-            throw Abort.custom(status: .internalServerError, message: "Missing box relation for picture with id \(id) and url \(url).")
+            throw Abort.custom(status: .internalServerError, message: "Missing box relation for picture with id \(String(describing: id)) and url \(url).")
         }
         
         return box
