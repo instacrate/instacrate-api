@@ -1,5 +1,4 @@
 proxy_cache_path /data/nginx/cache levels=1:2 keys_zone=static_prod:10m inactive=60m;
-# proxy_cache_key "$scheme$request_method$host$request_uri";
 
 server {
 	listen 80;
@@ -19,7 +18,7 @@ server {
 	listen 80;
 	listen [::]:80;
 
-	root /home/hakon/Subber/Public;
+	root /home/hakon/instacrate/instacrate-api/;
 
 	server_name static.instacrate.me www.static.instacrate.me;
 	charset utf-8;
@@ -45,17 +44,17 @@ server {
 	}
 }
 
-# server {
-# 	listen 80;
-# 	listen [::]:80;
+server {
+	listen 80;
+	listen [::]:80;
 
-# 	server_name static.staging.instacrate.me www.static.staging.instacrate.me;
-# 	root /home/hakon/Subber/Public;
-# 	charset utf-8;
+	server_name static.staging.instacrate.me www.static.staging.instacrate.me;
+	root /home/hakon/instacrate/instacrate-staging-api/;
+	charset utf-8;
 
-# 	location / {
-# 		proxy_cache static_stag;
-# 		proxy_cache_bypass  $http_cache_control;
-# 		add_header X-Proxy-Cache $upstream_cache_status;
-# 	}
-# }
+	location / {
+		proxy_cache static_stag;
+		proxy_cache_bypass  $http_cache_control;
+		add_header X-Proxy-Cache $upstream_cache_status;
+	}
+}
