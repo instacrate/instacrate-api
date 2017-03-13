@@ -38,10 +38,12 @@ reset_production_server() {
 	sudo systemctl restart "$prodServiceName"
 }
 
+CURRENT_GIT_SHA="$(git rev-parse HEAD)"
+
 echo "\n>>>> git pull origin"
 git pull origin
 
-if [ "$(git diff --name-only HEAD~ HEAD -- nginx/)" ]; then
+if [ "$(git diff --name-only $CURRENT_GIT_SHA HEAD -- nginx/)" ]; then
 	echo "	\n>>>> sudo cp -ru nginx/* /etc/nginx/"
 	sudo cp -ru nginx/* /etc/nginx/
 
@@ -52,12 +54,12 @@ fi
 echo "\n>>>> vapor build --release=true --fetch=false"
 vapor build --release=true --fetch=false --verbose
 
-if [ "$(git diff --name-only HEAD~1 HEAD -- instacrated.service.txt)" ]; then
+if [ "$(git diff --name-only $CURRENT_GIT_SHA HEAD -- instacrated.service.txt)" ]; then
     echo "	\n>>>> Detected changes in production server configuration files!"
 	reset_production_server
 fi
 
-if [ "$(git diff --name-only HEAD~1 HEAD -- dev-instacrated.service.txt)" ]; then
+if [ "$(git diff --name-only $CURRENT_GIT_SHA HEAD -- dev-instacrated.service.txt)" ]; then
 	echo "	\n>>>> Detected changes in development server configuration files!"
 	reset_development_server
 fi
