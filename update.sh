@@ -65,5 +65,5 @@ fi
 echo "\n>>>> sudo systemctl restart instacrated.service"
 sudo systemctl restart instacrated.service
 
-echo "\n>>>> sudo systemctl restart dev-instacrated.service"
+echo ">>>> sudo systemctl restart dev-instacrated.service\n"
 sudo systemctl restart dev-instacrated.service
