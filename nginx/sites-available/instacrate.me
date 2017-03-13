@@ -6,7 +6,6 @@ server {
 
 	server_name api.instacrate.me www.api.instacrate.me;
 	charset utf-8;
-	include h5bp/basic.conf;
 
 	location / {
 		include proxy_params;
@@ -23,6 +22,8 @@ server {
 	server_name static.instacrate.me www.static.instacrate.me;
 	charset utf-8;
 
+	include h5bp/basic.conf;
+
 	location / {
 		proxy_cache static;
 		proxy_cache_bypass  $http_cache_control;
@@ -36,7 +37,6 @@ server {
 
 	server_name staging.instacrate.me www.staging.instacrate.me;
 	charset utf-8;
-	include h5bp/basic.conf;
 
 	location / {
 		include proxy_params;
