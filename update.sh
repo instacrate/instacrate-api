@@ -12,10 +12,10 @@ reset_development_server() {
 	echo "\n>>>> sudo chmod 664 $destinationPath$devServiceName"
 	sudo chmod 664 "$destinationPath$devServiceName"
 
-	echo "\n>>>> systemctl daemon-reload"
+	echo "\n>>>> sudo systemctl daemon-reload"
 	sudo systemctl daemon-reload
 
-	echo "\n>>>> systemctl restart $devServiceName"
+	echo "\n>>>> sudo systemctl restart $devServiceName"
 	sudo systemctl restart "$devServiceName"
 }
 
@@ -31,10 +31,10 @@ reset_production_server() {
 	echo "\n>>>> sudo chmod 664 $destinationPath$prodServiceName"
 	sudo chmod 664 "$destinationPath$devServiceName"
 
-	echo "\n>>>> systemctl daemon-reload"
+	echo "\n>>>> sudo systemctl daemon-reload"
 	sudo systemctl daemon-reload
 
-	echo "\n>>>> systemctl restart $prodServiceName"
+	echo "\n>>>> sudo systemctl restart $prodServiceName"
 	sudo systemctl restart "$prodServiceName"
 }
 
