@@ -17,14 +17,14 @@ server {
 	listen 80;
 	listen [::]:80;
 
-	root /home/hakon/instacrate/instacrate-api/;
+	root /home/hakon/instacrate/instacrate-api/public;
 
 	server_name static.instacrate.me www.static.instacrate.me;
 	charset utf-8;
 
 	location / {
 		include h5bp/basic.conf;
-		
+
 		tcp_nodelay on;
     	keepalive_timeout 65;
 		sendfile on;
