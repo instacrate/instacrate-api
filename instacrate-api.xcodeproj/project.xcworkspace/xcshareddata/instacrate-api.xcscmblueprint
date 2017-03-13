@@ -4,15 +4,21 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "1DB8721AD489B27A198274E0E0E0C140C7CA791D" : 9223372036854775807,
+    "65880DAFEE5F57D1D1C181560E763EECFD96B06D" : 9223372036854775807,
     "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC" : 9223372036854775807,
-    "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC" : 9223372036854775807
+    "EE0211841CDBC942EFB5905580DF4AA57B5992F6" : 9223372036854775807,
+    "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC" : 9223372036854775807,
+    "1DB8721AD489B27A198274E0E0E0C140C7CA791D" : 9223372036854775807,
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DE020E9D-4E97-4585-9DEE-4922468ADE0A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "1DB8721AD489B27A198274E0E0E0C140C7CA791D" : "instacrate-api\/",
+    "65880DAFEE5F57D1D1C181560E763EECFD96B06D" : "instacrate-api\/Packages\/Fluent-1.4.1\/",
     "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC" : "instacrate-api\/Packages\/Jay-1.0.1\/",
-    "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC" : "instacrate-api\/Packages\/Polymorphic-1.0.1\/"
+    "EE0211841CDBC942EFB5905580DF4AA57B5992F6" : "instacrate-api\/Packages\/Node-1.0.1\/",
+    "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC" : "instacrate-api\/Packages\/Polymorphic-1.0.1\/",
+    "1DB8721AD489B27A198274E0E0E0C140C7CA791D" : "instacrate-api\/",
+    "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3" : "instacrate-api\/Packages\/Vapor-1.5.9\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "instacrate-api",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -24,6 +30,16 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1DB8721AD489B27A198274E0E0E0C140C7CA791D"
     },
     {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/vapor\/vapor.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "52AFDBC9624F22D94526E36BBEE271C6D7FC65D3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/vapor\/fluent.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "65880DAFEE5F57D1D1C181560E763EECFD96B06D"
+    },
+    {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/vapor\/polymorphic.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6D09577DC770D433CEBE622BD4B45C8CF6CB8CCC"
@@ -32,6 +48,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DanToml\/Jay.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8FE2B4BB55A3C9D7B3B78FD1E2302636E924BDDC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/vapor\/node.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE0211841CDBC942EFB5905580DF4AA57B5992F6"
     }
   ]
 }
