@@ -21,4 +21,5 @@ fi
 sudo rm "$pidFile"
 sudo touch "$pidFile"
 
-.build/release/App --env="$environment" & echo $! > "$pidFile"
+DIR="$(dirname "${BASH_SOURCE[0]}")"
+"$DIR"/release/App --env="$environment" & echo $! > "$pidFile"
