@@ -1,7 +1,7 @@
 {
 	"default": {
 		"port": "8080",
-		"host": "https://127.0.0.1",
-		"securityLayer": "mozilla"
+		"host": "http://127.0.0.1",
+		"securityLayer": "default"
 	}
 }

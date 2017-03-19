@@ -16,5 +16,5 @@ sudo chmod 664 "$destinationPath$prodServiceName"
 
 systemctl daemon-reload
 
-systemctl restart "$devServiceName"
-systemctl restart "$prodServiceName"
+sudo systemctl restart "$devServiceName"
+sudo systemctl restart "$prodServiceName"

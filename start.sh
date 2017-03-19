@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-while getopts "e:f:d:" opt; do
+while getopts "e:f:" opt; do
   	case $opt in
     	e) environment="$OPTARG"
     	;;
