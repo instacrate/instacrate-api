@@ -44,10 +44,10 @@ echo "\n>>>> git pull origin"
 git pull origin
 
 if [ "$(git diff --name-only $CURRENT_GIT_SHA HEAD -- nginx/)" ]; then
-	echo "	\n>>>> sudo cp -ru nginx/* /etc/nginx/"
+	echo "    \n>>>> sudo cp -ru nginx/* /etc/nginx/"
 	sudo cp -ru nginx/* /etc/nginx/
 
-	echo "	>>>> sudo systemctl restart nginx"
+	echo "    >>>> sudo systemctl restart nginx"
 	sudo systemctl restart nginx
 fi
 
@@ -55,12 +55,12 @@ echo "\n>>>> vapor build --release=true --fetch=false"
 vapor build --release=true --fetch=false --verbose
 
 if [ "$(git diff --name-only $CURRENT_GIT_SHA HEAD -- instacrated.service.txt)" ]; then
-    echo "	\n>>>> Detected changes in production server configuration files!"
+    echo "    \n>>>> Detected changes in production server configuration files!"
 	reset_production_server
 fi
 
 if [ "$(git diff --name-only $CURRENT_GIT_SHA HEAD -- dev-instacrated.service.txt)" ]; then
-	echo "	\n>>>> Detected changes in development server configuration files!"
+	echo "    \n>>>> Detected changes in development server configuration files!"
 	reset_development_server
 fi
 
