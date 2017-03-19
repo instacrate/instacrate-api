@@ -7,7 +7,7 @@ server {
 
     location ^~ /.well-known/acme-challenge/ {
     	default_type "text/plain";
-    	root /var/www/letsencrypt;
+    	root /tmp/letsencrypt-auto/;
 	}
 
 	location = /.well-known/acme-challenge/ {
