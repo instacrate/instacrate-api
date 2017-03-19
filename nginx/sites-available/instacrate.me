@@ -6,8 +6,9 @@ server {
 	server_name api.instacrate.com www.api.instacrate.com static.instacrate.com www.static.instacrate.com instacrate.com www.instacrate.com;
 
 	location /.well-known/acme-challenge {
+		root /tmp/letsencrypt-auto;
 		default_type "text/plain";
-    	root /tmp/letsencrypt-auto;
+		allow all;
 	}
 
 	location / {
