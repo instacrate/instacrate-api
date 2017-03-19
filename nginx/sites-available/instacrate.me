@@ -5,16 +5,14 @@ server {
 
 	server_name api.instacrate.com www.api.instacrate.com static.instacrate.com www.static.instacrate.com instacrate.com www.instacrate.com;
 
-	location ~ /.well-known {
-		root /tmp/letsencrypt-auto;
-		allow all;
-    }
+    location ^~ /.well-known/acme-challenge/ {
+    	default_type "text/plain";
+    	root /var/www/letsencrypt;
+	}
 
-	# location /.well-known/ {
-	# 	root /tmp/letsencrypt-auto;
-	# 	default_type "text/plain";
-	# 	allow all;
-	# }
+	location = /.well-known/acme-challenge/ {
+    	return 404;
+	}
 
 	location / {
     	return 301 https://$server_name$request_uri;
