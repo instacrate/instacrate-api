@@ -241,7 +241,7 @@ final class Vendor: Model, Preparation, JSONConvertible, Sanitizable {
             throw Abort.custom(status: .internalServerError, message: "Missing secret key for vendor with id \(id?.int ?? 0)")
         }
         
-        if let connectAccountCustomer = try self.connectAccountCustomers().filter("customer_id", customer_id).first() {
+        if let connectAccountCustomer = try self.connectAccountCustomers().filter("customer_id", customer_id).filter("vendor_id", self.throwableId()).first() {
             
             let hasPaymentMethod = try Stripe.shared.paymentInformation(for: connectAccountCustomer.connectAccountCustomerId, under: secretKey).filter { $0.id == card }.count > 0
             
